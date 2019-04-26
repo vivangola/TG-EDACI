@@ -1,0 +1,142 @@
+
+<html>            
+   <noscript>
+    <style>        
+        #msg_no_script {
+            border: 1px solid red;
+            color: white;
+            background-color: red;
+            padding: 2em;
+        }
+        #msg_no_script ~ div{
+            display: none;
+        }
+        a:link, a:visited {
+            color: white;
+        }
+        a:hover{
+            font-weight: bold;
+        }
+        a:active{
+            font-weight: bold;
+        }
+        p:last-child{
+            font-size: 1.5em;
+        }
+        .jumbotron {
+            position: absolute;
+            top: 30%;
+            left:50%;
+            transform: translate(-50%,-50%);
+            border: 1px dashed deeppink;
+        }
+    </style>
+    <div id='msg_no_script' class='jumbotron text-center'>
+        <p>Para completa funcionalidade deste site é necessário habilitar o JavaScript.</p>
+        <p><a href="http://www.enable-javascript.com/pt/" target="_blank" style="color:white; text-decoration: underline">Clique aqui</a> para saber como habilitar seu javascript.</p>
+    </div>
+    </noscript>
+    
+    <head>
+
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+        <title>GRUPO EDACI</title>
+
+        <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+
+        <!-- libraries -->
+        <link rel="stylesheet" type="text/css" href="./css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="./css/nanoscroller.min.css">
+        <link rel="stylesheet" type="text/css" href="./css/sweetalert.css">
+        <link rel="stylesheet" type="text/css" href="./css/login.css">
+
+        <!-- global styles -->
+        <link rel="stylesheet" type="text/css" href="./css/theme_styles.min.css">
+
+        <!-- Favicon -->
+        <link type="image/x-icon" href="./img/favicon.png" rel="shortcut icon">
+
+        <script src="./js/jquery_2.1.min.js"></script>
+        <script src="./js/sweetalert.min.js"></script>
+    </head>
+
+ 
+    <body>
+        <div class="col-md-12 col-xs-12">        
+            <div class="main-box-body clearfix mt">                              
+                <div class="login-principal">
+                    <div class="col-md-12 login-conteudo text-left">   
+                         <!--div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 col-lg-2 col-lg-offset-5" id="container"-->
+                        <div class="wrapper">
+                            <div class="row" style="margin: 20px;">
+                                <div class="col-md-12 text-center">
+                                    <img src="./img/logo_preto.png" class="img-responsive img-wid" style="margin: auto; display: block;">
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <h4 class="titulo">
+                                        <b></b>&nbsp; Digite seu <b>Login</b> e <b>Senha</b>                                    </h4>
+                                </div>
+                            </div>
+                            <hr>
+                            <form id="frmLogin" action="./menu.html" method="post" class="form">
+                                <input type="hidden" name="navegador"/>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon" style="padding-right: 10px"><i class="fa fa-user"></i></span>
+                                                <input type="tel" id="usuario" name="usuario" class="form-control"  placeholder="Login" title="Insira seu login" autofocus maxlength="11" required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                                <input id="senha" name="senha" class="form-control" type="password" placeholder="Senha" title="Insira sua Senha" required maxlength="15"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    
+                                    <div class="col-md-6 col-xs-12 mb-min">
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-danger btn-min" onclick="location.href='/cadastro'">
+                                                <i class="fa fa-user-plus"></i> <b>Cadastre-se</b>
+                                            </button>
+                                        </div>
+                                    </div>
+									<div class="col-md-6 col-xs-12 mb-min">
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-lg btn-success btn-min" id="btnLogar" name="btnLogar">
+                                                Login <i class="fa fa-sign-in"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row lb-esqueceu">
+                                    <div class="col-md-12 text-right">
+                                        <div class="form-group">
+                                            <a href="/esqueci-senha" class="font-pequena">Esqueceu sua Senha?</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input name="url_destino" type="hidden" value="">
+                            </form>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>    
+    </body>
+	
+</html>

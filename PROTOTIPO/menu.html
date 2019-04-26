@@ -1,0 +1,3324 @@
+
+<html>
+       
+    <noscript>
+    <style>        
+        #msg_no_script {
+            border: 1px solid red;
+            color: white;
+            background-color: red;
+            padding: 2em;
+        }
+        #msg_no_script ~ div{
+            display: none;
+        }
+        a:link, a:visited {
+            color: white;
+        }
+        a:hover{
+            font-weight: bold;
+        }
+        a:active{
+            font-weight: bold;
+        }
+        p:last-child{
+            font-size: 1.5em;
+        }
+        .jumbotron {
+            position: absolute;
+            top: 30%;
+            left:50%;
+            transform: translate(-50%,-50%);
+            border: 1px dashed deeppink;
+        }
+    </style>
+    <div id='msg_no_script' class='jumbotron text-center'>
+        <p>Para completa funcionalidade deste site é necessário habilitar o JavaScript.</p>
+        <p><a href="http://www.enable-javascript.com/pt/" target="_blank" style="color:white; text-decoration: underline">Clique aqui</a> para saber como habilitar seu javascript.</p>
+    </div>                                              
+    </noscript>
+    <head>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Grupo EDACI - Home</title>       
+        <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
+        <style>
+            @media print{
+                body{
+                    -webkit-print-color-adjust: exact;
+                }
+                #relatorio thead tr th{
+                    -webkit-print-color-adjust: exact;
+                    background:#81BEF7;
+                    color:#000;
+                }
+                #relatorio tbody tr .corsubtotal{ 
+                    -webkit-print-color-adjust: exact;
+                    background:#e7ebee !important;
+                    color:#000;
+                }
+                #relatorio tbody tr  .cortotal{
+                    -webkit-print-color-adjust: exact;
+                    background:#81BEF7 !important;
+                    color:#000;
+                }
+            }
+        </style>       
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+        
+        <!--<link rel="stylesheet" type="text/css" href="./css/font-awesome.min.css">-->
+        <link rel="stylesheet" type="text/css" href="./css/nanoscroller.min.css">
+        <link rel="stylesheet" type="text/css" href="./css/sweetalert.css?v=10">       
+        <link rel="stylesheet" type="text/css" href="./css/theme_styles.min.css">       
+        <link type="image/x-icon" href="./img/favicon.png" rel="shortcut icon">
+        <script src="./js/jquery_2.1.min.js"></script>
+        <script src="./js/sweetalert.min.js?v=10"></script>
+    </head>
+    <body class="theme-whbl" style="overflow-x: hidden;">
+        <style>
+    .loader_modal_center{
+        background:url(/img/ajax-loader-filtro.gif) center center no-repeat;
+    }    
+</style>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>            
+            <div class="modal-body">                                                                                    
+                <iframe src=""  width="100%" height="75%" frameborder="0" onload="$('#myModal .modal-body').removeClass('loader_modal_center')"></iframe>
+            </div>
+            <div class="modal-footer">                
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>        
+    function closeUpdate() {
+        $('.close, button[data-dismiss=modal]').on('click', function () {
+            atualizaPag();
+        });
+    }
+    
+    function callBackOnClose(callback_onclose){
+        $('#myModal').on('hidden.bs.modal', function (e) {
+            callback_onclose();
+            $('#myModal').unbind('hidden.bs.modal');
+        });  
+    }
+
+    function modalFrame(frameSrc, title, close_reload, callback_onclose) {
+        title = (title === undefined) ? '' : title;
+        close_reload = (close_reload === undefined) ? true : close_reload;
+        callback_onclose = (callback_onclose === undefined) ? false : callback_onclose;
+        $('#myModal iframe').contents().find('html').remove();        
+        $('#myModal').modal({show: true, backdrop: 'static'}).find('.modal-dialog').css({width: ($(document).width() < 1440 ? '90%' : '60%')});   
+        frameSrc = frameSrc.indexOf('?') === -1 ? frameSrc+'?modal=1' : frameSrc+'&modal=1';        
+        $('#myModal iframe').attr("src", frameSrc);
+        $('#myModalLabel').text(title);
+        $('#myModal .modal-body').addClass('loader_modal_center');
+        if (close_reload == true)
+            closeUpdate();
+
+        if(callback_onclose){
+            callBackOnClose(callback_onclose);            
+        }
+    }
+
+    function abreStatus(ped_cod, _this) {
+        modalFrame("/pedido/status/" + ped_cod, 'Status do Pedido');
+    }
+   
+    function atualizaPag() {
+        location.reload();
+        ajaxLoader();
+    }        
+</script>        
+        <div id="theme-wrapper">
+            <style>
+    .carousel-inner {
+        border-radius: 0 !important;
+    }
+    .carousel-indicators .active {
+        width: 18px !important;
+        height: 18px !important;
+        background-color: #009baa !important;
+        border: none !important;
+    }
+
+    .carousel-indicators li {
+        width: 18px !important;
+        height: 18px !important;
+        background-color: #e1dcd5 !important;
+        border: none !important;
+    }
+
+    .carousel-indicators {
+        background: none #fff !important;
+        bottom: -40px !important;
+    }
+
+    .main-box .main-box-body {
+        padding: 0 20px 40px !Important;
+    }
+
+    .pd-arruma.pd-0 {
+        padding: 0px 0px 40px 0 !important;
+    }
+
+    #hinode-banners{
+        padding-bottom: 10px !important;
+    }
+
+    .img-slider {
+        min-height: 190px !important;
+    }
+
+    .img-perfil {
+        position: relative;
+        display: inline-block;
+        overflow: hidden;
+    }
+    .img-perfil img:hover {
+        opacity: 0.5
+    }
+    .img-perfil:hover a {
+        opacity: 1;
+        top: 0;
+        z-index: 500;
+    }
+    .img-perfil:hover img {
+        opacity: 0.5;
+    }
+    .img-perfil:hover a span {
+        top: 50%;
+        position: absolute;
+        left: 0;
+        right: 0;
+        transform: translateY(-50%);
+        color: white; 
+    }
+    .img-perfil a {
+        display: block;
+        position: absolute;
+        top: -100%;
+        opacity: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        text-align: center;
+        color: inherit;
+    }
+    .mt-4{
+        margin-top: 4px;
+    }
+    @media (max-width: 768px){
+        #header-nav {
+            width: auto !important;
+            border-top: none !important;
+        }
+    }    
+    .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form{
+        border: none !important;
+    }
+
+    /* style do button mensage */
+    .theme-whbl #header-navbar .nav > li.mensagem > a:hover, .theme-whbl #header-navbar .nav > li.mensagem > a:focus{
+        background: transparent !important;
+    }
+
+
+    .pulse-button {
+        position: relative;
+        width: 47px;
+        height: 47px;
+        border: none;
+        box-shadow: 0 0 0 0 rgba(232, 76, 61, 0.7);
+        border-radius: 50%;
+        background-color: #e84c3d;;
+        /*        background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/173024/jonathanlarradet_copy.png);*/
+        background-size:cover;
+        background-repeat: no-repeat;
+        cursor: pointer;
+        -webkit-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+        -moz-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+        -ms-animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+        animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+    }
+    .pulse-button:before {
+        font-family: FontAwesome !Important;
+        content: "\f0e0" !important;
+        display: inline-block;
+    }
+    .pulse-button:hover 
+    {
+        -webkit-animation: none;-moz-animation: none;-ms-animation: none;animation: none;
+    }
+
+    @-webkit-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
+    @-moz-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
+    @-ms-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
+    @keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
+
+</style>
+<script>
+<!--function -->
+        </script>
+<link rel="stylesheet" href="./css/font-awesome-animation.min.css">
+<header class="navbar navbar-min" id="header-navbar">
+    <div class="container">
+        <a id="logo" class="navbar-brand pz" href="/">
+        <div align="center" style="margin:10px;"><img src="./img/logo_branco.png" alt="" class="normal-logo logo-white imglogo"></div>
+        </a>
+   
+                <div class="nav-no-collapse pull-right" id="header-nav">   
+                                                <ul class="nav navbar-nav pull-left height-padrao">  
+                        <li class="mensagem dropdown mt-7">
+                            <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle" id="avisoEnvelope" data-click="toggle-notify"><!-- style="margin-top: 12px;" -->
+                                                                        
+                                    <button class="pulse-button" onclick="recebidas()" data-toggle="tooltip" title="Voce tem mensagem(s) pendente(s)" data-placement="bottom"></button>&nbsp;<span class="badge badge-grey">301</span>
+                                                            </a>
+                        </li>
+                    </ul>     
+                                  
+
+                <ul class="nav navbar-nav pull-left Professor-id nav-id height-padrao">                                                  
+                    <li class="dropdown mt-7">
+                        <a href="javascript:;"  id="make-small-nav" data-toggle="dropdown" class="dropdown-toggle" data-click="toggle-notify" style="margin-top: 12px;">
+                            <span class="usuario-id">Profa. Sandra Regina Gimeniz-Paschoal</span>
+                        </a><br/>
+                        <ul class="dropdown-menu dropdown-notification dropdown-menu-right" id='infoEnvelope'>
+                            <li class="dropdown-header">
+                                <a style="padding-left: 10px; font-size: 14px;" href="/alterar" class="faa-parent animated-hover"><i class="fa fa-cog faa-spin"></i>&nbsp;Minha Conta</a>                                       
+                            </li>
+                            <li class="dropdown-header">
+                                <a style="padding-left: 10px; font-size: 14px;" href="/alterar/senha" class="faa-parent animated-hover"><i class="fa fa-key faa-shake"></i>&nbsp;Alterar Senha</a>                                       
+                            </li>
+                        </ul>
+                    </li> 
+                    <li class="margin-poweroff">
+                        <a href="./login.html" class="pointer"><i class="fa fa-power-off faa-tada"></i>&nbsp;Sair</a>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav pull-left configuracoes-icone nav-id">                                                  
+                    <li class="dropdown mt-7">
+                        <a href="javascript:;"  id="make-small-nav" data-toggle="dropdown" class="dropdown-toggle" data-click="toggle-notify">
+                            <i class=" fa fa-address-card-o icon-card-top"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-notification dropdown-menu-right" id='infoEnvelope'>
+                            <li class="dropdown-header">
+                                <a style="padding-left: 10px; font-size: 14px;" href="/alterar" class="faa-parent animated-hover"><i class="fa fa-cog faa-spin"></i>&nbsp;Minha Conta</a>                                       
+                            </li>
+                            <li class="dropdown-header">
+                                <a style="padding-left: 10px; font-size: 14px;" href="/alterar/senha" class="faa-parent animated-hover"><i class="fa fa-key faa-shake"></i>&nbsp;Alterar Senha</a>                                       
+                            </li>
+                                                                                                                                                                                                <li class="dropdown-header">
+                                        <a style="padding-left: 10px; font-size: 14px;" href="javascript:bloquearCompra();" class="faa-parent animated-hover"><i class="fa fa-user-times faa-flash"></i>&nbsp;Bloquear ID para Compra</a>                                       
+                                    </li>
+                                                                                                <!--li class="dropdown-header">
+                                <hr/>                                     
+                            </li>
+                            <li class="dropdown-header">
+                                <a style="padding-left: 10px; font-size: 14px;" href="/login/sair" class="faa-parent animated-hover"><i class="fa fa-power-off faa-tada"></i>&nbsp;Sair</a>                                       
+                            </li-->
+                        </ul>
+                    </li>   
+                    <li class="mt-7">
+                        <a href="/login/sair" class="pointer"><i class="fa fa-power-off faa-tada"></i>&nbsp;Sair</a>
+                    </li>
+                </ul>
+                    </div>
+    </div>
+</div>
+</header>
+<style>
+    .margin-poweroff{
+        margin-top: 13px;
+    }
+    @media(min-width:1200px){
+        .margin-poweroff{
+            margin-top: 19px;
+        }
+    }   
+</style>
+        <script>
+
+
+    function recebidas() {
+        window.location.href = "/mensagem-rede/recebidas";
+    }
+</script>            <div id="page-wrapper" class="container">
+                <div class="row">
+                    <div class="nav-left">
+                        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+
+<style type="text/css">
+    body,html{
+        height: 100%;
+    }
+     .btn-roxo{
+            background-color: #3F51B5;
+        border-color: #282e4c;
+        color: #fff !important;
+    }
+     .btn-roxo:hover,.btn-roxo:focus,btn-roxo:active{
+       background-color: #2f3e8e;
+        border-color: #282e4c;
+        color: #fff !important;
+    }
+    .main .row{
+        padding: 0px;
+        margin: 0px;
+    }
+
+    nav.sidebar.navbar {
+        border-radius: 3px !important;
+    }
+
+    nav.sidebar, .main{
+        -webkit-transition: margin 200ms ease-out;
+        -moz-transition: margin 200ms ease-out;
+        -o-transition: margin 200ms ease-out;
+        transition: margin 200ms ease-out;
+    }
+
+    .main{
+        padding: 10px 10px 0 10px;
+    }
+
+    @media (min-width: 768px) {
+        .main{
+            width: calc(100% - 200px); /*keeps 100% minus nav size*/
+            margin-left: 200px;
+        }
+
+        nav.sidebar{
+            margin-left: 0px;
+            float: left;
+        }
+
+        nav.sidebar .forAnimate{
+            opacity: 1;
+        }
+
+
+        /* ===================================== */
+
+        .navbar-inverse{
+            min-height: 860px !important;
+        }
+
+        .navbar-nav-new {
+            float: none !important;
+        }
+
+        .main{
+            position: absolute;
+            width: calc(100% - 40px); 
+            margin-left: 40px;
+            float: right;
+        }
+
+        nav.sidebar:hover + .main{
+            margin-left: 200px !important;
+        }
+
+        nav.sidebar.navbar.sidebar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand {
+            margin-left: 0px !important;
+        }
+
+        nav.sidebar .navbar-brand, nav.sidebar .navbar-header{
+            text-align: center !important;
+            width: 100% !important;
+            margin-left: 0px !important;
+        }
+
+        nav.sidebar a{
+            padding: 8px 13px !important;
+        }
+       
+        nav.sidebar .navbar-nav > li:first-child{
+            border-top: 1px #e5e5e5 solid !important;
+        }
+
+        nav.sidebar .navbar-nav > li{
+            border-bottom: 1px #e5e5e5 solid !important;
+        }
+
+        nav.sidebar .navbar-nav .open .dropdown-menu {
+            position: static !important;
+            float: none !important;
+            width: auto !important;
+            margin-top: 0 !important;
+            background-color: transparent !important;
+            border: 0 !important;
+            -webkit-box-shadow: none !important;
+            box-shadow: none !important;
+        }
+
+        nav.sidebar .navbar-collapse, nav.sidebar .container-fluid{
+            padding: 0 0px 0 0px !important;
+        }
+
+        .navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
+            color: #777 !important;
+        }
+
+        nav.sidebar{
+            width: 225px;
+            float: left;
+            margin-bottom: 0px;
+        }
+
+        nav.sidebar li {
+            width: 100%;
+        }
+
+        .forAnimate{
+            opacity: 0;
+        }
+
+    }
+
+    .content {
+        margin-left: 225px;
+        padding: 0px 8px 0px 8px;
+        min-height: 100%;
+        position: relative;
+        margin-top: -6px;
+    }
+
+    @media (max-width: 767px){
+        .navbar-nav-new > li {
+            float: none !important;
+        }
+
+        .navbar-nav-new .open .dropdown-menu {
+            position: static !important;
+            float: none !important;
+            margin-top: 0;
+            background-color: transparent !important;
+            border: 0;
+            -webkit-box-shadow: none;
+            box-shadow: none !important;
+        }
+
+        .content {
+            margin-left: 0;
+            margin-right: 0;
+            padding: 0px;
+        }
+    }   
+
+    nav.sidebar .navbar-nav .open .dropdown-menu>li>a:hover, nav.sidebar .navbar-nav .open .dropdown-menu>li>a:focus {
+        color: #CCC;
+        background-color: transparent;
+    }
+
+    nav:hover .forAnimate{
+        opacity: 1;
+    }
+    section{
+        padding-left: 15px;
+    }
+
+    .nav-left{
+        margin-top: 5px;
+    }
+
+    .navbar-nav-new > li > .dropdown-menu {
+        border-radius: 3px;
+        background-clip: padding-box;
+        min-width: 190px !important;
+    }
+
+    .navbar-inverse .navbar-nav-new>li>a {
+        color: #5f5e5c;
+    }
+
+    .navbar-hinode {
+        background-color: #ffffff !important;
+        border-color: #dcdcdc !important;
+    }
+
+    .navbar-nav-new > li > a {
+        padding-bottom: 8px !important;
+        padding-top: 8px !important;
+        line-height: 22px !important;
+    }
+
+    .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus, .navbar-inverse .navbar-nav>.active>a:hover {
+        color: #fff !important;
+        background-color: #9E9E9E !important;
+    }
+
+    .navbar-hinode .navbar-nav-new>li>a:focus, .navbar-hinode .navbar-nav-new>li>a:hover {
+        color: #2b7dbc;
+        background-color: transparent;
+    }
+
+    .navbar-hinode .navbar-nav-new>.open>a, .navbar-hinode .navbar-nav-new>.open>a:focus, .navbar-hinode .navbar-nav-new>.open>a:hover {
+        color: #fff;
+        background-color: #2b7dbc;
+    }
+
+    .btn-topo{
+        margin-top: 12px;
+        margin-bottom: 12px;
+        text-align: center;
+    }
+    
+    .navbar-inverse .navbar-toggle .icon-bar{
+        background: #f1c40f;
+    }
+    
+    .navbar-inverse:hover .navbar-toggle:hover .icon-bar{
+        background: #fff;
+    }
+    
+    .theme-whbl .navbar-toggle {
+        background: #fff;
+    }
+    
+    .navbar-inverse .navbar-toggle:focus .icon-bar {
+        background: #fff;
+    }
+    
+    @media (max-width: 767px){
+        .navbar-toggle {
+            display: block !important;
+        }
+    }   
+    
+    @media (min-width: 768px){
+        .navbar-toggle {
+            display: none !important;
+        }
+    }
+    
+    .mt-10{
+        margin-top: 5px;
+    }
+    
+    .icon-ajuste{
+        margin-right: 7px;
+    }
+    
+    .img-logo{
+        max-width:175px;
+        cursor:pointer;
+        margin: auto;
+        display: block;
+        margin-bottom: 25px;
+    }
+	
+	 .unesp{
+        max-width:450px;
+        cursor:pointer;
+        margin: auto;
+        display: block;
+        margin-bottom: 25px;
+    }
+    
+    @media (max-width: 767px){
+        .larg-nav{
+            height: 56px;
+        }
+    }    
+    
+    .btn-pad{
+        padding: 10px 17px 10px 17px;
+    }
+    
+    @media (max-width: 370px){
+        .btn-pad {
+            padding: 6px 12px;
+            margin-top: 4px;
+        }
+    }
+    
+    @media (max-width: 767px){
+        .esp-btn{
+            padding: 9px 13px 9px 13px
+        }
+        
+        .btn-topo{
+            margin-top: 6px;
+        }
+        
+        .fa-max{
+            font-size: 20px;
+        }
+    }
+    
+    /* esconder menu */
+    .fa-esconder {
+        display: inline-block;
+        cursor: pointer;
+        font-size: 14px;
+        color: #aaa;
+        border: 1px solid #bbb;
+        padding: 0 5px;
+        line-height: 18px !important;
+        border-radius: 16px;
+        background-color: #fff;
+        position: relative;
+    }
+    
+    .sidebar-collapse {
+        border-bottom: 1px solid #e0e0e0;
+        background-color: #f3f3f3;
+        text-align: center;
+        padding: 3px 0;
+        position: relative;
+    }
+    
+    .sidebar-collapse:before {
+        content: "";
+        display: inline-block;
+        height: 0;
+        border-top: 1px solid #e0e0e0;
+        position: absolute;
+        left: 15px;
+        right: 15px;
+        top: 13px;
+    }
+    
+    @media (max-width: 767px){
+        #sidebar-collapse{
+            display: none;
+        }
+    }
+    
+    @media (min-width: 768px){
+        .min-menu{
+            width: 50px !important;
+        }
+
+        .conteudo{
+            margin-left: 50px !important;
+        }
+    }    
+    
+    .menu-esconder {
+        display: none;
+        position: absolute;
+        left: 43px;
+        top: -2px;
+        width: 202px;
+        height: 40px;
+        line-height: 38px;
+        background-color: #f5f5f5;
+        z-index: 121;
+        -webkit-box-shadow: 2px 1px 2px 0 rgba(0,0,0,0.2);
+        box-shadow: 2px 1px 2px 0 rgba(0,0,0,0.2);
+        border: 1px solid #ccc;
+        padding-left: 12px;
+    }
+    
+    .hover{
+        display: block;
+    }
+    
+    .menu-esconder-2 {
+        display: none;
+        position: absolute;
+        left: 43px;
+        top: -2px;
+        width: 202px;
+        height: 36px;
+        line-height: 34px;
+        background-color: #f5f5f5;
+        z-index: 121;
+        -webkit-box-shadow: 2px 1px 2px 0 rgba(0,0,0,0.2);
+        box-shadow: 2px 1px 2px 0 rgba(0,0,0,0.2);
+        border: 1px solid #ccc;
+        padding-left: 12px;
+    }
+
+    .new-logo{
+        max-width: 20px;
+    }    
+    
+    .btn-minified{
+        padding: 3px 3px 10px !Important;
+        max-width: 4px !important;
+    }
+    
+    .icon-none{
+        display: none !important;
+    }
+  
+    .min-menu .nav-list>li:hover>a>.menu-item{
+        display: block;
+    }
+    
+    .min-menu .nav-list>li:hover>a>.menu-esconder-2{
+        display: block;
+    }
+
+    .min-menu .nav-list>li:hover>a>.menu-esconder{
+        display: block;
+    }
+    
+    .min-menu .nav-list>li:hover>.submenu {
+        display: block!important;
+    }
+    
+    .min-menu .nav-list>li>.submenu {
+        background: #fff;
+        position: absolute;
+        z-index: 120;
+        left: 43px;
+        top: -2px;
+        width: 202px;
+        border: 1px solid #ccc;
+        -webkit-box-shadow: 2px 1px 2px 0 rgba(0,0,0,0.2);
+        box-shadow: 2px 1px 2px 0 rgba(0,0,0,0.2);
+        padding-top: 40px;
+        padding-bottom: 2px;
+        display: none!important;
+    }
+    
+/*    .min-menu .nav-list>li .submenu {
+        display: none;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        background-color: #fff;
+        border-top: 1px solid #e5e5e5;
+    }
+    */
+     .nav-list>li {
+        display: block;
+        padding: 0;
+        margin: 0;
+        border: 0;
+        border-top: 1px solid #fcfcfc;
+        border-bottom: 1px solid #e5e5e5;
+        position: relative;
+    }
+    
+    .navbar-nav {
+        margin: 0px 0px 0px 4px !important;
+    }
+    .min-menu .label-new{
+        display: none;
+    }
+</style>
+
+
+<nav class="navbar navbar-inverse navbar-hinode sidebar larg-nav" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1" id="btn-ext" style="z-index: 1;">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <div class="btn-topo">
+			
+                <a href="/" style="width:90%" data-toggle="tooltip" data-placement="bottom" title="Página Inicial!"  class="botao-min btn btn-success btn-pad" id="botaoPrincipal">
+                   <strong><span class="hidden-xs showopacity fa fa-home icon-ajuste"></span> <span class="menu-item hid-menu">Pagina Inicial</span></strong>                                
+                </a>       
+  <div class="img-perfil" style="margin: 10px">
+                            <img class="img img-Professor" src="./img/semfoto.png" onerror="$(this).attr('src','./img/semfoto.png');">
+                            <a onclick="modalFrame('/foto-perfil', '', false);" title="Alterar Foto" class="pointer"><span class="fa fa-camera"></span></a>
+                        </div>				
+                             </div>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-nav-new nav-list">
+				<li>
+                                    <a class="my-link" href="/relatorio/livro-mes" >
+                                    <span class="hidden-xs showopacity fa fa-file icon-ajuste"></span> <span class="menu-item hid-menu">Atas de Reuniões</span>                                
+                                    </a>
+                 
+                        </li> 
+						<li>
+                                    <a class="my-link" href="/relatorio/downloads" >
+                                    <span class="hidden-xs showopacity fa fa-download icon-ajuste"></span> <span class="menu-item hid-menu">Biblioteca</span>                                
+                                    </a>
+                                </li>
+                       
+                                            <li >                        
+                           
+                                    <a class="my-link" href="/cadastro" >
+                                    <span class="hidden-xs showopacity fa fa-plus icon-ajuste"></span> <span class="menu-item hid-menu">Cadastrar</span>                                
+                                    </a>
+                                </li>
+								<li>
+                                    <a class="my-link" href="javascript:neoassistOpenCentral();" >
+                                    <span class="hidden-xs showopacity fa fa-wechat icon-ajuste"></span> <span class="menu-item hid-menu">Chat</span>                                
+                                    </a>
+                                </li>
+								 <li class="dropdown">                        
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="hidden-xs showopacity icon-ajuste fa fa-gears"></span> <span class="menu-item-2 hid-menu">Configurações</span> <span class="fa fa-angle-double-down pull-right sumir-icon-angle mt-10"></span>
+                                             
+                                             
+                                </a>
+                                <ul class="submenu dropdown-menu forAnimate" role="menu">     
+                                                        <li><a href="/alterar/entrega">Alterar dados entrega                                              
+                                              
+                                        </a>
+                                    </li>                                                    
+                                                                                     
+                                                        <li><a href="/alterar">Alterar dados pessoais                                              
+                                              
+                                        </a>
+                                    </li>                                                    
+                                                                                     
+                                                        <li><a href="javascript:modalFrame('/foto-perfil', '', false);">Alterar foto                                              
+                                              
+                                        </a>
+                                    </li>                                                    
+                                                                                     
+                                                        <li><a href="/alterar/senha">Alterar senha                                              
+                                              
+                                        </a>
+                                    </li>                                                         
+                                                                                     
+                                                        <li><a href="/relatorio/log-dados-pessoais">Log de Alteraçoes                                              
+                                              
+                                        </a>
+                                    </li>                                                     
+                                                                                     
+                                                        <li><a href="/upload-documento">Upload documentos                                              
+                                              
+                                        </a>
+                                    </li>                                                    
+                                                                                     
+                                                </ul>                        
+                        </li> 
+						  <li>                
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="hidden-xs showopacity icon-ajuste fa fa-envelope"></span> <span class="menu-item-2 hid-menu">E-mails</span> <span class="fa fa-angle-double-down pull-right sumir-icon-angle mt-10"></span>
+                                             
+                                             
+                                </a>
+                                <ul class="submenu dropdown-menu forAnimate" role="menu">                                                                                       
+                                                            <li><a href="/relatorio/carta-compromisso/painel">Enviar E-mail                                            
+                                              
+                                        </a>
+                                    </li>                                                    
+                                                                                     
+                                                        <li><a href="/relatorio/carta-compromisso">Meus E-mails                                          
+                                              
+                                        </a>
+                                    </li>                                                    
+                                                                                     
+                                                </ul>                        
+                        </li>  
+						<li>
+                                    <a class="my-link" href="/relatorio/livro-mes" >
+                                    <span class="hidden-xs showopacity fa fa-bell icon-ajuste"></span> <span class="menu-item hid-menu">Quadro de Avisos</span>                                
+                                    </a>
+                 
+                        </li>    
+						<li>
+                        <a class="my-link" href="javascript:neoassistOpenCentral();" >
+                                    <span class="hidden-xs showopacity fa fa-calendar icon-ajuste"></span> <span class="menu-item hid-menu">Quadro de Disponibilidade</span>                                
+                                    </a>
+                                </li>
+						<li>
+                                    <a class="my-link" href="/relatorio/livro-mes" >
+                                    <span class="hidden-xs showopacity fa fa-ticket icon-ajuste"></span> <span class="menu-item hid-menu">Quadro de Eventos</span>                                
+                                    </a>
+                 
+                        </li>    
+								<li>
+                                    <a class="my-link" href="/relatorio/livro-mes" >
+                                    <span class="hidden-xs showopacity fa fa-book icon-ajuste"></span> <span class="menu-item hid-menu">Quadro de Literatura</span>                                
+                                    </a>
+									</li>
+									<li>
+                                    <a class="my-link" href="/relatorio/livro-mes" >
+                                    <span class="hidden-xs showopacity fa fa-bookmark icon-ajuste"></span> <span class="menu-item hid-menu">Níveis de Escolaridade</span>                                
+                                    </a>
+                 
+                        </li> 
+						<li>
+                                    <a class="my-link" href="/relatorio/livro-mes" >
+                                    <span class="hidden-xs showopacity fa fa-location-arrow icon-ajuste"></span> <span class="menu-item hid-menu">Plano de Atividade</span>                                
+                                    </a>
+                 
+                        </li> 
+						<li>
+                                    <a class="my-link" href="/relatorio/livro-mes" >
+                                    <span class="hidden-xs showopacity fa fa-dot-circle-o icon-ajuste"></span> <span class="menu-item hid-menu">Plano de Metas</span>                                
+                                    </a>
+                 
+                        </li> 
+						<li>
+                                    <a class="my-link" href="/relatorio/livro-mes" >
+                                    <span class="hidden-xs showopacity fa fa-users icon-ajuste"></span> <span class="menu-item hid-menu">Produçao do Grupo</span>                                
+                                    </a>
+                 
+                        </li> 
+						<li class="dropdown">                        
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="hidden-xs showopacity icon-ajuste far fa-file-alt"></span> <span class="menu-item-2 hid-menu">Questionários</span> <span class="fa fa-angle-double-down pull-right sumir-icon-angle mt-10"></span>
+                                             
+                                             
+                                </a>
+                                <ul class="submenu dropdown-menu forAnimate" role="menu">                                                                                       
+                                                            <li><a href="/relatorio/carta-compromisso/painel">Questionários de Aprendizagem                                             
+                                              
+                                        </a>
+                                    </li>                                                    
+                                                                                     
+                                                        <li><a href="/relatorio/carta-compromisso">Questionário de Cadastro                                              
+                                              
+                                        </a>
+                                    </li>                                                    
+                                                                                     
+                                                </ul>                        
+                        </li>
+<li class="dropdown">                  
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="hidden-xs showopacity icon-ajuste fa fa-exchange"></span> <span class="menu-item-2 hid-menu">Trabalhos para Correçao</span> <span class="fa fa-angle-double-down pull-right sumir-icon-angle mt-10"></span>
+                                             
+                                             
+                                </a>
+                                <ul class="submenu dropdown-menu forAnimate" role="menu">                                                                                       
+                                                            <li><a href="/relatorio/carta-compromisso/painel">Meus Trabalhos                                            
+                                              
+                                        </a>
+                                    </li>                                                    
+                                                                                     
+                                                        <li><a href="/relatorio/carta-compromisso">Trabalhos Recebidos                                           
+                                              
+                                        </a>
+                                    </li>                                                    
+                                                                                     
+                                                </ul>                        
+                        </li>    						
+								 <li class="dropdown">                        
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="hidden-xs showopacity icon-ajuste fa fa-user"></span> <span class="menu-item-2 hid-menu">Usuários</span> <span class="fa fa-angle-double-down pull-right sumir-icon-angle mt-10"></span>
+                                             
+                                             
+                                </a>
+                                <ul class="submenu dropdown-menu forAnimate" role="menu">         
+                                                        <li><a href="/relatorio/top-recrutadores">Grupos                                             
+                                              
+                                        </a>
+                                    </li>     
+ <li><a href="/relatorio/top-recrutadores">Membros                                             
+                                              
+                                        </a>
+                                    </li>                  									
+                                                                                     
+                                                </ul>                        
+                        </li> 
+						   
+                                </ul>
+            <div class="sidebar-collapse" id="sidebar-collapse">
+                <i class="fa fa-angle-double-left fa-esconder" id="icone-fim" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+            </div>
+        </div>        
+        <br />
+        <div class="col-md-12 col-xs-12 col-sm-12 hid-menu hidden-xs">
+            <img src="./img/logo.png" draggable="false" onclick="javascript:window.open('','_blank');" class="img-logo">
+        </div>
+    </div>
+</nav> 
+   
+<!--div class="main">
+<!-- Content Here -->
+<!--/div-->
+
+<script type="text/javascript">
+    function htmlbodyHeightUpdate() {
+        var height3 = $(window).height();
+        var height1 = $('.nav').height() + 50;
+        height2 = $('.main').height();
+        if (height2 > height3) {
+            $('html').height(Math.max(height1, height3, height2) + 10);
+            $('body').height(Math.max(height1, height3, height2) + 10);
+        } else
+        {
+            $('html').height(Math.max(height1, height3, height2));
+            $('body').height(Math.max(height1, height3, height2));
+        }
+
+    }
+    $(document).ready(function () {
+        htmlbodyHeightUpdate();
+        $(window).resize(function () {
+            htmlbodyHeightUpdate();
+        });
+        $(window).scroll(function () {
+            height2 = $('.main').height();
+            htmlbodyHeightUpdate();
+        });
+    });
+    
+    $(document).ready(function(){
+        $("#btn-ext").click(function(){
+            if ($("nav").hasClass("larg-nav")) {
+                $("nav").removeClass("larg-nav");
+            } else {
+                $("nav").addClass("larg-nav");
+            }
+        });
+    });
+    
+    $(document).ready(function(){
+        $("#sidebar-collapse").click(function(){
+            if ($("nav").hasClass("min-menu")) {
+                $("nav").removeClass("min-menu");
+                $("#content").removeClass("conteudo");
+                $(".img-logo").removeClass("new-logo"); 
+                $(".botao-min").removeClass("btn-minified"); 
+                $(".sumir").removeClass("icon-none"); 
+                $(".menu-item").removeClass("menu-esconder"); 
+                $(".menu-item-2").removeClass("menu-esconder-2"); 
+                $(".sumir-icon-angle").removeClass("icon-none"); 
+                $("#icone-fim").addClass("fa-angle-double-left");
+                $("#icone-fim").removeClass("fa-angle-double-right");
+            } else {
+                $("nav").addClass("min-menu");
+                $("#content").addClass("conteudo");
+                $(".img-logo").addClass("new-logo"); 
+                $(".botao-min").addClass("btn-minified");
+                $(".sumir").addClass("icon-none"); 
+                $(".menu-item").addClass("menu-esconder"); 
+                $(".menu-item-2").addClass("menu-esconder-2"); 
+                $(".sumir-icon-angle").addClass("icon-none");
+                $("#icone-fim").removeClass("fa-angle-double-left");
+                $("#icone-fim").addClass("fa-angle-double-right");
+            }
+        });
+    });
+    
+//    $('ul.nav-list li').on({
+//        'mouseenter' : function(){
+//            if ($(this).hasClass("exibir")) {
+//                $(this).find("span.menu-esconder").css('display', 'block');
+//            }
+//        },
+//        'mouseleave' : function(){
+//            if ($(this).hasClass("exibir")) {
+//                $(this).find("span.menu-esconder").css('display', 'none');
+//            }
+//        }
+//    });
+
+    function alterarPf() {    
+        modalFrame("/alterar/pessoa-fisica", 'Alterar Cadastro Para PF', true);
+        $('#myModal').find('.modal-dialog').css({height: '80%'});
+        $('#myModal').find('.modal-dialog').css({width: '50%'});
+    }
+</script>                    </div>
+                    <div id="content" class="content">
+                        <link rel="stylesheet" href="./css/style-escritorio.css"/> 
+<link rel="stylesheet" href="./css/toastr.css"/>
+<style type="text/css">
+    .a-graduacao{
+        padding: 7px !important;  width: 100%; display: block;color:#000 !important;
+    }
+
+    @media screen and (min-width: 992px) {
+
+        .container-new {
+            max-width: 100% !important;
+        }
+
+    }
+
+    .img-slider{
+        max-height: 600px;
+    }
+
+    .mt-20{
+        margin-top: 20px;
+    }
+
+
+    .new-cor{
+        color: #534d4d !important;
+    }
+
+    td,th {
+        padding-top: 8px;
+    }    
+
+    hr {
+        margin-top: 2px; 
+    }
+
+    td{
+        padding: 7px !important;
+    }
+
+    .icon-center{
+        margin: auto;
+        display: block;
+        text-align: center;
+    }    
+
+    .table-cinza > tbody > tr:nth-child(2):hover > td, .table-cinza > tbody > tr:nth-child(2):hover > th {
+        background-color: #9caab4 !important;
+    }
+
+    .theme-whbl a, .theme-whbl .fc-state-default, .theme-whbl .jvectormap-zoomin, .theme-whbl .jvectormap-zoomout, .theme-whbl #user-profile .profile-details ul > li > span {
+        color: #2b7dbc;
+    }
+
+
+    .main-box.rodapeindex{
+        padding-bottom: 0;
+    }
+    @media (min-width: 768px){
+        .tam-pontuacao{
+            min-height: 225px;
+        }
+    }
+
+    .alert-info {
+        color: #31708f !important;
+        background-color: #d9edf7 !Important;
+        border-color: #bce8f1 !Important;
+        font-weight: bold;
+    }    
+
+    .alert-success {
+        color: #3c763d !Important;
+        background-color: #dff0d8 !Important;
+        border-color: #d6e9c6 !Important;
+        font-weight: bold !Important;
+    }
+
+    .toast{
+        opacity: 1 !important;
+        width: 100% !important;
+    }
+
+
+    @media (max-width: 767px){
+        #toast-container{
+            width: 100% !important;
+            top: 10% !important;
+        } 
+        .margin-titulo{
+            margin-top: 0px;
+            margin-bottom: 5px;
+        }
+        .form-ciclo .form-group{
+            margin-bottom: 0px
+        }
+        #dia_contador p{
+            margin: 0;
+        }
+        .pd-arruma.pd-0 {
+            padding: 0px 0px 20px 0 !important;
+        }
+        .ajust.box-body {
+            padding: 0;
+        }
+    }
+
+    @media (min-width: 768px){
+        #toast-container{
+            width: 100% !important;
+            top: 10% !important;
+        } 
+        .margin-titulo{
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+    }
+
+    @media (min-width: 992px){
+        #toast-container{
+            width: 60% !important;
+            top: 10% !important;
+        } 
+        .fim-ciclo{
+            margin-top: -22px;
+            margin-left: 0;
+        }
+    }
+
+    @media (min-width: 995px){
+        #toast-container{
+            width: 50% !important;
+            top: 10% !important;
+        } 
+    }
+
+    @media (min-width: 1200px){
+        #toast-container{
+            width: 45% !important;
+            top: 10% !important;
+        } 
+    }
+
+    @media (min-width: 1500px){
+        #toast-container{
+            width: 30% !important;
+            top: 10% !important;
+        } 
+    } 
+
+    @media (min-width: 991px){
+        .direita-btn{
+            float: right;
+        }
+    }
+
+    .btn-alert-1 {
+        background-color: #30c2f8;
+        border-color: #30c2f8;
+        color: #fff;
+        margin-bottom: 5px;
+        padding: 8px 17px 8px 17px;
+        /*        font-family: 'Titillium Web', sans-serif;*/
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .btn-alert-1:hover {
+        color: #fff;
+        background-color: #2eb0e0;
+        border-color: #2eb0e0;
+    }
+
+    .btn-alert-2 {
+        color: #fff;
+        margin-bottom: 10px;
+        padding: 8px 17px 8px 17px;
+        /*        font-family: 'Titillium Web', sans-serif;*/
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .pag-bonus{
+        color: #ffffff !Important;
+        font-weight: bold;
+    }
+
+    .numero{
+        min-width: 20px;
+        max-width: 55px;
+        background-color: #DCDCDC;
+        color: #000000;
+        font-size: 22px;
+        margin: 5px;
+        text-align: center;
+        border-radius: 5px;
+        padding: 5px;
+    }
+
+    #thMes{
+        background: #969696;
+        color: white;
+        font-size: 11px;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    #thMes:hover{
+        background: #cccccc;
+        color:black;
+    }
+    #tdMes{
+        color: black;
+    }
+    #tdMes:hover{
+        color:black;
+    }
+    .botao{
+        -webkit-border-radius: 5;
+        -moz-border-radius: 5;
+        border-radius: 5px;
+        font-family: Lucida Sans Unicode;
+        color: #000000;
+        font-size: 13px;
+        padding: 5px 15px 5px 15px;
+        text-decoration: none;
+        display: inline-block;
+        text-align: center;
+        flex-grow: 1;
+        line-height: 2em;
+        background-color: #ccc;
+        border: 1px solid gray;
+    }
+    .botao:hover {
+        background: #e0e0e0;
+        text-decoration: none;
+    }  
+    #validar {
+        font-family: Lucida Sans Unicode;
+        font-size: 15px;
+        color: white;
+        padding: 7px 14px;
+        background: rgb(165, 220, 134);
+        border: 2px solid;
+        border-radius: 4px;
+    }
+    #cancelar {
+        font-family: Lucida Sans Unicode;
+        font-size: 15px;
+        color: white;
+        padding: 7px 14px;
+        background: #C1C1C1;
+        border: 2px solid;
+        border-radius: 4px;
+    }
+    #efetuar{
+        color: #003253;
+        padding-left: 5px;
+        margin-bottom: 15px;
+        margin-top: 30px;
+        margin-left: 15px;
+        font-size: 1.4em;
+        margin-left: auto;
+        margin-right: auto
+    }
+    .progress-bar-striped {
+        background-image: linear-gradient(45deg,rgba(255,255,255,.15) 25%,transparent 25%,transparent 50%,rgba(255,255,255,.15) 50%,rgba(255,255,255,.15) 75%,transparent 75%,transparent);
+        background-size: 1rem 1rem;
+    }
+    .progress-bar {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        -ms-flex-pack: center;
+        justify-content: center;
+        color: #fff;
+        text-align: center;
+        white-space: nowrap;
+        background-color: #007bff;
+        transition: width .6s ease;
+    }
+    
+    @media (max-width: 991px){
+        .div_block{
+            display: block !important;
+            width: 100% !important;
+        }
+    }
+    
+    @media (min-width: 992px) and (max-width: 1199px){
+        #imgsol{ 
+            position: absolute;
+            top: 1%;
+            margin-left: 70%;
+            margin-top: -5px;
+        }
+    }
+    
+    @media (min-width: 1200px){
+        #imgsol{ 
+            position:absolute;
+            top:1%;
+            margin-left: -2%;
+            margin-top:-20px;
+        }
+    }
+    
+    
+    @media (min-width: 1230px) and (max-width: 1420px){
+        #imgsol{ 
+            position: absolute;
+            top: 1%;
+            margin-left: 10%;
+            margin-top: -25px;
+        }
+    }
+    
+</style>
+<div class="row box-home" align="center" >
+    <div class="col-md-12 col-xs-12">  
+        <div class="main-box clearfix print min-branco rodapeindex">
+            <div class="main-box-body clearfix mt">  
+                <div class="box-body ajust clearfix row pd-bottom-0">                       
+                    <div class="row"> 
+                        <div class="col-md-6 col-lg-6">
+                            <div class="esquerda-top">
+                                <div class="margin-titulo">
+                                    <b class="titulo-azul-lg">Bem-vindo ao SISTARP</b>
+                                </div>
+                            </div>
+                                                       </div>
+                                            </div>
+
+                </div>
+                                    <div class="main-box-body clearfix row pd-0 pd-arruma">
+                        <div class="row">  
+                            <hr>
+                            <div class="col-md-12 col-xs-12 col-sm-12 back-banner">
+                                <div class="direita">
+                                    <a href="#" id="hideBanner" onclick="bannerToggle();">
+                                        <i class="fa fa-window-minimize padding-icon" aria-hidden="true"></i>
+                                    </a>    
+                                    <a href="#" id="showBanner" onclick="bannerToggle();" style="display: none;">
+                                        <i class="fa fa-plus padding-icon pd-plus" aria-hidden="true"></i>
+                                    </a>    
+                                </div>    
+                            </div>     
+                            <section class="section-white" id="bannerVo">
+                                <div class="container container-new" style="padding-left: 0px; padding-right: 0px;">
+                                    <div id="hinode-banners" class="carousel slide" data-ride="carousel">
+                                        <ol class="carousel-indicators">                                        
+                                                                                        
+                                                <li data-target="#hinode-banners" data-slide-to="0" class="active"></li>                                            
+                                                                                        
+                                                <li data-target="#hinode-banners" data-slide-to="1" class=""></li>                                            
+                                                                                        
+                                                <li data-target="#hinode-banners" data-slide-to="2" class=""></li>                                            
+                                                                                        
+                                                <li data-target="#hinode-banners" data-slide-to="3" class=""></li>                                            
+                                                                                                                                 
+                                                                                    </ol>
+                                        <div class="carousel-inner">
+                                                                                        
+                                                <div class="item active">                                                    
+                                                                                                        <img src="./img/comunicado.png" class="img-slider" alt="" title="" />
+                                                         
+                                                </div>                                       
+                                                                                        
+                                                <div class="item ">                                                    
+                                                                                                        <img src="./img/comunicado.png" class="img-slider" alt="" title="" />
+                                                         
+                                                </div>                                       
+                                                                                        
+                                                <div class="item ">                                                    
+                                                                                                        <img src="./img/comunicado.png" class="img-slider" alt="" title="" />
+                                                         
+                                                </div>                                       
+                                                                                        
+                                                <div class="item ">                                                    
+                                                                                                        <img src="./img/comunicado.png" class="img-slider" alt="" title="" />
+                                                         
+                                                </div>                                                
+                                        </div>
+                                        <a class="left carousel-control" href="#hinode-banners" data-slide="prev">
+                                            <span class="glyphicon glyphicon-chevron-left"></span>
+                                        </a>
+                                        <a class="right carousel-control" href="#hinode-banners" data-slide="next">
+                                            <span class="glyphicon glyphicon-chevron-right"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>   
+                    </div>                     
+                                        <div class="container pd-0">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-lg-6 pdl-0">
+                                <div class="box">                           
+                                    <div class="icon">
+                                        <div class="image"><i class="fa fa-diamond"></i></div>
+                                        <div class="info">
+                                            <h3 class="title">Quadro 1</h3>
+                                            <div class="box-initial-header">
+                                                <div class="row">
+                                                    <div class="col-sm-6 col-md-6 col-xs-6">
+                                                        <h4 class="sub-cont" align="center">
+                                                            A                                                        </h4>
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-6 col-xs-6">
+                                                        <h4 class="sub-cont" align="center">
+                                                            B                                                        </h4>
+                                                    </div>                                                                                                
+                                                </div>  
+                                            </div>    
+
+
+                                            <div class="box-initial-body">
+                                                <div class="row"> 
+                                                    <div class="col-sm-6 col-md-6 col-xs-6">
+                                                        <p>
+                                                            <b class="cinza-escuro">A:</b>
+                                                        </p>
+                                                        <p>
+                                                            <b class="cinza-escuro">B:</b>
+                                                        </p>
+                                                        <p>
+                                                            <b class="cinza-escuro">C:</b>
+                                                        </p>
+                                                                                                                  
+                                                    </div>
+                                                    <div class="col-sm-6 col-md-6 col-xs-6">
+                                                        <p class="cinza-padrao">A</p>
+                                                        <p class="cinza-padrao">B</p>
+                                                        <p class="cinza-padrao">C</p>
+                                                                                                                  
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                    <div class="space"></div>
+                                </div> 
+                            </div>
+                             
+                                <div class="col-xs-12 col-sm-6 col-lg-6 pdr-0">
+                                    <div class="box">                           
+                                        <div class="icon">
+                                            <div class="image"><i class="fa fa-usd"></i></div>
+                                            <div class="info ">
+                                                <h3 class="title">
+                                                    Quadro 2                                              </h3>
+                                                <div class="box-initial-header">
+                                                    <div class="row">
+                                                        <div class="col-sm-6 col-md-6 col-xs-6">
+                                                            <h4 class="sub-cont" align="center">
+                                                                A                                                            </h4>
+                                                        </div>
+                                                        <div class="col-sm-6 col-md-6 col-xs-6">
+                                                            <h4 class="sub-cont" align="center">
+                                                                B                                                            </h4>
+                                                        </div>                                                                                                
+                                                    </div>  
+                                                </div>
+                                                <div class="box-initial-body">
+                                                    <div class="row"> 
+                                                        <div class="col-sm-6 col-md-6 col-xs-6 text-center">
+                                                            <p>
+                                                                <b class="cinza-escuro">A:</b>
+                                                            </p>
+                                                                                                                            <p>
+                                                                    <b class="cinza-escuro">B:</b>
+                                                                </p>
+                                                                                                                            <p>
+                                                                <b class="cinza-escuro">C</b>
+                                                            </p>  
+                                                        </div>
+                                                        <div class="col-sm-6 col-md-6 col-xs-6 text-center">
+                                                            <p class="cinza-padrao">A</p>
+                                                                                                                            <p class="cinza-padrao">B</p>
+                                                                                                                            <p class="cinza-padrao">C</b></p>
+                                                        </div>
+                                                    </div>  
+                                                </div> 
+                                            </div>
+                                            <div class="space"></div>
+                                        </div> 
+                                    </div>
+                                </div>
+                                                        </div>
+                    </div>
+                    <div class="container pd-0">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-lg-6 pd-0">
+                                <div class="box">                           
+                                    <div class="icon">
+                                        <div class="image"><i class="fa fa-street-view"></i></div>
+                                        <div class="info">
+                                            <h3 class="title">Quadro 3</h3>
+                                                                                        <div class="box-initial-header box-quali">                                            
+                                                <div class="row">
+                                                    <div class="col-sm-offset-2 col-md-offset-2 col-xs-offset-2 col-sm-3 col-md-3 col-xs-3">                                                                                                                                                            
+                                                                                                                    <img class="imagem-pin" src="">
+                                                                                                            </div>                                                
+                                                                                                                                                    
+                                                        <div class="col-sm-offset-2 col-md-offset-2 col-xs-offset-2 col-sm-3 col-md-3 col-xs-3">
+                                                            <img class="imagem-pin" src="">
+                                                        </div>
+                                                                                                    
+                                                                                                  
+                                                                                                                                                            
+                                                                                                </div>  
+                                            </div>    
+                                            <div class="box-initial-body">
+                                                <div class="row"> 
+                                                    <div class="col-sm-offset-2 col-md-offset-2 col-xs-offset-2 col-sm-3 col-md-3 col-xs-3">
+                                                                                                                    <p class="cinza-padrao">A</p>
+                                                                                                            </div>
+                                                                                                            <div class="col-sm-offset-2 col-md-offset-2 col-xs-offset-2 col-sm-3 col-md-3 col-xs-3">
+                                                            <p class="cinza-padrao">B</p>
+                                                        </div>
+                                                                                                                                                                                                                                                                       
+                                                                                                </div>    
+                                            </div>
+                                                                                    </div>
+                                    </div>
+                                    <div class="space"></div>
+                                </div> 
+                            </div>
+                                                            <div class="col-xs-12 col-sm-12 col-lg-6 pd-0">
+                                    <div class="box">                           
+                                        <div class="icon">
+                                            <div class="image"><i class="fa fa-star"></i></div>
+                                            <div class="info" >
+                                                <h3 class="title">Quadro 4</h3>
+                                                <div class="box-initial-header; back-ground-color:white">
+                                                    <div class="col-md-12 table-responsive">
+                                                        <table id="estrelasDados" class="tabelafixada table table-hover table-bordered" style="font-size: 8px; margin-bottom:0px!important">
+                                                            <thead>
+                                                                <tr>
+                                                                                                                                <th id="thMes" style="font-size: 8px;">
+                                                                        Abr/18                                                                    </th>
+                                                                                                                                        <th id="thMes" style="font-size: 8px;">
+                                                                        Mai/18                                                                    </th>
+                                                                                                                                        <th id="thMes" style="font-size: 8px;">
+                                                                        Jun/18                                                                    </th>
+                                                                                                                                        <th id="thMes" style="font-size: 8px;">
+                                                                        Jul/18                                                                    </th>
+                                                                                                                                        <th id="thMes" style="font-size: 8px;">
+                                                                        Ago/18                                                                    </th>
+                                                                                                                                        <th id="thMes" style="font-size: 8px;">
+                                                                        Set/18                                                                    </th>
+                                                                                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                                                                                                <td id="tdMes" style="padding: 0px !important">
+                                                                                <span class="a-graduacao" data-toggle="popover"  data-placement="bottom" data-trigger="hover" data-content="  Professor"> 
+                                                                                                                                                                    </span>
+                                                                            </td>
+                                                                                                                                                        <td id="tdMes" style="padding: 0px !important">
+                                                                                <span class="a-graduacao" data-toggle="popover"  data-placement="bottom" data-trigger="hover" data-content="  Professor"> 
+                                                                                                                                                                    </span>
+                                                                            </td>
+                                                                                                                                                        <td id="tdMes" style="padding: 0px !important">
+                                                                                <span class="a-graduacao" data-toggle="popover"  data-placement="bottom" data-trigger="hover" data-content="  Professor"> 
+                                                                                                                                                                    </span>
+                                                                            </td>
+                                                                                                                                                        <td id="tdMes" style="padding: 0px !important">
+                                                                                <span class="a-graduacao" data-toggle="popover"  data-placement="bottom" data-trigger="hover" data-content="  Professor"> 
+                                                                                                                                                                    </span>
+                                                                            </td>
+                                                                                                                                                        <td id="tdMes" style="padding: 0px !important">
+                                                                                <span class="a-graduacao" data-toggle="popover"  data-placement="bottom" data-trigger="hover" data-content="  Professor"> 
+                                                                                                                                                                    </span>
+                                                                            </td>
+                                                                                                                                                        <td id="tdMes" style="padding: 0px !important">
+                                                                                <span class="a-graduacao" data-toggle="popover"  data-placement="bottom" data-trigger="hover" data-content="  Professor"> 
+                                                                                                                                                                    </span>
+                                                                            </td>
+                                                                                                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <table id="estrelasDados" class="tabelafixada table table-hover table-bordered" style="font-size: 8px; margin-bottom:10px!important">
+                                                            <thead>
+                                                                <tr>
+                                                                                                                                <th id="thMes" style="font-size: 8px;">
+                                                                        Out/18                                                                    </th>
+                                                                                                                                        <th id="thMes" style="font-size: 8px;">
+                                                                        Nov/18                                                                    </th>
+                                                                                                                                        <th id="thMes" style="font-size: 8px;">
+                                                                        Dez/18                                                                    </th>
+                                                                                                                                        <th id="thMes" style="font-size: 8px;">
+                                                                        Mar/19                                                                    </th>
+                                                                                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                                                                                                <td id="tdMes" style="padding: 0px !important;">
+                                                                                <span class="a-graduacao" data-toggle="popover"  data-placement="bottom" data-trigger="hover" data-content="  Professor"> 
+                                                                                                                                                                    </span>
+                                                                            </td>
+                                                                                                                                                        <td id="tdMes" style="padding: 0px !important;">
+                                                                                <span class="a-graduacao" data-toggle="popover"  data-placement="bottom" data-trigger="hover" data-content="  Professor"> 
+                                                                                                                                                                    </span>
+                                                                            </td>
+                                                                                                                                                        <td id="tdMes" style="padding: 0px !important;">
+                                                                                <span class="a-graduacao" data-toggle="popover"  data-placement="bottom" data-trigger="hover" data-content="  Professor"> 
+                                                                                                                                                                    </span>
+                                                                            </td>
+                                                                                                                                                        <td id="tdMes" style="padding: 0px !important;">
+                                                                                <span class="a-graduacao" data-toggle="popover"  data-placement="bottom" data-trigger="hover" data-content="  Professor"> 
+                                                                                                                                                                    </span>
+                                                                            </td>
+                                                                                                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <center>
+                                                            <table id="estrelasDados" class="tabelafixada table table-hover table-bordered" style="font-size: 12px; text-align: center; width: 50%; margin-bottom:0px!important">
+                                                                <thead>
+                                                                    <tr>
+                                                                <th id="thMes" style="text-align: center;font-size: 8px;">
+                                                                    3 MESES
+                                                                </th>
+                                                                <th id="thMes" style="text-align: center;font-size: 8px;">
+                                                                    6 MESES
+                                                                </th>
+                                                                <th id="thMes" style="text-align: center;font-size: 8px;">
+                                                                    9 MESES
+                                                                </th>
+                                                                <th id="thMes" style="text-align: center;font-size: 8px;">
+                                                                    12 MESES
+                                                                </th>
+
+                                                                </tr>
+                                                                </thead>
+
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td id="tdes" style="padding: 0px !important">
+                                                                            <span class="a-graduacao" data-toggle="popover"  data-placement="bottom" data-trigger="hover" > 
+                                                                                                                                                            </span>
+                                                                        </td>
+                                                                        <td id="tdes" style="padding: 0px !important">
+                                                                            <span class="a-graduacao" data-toggle="popover"  data-placement="bottom" data-trigger="hover" > 
+                                                                                                                                                            </span>
+                                                                        </td>
+                                                                        <td id="tdes" style="padding: 0px !important">
+                                                                            <span class="a-graduacao" data-toggle="popover"  data-placement="bottom" data-trigger="hover" > 
+                                                                                                                                                            </span>
+                                                                        </td>
+                                                                        <td id="tdes" style="padding: 0px !important">
+                                                                            <span class="a-graduacao" data-toggle="popover"  data-placement="bottom" data-trigger="hover"> 
+                                                                                                                                                            </span>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+
+                                                            </table>
+                                                        </center>
+
+                                                    </div> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="space"></div>
+                                    </div>
+                                </div>
+                                <br>
+                                <br>
+                                <br>
+                                                    </div>
+                    </div>
+                    <br/>
+                    <!-- alteraçao mitsrael-->
+                    <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12 pd-0">                    
+                        <div class="new-color-1 border-new-color-1"> 
+                            <span class="font-thead">Histórico</span>
+                        </div> 
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover">    
+                                <tbody>
+
+                                    <tr class="font-min">
+                                        <td align="center">
+                                            <b class="cinza-escuro">Mês</b>
+                                        </td>
+                                        <td align="center">
+                                            <b class="cinza-escuro">Escolaridade</b>
+                                        </td>
+                                        <td align="center">
+                                            <b class="cinza-escuro">Ativos</b>
+                                        </td>
+                                        <td align="center">
+                                            <b class="cinza-escuro">Qualificados</b>
+                                        </td>
+                                        <td align="center">
+                                            <b class="cinza-escuro">PG Qualificaçao</b>
+                                        </td>
+                                        <td align="center">
+                                            <b class="cinza-escuro">%</b>
+                                        </td>
+                                        <td align="center">
+                                            <b class="cinza-escuro">PG Bônus</b>
+                                        </td>
+                                        <td align="center" >
+                                            <b class="cinza-escuro">%</b>
+                                        </td>
+                                        <td align="center">
+                                            <b class="cinza-escuro">Bônus</b>
+                                        </td>
+                                        <td align="center">
+                                            <b class="cinza-escuro">%</b>
+                                        </td>
+
+                                    </tr>
+                                    
+                                                                            <tr>
+                                            <td class="center">
+                                                <b class="cinza-escuro">
+                                                    
+                                                        <a href="/relatorio/previa-bonus">Prévia Abril</a>
+                                                                                                    </b>
+                                            </td>
+                                            <td align="justify">
+                                                <b class="cinza-escuro">Professor</b>                                               
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro">2</b>                                               
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro">0</b>                                               
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro" >3.055,00</b>
+                                            </td>
+                                            <td align="right">
+                                                <span class="a-graduacao" data-toggle="popover"  data-placement="bottom" data-trigger="hover" style='text-align: right!important'data-content="  (pg qualificaçao da prévia ÷ pg qualificaçao do mes) x 100"> 
+                                                    100,00                                                </span>
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro" >2.409,00</b>
+                                            </td>
+                                            <td align="right">
+                                                <span class="a-graduacao" data-toggle="popover"  style='text-align: right!important' data-placement="bottom" data-trigger="hover" data-content="  (pg da prévia ÷ pg do mes) x 100"> 
+                                                    100,00                                                </span>
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro" >0,00</b>
+                                            </td>
+                                            <td align="right">
+                                                <span class="a-graduacao" data-toggle="popover"  data-placement="bottom" data-trigger="hover" style='text-align: right!important'data-content="  (bônus da prévia ÷ bônus do mes) x 100"> 
+                                                    0,00                                                </span>
+                                            </td>
+                                        </tr> 
+                                                                            <tr>
+                                            <td class="center">
+                                                <b class="cinza-escuro">
+                                                                                                            <a href="/relatorio/extrato-bonus-mensal?ciclo=143">Março</a>
+                                                                                                    </b>
+                                            </td>
+                                            <td align="justify">
+                                                <b class="cinza-escuro">Professor</b>                                               
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro">8</b>                                               
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro">0</b>                                               
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro" >34.713,00</b>
+                                            </td>
+                                            <td align="right">
+                                                <span class="a-graduacao" data-toggle="popover"  data-placement="bottom" data-trigger="hover" style='text-align: right!important'data-content="  (pg qualificaçao da prévia ÷ pg qualificaçao do mes) x 100"> 
+                                                    8,80                                                </span>
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro" >23.601,01</b>
+                                            </td>
+                                            <td align="right">
+                                                <span class="a-graduacao" data-toggle="popover"  style='text-align: right!important' data-placement="bottom" data-trigger="hover" data-content="  (pg da prévia ÷ pg do mes) x 100"> 
+                                                    10,21                                                </span>
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro" >0,00</b>
+                                            </td>
+                                            <td align="right">
+                                                <span class="a-graduacao" data-toggle="popover"  data-placement="bottom" data-trigger="hover" style='text-align: right!important'data-content="  (bônus da prévia ÷ bônus do mes) x 100"> 
+                                                    0,00                                                </span>
+                                            </td>
+                                        </tr> 
+                                                                            <tr>
+                                            <td class="center">
+                                                <b class="cinza-escuro">
+                                                                                                            <a href="/relatorio/extrato-bonus-mensal?ciclo=142">Fevereiro</a>
+                                                                                                    </b>
+                                            </td>
+                                            <td align="justify">
+                                                <b class="cinza-escuro">Professor</b>                                               
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro">5</b>                                               
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro">0</b>                                               
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro" >5.081,94</b>
+                                            </td>
+                                            <td align="right">
+                                                <span class="a-graduacao" data-toggle="popover"  data-placement="bottom" data-trigger="hover" style='text-align: right!important'data-content="  (pg qualificaçao da prévia ÷ pg qualificaçao do mes) x 100"> 
+                                                    60,11                                                </span>
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro" >3.125,96</b>
+                                            </td>
+                                            <td align="right">
+                                                <span class="a-graduacao" data-toggle="popover"  style='text-align: right!important' data-placement="bottom" data-trigger="hover" data-content="  (pg da prévia ÷ pg do mes) x 100"> 
+                                                    77,06                                                </span>
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro" >0,00</b>
+                                            </td>
+                                            <td align="right">
+                                                <span class="a-graduacao" data-toggle="popover"  data-placement="bottom" data-trigger="hover" style='text-align: right!important'data-content="  (bônus da prévia ÷ bônus do mes) x 100"> 
+                                                    0,00                                                </span>
+                                            </td>
+                                        </tr> 
+                                                                            <tr>
+                                            <td class="center">
+                                                <b class="cinza-escuro">
+                                                                                                            <a href="/relatorio/extrato-bonus-mensal?ciclo=141">Janeiro</a>
+                                                                                                    </b>
+                                            </td>
+                                            <td align="justify">
+                                                <b class="cinza-escuro">Professor</b>                                               
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro">4</b>                                               
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro">0</b>                                               
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro" >2.773,00</b>
+                                            </td>
+                                            <td align="right">
+                                                <span class="a-graduacao" data-toggle="popover"  data-placement="bottom" data-trigger="hover" style='text-align: right!important'data-content="  (pg qualificaçao da prévia ÷ pg qualificaçao do mes) x 100"> 
+                                                    110,17                                                </span>
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro" >2.100,83</b>
+                                            </td>
+                                            <td align="right">
+                                                <span class="a-graduacao" data-toggle="popover"  style='text-align: right!important' data-placement="bottom" data-trigger="hover" data-content="  (pg da prévia ÷ pg do mes) x 100"> 
+                                                    114,67                                                </span>
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro" >0,00</b>
+                                            </td>
+                                            <td align="right">
+                                                <span class="a-graduacao" data-toggle="popover"  data-placement="bottom" data-trigger="hover" style='text-align: right!important'data-content="  (bônus da prévia ÷ bônus do mes) x 100"> 
+                                                    0,00                                                </span>
+                                            </td>
+                                        </tr> 
+                                                                            <tr>
+                                            <td class="center">
+                                                <b class="cinza-escuro">
+                                                                                                            <a href="/relatorio/extrato-bonus-mensal?ciclo=140">Dezembro</a>
+                                                                                                    </b>
+                                            </td>
+                                            <td align="justify">
+                                                <b class="cinza-escuro">Professor</b>                                               
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro">2</b>                                               
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro">1</b>                                               
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro" >4.458,50</b>
+                                            </td>
+                                            <td align="right">
+                                                <span class="a-graduacao" data-toggle="popover"  data-placement="bottom" data-trigger="hover" style='text-align: right!important'data-content="  (pg qualificaçao da prévia ÷ pg qualificaçao do mes) x 100"> 
+                                                    68,52                                                </span>
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro" >4.296,18</b>
+                                            </td>
+                                            <td align="right">
+                                                <span class="a-graduacao" data-toggle="popover"  style='text-align: right!important' data-placement="bottom" data-trigger="hover" data-content="  (pg da prévia ÷ pg do mes) x 100"> 
+                                                    56,07                                                </span>
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro" >0,00</b>
+                                            </td>
+                                            <td align="right">
+                                                <span class="a-graduacao" data-toggle="popover"  data-placement="bottom" data-trigger="hover" style='text-align: right!important'data-content="  (bônus da prévia ÷ bônus do mes) x 100"> 
+                                                    0,00                                                </span>
+                                            </td>
+                                        </tr> 
+                                                                            <tr>
+                                            <td class="center">
+                                                <b class="cinza-escuro">
+                                                                                                            <a href="/relatorio/extrato-bonus-mensal?ciclo=139">Novembro</a>
+                                                                                                    </b>
+                                            </td>
+                                            <td align="justify">
+                                                <b class="cinza-escuro">Professor</b>                                               
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro">5</b>                                               
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro">0</b>                                               
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro" >5.363,00</b>
+                                            </td>
+                                            <td align="right">
+                                                <span class="a-graduacao" data-toggle="popover"  data-placement="bottom" data-trigger="hover" style='text-align: right!important'data-content="  (pg qualificaçao da prévia ÷ pg qualificaçao do mes) x 100"> 
+                                                    56,96                                                </span>
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro" >2.679,00</b>
+                                            </td>
+                                            <td align="right">
+                                                <span class="a-graduacao" data-toggle="popover"  style='text-align: right!important' data-placement="bottom" data-trigger="hover" data-content="  (pg da prévia ÷ pg do mes) x 100"> 
+                                                    89,92                                                </span>
+                                            </td>
+                                            <td align="right">
+                                                <b class="cinza-escuro" >0,00</b>
+                                            </td>
+                                            <td align="right">
+                                                <span class="a-graduacao" data-toggle="popover"  data-placement="bottom" data-trigger="hover" style='text-align: right!important'data-content="  (bônus da prévia ÷ bônus do mes) x 100"> 
+                                                    0,00                                                </span>
+                                            </td>
+                                        </tr> 
+                                                                    </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                                            </td>
+                                        </tr> 
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+  
+                            </div>
+            <div class="main-content">
+                <div class="page-content">
+                    <div id="footer">
+                        <div class="row">
+
+                                                                                                        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+                                        <div class="col-xs-12">
+                                            <div align="center" style="margin:10px;"><img src="./img/unesp.png" alt="" class="unesp"></div>
+                                        </div>    
+                                    </div> 
+                                                                                    </div>
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal" class="modal fade senha" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="border-radius: 10px;">
+            <div class="modal-body">                  
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="borda-tabela margin-15">
+                            <div class="row">  
+                                <div class="dados">
+                                    <div class="info">
+                                        <div class="col-md-12 col-sm-12 col-xs-12" style="margin-left: 25px;">
+                                            <div class="col-md-12 col-xs-12 col-sm-12">
+                                                <label id="efetuar">Efetuar Operaçao</label>
+                                            </div>
+                                            <div class="col-md-12 col-xs-12 col-sm-12">
+                                                <div class="form-group row text-left mb-0">
+                                                    <fieldset style="border: 1px solid #fff; max-width: 80%; margin-left: auto; margin-right: auto;">
+                                                        <div class="col-xs-12 col-sm-12 col-md-10">
+                                                            <br/>
+                                                            <input type="hidden" id="exibe" name="exibe" value="1">
+                                                            <label for="senha" class="col-md-3 col-xs-12 col-sm-12 form-control-label esp-label"> Senha Financeira:</label>
+                                                            <input type="password" class="form-control user-success" readonly id="senha_fin" id="senha_fin" name="senha_fin" style="width:60%;" onclick="mostraTeclado()">
+                                                            <br/>
+                                                            <div id="teclado" style="display: block; margin-left: 65px;"><div></div> 
+                                                                                                                                    <input type="button" name="btn1" class="botao" value="7       3" onclick="senha_fin(1)">
+                                                                                                                                        <input type="button" name="btn2" class="botao" value="9       4" onclick="senha_fin(2)">
+                                                                                                                                        <input type="button" name="btn3" class="botao" value="8       2" onclick="senha_fin(3)">
+                                                                     <div>                                                                     <input type="button" name="btn4" class="botao" value="0       5" onclick="senha_fin(4)">
+                                                                                                                                        <input type="button" name="btn5" class="botao" value="1       6" onclick="senha_fin(5)">
+                                                                     <input type="button" id="btnlimpar" class="botao" value="Limpar" onclick="limpar_senha_fin()"></div>
+                                                            </div>
+                                                        </div> 
+                                                        <div class="col-md-12 col-xs-12 col-sm-12">
+                                                            <div class="col-xs-12 col-sm-12 col-md-10">
+                                                                <br/>
+                                                                <center>
+                                                                    <input type="button" id="cancelar" class="btn" value="Cancelar" onclick="$('#senha_fin').val('');$('#modal').modal('hide');">
+                                                                    <input type="button" id="validar" value="Validar" onclick="valida_senha_fin()">
+                                                                </center>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="./css/fancybox/jquery.fancybox.css?v=53105" type="text/css" media="screen" />
+<script type="text/javascript" src="./js/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+<script type="text/javascript" src="./js/fancybox/jquery.mousewheel-3.0.6.pack.js"></script>
+<!-- Optionally add helpers - button, thumbnail and/or media -->
+<link rel="stylesheet" href="./css/fancybox/jquery.fancybox-buttons.css?v=1.0.5" type="text/css" media="screen" />
+<script type="text/javascript" src="./js/fancybox/jquery.fancybox-buttons.js?v=1.0.5"></script>
+<script type="text/javascript" src="./js/fancybox/jquery.fancybox-media.js?v=1.0.6"></script>
+<link rel="stylesheet" href="./css/fancybox/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+<script type="text/javascript" src="./js/fancybox/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+<script src="./js/toastr.min.js"></script> 
+
+<script type="text/javascript">
+    var pais = "1";
+    var chargeback = "0";
+    var fimCiclo = "1556690400000";
+    var atual = "1556217093767";
+    var dias, horas, minutos, segundos, hfrio2018, ophfrio2018;
+    
+     function bannerToggle() {
+        $("#hideBanner").toggle('display');
+        $("#bannerVo").toggle('display');
+        $("#showBanner").toggle('display');
+    }
+    function consulta(destinatario) {
+        modalFrame("/relatorio/redeFicha/?destinatario=" + destinatario, '', false);
+    }
+    function previa() {
+        window.location = '/relatorio/previa-bonus';
+    }
+    function extrato(ciclo) {
+        window.location = "/relatorio/extrato-bonus-mensal?ciclo=" + ciclo;
+    }
+    function confirmarExclusao(id, h) {
+        swal({
+            title: "Deseja excluir o Professor ?",
+            text: "ID: <b>" + id + "</b>",
+            type: "warning",
+            confirmButtonText: "Sim",
+            cancelButtonText: "Cancelar",
+            showCancelButton: true,
+            closeOnConfirm: false,
+            showLoaderOnConfirm: true
+        }, function (isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    method: "POST",
+                    url: "/cadastro/excluir-inativo",
+                    data: {h: h},
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.response) {
+                            swal({
+                                title: '',
+                                text: data.msg,
+                                type: 'success',
+                                showConfirmButton: false
+                            });
+                            location.reload();
+                        } else {
+                            swal('Atençao', data.msg, 'error');
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    $(document).ready(function () {
+
+        $(".fancybox-inner").css("height", "600px");
+    });
+
+    function gerarNovoBoleto(pedido) {
+        $.ajax({
+            method: "POST",
+            url: "/painel/boleto-kit",
+            data: {
+                pedido: pedido
+            },
+            dataType: "json",
+            beforeSend: function () {
+                ajaxLoader();
+            },
+            success: function (data) {
+                if (data.retorno) {
+                    swal({
+                        title: 'Sucesso',
+                        text: data.msg,
+                        type: 'success',
+                        showConfirmButton: true,
+                        confirmButtonText: "Continuar"
+
+                    },
+                            function () {
+                                modalFrame("/relatorio/meus-pedidos/gerar-boleto-itau?ped=" + data.pedido, '', false);
+                            });
+
+                } else {
+                    swal('Atençao', data.msg, 'error');
+                }
+            }
+        });
+    }
+
+    function solicitarRecadastro() {
+        swal({
+            title: 'Solicitar Exclusao',
+            text: 'Voce irá iniciar o processo de solicitaçao de exclusao do seu ID. Deseja continuar?',
+            type: 'warning',
+            showConfirmButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Solicite Excluir seu ID',
+            cancelButtonText: 'Cancelar Solicitaçao'
+
+        },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        location.href = "/solicitar-recadastro";
+                    } else {
+                        location.reload();
+                    }
+                });
+    }
+
+    function confirmarGerarPedido() {
+        swal({
+            title: 'Gerar Pedido',
+            text: 'Voce irá iniciar a geraçao de pedido. Deseja continuar?',
+            type: 'success',
+            showConfirmButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Gerar Pedido',
+            cancelButtonText: 'Nao Gerar Pedido Agora'
+
+        },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        location.href = "/pedido/novo?entrega=1";
+                    } else {
+                        location.reload();
+                    }
+                });
+    }
+
+    function confirmarDocWebmailPeru() {
+        $.ajax({
+            url: "/relatorio/downloads/doc-webmail-peru",
+            type: 'POST',
+            dataType: "json",
+            success: function (data) {
+                ajaxLoader();
+                if (data.response === true) {
+                    location.href = "/downloads/Webmail_Peru.pdf";
+                } else {
+                    console.log(data.erro);
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function confirmarDocWebmailColombia() {
+        $.ajax({
+            url: "/relatorio/downloads/doc-webmail-colombia",
+            type: 'POST',
+            dataType: "json",
+            success: function (data) {
+                ajaxLoader();
+                if (data.response === true) {
+                    location.href = "/downloads/Webmail_Colombia.pdf";
+                } else {
+                    console.log(data.erro);
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function confirmarEventoDiamante(conf) {
+        swal({
+            title: 'EVENTO DE DIAMANTES',
+            text: 'Tem certeza de que ' + (conf === "0" ? "nao" : "") + ' deseja participar do nosso evento de diamantes?',
+            type: (conf === "0" ? "warning" : "success"),
+            showConfirmButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Tenho Certeza',
+            cancelButtonText: 'Nao Tenho Certeza Ainda',
+            closeOnConfirm: false,
+            closeOnCancel: false,
+            showLoaderOnConfirm: true,
+            showLoaderOnCancel: true
+
+        },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            url: "/painel/evento-diamante",
+                            type: 'POST',
+                            data: {
+                                confirmar: conf
+                            },
+                            dataType: "text",
+                            success: function (retorno) {
+
+                                ajaxLoader();
+                                location.reload();
+                            },
+                            error: function (error) {
+                                console.log(error);
+                            }
+                        });
+                    } else {
+                        location.reload();
+                    }
+                });
+    }
+
+    function naoParticipouQuestionario(questionario) {
+        $.ajax({
+            url: "/questionario/questionario/naoParticipou",
+            type: 'POST',
+            data: {
+                questionario: questionario
+            },
+            dataType: "text",
+            success: function (retorno) {
+                ajaxLoader();
+                location.reload();
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function confirmarEventoPerola(conf) {
+        swal({
+            title: 'ENCONTRO NACIONAL DE PÉROLAS 2017',
+            text: 'Tem certeza de que ' + (conf === "0" ? "nao" : "") + ' deseja participar do nosso evento nacional de pérolas?',
+            type: (conf === "0" ? "warning" : "success"),
+            showConfirmButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'Tenho Certeza',
+            cancelButtonText: 'Nao Tenho Certeza Ainda',
+            closeOnConfirm: false,
+            closeOnCancel: false,
+            showLoaderOnConfirm: true,
+            showLoaderOnCancel: true
+
+        },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            url: "/painel/evento-perola",
+                            type: 'POST',
+                            data: {
+                                confirmar: conf
+                            },
+                            dataType: "text",
+                            success: function (retorno) {
+
+                                ajaxLoader();
+                                location.reload();
+                            },
+                            error: function (error) {
+                                console.log(error);
+                            }
+                        });
+                    } else {
+                        location.reload();
+                    }
+                });
+    }
+
+    function participacaoCruzeiro(c) {
+        $.ajax({
+            url: "/painel/participou-cruzeiro",
+            type: 'POST',
+            dataType: "text",
+            data: {
+                tipo: c
+            },
+            beforeSend: function () {
+                ajaxLoader();
+            },
+            success: function () {
+                if (c === 0) {
+                    location.reload();
+                } else {
+                    location.href = "/questionario/cruzeiro";
+                }
+            },
+            error: function (error) {
+            }
+        });
+    }
+
+    function questionarioDuplos() {
+        $.ajax({
+            url: "/painel/questionario-duplos",
+            type: 'POST',
+            dataType: "text",
+            beforeSend: function () {
+                ajaxLoader();
+            },
+            success: function () {
+                window.open('https://goo.gl/forms/mM7gl3K7FNfNRCC23', '_blank');
+                swal.close();
+            },
+            error: function (error) {
+            }
+        });
+    }
+
+    function participacaoHinodeFestRio(c) {
+        $.ajax({
+            url: "/painel/participacao-hinodefest-rio",
+            type: 'POST',
+            dataType: "text",
+            data: {
+                tipo: c
+            },
+            beforeSend: function () {
+                ajaxLoader();
+            },
+            success: function () {
+                if (c === 0) {
+                    location.reload();
+                } else {
+                    location.href = "/questionario/hinode-fest-rio";
+                }
+            },
+            error: function (error) {
+            }
+        });
+    }
+
+    function participacaoCancun(participar) {
+        swal({
+            title: "Atençao",
+            text: (participar == '1' ? "D" : "Nao d") + "eseja mesmo confirmar a sua presença na viagem para Cancun?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Confirmar",
+            cancelButtonText: "Cancelar",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            url: 'painel/participacao-cancun',
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                participar: participar
+                            },
+                            beforeSend: function () {
+                                ajaxLoader();
+                            },
+                            success: function () {
+                                location.reload();
+                            },
+                            erro: function (error) {
+                            }
+                        });
+                    } else {
+                        location.reload();
+                    }
+                });
+    }
+
+    function msgBonusLida() {
+        $.ajax({
+            url: 'painel/msg-bonus-lida',
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function () {
+                ajaxLoader();
+            },
+            success: function () {
+                location.href = "/relatorio/extrato-bonus-mensal";
+            },
+            erro: function (error) {
+            }
+        });
+    }
+
+    function promoSoftOpening() {
+        $.ajax({
+            url: 'painel/promo-soft-opening',
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function () {
+                ajaxLoader();
+            },
+            success: function () {
+                location.reload();
+            },
+            erro: function (error) {
+            }
+        });
+    }
+
+    function cuponsLidos(qtd) {
+        $.ajax({
+            url: 'painel/cupons-lidos',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                cupons: qtd
+            },
+            beforeSend: function () {
+                ajaxLoader();
+            },
+            complete: function () {
+                swal.close();
+            }
+        });
+    }
+
+    function notificacaoCol() {
+        $.ajax({
+            url: 'painel/notificacao-col',
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function () {
+
+            },
+            success: function () {
+                swal.close();
+            }
+        });
+    }
+
+    function nconfirmaLeadership() {
+        swal({
+            title: "Atençao",
+            text: "Nao deseja confirmar sua participaçao no Leadership Hinode?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Confirmar",
+            cancelButtonText: "Cancelar",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            url: '/questionario/leadership/participouLeadership',
+                            type: 'POST',
+                            dataType: 'json',
+                            beforeSend: function () {
+                                ajaxLoader();
+                            },
+                            success: function () {
+                                location.reload();
+                            },
+                            erro: function (error) {
+                            }
+                        });
+                    } else {
+                        location.reload();
+                    }
+                });
+    }
+
+    function naoConvencao2017() {
+        $.ajax({
+            url: 'painel/naoConvencao2017',
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function () {
+                ajaxLoader()
+            },
+            success: function () {
+                swal.close();
+            }
+        });
+    }
+
+    function nconfirmaEncImperiais() {
+        swal({
+            title: "Atençao",
+            text: "Nao deseja confirmar sua participaçao no Encontro de Imperiais?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Confirmar",
+            cancelButtonText: "Cancelar",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        $.ajax({
+                            url: '/questionario/encontro-imperiais/nparticipouEncImperiais',
+                            type: 'POST',
+                            dataType: 'json',
+                            beforeSend: function () {
+                                ajaxLoader();
+                            },
+                            success: function () {
+                                location.reload();
+                            },
+                            erro: function (error) {
+                            }
+                        });
+                    } else {
+                        location.reload();
+                    }
+                });
+    }
+
+    var neoUserName = 'GRUPO HINODE';
+    var neoUserEmail = 'sad@asda.com';
+    var neoUserCPF = '60621451053';
+    var neoUserTelefone = '11';
+
+    function alterarCicloPadrao() {
+        modalFrame("painel/alterar-ciclo-padrao", '', true);
+        $('#myModal').find('.modal-dialog').css({width: '70%'});
+    }
+
+
+    function pesquisaLink() {
+        var a = 0;
+        $.ajax({
+            url: 'painel/pesquisa',
+            type: 'json',
+            method: 'POST',
+            async: false,
+            beforeSend: function () {
+                ajaxLoader();
+            },
+            complete: function () {
+                swal.close();
+                window.parent.jQuery.fancybox.close();
+            },
+            success: function (retorno) {
+                if (retorno.response) {
+                    console.log("aqui");
+                    a = 1;
+                } else {
+                    console.log("respondido");
+                    a = 0;
+                }
+            }
+        });
+        console.log(a);
+        if (a == 1) {
+            window.open("https://goo.gl/forms/9Je9Q6EuPTLQuuD82", '_blank');
+        }
+    }
+    function mudarColuna(coluna) {
+        $("#" + coluna + "").html('Derramamento');
+    }
+    function voltarColuna(coluna) {
+        $("#" + coluna + "").html('Derra<br>ma<br>mento');
+    }
+
+    function abreDetalhado(lado, base) {
+        location.href = "/relatorio/calculo-binario-detalhado?lado=" + lado + "&base=" + base
+    }
+    function notificacaoPedPeru() {
+        $.ajax({
+            url: 'painel/notificacao-ped-peru',
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function () {
+                ajaxLoader();
+            },
+            success: function () {
+                window.location.href = '../mensagem-rede/recebidas';
+            }
+        });
+    }
+    
+    function avisoEquador() {
+        $.ajax({
+            url: 'painel/aviso-dados-equador',
+            method: 'POST',
+            dataType: 'json',
+            success: function () {
+                swal.close();
+            },
+            beforeSend: function () {
+                ajaxLoader();
+            }
+        });
+    }
+    
+    function notificacaoPesquisaDiamante2018() {
+        $.ajax({
+            url: 'painel/notificacao-pesquisa-diamante-2018',
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function () {
+                ajaxLoader();
+            },
+            success: function () {
+                window.location.href = '../questionario/pesquisa-encontro-diamantes-2018';
+            }
+        });
+    }
+
+    function nconfirmaQipu(tipo) {
+        $.ajax({
+            url: 'painel/nconfirma-qipu',
+            method: 'POST',
+            data: {
+                tipo: tipo
+            },
+            dataType: 'json',
+            success: function () {
+                swal.close();
+            },
+            beforeSend: function () {
+                ajaxLoader();
+            }
+        });
+    }
+
+    function HFRio2018(cod, op) {
+        hfrio2018 = cod;
+        ophfrio2018 = op;
+        if (ophfrio2018 === 2) {
+            $.ajax({
+                url: 'painel/nHFRio2018',
+                method: 'POST',
+                data: {
+                    cod: hfrio2018
+                },
+                dataType: 'json',
+                success: function () {
+                    swal.close();
+                },
+                beforeSend: function () {
+                    ajaxLoader();
+                }
+            });
+        } else if (ophfrio2018 === 3) {
+            $.ajax({
+                url: 'painel/tHFRio2018',
+                method: 'POST',
+                data: {
+                    cod: hfrio2018
+                },
+                dataType: 'json',
+                success: function () {
+                    swal.close();
+                },
+                beforeSend: function () {
+                    ajaxLoader();
+                }
+            });
+        } else {
+            window.location.href = '/hinode-fest-rio2018/ingressos/' + hfrio2018;
+        }
+    }
+
+    function lidoHFRio2018(cod) {
+        $.ajax({
+            url: 'painel/lidoHFRio2018',
+            method: 'POST',
+            data: {
+                cod: cod
+            },
+            dataType: 'json',
+            success: function () {
+                swal.close();
+            },
+            beforeSend: function () {
+                ajaxLoader();
+            }
+        });
+    }
+
+    function mostraTeclado() {
+        var exb = $("#exibe").val();
+        if (exb === '0') {
+            $("#teclado").hide("slow");
+            $("#exibe").val('1')
+        } else {
+            $("#teclado").show("slow");
+            $("#exibe").val('0')
+        }
+    }
+
+    function senha_fin(digito) {
+        var senhaFinanceira = ($("#senha_fin").val()).toString();
+        if (senhaFinanceira.length < 12) {
+            if (digito === 10) {
+                $("#senha_fin").val($("#senha_fin").val() + '0');
+            } else {
+                $("#senha_fin").val($("#senha_fin").val() + digito);
+            }
+        }
+    }
+
+    function valida_senha_fin() {
+        var senha = $("#senha_fin").val();
+
+        $.post("/validacao/verificar-senha", {
+            pwd: senha,
+            tipo: "fin"
+        },
+                function (data) {
+                    if (data.response == true) {
+                        $('#verifsenha').val(senha);
+                        if (ophfrio2018 === 2) {
+                            $.ajax({
+                                url: 'painel/nHFRio2018',
+                                method: 'POST',
+                                data: {
+                                    cod: hfrio2018
+                                },
+                                dataType: 'json',
+                                success: function () {
+                                    $("#modal").modal('hide');
+                                    swal.close();
+                                },
+                                beforeSend: function () {
+                                    ajaxLoader();
+                                }
+                            });
+                        } else if (ophfrio2018 === 3) {
+                            $.ajax({
+                                url: 'painel/tHFRio2018',
+                                method: 'POST',
+                                data: {
+                                    cod: hfrio2018
+                                },
+                                dataType: 'json',
+                                success: function () {
+                                    $("#modal").modal('hide');
+                                    swal.close();
+                                },
+                                beforeSend: function () {
+                                    ajaxLoader();
+                                }
+                            });
+                        } else {
+                            window.location.href = '/hinode-fest-rio2018/ingressos/' + hfrio2018;
+                        }
+                    } else {
+                        swal("Atençao", data.msg, "warning");
+                    }
+                }, 'json');
+
+        $("#senha_fin").val("");
+    }
+    function naoParticipouApertura() {
+        $.ajax({
+            url: 'painel/nao-participou-apertura',
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function () {
+                ajaxLoader();
+            },
+            success: function () {
+                window.location.href = '../';
+            }
+        });
+    }
+    function naoParticipouAperturaCol() {
+        $.ajax({
+            url: 'painel/nao-participou-apertura-col',
+            type: 'POST',
+            dataType: 'json',
+            beforeSend: function () {
+                ajaxLoader();
+            },
+            success: function () {
+                window.location.href = '../';
+            }
+        });
+    }
+
+    function tentaivaCompra(produto, qtd, emitente, franquia) {
+        // produto = produto.substring(0, 6).replace(/^0+(?!\.|$)/, '');
+        // console.log(produto);
+        $.ajax({
+            url: 'carrinho/tentativaCompra',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                id_produto: produto,
+                qtd_produto: qtd,
+                emitente: emitente,
+                tentativa: 1
+            },
+            beforeSend: function () {
+                ajaxLoader();
+            },
+            success: function (retorno) {
+                console.log(retorno);
+                if (retorno.response == true) {
+
+                    swal({
+                        title: 'Sucesso!',
+                        text: 'Produto adicionado ao carrinho para compra em ' + franquia,
+                        showLoaderOnConfirm: true
+                    },
+                            function (isConfirm) {
+                                window.location.href = "/pedido/novo?entrega=1";
+                            });
+
+                } else {
+                    swal('Atençao', retorno.msg, 'warning');
+                }
+            },
+            erro: function (error) {
+                swal('Atençao', 'erro na tentativa compra', 'warning');
+            }
+        });
+    }
+    
+            function CAllianz(cod, op) {
+//        cod = cod;
+//        op = op;
+        if (op === 2) {
+            $.ajax({
+                url: 'painel/CAllianzNao',
+                method: 'POST',
+                data: {
+                    cod: cod
+                },
+                dataType: 'json',
+                success: function () {
+                    swal.close();
+                },
+                beforeSend: function () {
+                    ajaxLoader();
+                }
+            });
+        } else if (op === 3) {
+            window.location.href = '/convencao-allianz/ingressos/'+cod;
+        } else {
+            window.location.href = '/convencao-allianz/ingressos/'+cod;
+        }
+    }
+    
+    function tentativaCompraNegada(produto, emitente) {
+        // produto = produto.substring(0, 6).replace(/^0+(?!\.|$)/, '');
+        // console.log(produto);
+        $.ajax({
+            url: 'carrinho/tentativaCompraNegada',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                id_produto: produto,
+                emitente: emitente
+            },
+//            beforeSend: function () {
+//               // ajaxLoader();
+//            },
+            success: function (retorno) {
+                console.log(retorno);
+//                if (retorno.response == true) {
+//                   // location.reload();
+//               }
+            },
+            erro: function (error) {
+                swal('Atençao', 'Erro no cancelamento da tentativa compra', 'warning');
+            }
+        });
+    }
+	
+    function confirmPerola(resp) {
+       
+        $.ajax({
+            method: "POST",
+            url: "/painel/presencaPerolas",
+            data: {resp: resp},
+            dataType: "json",
+            success: function (data) {
+                if (data.response) {
+                    swal({
+                        title: '',
+                        text: data.msg,
+                        type: 'success',
+                        showConfirmButton: true
+                    });
+                    location.reload();
+                } else {
+                    swal('Atençao', data.msg, 'error');
+                }
+            }
+        });
+            
+    }
+    
+    function evtConfirmPerola(resp) {
+       
+        $.ajax({
+            method: "POST",
+            url: "/painel/eventoPerolas",
+            data: {resp: resp},
+            dataType: "json",
+            success: function (data) {
+                if (data.response) {
+                    swal({
+                        title: '',
+                        text: data.msg,
+                        type: 'success',
+                        showConfirmButton: true
+                    });
+                    location.reload();
+                } else {
+                    swal('Atençao', data.msg, 'error');
+                }
+            }
+        });
+            
+    }
+
+    function fecharNotificacao(codigo) {
+        $.ajax({
+            url: 'painel/fecharNotificacao',
+            type: 'POST',
+            dataType: 'json',
+            data: {codigo: codigo}
+        });
+    }
+
+    
+    function confirmarQuestRespondido(){
+       $.ajax({
+            url: 'painel/confirma-quest-respondido',
+            type: 'POST',
+            dataType: 'json',
+            success: function (retorno) {
+                console.log(retorno);
+                location.href='https://goo.gl/forms/WahVnR1PEgNy2tVG3';
+            },
+            erro: function (error) {
+                console.log(error);
+                swal("Atençao", "Erro ao negar ajuda", "warning");
+            }
+        });
+    }
+    
+    function confFoiAjudado(codigo, id_up, chave) {
+        $.ajax({
+            url: 'painel/confFoiAjudado',
+            type: 'POST',
+            dataType: 'json',
+            data: {codigo: codigo, id_up:id_up, chave:chave}
+        });
+    }
+
+    function negarNotificacaoAjuda(tipo){
+        $.ajax({
+            url: 'painel/negar-solicitacao-ajuda',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                tipo: tipo
+            },
+            success: function (retorno) {
+                console.log(retorno);
+            },
+            erro: function (error) {
+                console.log(error);
+                swal("Atençao", "Erro ao negar ajuda", "warning");
+            }
+        });
+    }
+    
+    function visualizarPedidoContestado(dataini){
+       window.location.href= '/relatorio/meus-pedidos?dataIni='+dataini+'';
+    }
+
+</script>
+<style type="text/css">
+    @media(min-width:768px){
+        .box-home  .box > .icon > .info { 
+            min-height: 300px;
+        }
+    }
+</style>                    </div>  
+                </div>
+            </div>
+        </div>        
+        <img src='./img/ajax-loader-filtro.gif' height='120' style="display: none">
+        <div class="col-md-12 col-xs-12">
+    <p id="footer-copyright" class="col-xs-12">
+        &copy; 2019 <a href="" target="_blank" class="ahinode">Grupo EDACI</a>. Criado por <a href="" target="_blank">Denilson e Gabriel</a>.
+    </p>  
+</div>        
+        <script type="text/javascript">
+                        
+            if ($(location).attr("pathname") === "/" || $(location).attr("pathname") === "/painel"){
+                var neoAvatarShow = true;
+            }
+            else{
+                var neoAvatarShow = false;
+            }
+        </script>
+        
+    </body>   
+    <script src="./js/demo-skin-changer.js"></script> <!-- only for demo -->
+    <script src="./js/bootstrap.min.js"></script>	
+    <script src="./js/jquery.nanoscroller.min.js"></script>
+    <script src="./js/scripts.min.js"></script>
+    <script src="./js/jquery.mask.js"></script> 
+    <script src="./js/momento.js"></script>     
+    <script src="./js/number_format.js"></script>
+    <script>                         
+               
+        function pageReload() {
+            ajaxLoader();
+            location.reload();
+        }
+        
+        localStorage.setItem("id", 10051265);            
+                                
+        swal.setDefaults(
+            { 
+                confirmButtonColor: "#A5DC86",
+                cancelButtonText: "Cancelar",
+                html: true,
+                allowEscapeKey: false
+            }
+        );
+
+        function ajaxLoader() {
+            swal({
+                title: "<img src='./img/ajax-loader-filtro.gif' height='120'> <br/> Carregando...",
+                showConfirmButton: false,                           
+            });
+        };
+    
+        $(document).ajaxError(function(e,r,s) {   
+            if(r.statusText != 'canceled'){
+                swal('Atençao','Problema de conexao com o Banco de Dados', 'error');
+            }            
+        });
+        
+        function acessarToken(r) { 
+            if ($.fancybox !== undefined){            
+                $.fancybox.close();
+            }
+            
+            modalFrame('/login/token?modal=1&rel='+r, '', true);
+        };
+
+        function sessionExpired() {
+            swal({
+                title: "<h4>Sessao Expirada</h4>",
+                text: 'Nao foi possível completar açao, clique abaixo para realizar um novo login.',
+                type: 'warning',
+                confirmButtonText: "Logar Novamente",
+                confirmButtonColor: "#d6a328",
+                allowEscapeKey: false,
+                closeOnConfirm: false
+            }, function(){
+                pageReload();
+            });
+        };
+        
+        Number.prototype.format = function(n, x, s, c) {
+            var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\D' : '$') + ')',
+                num = this.toFixed(Math.max(0, ~~n));
+            return (c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ','));
+        };
+        
+        function bloquearCompra(){
+            swal({
+                title: "Tem certeza de que deseja bloquear seu ID para compra?",
+                text: "Para bloquear seu id para compra preencha sua senha",
+                type: "input",
+                inputType: "password",
+                showCancelButton: true,
+                confirmButtonText: "Bloquear",
+                cancelButtonText: "Nao Bloquear",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            },
+            function(senha){
+                if (senha === false){ 
+                    return false;
+                }
+
+                if (senha !== "") {
+                    $.ajax({
+                        url: '/painel/bloquear-compra',
+                        type: 'json',
+                        method: 'POST',
+                        data:{
+                          senha: senha  
+                        },
+                        beforeSend: function(){
+                          ajaxLoader();  
+                        },
+                        success: function(retorno){
+                            if (retorno.retorno){
+                                swal({
+                                    title: "Sucesso!", 
+                                    text: retorno.msg, 
+                                    type: "success"
+                                }, function(){
+                                    location.reload();
+                                });
+                            }
+                            else{
+                                swal("Atençao!", retorno.msg, "warning");
+                            }
+                        }               
+                    }); 
+                  }
+                  else{
+                      swal("Atençao!", "Preencha sua senha para poder bloquear o ID para compra!", "info");
+                  }
+            });
+        }
+
+        function desbloquearCompra(){
+            swal({
+                title: "Tem certeza de que deseja desbloquear seu ID para compra?",
+                text: "Para desbloquear seu id para compra preencha sua senha",
+                type: "input",
+                inputType: "password",
+                showCancelButton: true,
+                confirmButtonText: "Desbloquear",
+                cancelButtonText: "Nao Desbloquear",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            },
+            function(senha){
+                if (senha === false){ 
+                    return false;
+                }
+
+                if (senha !== "") {
+                    $.ajax({
+                        url: '/painel/desbloquear-compra',
+                        type: 'json',
+                        method: 'POST',
+                        data:{
+                          senha: senha  
+                        },
+                        beforeSend: function(){
+                          ajaxLoader();  
+                        },
+                        success: function(retorno){
+                            if (retorno.retorno){
+                                swal({
+                                    title: "Sucesso!", 
+                                    text: retorno.msg, 
+                                    type: "success"
+                                }, function(){
+                                    location.reload();
+                                });
+                            }
+                            else{
+                                swal("Atençao!", retorno.msg, "warning");
+                            }
+                        }               
+                    }); 
+                }
+                else{
+                    swal("Atençao!", "Preencha sua senha para poder desbloquear o ID para compra!", "info");
+                }
+            });
+        }
+    </script>        
+</html>

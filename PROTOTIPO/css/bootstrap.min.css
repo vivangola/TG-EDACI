@@ -3934,6 +3934,10 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
 .navbar-inverse .navbar-brand {
     color:#9d9d9d
 }
+
+.falert{
+	color: #5f5e5c;
+}
 .navbar-inverse .navbar-brand:focus, .navbar-inverse .navbar-brand:hover {
     color:#fff;
     background-color:transparent

@@ -44,6 +44,11 @@ button{
     height: 50px;
 }
 
+.close{
+    width: 2%;
+    height: 8px;
+}
+
 .titulo{
 	color: black !important;
 }
@@ -106,7 +111,7 @@ button{
 }
 
 .login-conteudo form{
-    padding: 16px 36px 16px 36px;
+    padding: 16px 36px 0px 36px;
     min-height: 270px;
 }
 
@@ -137,7 +142,7 @@ button{
 /* fim media img-wid*/
 
 .lb-esqueceu{
-    margin-bottom: -45px;
+	
 }
 
 /* Correçao do login para quando usa dispositivos móveis de até o máximo de 520px de resolução*/

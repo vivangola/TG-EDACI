@@ -517,10 +517,8 @@ h2 {
 }
 h3 {
     color: #003253;
-    border-bottom: 1px solid #F3CF3B;
+    border-bottom: 1px solid #2980b9;
     padding-left: 5px;
-    margin-bottom: 15px;
-    margin-top: 30px;
     font-size: 1.4em
 }
 h3 > span {
@@ -8084,7 +8082,7 @@ svg {
 
 .titulo-relatorio{
     margin-top: 17px !important;
-    color: #00004d !important; /*3498db*/
+    color: #000!important; /*3498db*/
     font-weight: bold;
 }
 

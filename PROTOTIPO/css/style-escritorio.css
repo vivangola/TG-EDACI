@@ -17,7 +17,7 @@
     border: 8px solid white; 
     line-height: 88px; 
     border-radius: 50%; 
-    background: rgb(170,196,196); 
+    background: #2980b9 !important; 
     vertical-align: middle; 
 }
 .box > .icon:hover > .image { 
@@ -35,7 +35,7 @@
     margin-top: -24px; 
     background: rgba(0, 0, 0, 0.04); 
     border: 1px solid #e0e0e0; 
-    padding: 15px 0 10px 0; 
+    padding: 30px 0 10px 0; 
    
 }
 @media(min-width:768px){
@@ -376,7 +376,6 @@ p.cinza-padrao{
     vertical-align: baseline !important;
 }
 
-/* Novas alteraçoes 02/01/2017 - Renan Medeiros */
 .azul-escuro{
     color: #2570aa;
 }

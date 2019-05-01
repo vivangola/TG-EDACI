@@ -17,7 +17,7 @@
     border: 8px solid white; 
     line-height: 88px; 
     border-radius: 50%; 
-    background: #2980b9 !important; 
+    background: #c0392b !important; 
     vertical-align: middle; 
 }
 .box > .icon:hover > .image { 
@@ -377,7 +377,7 @@ p.cinza-padrao{
 }
 
 .azul-escuro{
-    color: #2570aa;
+    color: #a20000;
 }
 .carousel-control {
     width: 7%;
@@ -412,7 +412,7 @@ p.cinza-padrao{
 }
 
 .titulo-azul-lg{
-    color: #2570aa;
+    color: #a20000;
     font-size: 2.1em;
 }
 

@@ -228,8 +228,7 @@
     .theme-whbl #header-navbar .nav > li.mensagem > a:hover, .theme-whbl #header-navbar .nav > li.mensagem > a:focus{
         background: transparent !important;
     }
-
-
+	
     .pulse-button {
         position: relative;
         width: 47px;
@@ -269,7 +268,7 @@
 <link rel="stylesheet" href="./css/font-awesome-animation.min.css">
 <header class="navbar navbar-min" id="header-navbar">
     <div class="container">
-        <a id="logo" class="navbar-brand pz" href="/">
+        <a id="logo" class="navbar-brand pz" href="./menu.html">
         <div align="center" style="margin:10px;"><img src="./img/logo_branco.png" alt="" class="normal-logo logo-white imglogo"></div>
         </a>
 			<div class="nav-no-collapse pull-right" id="header-nav"> 
@@ -836,7 +835,7 @@
                        
                                             <li >                        
                            
-                                    <a class="my-link" href="/cadastro" >
+                                    <a class="my-link" href="./cadastro.html" >
                                     <span class="hidden-xs showopacity fa fa-plus icon-ajuste"></span> <span class="menu-item hid-menu">Cadastrar</span>                                
                                     </a>
                                 </li>
@@ -1004,14 +1003,8 @@
                         </li> 
 						   
                                 </ul>
-            <div class="sidebar-collapse" id="sidebar-collapse">
-                <i class="fa fa-angle-double-left fa-esconder" id="icone-fim" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
-            </div>
         </div>        
         <br />
-        <div class="col-md-12 col-xs-12 col-sm-12 hid-menu hidden-xs">
-            <img src="./img/logo.png" draggable="false" onclick="javascript:window.open('','_blank');" class="img-logo">
-        </div>
     </div>
 </nav> 
    
@@ -1433,7 +1426,7 @@
 						<div class="box">                           
 							<div class="icon">
 								<div class="image"><i class="fa fa-user"></i></div>
-									<div class="info" style="height:900px; padding:30px">
+									<div class="info" style="height:800px; padding:30px">
 										<h3 class="title">Perfil</h3>
 										<div class="col-xs-12 col-sm-12 col-lg-12 col-md-12 pd-0">                    
 											<div class="new-color-1 border-new-color-1"> 
@@ -1446,326 +1439,846 @@
 																<div class="widget-body" style="padding-left:30px; padding-right:30px">
                                                         <div class="widget-main">
                                                             <div class="row" id="dvCadastro"> 
-                                                                    <div class="row"> 
-                                                                        <div class="col-md-8"> 
+                                                                    <div class="row" style="margin:20px"> 
+                                                                        <div class="col-md-3 pointer" id="pessoais"> 
                                                                             <h2 align="left" class="titulo-relatorio"> &nbsp;&nbsp; <span class="fa fa-id-card-o" aria-hidden="true"> </span>
                                                                                 Dados Pessoais 
                                                                             </h2>
                                                                         </div>    
-                                                                        <div class="col-md-12">
-                                                                            <hr style="padding-top: 0px; margin-top: 4px !important;">
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="row">
-																		<div class="col-md-1">
-                                                                            <div class="row text-right">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <b>Nome:</b>
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-11">
-                                                                            <div class="row">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <input readonly type="text" maxlength="60" class="form-control user-success" id="nome" name="nome" value="Vivangola Perez da Silva Cardoso">
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-																	<div class="row">
-																		<div class="col-md-1">
-                                                                            <div class="row text-right">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12 ">
-                                                                                    <b>CPF:</b>
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-3">
-                                                                            <div class="row">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <input readonly type="text" maxlength="60" class="form-control user-success" id="cpf" name="cpf" value="123.456.789-10">
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-																		<div class="col-md-1">
-                                                                            <div class="row text-right">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12 ">
-                                                                                    <b>RG:</b>
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-3">
-                                                                            <div class="row">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <input readonly type="text" maxlength="60" class="form-control user-success" id="rg" name="rg" value="12.456.789-0">
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-																		<div class="col-md-1">
-                                                                            <div class="row text-right">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <b>RA:</b>
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-3">
-                                                                            <div class="row">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <input readonly type="text" maxlength="60" class="form-control user-success" id="ra" name="ra" value="0210481683013">
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-																	
-																	<div class="row">
-																		<div class="col-md-1">
-                                                                            <div class="row text-right">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <b>Sexo:</b>
-                                                                                </div>                                                                    
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-3">
-                                                                            <div class="row">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <input readonly type="text" maxlength="60" class="form-control user-success" id="sexo" name="sexo" value="Masculino">
-                                                                                </div>                                                                        
-                                                                            </div>
-                                                                        </div>
-																		<div class="col-md-1">
-                                                                            <div class="row text-right">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <b>Idade:</b>
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-3">
-                                                                            <div class="row">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <input readonly type="text" maxlength="60" class="form-control user-success" id="idade" name="idade" value="22">
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-																		<div class="col-md-1">
-                                                                            <div class="row text-right">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <b>Civil:</b>
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-3">
-                                                                            <div class="row">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <input readonly type="text" maxlength="60" class="form-control user-success" id="civil" name="civil" value="Viúvo">
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-																	<div class="row">
-																		<div class="col-md-1">
-                                                                            <div class="row">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <b>Endereço:</b>
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-7">
-                                                                            <div class="row">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <input readonly type="text" maxlength="60" class="form-control user-success" id="endereco" name="endereco" value="Rua da Minha Casa Onde Eu Moro">
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-																		<div class="col-md-1">
-                                                                            <div class="row text-right">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <b>Num.:</b>
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-3">
-                                                                            <div class="row">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <input readonly type="text" maxlength="60" class="form-control user-success" id="num" name="num" value="53105">
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-																	<div class="row">
-																		<div class="col-md-1">
-                                                                            <div class="row text-right">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <b>Bairro:</b>
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-5">
-                                                                            <div class="row">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <input readonly type="text" maxlength="60" class="form-control user-success" id="bairro" name="bairro" value="Vila do Mapão">
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-																		<div class="col-md-1">
-                                                                            <div class="row text-right">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <b>Cidade:</b>
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-5">
-                                                                            <div class="row">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <input readonly type="text" maxlength="60" class="form-control user-success" id="cidade" name="cidade" value="Ipaussu">
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row"> 
-                                                                        <div class="col-md-8"> 
+																		<div class="col-md-3 pointer" id="contato"> 
                                                                             <h2 align="left" class="titulo-relatorio"> &nbsp;&nbsp; <span class="fa fa-phone" aria-hidden="true"> </span>
                                                                                 Contato 
                                                                             </h2>
-                                                                        </div>    
-                                                                        <div class="col-md-12">
-                                                                            <hr style="padding-top: 0px; margin-top: 4px !important;">
-                                                                        </div>
-                                                                    </div>
-																	<div class="row">
-																		<div class="col-md-1">
-                                                                            <div class="row text-right">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <b>E-mail:</b>
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-7">
-                                                                            <div class="row text">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <input readonly type="text" maxlength="60" class="form-control user-success" id="email" name="email" value="vivangola100%jesus@hotmail.com">
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-																		<div class="col-md-1">
-                                                                            <div class="row text-right">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <b>Num.:</b>
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-3">
-                                                                            <div class="row">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <input readonly type="text" maxlength="60" class="form-control user-success" id="telefone" name="telefone" value="(14)99999-9999">
-                                                                                </div> 
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    </div>
-
-                                                                    <div class="row"> 
-                                                                        <div class="col-md-8"> 
+                                                                        </div>  
+																		<div class="col-md-3 pointer" id="institucional"> 
                                                                             <h2 align="left" class="titulo-relatorio"><span class="fa fa-briefcase" aria-hidden="true"> </span>
                                                                                 Institucional 
                                                                             </h2>
-                                                                        </div>    
+                                                                        </div>  
+																		<div class="col-md-3 pointer" id="trabalho"> 
+                                                                            <h2 align="left" class="titulo-relatorio"> &nbsp;&nbsp; <span class="fa fa-briefcase" aria-hidden="true"> </span>
+                                                                                Dados do Trabalho 
+                                                                            </h2>
+                                                                        </div>  
                                                                         <div class="col-md-12">
                                                                             <hr style="padding-top: 0px; margin-top: 4px !important;">
                                                                         </div>
-                                                                    </div>                   
-																	<div class="row">
-																		<div class="col-md-2">
-                                                                            <div class="row text-right">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <b>Nome do Curso:</b>
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-10">
-                                                                            <div class="row">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <input readonly type="text" maxlength="60" class="form-control user-success" id="curso" name="curso" value="Tecnólogo em Análise e Desenvolvimento de Sistemas">
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
                                                                     </div>
-																	<div class="row">
-																		<div class="col-md-2">
-                                                                            <div class="row text-right">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12 ">
-                                                                                    <b>Escolaridade:</b>
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-3">
-                                                                            <div class="row">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <input readonly type="text" maxlength="60" class="form-control user-success" id="escolaridade" name="escolaridade" value="Graduação">
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-																		<div class="col-md-1">
-                                                                            <div class="row text-right">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12 ">
-                                                                                    <b>Serie:</b>
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-3">
-                                                                            <div class="row">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <input readonly type="text" maxlength="60" class="form-control user-success" id="serie" name="serie" value="6° Semestre">
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-																		<div class="col-md-1">
-                                                                            <div class="row text-right">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <b>Período:</b>
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-md-2">
-                                                                            <div class="row">     
-                                                                                <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                    <input readonly type="text" maxlength="60" class="form-control user-success" id="periodo" name="periodo" value="Noturno">
-                                                                                </div> 
-                                                                                                                                                            
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-																
+																	<div id="divPessoais">
+																		<div class="row">
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Nome:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-11">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="nome" name="nome" value="Vivangola Perez da Silva Cardoso">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																		</div>
+																		<div class="row">
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12 ">
+																						<b>CPF:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-3">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="cpf" name="cpf" value="123.456.789-10">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12 ">
+																						<b>RG:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-3">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="rg" name="rg" value="12.456.789-0">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>RA:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-3">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="ra" name="ra" value="0210481683013">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																		</div>
+																		
+																		<div class="row">
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Sexo:</b>
+																					</div>                                                                    
+																				</div>
+																			</div>
+																			<div class="col-md-3">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<select readonly class="form-control user-success" id="sexo" name="sexo">
+																						<option value="M" selected>Masculino</option>
+																						<option value="F" >Feminino</option>
+																						</select>
+																					</div>                                                                        
+																				</div>
+																			</div>
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Idade:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-3">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="idade" name="idade" value="22">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Civil:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-3">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<select readonly class="form-control user-success" id="civil" name="civil">
+																							<option value="1">Viúvo</option>
+																						</select>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																		</div>
+																		<div class="row">
+																			<div class="col-md-1">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Endereço:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-7">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="endereco" name="endereco" value="Rua da Minha Casa Onde Eu Moro">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Num.:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-3">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="num" name="num" value="53105">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																		</div>
+																		<div class="row">
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Bairro:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-5">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="bairro" name="bairro" value="Vila do Mapão">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Cidade:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-5">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="cidade" name="cidade" value="Ipaussu">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																		</div>
+																		<div class="row">
+																		
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Estado:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-1">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<select readonly class="form-control user-success" style=" width: 75px; id="estado" name="estado">
+																							<option value="SP">SP</option>
+																						</select>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>CEP:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-3">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="cep" name="cep" value="18950-000">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-2">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Complemento:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-4">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="cep" name="cep" value="Casa">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																		</div>
+																		<div class="row">
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12 ">
+																						<b>Banco:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-2">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="escolaridade" name="escolaridade" value="230">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Agência:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-2">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="periodo" name="periodo" value="2020">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12 ">
+																						<b>Conta:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-5">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="serie" name="serie" value="123564-8">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			
+																		</div>
+																	</div>
+                                                                    <div id="divContato"> 
+																		<div class="row">
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Fixo:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-5">
+																				<div class="row text">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="fixo" name="fixo" value="(14) 3344-1526">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Celular:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-5">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="celular" name="celular" value="(14) 99782-8864">
+																					</div> 
+																				</div>
+																			</div>
+																		</div>
+																		<div class="row">
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>E-mail 1:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-5">
+																				<div class="row text">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="email" name="email" value="vivangola100%jesus@hotmail.com">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>E-mail 2:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-5">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="telefone" name="telefone" value="vivangola100%jesus@hotmail.com">
+																					</div> 
+																				</div>
+																			</div>
+																		</div>
+																		<div class="row">
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Facebook:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-5">
+																				<div class="row text">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="email" name="email" value="vivangola100%jesus@hotmail.com">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Skype:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-5">
+																				<div class="row text">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="email" name="email" value="vivangola100%jesus@hotmail.com">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Lattes:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-5">
+																				<div class="row text">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="email" name="email" value="vivangola100%jesus@hotmail.com">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+
+                                                                    <div id="divInstitucional">                   
+																		<div class="row">
+																			<div class="col-md-2">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Nome do Curso:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-10">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="curso" name="curso" value="Tecnólogo em Análise e Desenvolvimento de Sistemas">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																		</div>
+																		<div class="row">
+																			<div class="col-md-2">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12 ">
+																						<b>Escolaridade:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-3">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="escolaridade" name="escolaridade" value="Graduação">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12 ">
+																						<b>Serie:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-3">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="serie" name="serie" value="6° Semestre">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Período:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-2">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="periodo" name="periodo" value="Noturno">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																		</div>
+																		<div class="row">
+																			<div class="col-md-2">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Curso de Graduação:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-10">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="curso" name="curso" value="Tecnólogo em Análise e Desenvolvimento de Sistemas">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																		</div>
+																		<div class="row">
+																			<div class="col-md-2">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12 ">
+																						<b>Instituição:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-7">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="escolaridade" name="escolaridade" value="FATEC Ourinhos">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Ano:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-2">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="periodo" name="periodo" value="2019">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																		</div>
+																		<div class="row">
+																			<div class="col-md-2">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Curso de Mestrado:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-10">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="curso" name="curso" value="Tecnólogo em Análise e Desenvolvimento de Sistemas">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																		</div>
+																		<div class="row">
+																			<div class="col-md-2">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12 ">
+																						<b>Instituição:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-7">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="escolaridade" name="escolaridade" value="FATEC Ourinhos">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Ano:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-2">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="periodo" name="periodo" value="2019">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																		</div>
+																		<div class="row">
+																			<div class="col-md-2">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Curso de Doutorado:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-10">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="curso" name="curso" value="Tecnólogo em Análise e Desenvolvimento de Sistemas">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																		</div>
+																		<div class="row">
+																			<div class="col-md-2">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12 ">
+																						<b>Instituição:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-7">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="escolaridade" name="escolaridade" value="FATEC Ourinhos">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Ano:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-2">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="periodo" name="periodo" value="2019">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div id="divTrabalho"> 
+																		<div class="row">
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Empresa:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-11">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="nome" name="nome" value="Vivangola Perez da Silva Cardoso">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																		</div>
+																		<div class="row">
+																			<div class="col-md-1">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Endereço:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-7">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="endereco" name="endereco" value="Rua da Minha Casa Onde Eu Moro">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Num.:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-3">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="num" name="num" value="53105">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																		</div>
+																		<div class="row">
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Bairro:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-5">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="bairro" name="bairro" value="Vila do Mapão">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Cidade:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-5">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="cidade" name="cidade" value="Ipaussu">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																		</div>
+																		<div class="row">
+																		
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Estado:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-1">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<select readonly class="form-control user-success" style=" width: 75px; id="estado" name="estado">
+																							<option value="SP">SP</option>
+																						</select>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>CEP:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-3">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="cep" name="cep" value="18950-000">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-2">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Complemento:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-4">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="cep" name="cep" value="Casa">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																		</div>
+																		<div class="row">
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Fixo:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-5">
+																				<div class="row text">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="fixo" name="fixo" value="(14) 3344-1526">
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-1">
+																				<div class="row text-right">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<b>Celular:</b>
+																					</div> 
+																																								
+																				</div>
+																			</div>
+																			<div class="col-md-5">
+																				<div class="row">     
+																					<div class="form-group col-xs-12 col-sm-12 col-md-12">
+																						<input readonly type="text" maxlength="60" class="form-control user-success" id="celular" name="celular" value="(14) 99782-8864">
+																					</div> 
+																				</div>
+																			</div>
+																		</div>
+																	</div>
 																	<div class="row" style="margin:30px">
 																		<div class="col-md-12 col-xs-12 text-center">
 																				<button type="submit" class="btn btn-danger btn-min" style="width:170px" id="btnEnviar" name="btnEnviar">
@@ -1891,8 +2404,35 @@
     }
 
     $(document).ready(function () {
-
         $(".fancybox-inner").css("height", "600px");
+		$("#divContato").hide();
+		$("#divInstitucional").hide();
+		$("#divTrabalho").hide();
+    });
+	
+	$("#contato").on('click', function () {
+		$("#divContato").show();
+		$("#divPessoais").hide();
+        $("#divInstitucional").hide();
+		$("#divTrabalho").hide();
+    });
+	$("#institucional").on('click', function () {
+        $("#divInstitucional").show();
+		$("#divPessoais").hide();
+        $("#divContato").hide();
+		$("#divTrabalho").hide();
+    });
+	$("#trabalho").on('click', function () {
+        $("#divTrabalho").show();
+		$("#divPessoais").hide();
+        $("#divInstitucional").hide();
+		$("#divContato").hide();
+    });
+	$("#pessoais").on('click', function () {
+		$("#divPessoais").show();
+        $("#divContato").hide();
+		$("#divInstitucional").hide();
+		$("#divTrabalho").hide();
     });
 
     function gerarNovoBoleto(pedido) {
@@ -1906,7 +2446,7 @@
             beforeSend: function () {
                 ajaxLoader();
             },
-            success: function (data) {
+            success: function (data) { 
                 if (data.retorno) {
                     swal({
                         title: 'Sucesso',

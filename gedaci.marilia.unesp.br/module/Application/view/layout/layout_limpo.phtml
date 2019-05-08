@@ -1,0 +1,46 @@
+<?= $this->doctype() ?>
+
+<html lang="en">
+    <head>
+        <?php
+            header("Cache-Control: no-cache, must-revalidate");
+            header('Content-type: text/html; charset=CP1252');
+        ?>
+        
+        <?= $this->headTitle('GRUPO EDACI')->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?= $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge,chrome=1')
+        ?>
+
+        <!-- Le styles -->
+        <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/x-icon', 'href' => $this->basePath() . '/img/logo/favicon.png'])
+            ->prependStylesheet($this->basePath('css/style.css'))
+            ->prependStylesheet($this->basePath('css/bootstrap-theme.css'))
+            ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
+            ->prependStylesheet($this->basePath('css/theme_styles.min.css'))
+        
+            ->prependStylesheet($this->basePath('css/font-awesome.min.css'))
+            ->prependStylesheet($this->basePath('css/nanoscroller.min.css'))
+            ->prependStylesheet($this->basePath('css/sweetalert.css'))
+            ->prependStylesheet($this->basePath('css/login.css'))
+        ?>
+
+        <!-- Scripts -->
+        <?= $this->headScript()
+            ->prependFile($this->basePath('js/bootstrap.js'))
+            ->prependFile($this->basePath('js/jquery-3.1.0.min.js'))
+            ->prependFile($this->basePath('js/sweetalert.min.js'))
+            ->prependFile($this->basePath('js/material.js'))
+        ?>
+    </head>
+    
+    
+    <body>
+        <div>
+            <?= $this->content ?>
+        </div>
+        <?= $this->inlineScript() ?>
+    </body>
+</html>

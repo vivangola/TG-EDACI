@@ -1,0 +1,47 @@
+<?= $this->doctype() ?>
+
+<html lang="en" style="background:#273043 !important">
+    <head>
+        <?php
+            header("Cache-Control: no-cache, must-revalidate");
+            header('Content-type: text/html; charset=CP1252');
+        ?>
+        
+        <?= $this->headTitle('GRUPO EDACI')->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?= $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?= $this->headLink(['rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/logo/favicon.png'])
+            ->prependStylesheet($this->basePath('css/style.css'))
+            ->prependStylesheet($this->basePath('css/bootstrap-theme.css'))
+            ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
+            ->prependStylesheet($this->basePath('css/theme_styles.min.css'))
+        ?>
+
+        <!-- Scripts -->
+        <?= $this->headScript()
+            ->prependFile($this->basePath('js/bootstrap.js'))
+            ->prependFile($this->basePath('js/jquery-3.1.0.min.js'))
+        ?>
+    </head>
+    <body class="theme-whbl" style="overflow-x: hidden; height: 149px;background:#273043 !important">
+        <div id="theme-wrapper">
+            <?= $this->partial('partials/cabecalho'); ?>
+            <div id="page-wrapper" class="container">
+                <div class="row">
+                    <div class="nav-left">
+                        <?= $this->partial('partials/menu_lateral'); ?>
+                    </div>
+                    <div id="content" class="content">
+                        <?= $this->content; ?>
+                    </div>  
+                </div>
+            </div>
+        </div>        
+        <?= $this->inlineScript() ?>
+    </body>
+</html>

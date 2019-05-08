@@ -1,0 +1,211 @@
+<nav class="navbar navbar-inverse navbar-hinode sidebar larg-nav" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header ">
+            <a href="/" style="width:90%; margin-top: 10px;" data-toggle="tooltip" data-placement="bottom" title="Página Inicial!" class="botao-min border-bottom btn btn-primary3 btn-pad" id="botaoPrincipal">
+                <strong><span class="hidden-xs showopacity fa fa-home icon-ajuste"></span> <span class="menu-item hid-menu">Pagina Inicial</span></strong>
+            </a>
+
+            <div class="btn-topo">
+                <div class="img-perfil" style="margin-botton: -10px">
+                    <img class="img img-Professor" src="/img/semfoto.png" onerror="$(this).attr('src','/img/semfoto.png');">
+                    <a onclick="modalFrame('/foto-perfil', '', false);" title="Alterar Foto" class="pointer"><span class="fa fa-camera"></span></a>
+                </div>
+                <ul class="nav pull-left Professor-id nav-id height-padrao">
+                    <li class="dropdown mt-7">
+                        <a href="javascript:;" id="make-small-nav" data-toggle="dropdown" class="dropdown-toggle" data-click="toggle-notify">
+                            <span class="usuario-id" style="color:black">Vivangola Perez da Silva Cardoso</span>
+                        </a>
+                        <br/>
+                        <ul class="dropdown-menu dropdown-notification dropdown-menu-right" id='infoEnvelope'>
+                            <li class="dropdown-header">
+                                <a style="padding-left: 10px; font-size: 14px;" href="/" class="faa-parent animated-hover"><i class="fa fa-cog faa-spin"></i>&nbsp;Meu Perfil</a>
+                            </li>
+                            <li class="dropdown-header">
+                                <a style="padding-left: 10px; font-size: 14px;" href="/alterar/senha" class="faa-parent animated-hover"><i class="fa fa-key faa-shake"></i>&nbsp;Alterar Senha</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+		<hr>
+        <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-nav-new nav-list">
+                <li>
+                    <a class="my-link" href="/relatorio/livro-mes">
+                        <span class="hidden-xs showopacity fa fa-file icon-ajuste"></span> <span class="menu-item hid-menu">Atas de Reuniões</span>
+                    </a>
+
+                </li>
+                <li>
+                    <a class="my-link" href="/relatorio/downloads">
+                        <span class="hidden-xs showopacity fa fa-download icon-ajuste"></span> <span class="menu-item hid-menu">Biblioteca</span>
+                    </a>
+                </li>
+
+                <li>
+
+                    <a class="my-link" href="/pre-cadastro">
+                        <span class="hidden-xs showopacity fa fa-plus icon-ajuste"></span> <span class="menu-item hid-menu">Cadastrar</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="my-link" href="javascript:neoassistOpenCentral();">
+                        <span class="hidden-xs showopacity fa fa-wechat icon-ajuste"></span> <span class="menu-item hid-menu">Chat</span>
+                    </a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="hidden-xs showopacity icon-ajuste fa fa-gears"></span> <span class="menu-item-2 hid-menu">Configurações</span> <span class="fa fa-chevron-down pull-right sumir-icon-angle mt-10"></span>
+                    </a>
+                    <ul class="submenu dropdown-menu forAnimate" role="menu">
+                </li>
+
+                <li><a href="/alterar">Alterar dados pessoais                                              
+
+                    </a>
+                </li>
+
+                <li><a href="javascript:modalFrame('/foto-perfil', '', false);">Alterar foto                                              
+
+                    </a>
+                </li>
+
+                <li><a href="/alterar/senha">Alterar senha                                              
+
+                    </a>
+                </li>
+
+                <li><a href="/relatorio/log-dados-pessoais">Log de Alteraçoes                                              
+
+                    </a>
+                </li>
+
+                <li><a href="/upload-documento">Upload documentos                                              
+
+                    </a>
+                </li>
+
+            </ul>
+            </li>
+            <li>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <span class="hidden-xs showopacity icon-ajuste fa fa-envelope"></span> <span class="menu-item-2 hid-menu">E-mails</span> <span class=" fa fa-chevron-down pull-right sumir-icon-angle mt-10"></span>
+
+                </a>
+                <ul class="submenu dropdown-menu forAnimate" role="menu">
+                    <li><a href="/relatorio/carta-compromisso/painel">Enviar E-mail                                            
+
+                        </a>
+                    </li>
+
+                    <li><a href="/relatorio/carta-compromisso">Meus E-mails                                          
+
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+            <li>
+                <a class="my-link" href="/relatorio/livro-mes">
+                    <span class="hidden-xs showopacity fa fa-bell icon-ajuste"></span> <span class="menu-item hid-menu">Quadro de Avisos</span>
+                </a>
+
+            </li>
+            <li>
+                <a class="my-link" href="javascript:neoassistOpenCentral();">
+                    <span class="hidden-xs showopacity fa fa-calendar icon-ajuste"></span> <span class="menu-item hid-menu">Quadro de Disponibilidade</span>
+                </a>
+            </li>
+            <li>
+                <a class="my-link" href="/relatorio/livro-mes">
+                    <span class="hidden-xs showopacity fa fa-ticket icon-ajuste"></span> <span class="menu-item hid-menu">Quadro de Eventos</span>
+                </a>
+
+            </li>
+            <li>
+                <a class="my-link" href="/relatorio/livro-mes">
+                    <span class="hidden-xs showopacity fa fa-book icon-ajuste"></span> <span class="menu-item hid-menu">Quadro de Literatura</span>
+                </a>
+            </li>
+            <li>
+                <a class="my-link" href="/relatorio/livro-mes">
+                    <span class="hidden-xs showopacity fa fa-bookmark icon-ajuste"></span> <span class="menu-item hid-menu">Níveis de Escolaridade</span>
+                </a>
+
+            </li>
+            <li>
+                <a class="my-link" href="/relatorio/livro-mes">
+                    <span class="hidden-xs showopacity fa fa-location-arrow icon-ajuste"></span> <span class="menu-item hid-menu">Plano de Atividade</span>
+                </a>
+
+            </li>
+            <li>
+                <a class="my-link" href="/relatorio/livro-mes">
+                    <span class="hidden-xs showopacity fa fa-dot-circle-o icon-ajuste"></span> <span class="menu-item hid-menu">Plano de Metas</span>
+                </a>
+
+            </li>
+            <li>
+                <a class="my-link" href="/relatorio/livro-mes">
+                    <span class="hidden-xs showopacity fa fa-users icon-ajuste"></span> <span class="menu-item hid-menu">Produçao do Grupo</span>
+                </a>
+
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <span class="hidden-xs showopacity icon-ajuste far fa-file-alt"></span> <span class="menu-item-2 hid-menu">Questionários</span> <span class="  fa fa-chevron-down pull-right sumir-icon-angle mt-10"></span>
+
+                </a>
+                <ul class="submenu dropdown-menu forAnimate" role="menu">
+                    <li><a href="/relatorio/carta-compromisso/painel">Questionários de Aprendizagem                                             
+
+                        </a>
+                    </li>
+
+                    <li><a href="/relatorio/carta-compromisso">Questionário de Cadastro                                              
+
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <span class="hidden-xs showopacity icon-ajuste fa fa-exchange"></span> <span class="menu-item-2 hid-menu">Trabalhos para Correçao</span> <span class=" fa fa-chevron-down pull-right sumir-icon-angle mt-10"></span>
+
+                </a>
+                <ul class="submenu dropdown-menu forAnimate" role="menu">
+                    <li><a href="/relatorio/carta-compromisso/painel">Meus Trabalhos                                            
+
+                        </a>
+                    </li>
+
+                    <li><a href="/relatorio/carta-compromisso">Trabalhos Recebidos                                           
+
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <span class="hidden-xs showopacity icon-ajuste fa fa-user"></span> <span class="menu-item-2 hid-menu">Usuários</span> <span class="fa fa-chevron-down pull-right sumir-icon-angle mt-10"></span>
+
+                </a>
+                <ul class="submenu dropdown-menu forAnimate" role="menu">
+                    <li><a href="/relatorio/top-recrutadores">Grupos                                             
+
+                        </a>
+                    </li>
+                    <li><a href="/relatorio/top-recrutadores">Membros                                             
+
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+            </ul>
+        </div>
+    </div>
+</nav>

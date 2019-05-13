@@ -145,17 +145,17 @@ nav.sidebar, .main{
 
     #bs-sidebar-navbar-collapse-1 .navbar-nav li a:hover{
         color: #273043 !important;
-		background: -webkit-linear-gradient(left, #629bad, white);
+        background: -webkit-linear-gradient(left, #629bad, white);
     }
 
     #bs-sidebar-navbar-collapse-1 .navbar-nav li a:active{
         color: #273043 !important;
-		background: -webkit-linear-gradient(left, #629bad, white);
+        background: -webkit-linear-gradient(left, #629bad, white);
     }
-	
-	#bs-sidebar-navbar-collapse-1 .navbar-nav li{
-		background: #ffffff;
-	}
+
+    #bs-sidebar-navbar-collapse-1 .navbar-nav li{
+        background: #ffffff;
+    }
 }
 
 .content {
@@ -211,7 +211,7 @@ section{
 }
 
 .navbar-inverse .navbar-nav-new>li>a {
-	color: #000000 !important;
+    color: #000000 !important;
 }
 
 .navbar-hinode {
@@ -500,7 +500,7 @@ table.tabelafixada {
     /*width:100%;*/
 }
 .fonte-new{
-    font-family: "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif !important;
+    font-family: "Open Sans","",Helvetica,Arial,sans-serif !important;
     font-weight: lighter !important;
     font-size: 1.5em !important;
 }
@@ -786,7 +786,7 @@ body {
     /*font-family: 'Merriweather Sans', sans-serif;*/
     /*font-family: 'Exo', sans-serif;*/
     /*    font-family: 'News Cycle', sans-serif;*/
-    font-family: 'Titillium Web', sans-serif;
+    font-family: '', sans-serif;
     -webkit-font-smoothing: antialiased;
     background-color: #E3EAF3 !important;
 }
@@ -1311,6 +1311,9 @@ h3 .small {
 .navbar-nav {
     margin: 0 0 0 10px
 }
+.panels{
+    margin-top: 20px !important;
+}
 .navbar-nav > li > a {
     padding-bottom: 15px;
     padding-top: 15px;
@@ -1322,7 +1325,6 @@ h3 .small {
     min-width: 223px
 }
 .dropdown-menu > li > a {
-    color: #ffffff;
     font-size: .875em;
     line-height: 1.7;
     padding-left: 35px;
@@ -1349,7 +1351,7 @@ h3 .small {
 .navbar > .container .navbar-brand {
     background: #fff;
     color: #fff;
-    font-family: 'Titillium Web', Geneva, sans-serif;
+    font-family: '', Geneva, sans-serif;
     font-weight: 700;
     width: 220px;
     margin-left: -8px;
@@ -2462,9 +2464,9 @@ thead {
 .btn-primary3 {
     background-color: #629bad !important;
     border-color: #477482 !important;
-	border: 0px;
-	border-bottom: solid 4px;
-	
+    border: 0px;
+    border-bottom: solid 4px;
+
     color: #ffffff !important;
 }
 .btn-primary3:hover,
@@ -3144,13 +3146,7 @@ blockquote.pull-right:before {
     background: url("../../img/loginback.jpg") no-repeat scroll 0 0 #fff;
     /* background-size: 100%;*/
 }
-label {
-    font-weight: 400;
-    font-size:
-        /*.875em*/
 
-        1em;
-}
 .form-control {
     border-radius: 3px;
     background-clip: padding-box;
@@ -8662,19 +8658,19 @@ input[disabled] {
 }   
 
 #content{
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    font-family: "", Helvetica, Arial, sans-serif !important;
 }
 
 #index{
-    font-family: 'Titillium Web', sans-serif !important;
+    font-family: '', sans-serif !important;
 }
 
 #validacao{
-    font-family: 'Titillium Web', sans-serif !important;
+    font-family: '', sans-serif !important;
 }
 
 h1, h2, h3, h4, h5, h6 #validacao{
-    font-family: 'Titillium Web', sans-serif !important;
+    font-family: '', sans-serif !important;
 }
 
 .img{
@@ -8772,18 +8768,20 @@ h1, h2, h3, h4, h5, h6 #validacao{
     position: relative; 
     z-index: 2; 
     margin: auto; 
-    width: 88px; 
-    height: 88px; 
-    border: 8px solid white; 
-    line-height: 88px; 
-    border-radius: 50%; 
-    vertical-align: middle; 
+    width: 80%; 
+    height: 60px; 
+    border-bottom: 5px solid #477482;
+    border-radius: 50px;
+    line-height: 50px; 
+    vertical-align: middle !important; 
+    color: white;
+    font-size: 20px;
 }
 .box > .icon:hover > .image { 
     background: #6CB4C4; 
 }
 .box > .icon > .image > i { 
-    font-size: 36px !important; 
+    font-size: 20px !important; 
     color: #fff !important; 
     margin-top: 19px;
 }
@@ -8797,11 +8795,7 @@ h1, h2, h3, h4, h5, h6 #validacao{
     padding: 30px 0 10px 0; 
 
 }
-@media(min-width:768px){
-    .box-home  .box > .icon > .info { 
-        min-height: 300px;
-    }
-}
+
 .box > .icon:hover > .info { 
     background: rgba(0, 0, 0, 0.04); 
     border-color: #e0e0e0; 

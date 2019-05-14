@@ -14,12 +14,20 @@ class QuestionarioController extends AbstractActionController
 {
     public function questionarioAction()
     {
-        $view = new ViewModel();
         echo "<pre>";
-        var_dump('sdsadad');
+        var_dump('questionario');
         echo "</pre>";
         exit;
+        $view = new ViewModel();
+        
         $view->setTemplate('login/login');
         return $view;
+    }
+    
+    public function inicialAction(){
+        echo "<pre>";
+        var_dump('questionario inicial');
+        echo "</pre>";
+        exit;
     }
 }

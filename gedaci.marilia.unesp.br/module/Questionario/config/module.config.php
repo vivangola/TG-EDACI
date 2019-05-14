@@ -15,12 +15,22 @@ return [
     'router' => [
         'routes' => [
             'questionario' => [
-                'type'    => Segment::class,
+                'type' => Literal::class,
                 'options' => [
                     'route'    => '/questionario',
                     'defaults' => [
                         'controller' => Controller\QuestionarioController::class,
                         'action'     => 'questionario',
+                    ],
+                ],
+            ],
+            'questionario-inicial' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route'    => '/questionario/inicial',
+                    'defaults' => [
+                        'controller' => Controller\QuestionarioController::class,
+                        'action'     => 'inicial',
                     ],
                 ],
             ],

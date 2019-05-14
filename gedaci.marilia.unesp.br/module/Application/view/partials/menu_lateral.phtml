@@ -15,6 +15,12 @@
                         <a href="javascript:;" id="make-small-nav" data-toggle="dropdown" class="dropdown-toggle" data-click="toggle-notify">
                             <span class="usuario-id" style="color:black">Vivangola Perez da Silva Cardoso</span>
                         </a>
+                        <div class="row">
+                            <i class="fa fa-calendar-o"></i>&nbsp;<span id="day_painel"><?= date('y/m/d') ?></span>
+                            &nbsp;&nbsp;
+                            <i class="fa fa-clock-o"></i>&nbsp;<span id="time_painel"><?= date('H:i:s') ?></span>
+                        </div>
+
                         <br/>
                         <ul class="dropdown-menu dropdown-notification dropdown-menu-right" id='infoEnvelope'>
                             <li class="dropdown-header">
@@ -28,7 +34,7 @@
                 </ul>
             </div>
         </div>
-		<hr>
+        <hr>
         <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-nav-new nav-list">
                 <li>
@@ -124,7 +130,7 @@
 
             </li>
             <li>
-                <a class="my-link" href="/relatorio/livro-mes">
+                <a class="my-link" href="/quadro/literatura">
                     <span class="hidden-xs showopacity fa fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu">Quadro de Literatura</span>
                 </a>
             </li>
@@ -209,3 +215,27 @@
         </div>
     </div>
 </nav>
+
+
+<script type="text/javascript">
+
+    function startTime() {
+        var today = new Date();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        // add a zero in front of numbers<10
+        m = checkTime(m);
+        s = checkTime(s);
+        $('#time_painel').text(h + ":" + m + ":" + s);
+        t = setTimeout('startTime()', 500);
+    }
+
+    function checkTime(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
+    }
+
+</script>

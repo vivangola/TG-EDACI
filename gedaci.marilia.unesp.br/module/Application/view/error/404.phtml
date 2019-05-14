@@ -1,105 +1,26 @@
-<?php
-use Zend\Mvc\Application;
-?>
-<h1>A 404 error occurred</h1>
-<h2><?= $this->message ?></h2>
-
-<?php if (! empty($this->reason)) :
-    switch ($this->reason) {
-        case Application::ERROR_CONTROLLER_CANNOT_DISPATCH:
-            $reasonMessage = 'The requested controller was unable to dispatch the request.';
-            break;
-        case Application::ERROR_MIDDLEWARE_CANNOT_DISPATCH:
-            $reasonMessage = 'The requested middleware was unable to dispatch the request.';
-            break;
-        case Application::ERROR_CONTROLLER_NOT_FOUND:
-            $reasonMessage = 'The requested controller could not be mapped to an existing controller class.';
-            break;
-        case Application::ERROR_CONTROLLER_INVALID:
-            $reasonMessage = 'The requested controller was not dispatchable.';
-            break;
-        case Application::ERROR_ROUTER_NO_MATCH:
-            $reasonMessage = 'The requested URL could not be matched by routing.';
-            break;
-        default:
-            $reasonMessage = 'We cannot determine at this time why a 404 was generated.';
-            break;
-    }
-?>
-<p><?= $reasonMessage ?></p>
-<?php endif ?>
-
-<?php if (! empty($this->controller)) : ?>
-<dl>
-    <dt>Controller:</dt>
-    <dd>
-        <?= $this->escapeHtml($this->controller) ?>
-        <?php
-        if (! empty($this->controller_class) && $this->controller_class != $this->controller) {
-            printf('(resolves to %s)', $this->escapeHtml($this->controller_class));
-        }
-        ?>
-    </dd>
-</dl>
-<?php endif ?>
-
-<?php if (! empty($this->display_exceptions)) : ?>
-    <?php if (isset($this->exception)
-        && ($this->exception instanceof \Exception || $this->exception instanceof \Error)) : ?>
-<hr/>
-
-<h2>Additional information:</h2>
-<h3><?= get_class($this->exception) ?></h3>
-<dl>
-    <dt>File:</dt>
-    <dd>
-        <pre><?= $this->exception->getFile() ?>:<?= $this->exception->getLine() ?></pre>
-    </dd>
-    <dt>Message:</dt>
-    <dd>
-        <pre><?= $this->escapeHtml($this->exception->getMessage()) ?></pre>
-    </dd>
-    <dt>Stack trace:</dt>
-    <dd>
-        <pre><?= $this->escapeHtml($this->exception->getTraceAsString()) ?></pre>
-    </dd>
-</dl>
-
-        <?php if ($ex = $this->exception->getPrevious()) : ?>
-<hr/>
-
-<h2>Previous exceptions:</h2>
-<ul class="list-unstyled">
-            <?php $icount = 0 ?>
-            <?php while ($ex) : ?>
-    <li>
-        <h3><?= get_class($ex) ?></h3>
-        <dl>
-            <dt>File:</dt>
-            <dd>
-                <pre><?= $ex->getFile() ?>:<?= $ex->getLine() ?></pre>
-            </dd>
-            <dt>Message:</dt>
-            <dd>
-                <pre><?= $this->escapeHtml($ex->getMessage()) ?></pre>
-            </dd>
-            <dt>Stack trace:</dt>
-            <dd>
-                <pre><?= $this->escapeHtml($ex->getTraceAsString()) ?></pre>
-            </dd>
-        </dl>
-    </li>
-                <?php
-                $ex = $ex->getPrevious();
-                if (++$icount >= 50) {
-                    echo '<li>There may be more exceptions, but we do not have enough memory to process it.</li>';
-                    break;
-                }
-                ?>
-            <?php endwhile ?>
-</ul>
-        <?php endif ?>
-    <?php else : ?>
-<h3>No Exception available</h3>
-    <?php endif ?>
-<?php endif ?>
+<div class="row box-home" align="center" style="height:100%">
+    <div class="col-md-12 col-xs-12">  
+        <div class="main-box clearfix print min-branco rodapeindex">
+            <div class="main-box-body clearfix mt">            
+                <div class="error-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <div class="error-text">
+                                    <h1 class="error" style="font-size: 70px">404 Error</h1>
+                                    <div class="erro-icon" style="font-size: 50px">
+                                        <i class="fa fa-frown-o"></i>
+                                    </div>
+                                    <h3 style="color:black">Oops! Essa página não pode ser encontrada!</h3>
+                                    <p>Desculpe, a página que você está procurando não existe, foi removida ou alterada.</p>
+                                    <br>
+                                    <a href="/" class="btn btn-primary-borded2 btn-round">Ir para página principal</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

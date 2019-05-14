@@ -16,6 +16,6 @@ return [
     'Login',
     'Cadastro',
     'Quadro',
-	//'Questionario'.
+    'Questionario',
     'Application',
 ];

@@ -20,10 +20,4 @@ class IndexController extends AbstractActionController
         return $view;
     }
 	
-	public function questionarioAction(){
-		$view = new ViewModel();
-    
-        $view->setTemplate('application/index/questionario');
-        return $view;
-	}
 }

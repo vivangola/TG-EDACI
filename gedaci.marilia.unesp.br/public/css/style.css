@@ -2479,12 +2479,14 @@ thead {
 }
 
 .btn-primary-borded2 {
-    background-color: #fff !important;
-    border-color: #273043 !important;
-    border-left: solid 1px #273043 !important;
-    border-right: solid 1px #273043 !important;
-    border-top: solid 1px #273043 !important;
-    color: #273043 !important;
+    background-color: #ffffff00 !important;
+    border-color: #477482 !important;
+    border: 0px;
+    border-left: 1px solid;
+    border-top: 1px solid;
+    border-right: 1px solid;
+    border-bottom: solid 4px;
+    color: #477482 !important;
 }
 .btn-primary-borded2:hover,
 .btn-primary-borded2:focus,
@@ -8770,7 +8772,7 @@ h1, h2, h3, h4, h5, h6 #validacao{
     margin: auto; 
     width: 80%; 
     height: 60px; 
-    border-bottom: 5px solid #477482;
+    border-bottom: 5px solid #38435b;
     border-radius: 50px;
     line-height: 50px; 
     vertical-align: middle !important; 
@@ -9334,29 +9336,6 @@ p.cinza-padrao{
     }    
 }
 
-.color-primary{
-    color: #a80000 !important;
-}
-
-.color-primary2{
-    color: #273043 !important;
-}
-
-.color-primary3{
-    color: #629bad !important;
-}
-
-.back-primary{
-    background-color:  #a80000 !important
-}
-
-.back-primary2{
-    background-color:  #273043 !important
-}
-.back-primary3{
-    background-color:  #629bad !important
-}
-
 @media (min-width: 1200px){
     .margin-poweroff {
         margin-top: 19px;
@@ -9489,3 +9468,66 @@ p.cinza-padrao{
 @-moz-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
 @-ms-keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
 @keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
+
+
+.color-primary{
+    color: #a80000 !important;
+}
+
+.color-primary2{
+    color: #273043 !important;
+}
+
+.color-primary3{
+    color: #629bad !important;
+}
+
+.back-primary{
+    background-color:  #a80000 !important
+}
+
+.back-primary2{
+    background-color:  #273043 !important
+}
+.back-primary3{
+    background-color:  #629bad !important
+}
+
+.painels-home div{
+    margin-bottom: 20px
+}
+
+.dataTables_wrapper{
+    color: black;
+    border: 1px solid white;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.dataTable-primary{
+    
+}
+
+.dataTable-primary thead{
+    background: #273043 !important;
+    color: white;
+    cursor: pointer;
+}
+
+.dataTable-primary .odd{
+    background-color: white !important;
+}
+
+.dataTable-primary .even{
+    background-color: #f2f2f2 !important
+}
+
+.dataTables_paginate .paginate_button{
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.dataTables_paginate .current{
+    background-color: #477482 !important;
+}
+

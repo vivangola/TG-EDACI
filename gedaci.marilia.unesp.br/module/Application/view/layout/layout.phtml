@@ -20,10 +20,12 @@
             ->prependStylesheet($this->basePath('css/bootstrap-theme.css'))
             ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
             ->prependStylesheet($this->basePath('css/theme_styles.min.css'))
+            ->prependStylesheet($this->basePath('css/font-awesome.min.css'))
         ?>
 
         <!-- Scripts -->
         <?= $this->headScript()
+            ->prependFile($this->basePath('js/datatable/dataTables.min.js'))
             ->prependFile($this->basePath('js/bootstrap.js'))
             ->prependFile($this->basePath('js/jquery-3.1.0.min.js'))
         ?>
@@ -33,7 +35,7 @@
             <?= $this->partial('partials/cabecalho'); ?>
             <div id="page-wrapper" class="container">
                 <div class="row">
-                    <div class="nav-right">
+                    <div class="nav-right" style="">
                         <?= $this->partial('partials/menu_lateral'); ?>
                     </div>
                     <div id="content" class="content">
@@ -45,3 +47,11 @@
         <?= $this->inlineScript() ?>
     </body>
 </html>
+
+
+<script type="text/javascript">
+    
+    $( document ).ready(function() {
+        startTime();
+    });    
+</script>

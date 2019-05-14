@@ -15,11 +15,7 @@ class QuadroLeituraController extends AbstractActionController
     public function quadroLeituraAction()
     {
         $view = new ViewModel();
-        echo "<pre>";
-        var_dump('quadro de leitura');
-        echo "</pre>";
-        exit;
-        $view->setTemplate('login/login');
+        $view->setTemplate('quadro/quadro-leitura');
         return $view;
     }
 }

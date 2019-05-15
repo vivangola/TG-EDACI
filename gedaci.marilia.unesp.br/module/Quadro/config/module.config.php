@@ -24,12 +24,45 @@ return [
                     ],
                 ],
             ],
+            'biblioteca' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/biblioteca',
+                    'defaults' => [
+                        'controller' => Controller\BibliotecaController::class,
+                        'action'     => 'biblioteca',
+                    ],
+                ],
+            ],
+            'atas' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/atas',
+                    'defaults' => [
+                        'controller' => Controller\AtasController::class,
+                        'action'     => 'atas',
+                    ],
+                ],
+            ],
+            'avisos' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/avisos',
+                    'defaults' => [
+                        'controller' => Controller\QuadroAvisoController::class,
+                        'action'     => 'avisos',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
         'factories' => [
             Controller\LoginController::class => InvokableFactory::class,
             Controller\QuadroLeituraController::class => InvokableFactory::class,
+            Controller\BibliotecaController::class => InvokableFactory::class,
+            Controller\AtasController::class => InvokableFactory::class,
+            Controller\QuadroAvisoController::class => InvokableFactory::class,
         ],
     ],
     'view_manager' => [

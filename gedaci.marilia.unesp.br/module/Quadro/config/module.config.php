@@ -54,6 +54,26 @@ return [
                     ],
                 ],
             ],
+            'eventos' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/eventos',
+                    'defaults' => [
+                        'controller' => Controller\EventosController::class,
+                        'action'     => 'eventos',
+                    ],
+                ],
+            ],
+            'quadro-disponibilidade' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/quadro-disponibilidade',
+                    'defaults' => [
+                        'controller' => Controller\QuadroDisponibilidadeController::class,
+                        'action'     => 'quadro',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
@@ -63,6 +83,8 @@ return [
             Controller\BibliotecaController::class => InvokableFactory::class,
             Controller\AtasController::class => InvokableFactory::class,
             Controller\QuadroAvisoController::class => InvokableFactory::class,
+            Controller\EventosController::class => InvokableFactory::class,
+            Controller\QuadroDisponibilidadeController::class => InvokableFactory::class,
         ],
     ],
     'view_manager' => [

@@ -1,0 +1,99 @@
+<div class="row box-home" align="center" style="height:100%">
+    <div class="col-md-12 col-xs-12">  
+        <div class="main-box clearfix print min-branco">
+            <div class="main-box-body clearfix mt">            
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box">                           
+                                <div class="icon">
+                                    <div class="image back-primary2" style="width:40% !important"><i class="fa fa-calendar-o"></i>&nbsp;<label class="title">Eventos</label></div>
+                                    <div class="info" style="min-height:450px">
+                                        <div class="row" style="padding-left: 10px;padding-right: 10px">
+                                            <div class="col-md-12">
+                                                <div class="col-md-2 col-sm-3 col-xs-4">
+                                                    <div class="form-inline">
+                                                        <label for="mes">Mês:</label>
+                                                        <div class="col-md-2 col-sm-2 col-xs-8" id="mes" name="mes">
+                                                            <select class="form-control">
+                                                                <option value="">Janeiro</option>
+                                                                <option value="">Fevereiro</option>
+                                                                <option value="">Março</option>
+                                                                <option value="">Abril</option>
+                                                                <option value="" selected>Maio</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 col-sm-3 col-xs-4">
+                                                    <div class="form-inline">
+                                                        <label for="ano">Ano:</label>
+                                                        <div class="col-md-2 col-sm-2 col-xs-8" id="ano" name="ano">
+                                                            <select class="form-control">
+                                                                <option value="">2017</option>
+                                                                <option value="">2018</option>
+                                                                <option value="" selected>2019</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 col-md-offset-5 col-sm-2 col-sm-offset-4 col-xs-4">
+                                                    <button class="btn btn-primary2 form-control">
+                                                        Novo&nbsp;
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="padding: 10px">
+                                            <div id="calendar"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" type="text/css" href="/css/calendar/fullcalendar.min.css" />
+<link rel="stylesheet" type="text/css" href="/css/calendar/agenda.css" />
+<script src="/js/calendar/lib/moment.min.js"></script>
+<script src="/js/calendar/fullcalendar.min.js"></script>
+<script src="/js/calendar/locale/pt-br.js"></script>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#calendar').fullCalendar({
+            defaultDate: new Date(),
+            editable: true,
+            eventLimit: true,
+            themeSystem: 'bootstrap4',
+            businessHours: false,
+            defaultView: 'month',
+            header: {
+                center: 'title',
+                left: 'addEvento', //agendaDay,agendaWeek,month
+                right: 'prev,next' //today
+            },
+            events: [
+                {
+                    codigo: '1',
+                    title: 'Treinamento',
+                    start: '2019-05-15',
+                    end: '2019-05-17',
+                }
+            ],
+            eventClick: function (info) {
+                console.log(info);
+            }
+        });
+    });
+
+</script>

@@ -9,11 +9,11 @@
                                 <div class="icon">
                                     <div class="image back-primary2" style="width:40% !important"><i class="fa fa-book"></i>&nbsp;<label class="title">Biblioteca</label></div>
                                     <div class="info" style="min-height:450px">
-                                        <div class="row" style="padding-left:50px; margin-top:20px">
-                                            <div class="col-md-5">
+                                        <div class="row" style="padding-left: 10px;padding-right: 10px">
+                                            <div class="col-md-6 col-sm-4 col-xs-8">
                                                 <input type="text" placeholder="Pesquisar" class="form-control">
                                             </div>  
-                                            <div class="col-md-2">
+                                            <div class="col-md-2 col-sm-2 col-xs-4">
                                                 <select class="form-control">
                                                     <option value="">Todos</option>
                                                     <option value="">Conteúdo</option>
@@ -21,13 +21,13 @@
                                                     <option value="">Usuário</option>
                                                 </select>
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-2 col-sm-3 col-xs-6">
                                                 <button class="btn btn-primary2 form-control">
                                                     Pesquisar&nbsp;
                                                     <i class="fa fa-search"></i>
                                                 </button>
                                             </div>
-                                            <div class="col-md-2">
+                                            <div class="col-md-2 col-sm-3 col-xs-6">
                                                 <button class="btn btn-primary2 form-control">
                                                     Novo&nbsp;
                                                     <i class="fa fa-plus"></i>
@@ -35,7 +35,7 @@
                                             </div>
                                         </div>
                                         <div class="table-responsive" style="margin-top:10px">
-                                            <table id="example" class="table table-striped table-bordered dataTable-primary" style="width:100%">
+                                            <table id="tabela" class="table table-striped table-bordered dataTable-primary" style="width:100%">
                                                 <thead>
                                                     <tr>
                                                         <th>Conteúdo Sintético</th>
@@ -43,7 +43,8 @@
                                                         <th>Usuário</th>
                                                         <th>Data Upload</th>
                                                         <th></th>
-                                                        <th colspan="2">Modificar</th>
+                                                        <th>Alterar</th>
+                                                        <th>Excluir</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -191,11 +192,11 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-        $('#example').DataTable({
+        $('#tabela').DataTable({
             "language": {
                 "url": "js/datatable/pt-br.json"
             },
-            "columnDefs": [ { "orderable": false, "targets": [3] }],
+            "columnDefs": [ { "orderable": false, "targets": [4,5,6] }],
             "lengthChange": false,
             "searching": false
         });

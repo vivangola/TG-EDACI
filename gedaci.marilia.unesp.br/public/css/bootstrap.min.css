@@ -3936,7 +3936,7 @@ select[multiple].input-group-sm>.form-control, select[multiple].input-group-sm>.
 }
 
 .falert{
-	color: #5f5e5c;
+    color: #5f5e5c;
 }
 .navbar-inverse .navbar-brand:focus, .navbar-inverse .navbar-brand:hover {
     color:#fff;
@@ -5099,9 +5099,9 @@ button.close {
 
 /* modal-large-max */
 .modal-large-max{
-        width: 100%;
-    }
-    
+    width: 100%;
+}
+
 @media (min-width: 1200px){
     .modal-large-pad{
         padding-right: 30px !important;
@@ -5823,37 +5823,37 @@ button.close {
         display:none!important
     }      
     #relatorio thead tr th{
-		-webkit-print-color-adjust: exact;
-		background:#f2f2f2;
-		color:#000;
-	}
-	
-	
-	#content-wrapper{margin: 0px !important;padding: 0px !important}
-	#relatorio tbody tr .corsubtotal{	
-		-webkit-print-color-adjust: exact;
-		background:#e7ebee !important;
-		color:#000;
-	}
-	#relatorio tbody tr  .cortotal{
-		-webkit-print-color-adjust: exact;
-		background:#f2f2f2 !important;
-		color:#000;
-	}
+        -webkit-print-color-adjust: exact;
+        background:#f2f2f2;
+        color:#000;
+    }
+
+
+    #content-wrapper{margin: 0px !important;padding: 0px !important}
+    #relatorio tbody tr .corsubtotal{	
+        -webkit-print-color-adjust: exact;
+        background:#e7ebee !important;
+        color:#000;
+    }
+    #relatorio tbody tr  .cortotal{
+        -webkit-print-color-adjust: exact;
+        background:#f2f2f2 !important;
+        color:#000;
+    }
 }
 
 .add-back-seg{
-     background-image: -webkit-gradient(linear,left 0,left 100%,from(#f8f8f8),to(#cac9c9));
+    background-image: -webkit-gradient(linear,left 0,left 100%,from(#f8f8f8),to(#cac9c9));
     background-image: -webkit-linear-gradient(top,#f8f8f8,0%, #cac9c9,100%);
     background-image: -moz-linear-gradient(top,#f8f8f8 0,#cac9c9 100%);
     background-image: linear-gradient(to bottom,#f8f8f8 0, #cac9c9 100%);
     background-repeat: repeat-x;
-     
+
 }
 #relatorio thead tr th, .add-back{
-/*		background:#81BEF7;*/
-/*background:#b0b0b0;
-        color:#FFF;*/
+    /*		background:#81BEF7;*/
+    /*background:#b0b0b0;
+            color:#FFF;*/
     color: #534d4d;
     background: #f2f2f2;
     background-image: -webkit-gradient(linear,left 0,left 100%,from(#f8f8f8),to(#ececec));
@@ -5865,8 +5865,97 @@ button.close {
 
 /*# sourceMappingURL=bootstrap.min.css.map */
 
- .form-question{
+.form-question{
     max-width: 800px;
     text-align: justify;
     padding: 20px;
- }
+}
+
+.form-inline {
+    display:flex;
+    -webkit-box-orient:horizontal;
+    -webkit-box-direction:normal;
+    -ms-flex-flow:row wrap;
+    flex-flow:row wrap;
+    -webkit-box-align:center;
+    -ms-flex-align:center;
+    align-items:center;
+}
+
+.form-inline .form-check {
+    width:100%;
+}
+
+@media min-width576px{
+    .form-inline label {
+        display:flex;
+        -webkit-box-align:center;
+        -ms-flex-align:center;
+        align-items:center;
+        -webkit-box-pack:center;
+        -ms-flex-pack:center;
+        justify-content:center;
+        margin-bottom:0;
+    }
+
+    .form-inline .form-group {
+        display:flex;
+        -webkit-box-flex:0;
+        -ms-flex:0 0 auto;
+        flex:0 0 auto;
+        -webkit-box-orient:horizontal;
+        -webkit-box-direction:normal;
+        -ms-flex-flow:row wrap;
+        flex-flow:row wrap;
+        -webkit-box-align:center;
+        -ms-flex-align:center;
+        align-items:center;
+        margin-bottom:0;
+    }
+
+    .form-inline .form-control {
+        display:inline-block;
+        width:auto;
+        vertical-align:middle;
+    }
+
+    .form-inline .form-control-plaintext {
+        display:inline-block;
+    }
+
+    .form-inline .input-group {
+        width:auto;
+    }
+
+    .form-inline .form-check {
+        display:flex;
+        -webkit-box-align:center;
+        -ms-flex-align:center;
+        align-items:center;
+        -webkit-box-pack:center;
+        -ms-flex-pack:center;
+        justify-content:center;
+        width:auto;
+        padding-left:0;
+    }
+
+    .form-inline .form-check-input {
+        position:relative;
+        margin-top:0;
+        margin-right:.25rem;
+        margin-left:0;
+    }
+
+    .form-inline .custom-control {
+        -webkit-box-align:center;
+        -ms-flex-align:center;
+        align-items:center;
+        -webkit-box-pack:center;
+        -ms-flex-pack:center;
+        justify-content:center;
+    }
+
+    .form-inline .custom-control-label {
+        margin-bottom:0;
+    }
+}

@@ -1,0 +1,108 @@
+<div class="row box-home" align="center" style="height:100%">
+    <div class="col-md-12 col-xs-12">  
+        <div class="main-box clearfix print min-branco">
+            <div class="main-box-body clearfix mt">            
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <div class="box">                           
+                                <div class="icon">
+                                    <div class="image back-primary2" style="width:40% !important"><i class="fa fa-user"></i>&nbsp;<label class="title">Plano de Metas</label></div>
+                                    <div class="info" style="min-height:450px">
+                                        <div class="row" style="padding-left: 10px;padding-right: 10px">
+                                            <div class="col-md-6 col-sm-4 col-xs-8">
+                                                <input type="text" placeholder="Pesquisar" class="form-control">
+                                            </div>  
+                                            <div class="col-md-2 col-sm-2 col-xs-4">
+                                                <select class="form-control">
+                                                    <option value="">Todos</option>
+                                                    <option value="">Conteúdo</option>
+                                                    <option value="">Tipo</option>
+                                                    <option value="">Usuário</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-2 col-sm-3 col-xs-6">
+                                                <button class="btn btn-primary2 form-control">
+                                                    Pesquisar&nbsp;
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </div>
+                                            <div class="col-md-2 col-sm-3 col-xs-6">
+                                                <button class="btn btn-primary2 form-control">
+                                                    Novo&nbsp;
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div style="padding: 50px 10px">
+                                            <ul class="timeline">
+                                                <li>
+                                                    <div class="timeline-badge success"><i class="fa fa-check"></i></div>
+                                                    <div class="timeline-panel">
+                                                        <div class="timeline-heading">
+                                                            <h4 class="timeline-title">Levantar os Requisitos</h4>
+                                                            <p><small class="text-muted">Atividades paralelas</small>
+                                                        </div>
+                                                        <div class="timeline-body">
+                                                            <p>A tarefa de desenvolvimento de software engloba uma série de fases e atividades que independentemente da metodologia escolhida, ocorrem para a realização do seu objetivo maior: entregar software funcionando corretamente dentro do orçamento e prazos previstos para o seu desenvolvimento.</p>
+                                                            <p><small class="text-muted"><i class="fa fa-calendar-o"></i> Meta definida em 01/01/2019, por Gabriel Perez.</small></p>
+                                                            <p><small class="text-success"><i class="fa fa-check"></i> Meta concluída em 01/02/2019</small></p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li class="timeline-inverted">
+                                                    <div class="timeline-badge"><i class="fa fa-clock-o"></i></div>
+                                                    <div class="timeline-panel">
+                                                        <div class="timeline-heading">
+                                                            <h4 class="timeline-title">Desenvolver</h4>
+                                                            <p><small class="text-muted">Atividades paralelas</small>
+                                                        </div>
+                                                        <div class="timeline-body">
+                                                            <p>A tarefa de desenvolvimento de software engloba uma série de fases e atividades que independentemente da metodologia escolhida, ocorrem para a realização do seu objetivo maior: entregar software funcionando corretamente dentro do orçamento e prazos previstos para o seu desenvolvimento.</p>
+                                                            <p><small class="text-muted"><i class="fa fa-calendar-o"></i> Meta definida em 01/01/2019</small></p>
+                                                            <p><small class="text-muted"><i class="fa fa-clock-o"></i> Meta não concluída</small></p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="timeline-badge"><i class="fa fa-clock-o"></i></div>
+                                                    <div class="timeline-panel">
+                                                        <div class="timeline-heading">
+                                                            <h4 class="timeline-title">Levantar os Requisitos</h4>
+                                                            <p><small class="text-muted">Atividades paralelas</small>
+                                                        </div>
+                                                        <div class="timeline-body">
+                                                            <p>A tarefa de desenvolvimento de software engloba uma série de fases e atividades que independentemente da metodologia escolhida, ocorrem para a realização do seu objetivo maior: entregar software funcionando corretamente dentro do orçamento e prazos previstos para o seu desenvolvimento.</p>
+                                                            <p><small class="text-muted"><i class="fa fa-calendar-o"></i> Meta definida em 01/01/2019</small></p>
+                                                            <p><small class="text-muted"><i class="fa fa-clock-o"></i> Meta não concluída</small></p>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#tabela').DataTable({
+            "language": {
+                "url": "js/datatable/pt-br.json"
+            },
+            "columnDefs": [{"orderable": false, "targets": [5, 6]}],
+            "lengthChange": false,
+            "searching": false
+        });
+    });
+
+</script>

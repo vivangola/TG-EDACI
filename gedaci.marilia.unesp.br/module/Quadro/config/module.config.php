@@ -74,6 +74,26 @@ return [
                     ],
                 ],
             ],
+            'plano-atividades' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/plano-atividades',
+                    'defaults' => [
+                        'controller' => Controller\PlanoAtividadesController::class,
+                        'action'     => 'plano-atividades',
+                    ],
+                ],
+            ],
+            'plano-metas' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/plano-metas',
+                    'defaults' => [
+                        'controller' => Controller\PlanoMetasController::class,
+                        'action'     => 'plano-metas',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
@@ -85,6 +105,8 @@ return [
             Controller\QuadroAvisoController::class => InvokableFactory::class,
             Controller\EventosController::class => InvokableFactory::class,
             Controller\QuadroDisponibilidadeController::class => InvokableFactory::class,
+            Controller\PlanoAtividadesController::class => InvokableFactory::class,
+            Controller\PlanoMetasController::class => InvokableFactory::class,
         ],
     ],
     'view_manager' => [

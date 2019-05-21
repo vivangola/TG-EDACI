@@ -25,9 +25,8 @@ class QuestionarioController extends AbstractActionController
     }
     
     public function inicialAction(){
-        echo "<pre>";
-        var_dump('questionario inicial');
-        echo "</pre>";
-        exit;
+        $view = new ViewModel();
+        $view->setTemplate('questionario/questionario-inicial');
+        return $view;
     }
 }

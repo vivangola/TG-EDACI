@@ -996,12 +996,6 @@ h1 {
     color: #3498db;
     font-size: 2em
 }
-h2 {
-    clear: both;
-    font-size: 1.8em;
-    margin-bottom: 10px;
-    padding: 10px 0 10px 10px
-}
 h3 {
     color: #003253;
     padding-left: 5px;
@@ -1253,17 +1247,6 @@ a:focus {
 @media (max-width: 767px) {
     .main-box {
         margin-bottom: 10px
-    }
-}
-.main-box h2 {
-    font-size: 1.3em;
-    line-height: 29px;
-    margin: 0;
-    padding: 0
-}
-@media (max-width: 419px) {
-    .main-box h2 {
-        margin-bottom: 5px
     }
 }
 .main-box.no-header {
@@ -9471,6 +9454,103 @@ p.cinza-padrao{
 @keyframes pulse {to {box-shadow: 0 0 0 45px rgba(232, 76, 61, 0);}}
 
 
+.respostas div {
+  clear: both;
+  overflow: hidden;
+}
+
+.respostas label {
+  width: 100%;
+  border-radius: 3px;
+  border: 1px solid #D1D3D4;
+  font-weight: normal;
+}
+
+.respostas input[type="radio"]:empty,
+.respostas input[type="checkbox"]:empty {
+  display: none;
+}
+
+.respostas input[type="radio"]:empty ~ label,
+.respostas input[type="checkbox"]:empty ~ label {
+  position: relative;
+  line-height: 2.5em;
+  text-indent: 3.25em;
+  margin-top: 2em;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.respostas input[type="radio"]:empty ~ label:before,
+.respostas input[type="checkbox"]:empty ~ label:before {
+  position: absolute;
+  display: block;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  content: '';
+  width: 2.5em;
+  background: #D1D3D4;
+  border-radius: 3px 0 0 3px;
+}
+
+.respostas input[type="radio"]:hover:not(respostas-primary:checked) ~ label,
+.respostas input[type="checkbox"]:hover:not(:checked) ~ label {
+  color: #888;
+}
+
+.respostas input[type="radio"]:hover:not(:checked) ~ label:before,
+.respostas input[type="checkbox"]:hover:not(:checked) ~ label:before {
+  content: '\2714';
+  text-indent: .9em;
+  color: #C2C2C2;
+}
+
+.respostas input[type="radio"]:checked ~ label,
+.respostas input[type="checkbox"]:checked ~ label {
+  color: #777;
+}
+
+.respostas input[type="radio"]:checked ~ label:before,
+.respostas input[type="checkbox"]:checked ~ label:before {
+  content: '\2714';
+  text-indent: .9em;
+  color: #333;
+  background-color: #ccc;
+}
+
+.respostas input[type="radio"]:focus ~ label:before,
+.respostas input[type="checkbox"]:focus ~ label:before {
+  box-shadow: 0 0 0 3px #999;
+}
+
+.respostas-default input[type="radio"]:checked ~ label:before,
+.respostas-default input[type="checkbox"]:checked ~ label:before {
+  color: #333;
+  background-color: #ccc;
+}
+
+.respostas-primary input[type="radio"]:checked ~ label:before,
+.respostas-primary input[type="checkbox"]:checked ~ label:before {
+  color: #fff;
+  background-color: #337ab7;
+}
+
+.respostas-success input[type="radio"]:checked ~ label:before,
+.respostas-success input[type="checkbox"]:checked ~ label:before {
+  color: #fff;
+  background-color: #5cb85c;
+}
+
+.respostas-danger input[type="radio"]:checked ~ label:before,
+.respostas-danger input[type="checkbox"]:checked ~ label:before {
+  color: #fff;
+  background-color: #d9534f;
+}
+
 .timeline {
     list-style: none;
     padding: 20px 0 20px;
@@ -9511,10 +9591,9 @@ p.cinza-padrao{
     float: left;
     border: 1px solid #d4d4d4;
     border-radius: 2px;
+    border-bottom: 3px solid #273043;
     padding: 20px;
     position: relative;
-    -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
-    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
 }
 .timeline > li > .timeline-panel:before {
     position: absolute;
@@ -9657,5 +9736,19 @@ p.cinza-padrao{
 
 .dataTables_paginate .current{
     background-color: #477482 !important;
+}
+
+.pergunta{
+    margin-bottom: 0px !important;
+    font-size: 25px !important;
+}
+
+.respostas-imagem{
+    margin-top: 28px;
+}
+
+.resposta-imagem-check{
+    opacity:0.5;
+    color:#996;
 }
 

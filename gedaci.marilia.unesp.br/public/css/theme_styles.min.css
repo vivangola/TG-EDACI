@@ -509,12 +509,6 @@ h1 {
     color: #3498db;
     font-size: 2em
 }
-h2 {
-    clear: both;
-    font-size: 1.8em;
-    margin-bottom: 10px;
-    padding: 10px 0 10px 10px
-}
 h3 {
     color: #003253;
     padding-left: 5px;
@@ -766,17 +760,6 @@ a:focus {
 @media (max-width: 767px) {
     .main-box {
         margin-bottom: 10px
-    }
-}
-.main-box h2 {
-    font-size: 1.3em;
-    line-height: 29px;
-    margin: 0;
-    padding: 0
-}
-@media (max-width: 419px) {
-    .main-box h2 {
-        margin-bottom: 5px
     }
 }
 .main-box.no-header {

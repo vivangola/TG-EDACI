@@ -4,13 +4,12 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/public/css/style.css</file>
-            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/module/Application/config/module.config.php</file>
-            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/module/Application/view/application/index/index.phtml</file>
-            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/module/Application/view/layout/layout.phtml</file>
-            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/module/Application/view/partials/menu_lateral.phtml</file>
-            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/module/Application/src/Module.php</file>
-            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/module/Questionario/src/Controller/QuestionarioController.php</file>
-            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/module/Application/view/application/perfil/perfil.phtml</file>
+            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/module/Quadro/config/module.config.php</file>
+            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/module/Quadro/view/quadro/biblioteca.phtml</file>
+            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/module/Quadro/view/quadro/quadro-leitura.phtml</file>
+            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/module/Quadro/src/Controller/QuadroAvisoController.php</file>
+            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/module/Quadro/view/quadro/avisos.phtml</file>
+            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/module/Quadro/view/quadro/atas.phtml</file>
         </group>
     </open-files>
 </project-private>

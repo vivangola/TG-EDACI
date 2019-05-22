@@ -1,0 +1,125 @@
+<div class="row box-home" align="center" style="height:100%">
+    <div class="col-md-12 col-xs-12">  
+        <div class="main-box clearfix print min-branco">
+            <div class="main-box-body clearfix mt">            
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <div class="box">                           
+                                <div class="icon">
+                                    <div class="image back-primary2" style="width:40% !important"><i class="fa fa-book"></i>&nbsp;<label class="title">Nível de Escolaridade</label></div>
+                                    <div class="info" style="min-height:450px">
+                                        <div class="row" style="padding-left: 10px;padding-right: 10px">
+                                            <div class="col-md-8 col-sm-4 col-xs-8">
+                                                <input type="text" placeholder="Escolaridade" class="form-control">
+                                            </div>  
+                                            <!--div class="col-md-2 col-sm-2 col-xs-4">
+                                                <select class="form-control">
+                                                    <option value="">Todos</option>
+                                                    <option value="">Escolaridade</option>
+                                                </select>
+                                            </div-->
+                                            <div class="col-md-2 col-sm-3 col-xs-6">
+                                                <button class="btn btn-primary2 form-control">
+                                                    Pesquisar&nbsp;
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </div>
+                                            <div class="col-md-2 col-sm-3 col-xs-6">
+                                                <button class="btn btn-primary2 form-control">
+                                                    Novo&nbsp;
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive" style="margin-top:10px">
+                                            <table id="tabela" class="table table-striped table-bordered dataTable-primary" style="width:100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Escolaridade</th>
+                                                        <th>Usuário</th>
+                                                        <th>Data</th
+                                                        <th></th>
+                                                        <th>Alterar</th>
+                                                        <th>Excluir</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr style="text-align: center">
+                                                        <td>PHD</td>
+                                                        <td>Vivangola</td>
+                                                        <td>10/05/2019</td>
+                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
+                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
+                                                    </tr>
+                                                    <tr style="text-align: center">
+                                                        <td>Pós-Doutorado</td>
+                                                        <td>Vivangola</td>
+                                                        <td>10/05/2019</td>
+                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
+                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
+                                                    </tr>
+                                                    <tr style="text-align: center">
+                                                        <td>Doutorado</td>
+                                                        <td>Vivangola</td>
+                                                        <td>10/05/2019</td>
+                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
+                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
+                                                    </tr>
+                                                    <tr style="text-align: center">
+                                                        <td>Mestrado</td>
+                                                        <td>Vivangola</td>
+                                                        <td>10/05/2019</td>
+                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
+                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
+                                                    </tr>
+                                                    <tr style="text-align: center">
+                                                        <td>Pós Graduação</td>
+                                                        <td>Vivangola</td>
+                                                        <td>10/05/2019</td>
+                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
+                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
+                                                    </tr>  
+                                                    <tr style="text-align: center">
+                                                        <td>Graduação</td>
+                                                        <td>Vivangola</td>
+                                                        <td>10/05/2019</td>
+                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
+                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
+                                                    </tr>        
+                                                    <tr style="text-align: center">
+                                                        <td>Tecnólogo</td>
+                                                        <td>Vivangola</td>
+                                                        <td>10/05/2019</td>
+                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
+                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
+                                                    </tr>        
+                                                </tbody>
+                                            </table>   
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#tabela').DataTable({
+            "language": {
+                "url": "js/datatable/pt-br.json"
+            },
+            "columnDefs": [ { "orderable": false, "targets": [3,4,5] }],
+            "lengthChange": false,
+            "searching": false
+        });
+    });
+
+</script>

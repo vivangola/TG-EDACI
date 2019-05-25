@@ -1,183 +1,204 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 30/12/2016, 10:26:19
-    Author     : Renan Medeiros
-*/
+@charset "utf-8";
 
 
-html,
-body {
-    min-height: 100% !important;
+@import url//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css);
+
+
+
+div.main{
+    background: #0264d6; /* Old browsers */
+    background: -moz-radial-gradient(center, ellipse cover,  #4261a3 1%, #273043 100%); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(1%,#4261a3), color-stop(100%,#273043)); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover,  #4261a3 1%,#273043 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse cover,  #4261a3 1%,#273043 100%); /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse cover,  #4261a3 1%,#273043 100%); /* IE10+ */
+    background: radial-gradient(ellipse at center, #4261a3 1%, #273043 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4261a3', endColorstr='#273043',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    height:calc(100vh);
+    width:100%;
+}
+
+h3{ 
+    text-shadow: 2px 2px 8px #000;
+}
+
+[class*="fontawesome-"]:before {
+    font-family: 'FontAwesome', sans-serif;
+}
+
+/* ---------- GENERAL ---------- */
+
+* {
+    box-sizing: border-box;
+    margin:0px auto;
+
+    &:before,
+        &:after {
+        box-sizing: border-box;
+    }
+
 }
 
 body {
-    font: 16px / 1.414 "Open sans", "Trebuchet MS", arial, sans-serif !important;
-    color: #6b8d9f !important;
-    background: #f1f1f1;
-    background-image: url(../img/backgroud/livros.jpeg);
-    background-size: 100% 100% !important;
-    background-repeat: no-repeat;
+
+    color: #606468;
+    font: 87.5%/1.5em 'Open Sans', sans-serif;
+    margin: 0;
 }
 
-.wrapper{
-    background: #fff;
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.25);
-    border-radius: 5px;
-    position: relative;
-    width: 100%;
-    transform-style: preserve-3d;
-    transition: transform .25s ease;
-    padding: 1rem;
+a {
+    color: #eee;
+    text-decoration: none;
 }
 
-hr{
-    margin-top: 10px !important;
-    margin-bottom: 10px !important;
+a:hover {
+    text-decoration: underline;
 }
 
-button{
-    width: 100%;
+input {
+    border: none;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5em;
+    padding: 0;
+    -webkit-appearance: none;
+}
+
+p {
+    line-height: 1.5em;
+}
+
+.clearfix {
+    *zoom: 1;
+
+    &:before,
+        &:after {
+        content: ' ';
+        display: table;
+    }
+
+    &:after {
+        clear: both;
+    }
+
+}
+
+.container {
+    left: 50%;
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* ---------- LOGIN ---------- */
+
+#login form{
+    width: 251px;
+}
+#login, .logo{
+    display:inline-block;
+    width:40%;
+}
+#login{
+    border-left:1px solid #fff;
+    padding: 10px 22px;
+}
+.logo{
+    color:#fff;
+    font-size:50px;
+    line-height: 125px;
+}
+
+#login form span.fa {
+    background-color: #fff;
+    border-radius: 3px 0px 0px 3px;
+    color: #000;
+    display: block;
+    float: left;
+    height: 50px;
+    font-size:24px;
+    line-height: 50px;
+    text-align: center;
+    width: 50px;
+}
+
+#login form input {
     height: 50px;
 }
-
-.close{
-    width: 2%;
-    height: 8px;
-}
-
-.titulo{
-	color: black !important;
-}
-
-@media (max-width: 410px){
-    #captchaForm{
-        transform:scale(0.7);
-        -webkit-transform:scale(0.7);
-        transform-origin:0 0;
-        -webkit-transform-origin:0 0;
-    }
-}
-
-@media (max-width: 767px){
-    #container{
-        padding-top: 5% !important; 
-        width:100%;
-    }
+fieldset{
+    padding:0;
+    border:0;
+    margin: 0;
 
 }
 
-@media (min-width: 768px){
-    #container{
-        padding-top: 3%; 
-        width:55%;
-    }
+#login form input[type="text"], input[type="password"] {
+    background-color: #fff;
+    border-radius: 0px 3px 3px 0px;
+    color: #000;
+    margin-bottom: 1em;
+    padding: 0 16px;
+    width: 200px;
 }
 
-@media (min-width: 992px){
-    #container{
-        padding-top: 3%; 
-        width:45%;
-    }
+#login form select {
+    background-color: #fff;
+    border-radius: 0px 3px 3px 0px;
+    color: #000;
+    margin-bottom: 1em;
+    padding: 0 16px;
+    width: 200px;
+    height: 40px;
 }
 
-@media (min-width: 995px){
-    #container{
-        padding-top: 3%; 
-        width:40%;
-    }
+#login form input[type="submit"] {
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    background-color: #000000;
+    color: #eee;
+    font-weight: bold;
+    /* margin-bottom: 2em; */
+    text-transform: uppercase;
+    padding: 5px 10px;
+    height: 30px;
 }
 
-@media (min-width: 1200px){
-    #container{
-        padding-top: 3%; 
-        width:30%;
-    }
+#login form input[type="button"] {
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    background-color: #000000;
+    color: #eee;
+    font-weight: bold;
+    /* margin-bottom: 2em; */
+    text-transform: uppercase;
+    padding: 5px 10px;
+    height: 30px;
 }
 
-@media (min-width: 1500px){
-    #container{
-        padding-top: 3%; 
-        width:25%;
-    }
+#login form input[type="submit"]:hover {
+    background-color: #273043;
 }
 
-.login-principal{
-    max-width: 510px;
-    margin: auto
+#login form input[type="button"]:hover {
+    background-color: #273043;
 }
 
-.login-conteudo form{
-    padding: 16px 36px 0px 36px;
-    min-height: 270px;
+#login > p {
+    text-align: center;
 }
 
-/* img-wid **Correção da largura da imagem de logo */
-@media (max-width: 659px){
-    .img-wid{
-        max-width: 115px !important;
-    }
+#login > p span {
+    padding-left: 5px;
+}
+.middle {
+    display: flex;
+    width: 1000px;
 }
 
-@media (min-width: 660px) and (max-width: 767px){
-    .img-wid{
-        max-width: 130px !important;
-    }
+.main{
+
+    position: unset !important;
 }
 
-@media (min-width: 768px) and (max-width: 990px){
-    .img-wid{
-        max-width: 160px !important;
-    }
-}
-
-@media (min-width: 991px){
-    .img-wid{
-        max-width: 180px !important;
-    }
-}
-/* fim media img-wid*/
-
-.lb-esqueceu{
-	
-}
-
-/* Correçao do login para quando usa dispositivos móveis de até o máximo de 520px de resolução*/
-@media (max-width: 767px){
-    .titulo{
-        font-size: 1em;
-        margin-top: 22px;
-    }
-    
-    hr{
-        display: none;
-    }
-    
-    .login-conteudo form {
-        padding: 10px 0px 0px 0px;
-    }
-    
-    .form-group {
-        margin-bottom: 10px !important;
-    }
-    
-    .lb-esqueceu{
-        margin-bottom: -22px;
-        margin-top: 3px;
-    }
-    
-    .btn-min{
-        max-height: 40px;
-        max-width: 270px;
-        margin: auto;
-        display: block;
-    }
-    
-    .font-pequena{
-        font-size: 0.9em;
-    }
-}
-/* fim da correção*/

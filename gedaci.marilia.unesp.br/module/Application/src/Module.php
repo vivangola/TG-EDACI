@@ -94,7 +94,7 @@ class Module
         $layout_limpo = array(
             'Login\Controller\LoginController',
             'Cadastro\Controller\CadastroController',
-            //'Questionario\Controller\QuestionarioController'
+            'Questionario\Controller\QuestionarioController'
         );
         /*
         if(!in_array($nome_controller, $nao_verifica_sessao)){

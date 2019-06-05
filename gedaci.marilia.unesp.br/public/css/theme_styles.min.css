@@ -7512,13 +7512,6 @@ svg {
 .theme-whbl .mobile-search.active > .btn {
     background-color: #F1C40F
 }
-.theme-whbl a,
-.theme-whbl .fc-state-default,
-.theme-whbl .jvectormap-zoomin,
-.theme-whbl .jvectormap-zoomout,
-.theme-whbl #user-profile .profile-details ul > li > span {
-    color: #003253;
-}
 .theme-whbl a:hover,
 .theme-whbl a:focus,
 .theme-whbl .widget-users li > .details > .name > a:hover,

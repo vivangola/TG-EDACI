@@ -53,7 +53,7 @@ class Module
     public function init(ModuleManager $moduleManager) {
         $sharedEvents = $moduleManager->getEventManager()->getSharedManager();     
         $sharedEvents->attach('Zend\Mvc\Controller\AbstractActionController', MvcEvent::EVENT_DISPATCH, array($this, 'verificaAutenticacao'), 1);
-        $sharedEvents->attach('Zend\Mvc\Controller\AbstractActionController', MvcEvent::EVENT_DISPATCH, array($this, 'modalLayout'), 1);
+        $sharedEvents->attach('Zend\Mvc\Controller\AbstractActionController', MvcEvent::EVENT_DISPATCH, array($this, 'layout'), 1);
         $sharedEvents->attach('Zend\Mvc\Controller\AbstractActionController', MvcEvent::EVENT_DISPATCH, array($this, 'onDispatchError'), 2);
         
     }
@@ -105,6 +105,8 @@ class Module
         */
         $view = $e->getViewModel();  
         
+        
+        
         if(in_array($nome_controller, $layout_limpo)){
             $view->setTemplate('layout/layout_limpo');
         }else{
@@ -112,10 +114,13 @@ class Module
         }
     }
     
-    public function modalLayout($e){
+    public function layout($e){
         $controller = $e->getTarget();  
-        $nome_controller = $controller->getEvent()->getRouteMatch()->getParam('controller');
         
-        $funcoes = new Funcoes($controller);
+        $nome_controller = $controller->getEvent()->getRouteMatch()->getParam('controller');
+        $pagina = $controller->getEvent()->getRouteMatch()->getParam('action');
+        
+        $controller->layout()->pagina = $pagina;
+        
     }
 }

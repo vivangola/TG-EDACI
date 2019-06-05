@@ -70,7 +70,7 @@ return [
                     'route'    => '/quadro-disponibilidade',
                     'defaults' => [
                         'controller' => Controller\QuadroDisponibilidadeController::class,
-                        'action'     => 'quadro',
+                        'action'     => 'quadro-disponibilidade',
                     ],
                 ],
             ],

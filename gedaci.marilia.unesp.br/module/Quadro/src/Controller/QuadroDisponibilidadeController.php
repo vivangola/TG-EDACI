@@ -12,7 +12,7 @@ use Zend\View\Model\ViewModel;
 
 class QuadroDisponibilidadeController extends AbstractActionController
 {
-    public function quadroAction()
+    public function quadroDisponibilidadeAction()
     {
         $view = new ViewModel();
         $view->setTemplate('quadro/quadro-disponibilidade');

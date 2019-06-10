@@ -36,7 +36,7 @@
         </div>
         <hr>
         <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
-            <ul class="nav navbar-nav navbar-nav-new nav-list">
+            <ul class="nav navbar-nav navbar-nav-new nav-list hoverzinho-menu">
                 <li>
                     <a class="<?= $pagina == 'atas' ? 'selected-link' : '' ?>" href="/atas">
                         <span class="hidden-xs showopacity fa fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu">Atas de Reuniões</span>
@@ -48,7 +48,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="<?= $pagina == 'pre-cadastro' ? 'selected-link' : '' ?>" href="/pre-cadastro">
+                    <a class="<?= $pagina == 'pre-cadastro' ? 'selected-link' : '' ?> " href="/pre-cadastro">
                         <span class="hidden-xs showopacity fa fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu">Cadastrar</span>
                     </a>
                 </li>
@@ -58,13 +58,13 @@
                     </a>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <a href="#" class="dropdown-toggle <?= $pagina == 'configuracoes' ? 'selected-link' : '' ?>" data-toggle="dropdown">
                         <span class="hidden-xs showopacity icon-ajuste fa fa-chevron-circle-right"></span> <span class="menu-item-2 hid-menu">Configurações
                         </span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <a href="#" class="dropdown-toggle <?= $pagina == 'email' ? 'selected-link' : '' ?>" data-toggle="dropdown">
                         <span class="hidden-xs showopacity icon-ajuste fa fa-chevron-circle-right"></span> <span class="menu-item-2 hid-menu">E-mails</span> <span class=" fa fa-chevron-down pull-right sumir-icon-angle mt-10"></span>
 
                     </a>
@@ -99,7 +99,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="<?= $pagina == 'escolaridade' ? 'selected-link' : '' ?>" href="/escolaridade">
+                    <a class="<?= $pagina == 'escolaridade' ? 'selected-link' : '' ?> " href="/escolaridade">
                         <span class="hidden-xs showopacity fa  fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu">Níveis de Escolaridade</span>
                     </a>
                 </li>
@@ -109,7 +109,7 @@
                     </a>
                 </li>
                 <li>
-                    <a class="<?= $pagina == 'plano-metas' ? 'selected-link' : '' ?>" href="/plano-metas">
+                    <a class="<?= $pagina == 'plano-metas' ? 'selected-link' : '' ?> " href="/plano-metas">
                         <span class="hidden-xs showopacity fa fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu">Plano de Metas</span>
                     </a>
                 </li>
@@ -121,7 +121,6 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <span class="hidden-xs showopacity icon-ajuste fa fa-chevron-circle-right"></span> <span class="menu-item-2 hid-menu">Questionários</span> <span class="  fa fa-chevron-down pull-right sumir-icon-angle mt-10"></span>
-
                     </a>
                     <ul class="submenu dropdown-menu forAnimate" role="menu">
                         <li><a href="/relatorio/carta-compromisso/painel">Questionários de Aprendizagem                                             

@@ -17,5 +17,6 @@ return [
     'Cadastro',
     'Quadro',
     'Questionario',
+	'Chat',
     'Application',
 ];

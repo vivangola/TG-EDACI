@@ -1,7 +1,7 @@
 <?php
 /**
  * @see       https://github.com/zendframework/zend-config for the canonical source repository
- * @copyright Copyright (c) 2005-2017 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2019 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   https://github.com/zendframework/zend-config/blob/master/LICENSE.md New BSD License
  */
 
@@ -29,6 +29,14 @@ class Ini implements ReaderInterface
     protected $directory;
 
     /**
+     * Flag which determines whether sections are processed or not.
+     *
+     * @see https://www.php.net/parse_ini_file
+     * @var bool
+     */
+    protected $processSections = true;
+
+    /**
      * Set nest separator.
      *
      * @param  string $separator
@@ -48,6 +56,34 @@ class Ini implements ReaderInterface
     public function getNestSeparator()
     {
         return $this->nestSeparator;
+    }
+
+    /**
+     * Marks whether sections should be processed.
+     * When sections are not processed,section names are stripped and section
+     * values are merged
+     *
+     * @see https://www.php.net/parse_ini_file
+     * @param bool $processSections
+     * @return $this
+     */
+    public function setProcessSections($processSections)
+    {
+        $this->processSections = (bool) $processSections;
+        return $this;
+    }
+
+    /**
+     * Get if sections should be processed
+     * When sections are not processed,section names are stripped and section
+     * values are merged
+     *
+     * @see https://www.php.net/parse_ini_file
+     * @return bool
+     */
+    public function getProcessSections()
+    {
+        return $this->processSections;
     }
 
     /**
@@ -78,7 +114,7 @@ class Ini implements ReaderInterface
             },
             E_WARNING
         );
-        $ini = parse_ini_file($filename, true);
+        $ini = parse_ini_file($filename, $this->getProcessSections());
         restore_error_handler();
 
         return $this->process($ini);
@@ -107,7 +143,7 @@ class Ini implements ReaderInterface
             },
             E_WARNING
         );
-        $ini = parse_ini_string($string, true);
+        $ini = parse_ini_string($string, $this->getProcessSections());
         restore_error_handler();
 
         return $this->process($ini);
@@ -148,7 +184,7 @@ class Ini implements ReaderInterface
      */
     private function buildNestedSection($sections, $value)
     {
-        if (count($sections) == 0) {
+        if (! $sections) {
             return $this->processSection($value);
         }
 
@@ -191,9 +227,11 @@ class Ini implements ReaderInterface
         if (strpos($key, $this->nestSeparator) !== false) {
             $pieces = explode($this->nestSeparator, $key, 2);
 
-            if (! strlen($pieces[0]) || ! strlen($pieces[1])) {
+            if ($pieces[0] === '' || $pieces[1] === '') {
                 throw new Exception\RuntimeException(sprintf('Invalid key "%s"', $key));
-            } elseif (! isset($config[$pieces[0]])) {
+            }
+
+            if (! isset($config[$pieces[0]])) {
                 if ($pieces[0] === '0' && ! empty($config)) {
                     $config = [$pieces[0] => $config];
                 } else {

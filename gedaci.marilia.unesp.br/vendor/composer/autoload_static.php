@@ -140,6 +140,7 @@ class ComposerStaticInit18c223af3c0cae08d0db0e9f4e1b7d6a
         ),
         'C' => 
         array (
+            'Chat\\' => 5,
             'Cadastro\\' => 9,
         ),
         'A' => 
@@ -483,6 +484,10 @@ class ComposerStaticInit18c223af3c0cae08d0db0e9f4e1b7d6a
         'DeepCopy\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
+        ),
+        'Chat\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/module/Chat/src',
         ),
         'Cadastro\\' => 
         array (

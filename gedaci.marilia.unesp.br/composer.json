@@ -21,10 +21,11 @@
     "autoload": {
         "psr-4": {
             "Application\\"	: "module/Application/src/",
-			"Login\\"		: "module/Login/src/",
+			"Login\\"       : "module/Login/src/",
 			"Cadastro\\"	: "module/Cadastro/src/",
-			"Quadro\\"		: "module/Quadro/src/",
-			"Questionario\\": "module/Questionario/src/"
+			"Quadro\\"      : "module/Quadro/src/",
+			"Questionario\\": "module/Questionario/src/",
+                        "Chat\\"        : "module/Chat/src/"
 		}
     },
     "autoload-dev": {

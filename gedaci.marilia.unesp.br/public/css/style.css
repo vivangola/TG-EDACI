@@ -114,6 +114,10 @@ nav.sidebar, .main{
     nav.sidebar a{
         padding: 8px 13px !important;
     }
+    
+    nav.sidebar div{
+        padding: 8px 13px;
+    }
 
     nav.sidebar .navbar-nav > li:first-child{
         border-top: 1px #e5e5e5 solid !important;
@@ -160,13 +164,17 @@ nav.sidebar, .main{
         cursor: pointer;
     }
     
-    .hoverzinho-menu li a {
+    .hoverzinho-menu li a{
         transition: all 0.2s ease-in;
         -webkit-backface-visibility: hidden;
         backface-visibility: hidden;
     }
+    
+    .hoverzinho-menu li div{
+        transition: transform 0.2s;
+    }
 
-    .hoverzinho-menu li:hover > a {
+    .hoverzinho-menu li:hover > a, .hoverzinho-menu li:hover > div {
         transform: translate(15px, 0);
         -webkit-transform: translate(15px, 0);
         -o-transform: translate(15px, 0);
@@ -177,10 +185,9 @@ nav.sidebar, .main{
         -o-transition: all 0.2s ease-in-out
     }
     
-    .hoverzinho-menu li:hover > a span{
+    .hoverzinho-menu li:hover > a span, .hoverzinho-menu li:hover > div span {
         color: #629bad;
     }
-
 
 .content {
     margin-left: 225px;
@@ -244,6 +251,12 @@ section{
 }
 
 .navbar-nav-new > li > a {
+    padding-bottom: 8px !important;
+    padding-top: 8px !important;
+    line-height: 22px !important;
+}
+
+.navbar-nav-new > li > div {
     padding-bottom: 8px !important;
     padding-top: 8px !important;
     line-height: 22px !important;
@@ -8810,4 +8823,17 @@ a {
     -moz-box-shadow: 5px 5px 0px #999;
     -webkit-box-shadow: 5px 5px 0px #999;
     box-shadow: 5px 5px 0px #999;
+}
+
+.list-group-item-sub{
+    display: none;
+}
+
+.list-group-item-sub div{
+    padding: 0px !important;
+    margin-bottom: 10px !important;
+}
+
+.list-group-item-sub div:hover > a{
+    color: #629bad;
 }

@@ -118,44 +118,44 @@
                         <span class="hidden-xs showopacity fa fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu">Produçao do Grupo</span>
                     </a>
                 </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="hidden-xs showopacity icon-ajuste fa fa-chevron-circle-right"></span> <span class="menu-item-2 hid-menu">Questionários</span> <span class="  fa fa-chevron-down pull-right sumir-icon-angle mt-10"></span>
-                    </a>
-                    <ul class="submenu dropdown-menu forAnimate" role="menu">
-                        <li><a href="/relatorio/carta-compromisso/painel">Questionários de Aprendizagem                                             
-                            </a>
-                        </li>
-                        <li><a href="/relatorio/carta-compromisso">Questionário de Cadastro                                              
-                            </a>
-                        </li>
-                    </ul>
+                <li class="list-group-item">
+                    <div class="toggle">
+                        <span class="hidden-xs showopacity fa fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu">Questionários</span> <span class="fa fa-chevron-down pull-right sumir-icon-angle mt-10"></span>
+                        <div class="list-group-item-sub">
+                            <div>
+                                <a href="/relatorio/carta-compromisso/painel">Questionários de Aprendizagem</a>
+                            </div>
+                            <div>
+                                <a href="/relatorio/carta-compromisso">Questionário de Cadastro</a>
+                            </div>
+                        </div>
+                    </div>
                 </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="hidden-xs showopacity icon-ajuste fa fa-chevron-circle-right"></span> <span class="menu-item-2 hid-menu">Trabalhos de Correçao</span> <span class=" fa fa-chevron-down pull-right sumir-icon-angle mt-10"></span>
-                    </a>
-                    <ul class="submenu dropdown-menu forAnimate" role="menu">
-                        <li><a href="/relatorio/carta-compromisso/painel">Meus Trabalhos                                            
-                            </a>
-                        </li>
-                        <li><a href="/relatorio/carta-compromisso">Trabalhos Recebidos                                           
-                            </a>
-                        </li>
-                    </ul>
+                <li class="list-group-item">
+                    <div class="toggle">
+                        <span class="hidden-xs showopacity fa fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu">Trabalhos de Correção</span> <span class="fa fa-chevron-down pull-right sumir-icon-angle mt-10"></span>
+                        <div class="list-group-item-sub">
+                            <div>
+                                <a href="/relatorio/carta-compromisso/painel">Meus Trabalhos</a>
+                            </div>
+                            <div>
+                                <a href="/relatorio/carta-compromisso">Trabalhos Recebidos</a>
+                            </div>
+                        </div>
+                    </div>
                 </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <span class="hidden-xs showopacity icon-ajuste fa fa-chevron-circle-right"></span> <span class="menu-item-2 hid-menu">Usuários</span> <span class="fa fa-chevron-down pull-right sumir-icon-angle mt-10"></span>
-                    </a>
-                    <ul class="submenu dropdown-menu forAnimate" role="menu">
-                        <li><a href="/relatorio/top-recrutadores">Grupos                                             
-                            </a>
-                        </li>
-                        <li><a href="/relatorio/top-recrutadores">Membros                                             
-                            </a>
-                        </li>
-                    </ul>
+                <li class="list-group-item">
+                    <div class="toggle">
+                        <span class="hidden-xs showopacity fa fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu">Usuários</span> <span class="fa fa-chevron-down pull-right sumir-icon-angle mt-10"></span>
+                        <div class="list-group-item-sub">
+                            <div>
+                                <a href="/relatorio/top-recrutadores">Grupos</a>
+                            </div>
+                            <div>
+                                <a href="/relatorio/top-recrutadores">Membros</a>
+                            </div>
+                        </div>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -164,6 +164,13 @@
 
 
 <script type="text/javascript">
+    //inicializar menu lateral
+    $(document).ready(function() {
+        $('.list-group-item-sub').hide();
+        $('.toggle').click(function() {
+            $(this).children('div').stop().slideToggle();
+        });
+    });
 
     function startTime() {
         var today = new Date();

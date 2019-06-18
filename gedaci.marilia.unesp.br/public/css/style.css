@@ -11,6 +11,20 @@ html{
     width:100%;
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+}
+ 
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,0.3); 
+  border-radius: 8px;
+}
+ 
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: rgba(0,0,0,0.3);
+}
+
 .zf-green {
     color: #68b604;
 }
@@ -28,8 +42,6 @@ div.container a.navbar-brand > img {
     margin-right: 4px;
     margin-top: -2px;
 }
-
-
 
 body,html{
     height: 100%;
@@ -170,8 +182,11 @@ nav.sidebar, .main{
         backface-visibility: hidden;
     }
     
-    .hoverzinho-menu li div{
+    .hoverzinho-menu li{
         transition: transform 0.2s;
+    }
+    
+    .hoverzinho-menu li div{
     }
 
     .hoverzinho-menu li:hover > a, .hoverzinho-menu li:hover > div {
@@ -8681,9 +8696,10 @@ a {
 .inbox_msg {
     border: 1px solid #c4c4c4;
     overflow: hidden;
+    border-radius: 10px;
+    background-color: white;
 }
 .top_spac{ margin: 20px 0 0;}
-
 
 .recent_heading {float: left; width:40%;}
 .srch_bar {
@@ -8732,7 +8748,7 @@ a {
     margin: 0;
     padding: 18px 16px 10px;
 }
-.inbox_chat { height: 550px; overflow-y: scroll;}
+.inbox_chat { height: 900px; overflow-y: scroll;}
 
 .active_chat{ background:#ebebeb;}
 
@@ -8767,6 +8783,7 @@ a {
     padding: 30px 15px 0 25px;
     width: 60%;
     background: white;
+    border: solid white 1px
 }
 
 .sent_msg p {
@@ -8791,7 +8808,7 @@ a {
     width: 100%;
 }
 
-.type_msg {border-top: 1px solid #c4c4c4;position: relative;}
+.type_msg {border-top: 1px solid #c4c4c4;position: absolute;width: 55%; top: 900px;}
 .msg_send_btn {
     background: #05728f none repeat scroll 0 0;
     border: medium none;
@@ -8805,9 +8822,9 @@ a {
     top: 11px;
     width: 33px;
 }
-.messaging { padding: 0 0 50px 0;}
+.messaging { padding: 0 0 50px 0; margin-top: 5px}
 .msg_history {
-    height: 516px;
+    height: 855px;
     overflow-y: auto;
 }
 

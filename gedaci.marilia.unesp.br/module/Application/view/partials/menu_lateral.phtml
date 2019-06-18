@@ -63,19 +63,18 @@
                         </span>
                     </a>
                 </li>
-                <li>
-                    <a href="#" class="dropdown-toggle <?= $pagina == 'email' ? 'selected-link' : '' ?>" data-toggle="dropdown">
-                        <span class="hidden-xs showopacity icon-ajuste fa fa-chevron-circle-right"></span> <span class="menu-item-2 hid-menu">E-mails</span> <span class=" fa fa-chevron-down pull-right sumir-icon-angle mt-10"></span>
-
-                    </a>
-                    <ul class="submenu dropdown-menu forAnimate" role="menu">
-                        <li><a href="/relatorio/carta-compromisso/painel">Enviar E-mail                                            
-                            </a>
-                        </li>
-                        <li><a href="/relatorio/carta-compromisso">Meus E-mails                                          
-                            </a>
-                        </li>
-                    </ul>
+                <li class="list-group-item">
+                    <div class="toggle">
+                        <span class="hidden-xs showopacity fa fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu">E-mails</span> <span class="fa fa-chevron-down pull-right sumir-icon-angle mt-10"></span>
+                        <div class="list-group-item-sub">
+                            <div>
+                                <a href="/relatorio/carta-compromisso/painel">Enviar E-mail</a>
+                            </div>
+                            <div>
+                                <a href="/relatorio/carta-compromisso">Meus E-mails</a>
+                            </div>
+                        </div>
+                    </div>
                 </li>
                 <li>
                     <a class="<?= $pagina == 'avisos' ? 'selected-link' : '' ?>" href="/avisos">
@@ -123,10 +122,10 @@
                         <span class="hidden-xs showopacity fa fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu">Questionários</span> <span class="fa fa-chevron-down pull-right sumir-icon-angle mt-10"></span>
                         <div class="list-group-item-sub">
                             <div>
-                                <a href="/relatorio/carta-compromisso/painel">Questionários de Aprendizagem</a>
+                                <a href="/relatorio/carta-compromisso/painel">Aprendizagem</a>
                             </div>
                             <div>
-                                <a href="/relatorio/carta-compromisso">Questionário de Cadastro</a>
+                                <a href="/relatorio/carta-compromisso">Cadastro</a>
                             </div>
                         </div>
                     </div>

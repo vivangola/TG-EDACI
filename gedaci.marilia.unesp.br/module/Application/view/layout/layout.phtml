@@ -20,6 +20,7 @@
             ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
             ->prependStylesheet($this->basePath('css/theme_styles.min.css'))
             ->prependStylesheet($this->basePath('css/font-awesome.min.css'))
+            ->prependStylesheet($this->basePath('css/css-loader.css'))
         ?>
 
         <!-- Scripts -->
@@ -30,6 +31,7 @@
         ?>
     </head>
     <body class="theme-whbl" style="overflow-x: hidden; height: 149px;background:#273043 !important">
+        <div id="loader" class="loader loader-default is-active" style="min-height: 1095px"></div>
         <div id="theme-wrapper">
             <?= $this->partial('partials/cabecalho'); ?>
             <div id="page-wrapper" class="container">
@@ -52,5 +54,11 @@
     
     $( document ).ready(function() {
         startTime();
+        
     });    
+    
+    $(window).on('load', function(){
+        setTimeout(function(){ $('#loader').fadeOut('slow'); }, 800);
+    });
+    
 </script>

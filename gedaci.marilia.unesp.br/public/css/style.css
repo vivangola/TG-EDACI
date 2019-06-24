@@ -8179,8 +8179,9 @@ p.cinza-padrao{
 
 .img-perfil {
     position: relative;
-    display: inline-block;
+    display: inblock;
     overflow: hidden;
+    text-align: center;
 }
 .img-perfil img:hover {
     opacity: 0.5
@@ -8853,4 +8854,8 @@ a {
 
 .list-group-item-sub div:hover > a{
     color: #629bad;
+}
+
+.chat_list:hover{
+    background:#ebebeb;
 }

@@ -31,7 +31,7 @@
         ?>
     </head>
     <body class="theme-whbl" style="overflow-x: hidden; height: 149px;background:#273043 !important">
-        <div id="loader" class="loader loader-default is-active" style="min-height: 1095px"></div>
+        <div id="loader" class="loader loader-default is-active" style="min-height: 1095px;overflow: hidden;"></div>
         <div id="theme-wrapper">
             <?= $this->partial('partials/cabecalho'); ?>
             <div id="page-wrapper" class="container">
@@ -54,7 +54,6 @@
     
     $( document ).ready(function() {
         startTime();
-        
     });    
     
     $(window).on('load', function(){

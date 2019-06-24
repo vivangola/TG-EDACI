@@ -156,7 +156,7 @@
                 <div class="row panels">     
                     <div class="container pd-0">
                         <div class="row" >
-                            <div class="col-md-12 pd-0" >
+                            <div class="col-md-12 pd-0" style="clear: both">
                                 <div class="box">                           
                                     <div class="icon">
                                         <div class="image back-primary2" style="width:40% !important"><i class="fa fa-exclamation-triangle"></i>&nbsp;<label class="title">Quadro de Avisos</label></div>
@@ -169,6 +169,7 @@
                                                                 <th>Assunto</th>
                                                                 <th>Descrição</th>
                                                                 <th>Recebido em</th>
+                                                                <th></th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -176,26 +177,31 @@
                                                                 <td>Processo Seletivo</td>
                                                                 <td>O processo seletivo de 2019 foi aberto. Inscreva-se.</td>
                                                                 <td>20/05/2019 12:00:00</td>
+                                                                <td style="text-align: center"><i class="fa fa-times"></i></td>
                                                             </tr>
                                                             <tr style="text-align: left">
                                                                 <td>Atualização de suas informações</td>
                                                                 <td>Por favor, mantenha sempre suas informações atualizadas.</td>
                                                                 <td>01/05/2019 13:00:00</td>
+                                                                <td style="text-align: center"><i class="fa fa-times"></i></td>
                                                             </tr>
                                                             <tr style="text-align: left">
                                                                 <td>Oportunidade de Estágio</td>
                                                                 <td>Uma nova oportunidade de estágio surgiu em sua região.</td>
                                                                 <td>23/04/2019 09:00:00</td>
+                                                                <td style="text-align: center"><i class="fa fa-times"></i></td>
                                                             </tr>
                                                             <tr style="text-align: left">
                                                                 <td>Trabalho para Correção</td>
                                                                 <td>Cláudio te enviou um Trabalho para Correção.</td>
                                                                 <td>10/04/2019 08:00:00</td>
+                                                                <td style="text-align: center"><i class="fa fa-times"></i></td>
                                                             </tr>
                                                             <tr style="text-align: left">
                                                                 <td>Oportunidade de Estágio</td>
                                                                 <td>Uma nova oportunidade de estágio surgiu em sua região.</td>
                                                                 <td>05/04/2019 17:00:00</td>
+                                                                <td style="text-align: center"><i class="fa fa-times"></i></td>
                                                             </tr>
                                                         </tbody>
                                                     </table>   
@@ -268,7 +274,7 @@
             "language": {
                 "url": "js/datatable/pt-br.json"
             },
-            "columnDefs": [ { "orderable": false, "targets": [0,1] }],
+            "columnDefs": [ { "orderable": false, "targets": [0,1,3] }],
             "lengthChange": false,
             "searching": false
         });

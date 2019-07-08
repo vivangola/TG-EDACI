@@ -7,10 +7,39 @@
             <ul class="nav navbar-nav pull-left Professor-id nav-id height-padrao">                                                  
 
                 <li class="margin-poweroff">
-                    <a href="/login" class="pointer"><i class="fa fa-sign-in faa-tada"></i>&nbsp;Sair</a>
+                    <a onclick="sair()" class="pointer"><i class="fa fa-sign-in faa-tada"></i>&nbsp;Sair</a>
                 </li>
             </ul>
         </div>
     </div>
 </div>
 </header>
+
+
+<script type="text/javascript">
+    
+    function sair(){
+        $.ajax({
+            url: '/login/logout',
+            method: 'POST',
+            datatype: 'json',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                retorno = jQuery.parseJSON(retorno);
+                if(retorno.response){
+                    window.location.href = "/login";
+                }
+            },
+            error: function () {
+            
+            },
+            complete: function () {
+
+            }
+        });
+    }
+    
+    
+</script>

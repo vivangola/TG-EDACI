@@ -3,6 +3,7 @@
 namespace Application\Classes;
 
 use Exception;
+use mysqli;
 use Zend\Session\Container;
 
 class Funcoes {
@@ -54,31 +55,46 @@ class Funcoes {
         }
     }
     
-    public function executarSQL($sql = '', $params = array(), $tipo = 'all', $connector = "orm_hinode") {
-                      
-//        $controller = $this->objeto->params('controller');
-//        $action = $this->objeto->params('action');                                               
-        try {
-            $conn = $this->getEntityManager($connector)->getConnection();
+    public function executarSQL($sql = '', $params = array(), $tipo = 'all') {
+        try{
+            $conexao = mysql_connect('localhost', 'root', '');
             
-            $parametros = $this->utf8_converter($params, '', 'decode');
-            $stmt = $conn->executeQuery($sql, $parametros);
-            if ($tipo == 'all') {
-                $dados = $stmt->fetchAll();
-            } else if ($tipo == 'stmt') {
-                return $stmt;
-            } else {
-                $dados = $stmt->fetch();
+            $dados = array(
+                'server'    => 'localhost',
+                'username'  => 'root',
+                'password'  => '',
+                'db'        => 'edaci'
+            );
+
+            $conn = new mysqli($dados['server'], $dados['username'], $dados['password'], $dados['db']);
+            
+            if ($conn->connect_error) {
+                throw new Exception($conn->connect_error);
             }
             
-            return $this->utf8_converter($dados,$tipo);
-        } catch (Exception $e) {
-            $sql = $e->getTrace()[1]['args'][0];
-            $params = $e->getTrace()[1]['args'][1];
+            foreach($params as $key => $param){
+                $sql = str_replace(':'.$key, "'".$param."'", $sql);
+            }
             
-            $bindado = $this->getSQLBinded($sql, $params);
-                    
-            throw new Exception(sprintf(("Erro de Banco de Dados SQL:  \n\n <i style='background-color: yellow'>$bindado</i> \n\n%s"), $e->getMessage()));
+            $result = $conn->query($sql);
+            
+            if(!$result){
+                throw new Exception($conn->error);
+            }
+            
+            $retorno = [];
+            if($tipo == 'all'){
+                while($row = $result->fetch_assoc()){
+                    array_push($retorno, $row);
+                }
+            }else{
+                $retorno = $result->fetch_assoc();
+            }
+            
+            $conn->close();
+            return $retorno;
+        } catch(Exception $e){
+            throw new Exception(sprintf(("Erro no Banco de Dados SQL:\n\n%s"), $e->getMessage()));
         }
     }
     

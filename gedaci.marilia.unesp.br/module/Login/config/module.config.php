@@ -15,9 +15,9 @@ return [
     'router' => [
         'routes' => [
             'login' => [
-                'type' => Literal::class,
+                'type' => Segment::class,
                 'options' => [
-                    'route'    => '/login',
+                    'route'    => '/login[/][:action]',
                     'defaults' => [
                         'controller' => Controller\LoginController::class,
                         'action'     => 'login',

@@ -1,3 +1,8 @@
+<?php
+use Zend\Session\Container;
+$sessao = new Container('usuario');
+?>
+
 <nav class="navbar navbar-inverse navbar-hinode sidebar larg-nav" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header ">
@@ -13,7 +18,7 @@
                 <ul class="nav Professor-id nav-id height-padrao">
                     <li class="dropdown mt-7">
                         <a href="javascript:;" id="make-small-nav" data-toggle="dropdown" class="dropdown-toggle" data-click="toggle-notify">
-                            <span class="usuario-id" style="color:black">Vivangola Perez da Silva Cardoso</span>
+                            <span class="usuario-id" style="color:black"><?= $sessao->nome_usuario ?></span>
                         </a>
                         <div class="row" style="padding: 0px;cursor: default;">
                             <i class="fa fa-calendar-o"></i>&nbsp;<span id="day_painel"><?= date('d/m/Y') ?></span>

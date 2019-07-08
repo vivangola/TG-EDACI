@@ -21,6 +21,7 @@
             ->prependStylesheet($this->basePath('css/theme_styles.min.css'))
             ->prependStylesheet($this->basePath('css/font-awesome.min.css'))
             ->prependStylesheet($this->basePath('css/css-loader.css'))
+            ->prependStylesheet($this->basePath('css/animate.css'))
         ?>
 
         <!-- Scripts -->
@@ -28,6 +29,7 @@
             ->prependFile($this->basePath('js/datatable/dataTables.min.js'))
             ->prependFile($this->basePath('js/bootstrap.js'))
             ->prependFile($this->basePath('js/jquery-3.1.0.min.js'))
+            ->prependFile($this->basePath('js/sweetalert.min.js'))
         ?>
     </head>
     <body class="theme-whbl" style="overflow-x: hidden; height: 149px;background:#273043 !important">
@@ -59,5 +61,15 @@
     $(window).on('load', function(){
         setTimeout(function(){ $('#loader').fadeOut('slow'); }, 800);
     });
+    
+    function loader(){
+        Swal.fire({
+            title: '',
+            html: '',
+            onBeforeOpen: () => {
+              Swal.showLoading();
+            }
+        });
+    }
     
 </script>

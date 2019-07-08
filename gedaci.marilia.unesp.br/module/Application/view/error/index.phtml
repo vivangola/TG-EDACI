@@ -1,71 +1,94 @@
+<style>
+    
+    .main-box {
+        background: #e3eaf3 !important
+    }
+    
+    h3{
+        text-shadow: none;
+    }
+    
+</style>
+
 <div class="row box-home" align="center" style="height:100%">
     <div class="col-md-12 col-xs-12">  
         <div class="main-box clearfix print min-branco rodapeindex">
-            <div class="main-box-body clearfix mt">  
-                <h1>An error occurred</h1>
-                <h2><?= $this->message ?></h2>
+            <div class="main-box-body clearfix mt">            
+                <div class="error-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <div class="error-text">
+                                    <h1 class="error" style="font-size: 70px">500 Error</h1>
+                                    <div class="erro-icon" style="font-size: 50px">
+                                        <i class="fa fa-frown-o"></i>
+                                    </div>
+                                    <h3 style="color:black;">Oops! Essa página não pode ser executada devido à algum erro no Banco de Dados. Contate os Desenvolvedores.</h3>
+                                    <?php if (! empty($this->display_exceptions)) : ?>
+                                        <?php if (isset($this->exception)
+                                            && ($this->exception instanceof \Exception || $this->exception instanceof \Error)) : ?>
+                                    <br>
+                                    <h3>Informações Adicionais:</h3>
+                                    <dl>
+                                        <dt>File:</dt>
+                                        <dd>
+                                            <pre><?= $this->exception->getFile() ?>:<?= $this->exception->getLine() ?></pre>
+                                        </dd>
+                                        <dt>Message:</dt>
+                                        <dd>
+                                            <pre><?= $this->escapeHtml($this->exception->getMessage()) ?></pre>
+                                        </dd>
+                                        <dt>Stack trace:</dt>
+                                        <dd>
+                                            <pre><?= $this->escapeHtml($this->exception->getTraceAsString()) ?></pre>
+                                        </dd>
+                                    </dl>
+                                        <?php if ($ex = $this->exception->getPrevious()) : ?>
+                                    <hr/>
 
-                <?php if (! empty($this->display_exceptions)) : ?>
-                    <?php if (isset($this->exception)
-                        && ($this->exception instanceof \Exception || $this->exception instanceof \Error)) : ?>
-                <hr/>
-
-                <h2>Additional information:</h2>
-                <h3><?= get_class($this->exception) ?></h3>
-                <dl>
-                    <dt>File:</dt>
-                    <dd>
-                        <pre><?= $this->exception->getFile() ?>:<?= $this->exception->getLine() ?></pre>
-                    </dd>
-                    <dt>Message:</dt>
-                    <dd>
-                        <pre><?= $this->escapeHtml($this->exception->getMessage()) ?></pre>
-                    </dd>
-                    <dt>Stack trace:</dt>
-                    <dd>
-                        <pre><?= $this->escapeHtml($this->exception->getTraceAsString()) ?></pre>
-                    </dd>
-                </dl>
-
-                        <?php if ($ex = $this->exception->getPrevious()) : ?>
-                <hr/>
-
-                <h2>Previous exceptions:</h2>
-                <ul class="list-unstyled">
-                            <?php $icount = 0 ?>
-                            <?php while ($ex) : ?>
-                    <li>
-                        <h3><?= get_class($ex) ?></h3>
-                        <dl>
-                            <dt>File:</dt>
-                            <dd>
-                                <pre><?= $ex->getFile() ?>:<?= $ex->getLine() ?></pre>
-                            </dd>
-                            <dt>Message:</dt>
-                            <dd>
-                                <pre><?= $this->escapeHtml($ex->getMessage()) ?></pre>
-                            </dd>
-                            <dt>Stack trace:</dt>
-                            <dd>
-                                <pre><?= $this->escapeHtml($ex->getTraceAsString()) ?></pre>
-                            </dd>
-                        </dl>
-                    </li>
-                                <?php
-                                $ex = $ex->getPrevious();
-                                if (++$icount >= 50) {
-                                    echo '<li>There may be more exceptions, but we do not have enough memory to process it.</li>';
-                                    break;
-                                }
-                                ?>
-                            <?php endwhile ?>
-                </ul>
-                        <?php endif ?>
-                    <?php else : ?>
-                        <h3>No Exception available</h3>
-                    <?php endif ?>
-                <?php endif ?>
+                                    <h2>Previous exceptions:</h2>
+                                    <ul class="list-unstyled">
+                                                <?php $icount = 0 ?>
+                                                <?php while ($ex) : ?>
+                                                        <li>
+                                                            <h3><?= get_class($ex) ?></h3>
+                                                            <dl>
+                                                                <dt>File:</dt>
+                                                                <dd>
+                                                                    <pre><?= $ex->getFile() ?>:<?= $ex->getLine() ?></pre>
+                                                                </dd>
+                                                                <dt>Message:</dt>
+                                                                <dd>
+                                                                    <pre><?= $this->escapeHtml($ex->getMessage()) ?></pre>
+                                                                </dd>
+                                                                <dt>Stack trace:</dt>
+                                                                <dd>
+                                                                    <pre><?= $this->escapeHtml($ex->getTraceAsString()) ?></pre>
+                                                                </dd>
+                                                            </dl>
+                                                        </li>
+                                                    <?php
+                                                    $ex = $ex->getPrevious();
+                                                    if (++$icount >= 50) {
+                                                        echo '<li>There may be more exceptions, but we do not have enough memory to process it.</li>';
+                                                        break;
+                                                    }
+                                                    ?>
+                                                <?php endwhile ?>
+                                    </ul>
+                                            <?php endif ?>
+                                        <?php else : ?>
+                                            <h3>No Exception available</h3>
+                                        <?php endif ?>
+                                    <?php endif ?>
+                                    <a href="/" class="btn btn-primary-borded2 btn-round">Ir para página principal</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+

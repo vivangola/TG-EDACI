@@ -44,3 +44,16 @@
         <?= $this->inlineScript() ?>
     </body>
 </html>
+
+
+<script type="text/javascript">
+    function loader(){
+        Swal.fire({
+            title: '',
+            html: '',
+            onBeforeOpen: () => {
+              Swal.showLoading();
+            }
+        });
+    }
+</script>

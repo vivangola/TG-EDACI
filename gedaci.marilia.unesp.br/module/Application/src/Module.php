@@ -68,11 +68,11 @@ class Module
         $view = $event->getViewModel();
         switch ($response->getStatusCode()) {
             case 404:
-                $view->setTemplate('layout/layout');
+                $view->setTemplate('layout/layout_limpo');
                 $view->setVariable('titulo_da_pagina', 'Error 404');
                 break;
             case 500:
-                $view->setTemplate('layout/layout');
+                $view->setTemplate('layout/layout_limpo');
 //                $result = $event->getResult();
 //                $result->setVariable('error', $event->getTarget()->getRequest()->getQuery('dbug_kplay', 0) ? 1 : 0);
 //                $result->setVariable('error', ini_get('display_errors'));                                                                

@@ -24,16 +24,16 @@
                 </div>
                 <div id="login">
 
-                    <form action="/" method="get">
+                    <form>
 
                         <fieldset class="clearfix">
                             <h3 style="color:white;">LOGIN</h3>
                             <div style="margin-top:20px">
-                                <p ><span class="fa fa-user"></span><input type="text"  Placeholder="E-mail" required></p> <!-- JS because of IE support; better: placeholder="Username" -->
-                                <p><span class="fa fa-lock"></span><input type="password"  Placeholder="Senha" required></p> <!-- JS because of IE support; better: placeholder="Password" -->
+                                <p ><span class="fa fa-user"></span><input type="text" id="login_email" Placeholder="E-mail" required></p> <!-- JS because of IE support; better: placeholder="Username" -->
+                                <p><span class="fa fa-lock"></span><input type="password" id="senha"  Placeholder="Senha" required></p> <!-- JS because of IE support; better: placeholder="Password" -->
 
                                 <div style="margin-top:20px">
-                                    <span class="pull-center" style="display: inline-block;"><a href="/cadastro"><input type="button" value="Cadastro"></a>&nbsp;&nbsp;&nbsp;<input type="submit" style="width:100px" value="Entrar"></span>
+                                    <span class="pull-center" style="display: inline-block;"><a href="/cadastro"><input type="button" value="Cadastro"></a>&nbsp;&nbsp;&nbsp;<input type="button" onclick="logar();" style="width:100px" value="Entrar"></span>
                                 </div>
                                 <div style="margin-top:10px">
                                     <span class="pull-center" style="display: inline-block;"><a style="color:#fff" href="/esqueci-senha">Esqueci minha senha</a></span>
@@ -53,3 +53,44 @@
     </div>
 
 </div>
+
+
+<script type="text/javascript">
+    
+    function logar(){
+        
+        $.ajax({
+            url: '/login/acessar',
+            data: {
+                login: $('#login_email').val(),
+                senha: $('#senha').val(),
+            },
+            method: 'POST',
+            datatype: 'json',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                retorno = jQuery.parseJSON(retorno);
+                if (!retorno.response) {
+                    Swal.fire({
+                        type: 'error',
+                        title: 'Oops...',
+                        text: retorno.msg,
+                        footer: '<a href>Esqueceu a senha?</a>'
+                    });
+                }else{
+                    window.location.href = "/";
+                }
+            },
+            error: function () {
+            
+            },
+            complete: function () {
+
+            }
+        });
+        
+    }
+    
+</script>

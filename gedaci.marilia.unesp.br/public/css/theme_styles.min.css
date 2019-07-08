@@ -750,8 +750,6 @@ a:focus {
     opacity: 1
 }
 .main-box {
-    background: #FFF;
-    box-shadow: 1px 1px 2px 0 #CCC;
     margin-bottom: 16px;
     border-radius: 3px;
     background-clip: padding-box;

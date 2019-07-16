@@ -42,125 +42,39 @@ $sessao = new Container('usuario');
         <hr>
         <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-nav-new nav-list hoverzinho-menu">
-                <li>
-                    <a class="<?= $pagina == 'atas' ? 'selected-link' : '' ?>" href="/atas">
-                        <span class="hidden-xs showopacity fa fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu">Atas de Reuniões</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="<?= $pagina == 'biblioteca' ? 'selected-link' : '' ?>" href="/biblioteca">
-                        <span class="hidden-xs showopacity fa fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu">Biblioteca</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="<?= $pagina == 'pre-cadastro' ? 'selected-link' : '' ?> " href="/pre-cadastro">
-                        <span class="hidden-xs showopacity fa fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu">Cadastrar</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="<?= $pagina == 'chat' ? 'selected-link' : '' ?>" href="/chat">
-                        <span class="hidden-xs showopacity fa fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu">Chat</span>
-                    </a>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle <?= $pagina == 'configuracoes' ? 'selected-link' : '' ?>" data-toggle="dropdown">
-                        <span class="hidden-xs showopacity icon-ajuste fa fa-chevron-circle-right"></span> <span class="menu-item-2 hid-menu">Configurações
-                        </span>
-                    </a>
-                </li>
-                <li class="list-group-item">
-                    <div class="toggle">
-                        <span class="hidden-xs showopacity fa fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu">E-mails</span> <span class="fa fa-chevron-down pull-right sumir-icon-angle mt-10"></span>
-                        <div class="list-group-item-sub">
-                            <div>
-                                <a href="/relatorio/carta-compromisso/painel">Enviar E-mail</a>
-                            </div>
-                            <div>
-                                <a href="/relatorio/carta-compromisso">Meus E-mails</a>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <a class="<?= $pagina == 'avisos' ? 'selected-link' : '' ?>" href="/avisos">
-                        <span class="hidden-xs showopacity fa  fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu">Quadro de Avisos</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="<?= $pagina ?> <?= $pagina == 'quadro-disponibilidade' ? 'selected-link' : '' ?>" href="/quadro-disponibilidade">
-                        <span class="hidden-xs showopacity fa  fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu">Quadro de Disponibilidade</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="<?= $pagina == 'eventos' ? 'selected-link' : '' ?>" href="/eventos">
-                        <span class="hidden-xs showopacity fa fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu">Quadro de Eventos</span>
-                    </a>
-
-                </li>
-                <li>
-                    <a class="<?= $pagina == 'quadro-leitura' ? 'selected-link' : '' ?>" href="/quadro-leitura">
-                        <span class="hidden-xs showopacity fa fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu">Quadro de Literatura</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="<?= $pagina == 'escolaridade' ? 'selected-link' : '' ?> " href="/escolaridade">
-                        <span class="hidden-xs showopacity fa  fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu">Níveis de Escolaridade</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="<?= $pagina == 'plano-atividades' ? 'selected-link' : '' ?>" href="/plano-atividades">
-                        <span class="hidden-xs showopacity fa fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu">Plano de Atividade</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="<?= $pagina == 'plano-metas' ? 'selected-link' : '' ?> " href="/plano-metas">
-                        <span class="hidden-xs showopacity fa fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu">Plano de Metas</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="<?= $pagina == 'producao-grupo' ? 'selected-link' : '' ?>" href="/producao-grupo">
-                        <span class="hidden-xs showopacity fa fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu">Produçao do Grupo</span>
-                    </a>
-                </li>
-                <li class="list-group-item">
-                    <div class="toggle">
-                        <span class="hidden-xs showopacity fa fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu">Questionários</span> <span class="fa fa-chevron-down pull-right sumir-icon-angle mt-10"></span>
-                        <div class="list-group-item-sub">
-                            <div>
-                                <a href="/relatorio/carta-compromisso/painel">Aprendizagem</a>
-                            </div>
-                            <div>
-                                <a href="/relatorio/carta-compromisso">Cadastro</a>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <div class="toggle">
-                        <span class="hidden-xs showopacity fa fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu">Trabalhos de Correção</span> <span class="fa fa-chevron-down pull-right sumir-icon-angle mt-10"></span>
-                        <div class="list-group-item-sub">
-                            <div>
-                                <a href="/relatorio/carta-compromisso/painel">Meus Trabalhos</a>
-                            </div>
-                            <div>
-                                <a href="/relatorio/carta-compromisso">Trabalhos Recebidos</a>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <div class="toggle">
-                        <span class="hidden-xs showopacity fa fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu">Usuários</span> <span class="fa fa-chevron-down pull-right sumir-icon-angle mt-10"></span>
-                        <div class="list-group-item-sub">
-                            <div>
-                                <a href="/relatorio/top-recrutadores">Grupos</a>
-                            </div>
-                            <div>
-                                <a href="/relatorio/top-recrutadores">Membros</a>
-                            </div>
-                        </div>
-                    </div>
-                </li>
+                <?php 
+                $menu = "";
+                foreach($this->aplicacoes as $dados){
+                    if($dados['submenu'] == '0' && $dados['link'] != ''){ //menu
+                        $menu = $menu . 
+                                "<li>".
+                                    '<a class="'.($pagina == $dados["pagina"] ? "selected-link" : "").'" href="'.$dados["link"].'">'.  
+                                        '<span class="hidden-xs showopacity fa fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu">' . $dados["titulo"] . '</span>'.
+                                    '</a>'.
+                                "</li>";
+                    }
+                    elseif($dados['submenu'] == '0' && $dados['link'] == ''){ //menu que tem submenu
+                        $menu = $menu .
+                                '<li class="list-group-item">'.
+                                    '<div class="toggle">'.
+                                        '<span class="hidden-xs showopacity fa fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu"> ' .$dados["titulo"]. '</span> <span class="fa fa-chevron-down pull-right sumir-icon-angle mt-10"></span>'.
+                                        '<div class="list-group-item-sub">'.
+                                            '<submenu'.$dados['cod_aplicacao'].'/>'.
+                                        '</div>'.
+                                    '</div>'.
+                                '</li>';
+                    }
+                    elseif($dados['submenu'] != '0'){
+                        $menu = str_replace('<submenu'.$dados['submenu'].'/>', //submenu
+                                '<div>'.
+                                    '<a href="'.$dados['link'].'">'.$dados['titulo'].'</a>'.
+                                '</div>'.
+                                '<submenu'.$dados['submenu'].'/>',
+                                $menu);
+                    }
+                }
+                echo $menu;
+                ?>
             </ul>
         </div>
     </div>

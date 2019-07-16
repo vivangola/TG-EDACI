@@ -88,7 +88,8 @@ class Module
         $funcoes = new Funcoes($controller);
         
         $nao_verifica_sessao = array(
-            'Login\Controller\LoginController'
+            'Login\Controller\LoginController',
+            'Cadastro\Controller\CadastroController'
         );
         
         $layout_limpo = array(
@@ -96,20 +97,19 @@ class Module
             'Cadastro\Controller\CadastroController',
             'Questionario\Controller\QuestionarioController'
         );
-        /*
+        
         if(!in_array($nome_controller, $nao_verifica_sessao)){
             if(!$funcoes->verificaSessao()){
                 return $controller->redirect()->toUrl("/login");
             }
         }
-        */
+        
         $view = $e->getViewModel();  
-        
-        
         
         if(in_array($nome_controller, $layout_limpo)){
             $view->setTemplate('layout/layout_limpo');
         }else{
+            $this->carregarMenu($controller);
             $view->setTemplate('layout/layout');
         }
     }
@@ -122,5 +122,19 @@ class Module
         
         $controller->layout()->pagina = $pagina;
         
+    }
+    
+    public function carregarMenu($controller){
+        $funcoes = new Funcoes($controller);
+        $sessao = new Container('usuario');
+        
+        $params = array(
+            'cod_usuario' => $sessao->cod_usuario
+        );
+        
+        $sql = "call sys_listarMenu_sp (:cod_usuario)";
+        $aplicacoes = $funcoes->executarSQL($sql, $params);
+        
+        $controller->layout()->aplicacoes = $aplicacoes;
     }
 }

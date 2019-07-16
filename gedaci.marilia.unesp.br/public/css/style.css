@@ -2509,20 +2509,6 @@ thead {
     border-bottom: solid 4px;
     color: #477482 !important;
 }
-.btn-primary-borded2:hover,
-.btn-primary-borded2:focus,
-.btn-primary-borded2:active,
-.btn-primary-borded2.active,
-.open .dropdown-toggle.btn-primary-borded2 {
-    background-color: #fff !important;
-    border-color: #00253e !important;
-    border-left: solid 1px #00253e !important;
-    border-right: solid 1px #00253e !important;
-    border-top: solid 1px #00253e !important;
-    color: #00253e !important;
-}
-
-
 
 .btn-gold {
     background-color: #d0a956;
@@ -2864,10 +2850,6 @@ a.list-group-item.active:focus {
 }
 .popover-content {
     font-size: .875em
-}
-.modal-content {
-    border-radius: 0;
-    background-clip: padding-box
 }
 blockquote,
 blockquote.pull-right {
@@ -7408,14 +7390,6 @@ input[disabled] {
 
 .mt-8{
     margin-top: 8px;
-}
-
-.modal-body{ 
-    padding: 0; 
-} 
-
-.modal-header{ 
-    padding: 10px; 
 }
 
 @media (min-width: 739px) and (max-width: 1200px){

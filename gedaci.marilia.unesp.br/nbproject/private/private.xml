@@ -3,7 +3,27 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/C:/xampp/htdocs/TG-EDACI/gedaci.marilia.unesp.br/module/Application/view/layout/layout.phtml</file>
+=======
+            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/public/css/style.css</file>
+            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/module/Quadro/src/Controller/ProducaoGrupoController.php</file>
+            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/public/css/bootstrap.min.css</file>
+            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/module/Quadro/view/quadro/avisos.phtml</file>
+            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/public/css/bootstrap-reboot.css</file>
+            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/module/Quadro/config/module.config.php</file>
+            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/module/Login/view/login/esqueci-senha.phtml</file>
+            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/public/css/login.css</file>
+            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/module/Quadro/view/quadro/producao-grupo.phtml</file>
+            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/module/Quadro/view/quadro/biblioteca.phtml</file>
+            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/module/Application/view/application/index/index.phtml</file>
+            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/module/Cadastro/view/cadastro/pre-cadastro.phtml</file>
+            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/module/Login/view/login/login.phtml</file>
+            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/module/Quadro/src/Controller/EscolaridadeController.php</file>
+            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/module/Cadastro/view/cadastro/cadastro.phtml</file>
+            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/module/Application/view/partials/menu_lateral.phtml</file>
+            <file>file:/C:/Users/Vivangola/Documents/GitHub/TG-EDACI/gedaci.marilia.unesp.br/module/Quadro/view/quadro/nivel-escolaridade.phtml</file>
+>>>>>>> 4c940189ebe5b5edc7e332d4e9ce662269e0f859
         </group>
     </open-files>
 </project-private>

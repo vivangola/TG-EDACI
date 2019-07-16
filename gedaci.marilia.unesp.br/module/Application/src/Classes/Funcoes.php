@@ -94,7 +94,7 @@ class Funcoes {
             $conn->close();
             return $retorno;
         } catch(Exception $e){
-            throw new Exception(sprintf(("Erro no Banco de Dados SQL:\n\n%s"), $e->getMessage()));
+            throw new Exception(sprintf(("Erro no Banco de Dados SQL:\n\n".$sql."\n\n%s"), $e->getMessage()));
         }
     }
     
@@ -150,9 +150,9 @@ class Funcoes {
     }
     
     public function verificaSessao(){
-        $sessao = new Container('blog');
+        $sessao = new Container('usuario');
         
-        if(!$sessao->integracao){
+        if(!$sessao->cod_usuario){
             return false;
         }else{
             return true;

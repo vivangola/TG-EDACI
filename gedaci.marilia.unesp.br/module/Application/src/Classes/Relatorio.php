@@ -11,11 +11,6 @@ use Zend\View\Model\ViewModel;
  * and open the template in the editor.
  */
 
-/**
- * Description of Relatorio
- * @author Robson Martins Lopes
- * @since 27/01/2016
- */
 class Relatorio {
     
     private $service_translator;

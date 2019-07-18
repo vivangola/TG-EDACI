@@ -1,7 +1,7 @@
-<div class="row box-home" align="center" style="height:100%">
+﻿<div class="row box-home" align="center" style="height:100%">
     <div class="col-md-12 col-xs-12">  
         <div class="main-box clearfix print min-branco">
-            <div class="main-box-body clearfix mt">            
+            <div class="main-box-body clearfix mt" style="margin-top: 2px !important;">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 ">
@@ -9,73 +9,49 @@
                                 <div class="icon">
                                     <div class="image back-primary3"><i class="fa fa-book"></i>&nbsp;<label class="title">Quadro de Avisos</label></div>
                                     <div class="info" style="min-height:450px">
-                                        <div class="row" style="padding-left: 10px;padding-right: 10px">
-                                            <div class="col-md-6 col-sm-4 col-xs-8">
-                                                <input type="text" placeholder="Pesquisar" class="form-control">
-                                            </div>  
-                                            <div class="col-md-2 col-sm-2 col-xs-4">
-                                                <select class="form-control">
-                                                    <option value="">Todos</option>
-                                                    <option value="">Assunto</option>
-                                                    <option value="">N�vel de Escolaridade</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-2 col-sm-3 col-xs-6">
-                                                <button class="btn btn-primary2 form-control">
-                                                    Pesquisar&nbsp;
-                                                    <i class="fa fa-search"></i>
-                                                </button>
-                                            </div>
-                                            <div class="col-md-2 col-sm-3 col-xs-6">
-                                                <button class="btn btn-primary2 form-control" onClick="add()">
-                                                    Novo&nbsp;
-                                                    <i class="fa fa-plus"></i>
-                                                </button>
-                                            </div>
+                                        <div class="row" style="padding-left: 10px;padding-right: 10px;margin-top: 10px;margin-bottom: 20px;">
+                                            <form action="/avisos" method="post" enctype="">
+                                                <div class="col-md-6 col-sm-4 col-xs-8">
+                                                    <input type="text" name="pesquisa" placeholder="Pesquisar" class="form-control" value="<?= $pesq != '' ? $pesq : '' ?>">
+                                                </div>  
+                                                <div class="col-md-2 col-sm-2 col-xs-4">
+                                                    <select class="form-control" name="filtros">
+                                                        <option value="-1" <?= $filtro == '-1' ? 'selected' : '' ?>>Todos</option>
+                                                        <option value="1" <?= $filtro == '1' ? 'selected' : '' ?>>Assunto</option>
+                                                        <option value="2" <?= $filtro == '2' ? 'selected' : '' ?>>Nível de Escolaridade</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-2 col-sm-3 col-xs-6">
+                                                    <button class="btn btn-primary-borded2 form-control" type="submit">
+                                                        Pesquisar&nbsp;
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-2 col-sm-3 col-xs-6">
+                                                    <button class="btn btn-primary-borded2 form-control" onClick="showAdd()">
+                                                        Novo&nbsp;
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </form>
                                         </div>
-                                        <div class="table-responsive" style="margin-top:10px">
-                                            <table id="tabela" class="table table-striped table-bordered dataTable-primary" style="width:100%">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Assunto</th>
-                                                        <th>Descri��o</th>
-                                                        <th>N�vel Escolaridade</th>
-                                                        <th>Data Inicio</th>
-                                                        <th>Data Fim</th>
-                                                        <th>Alterar</th>
-                                                        <th>Excluir</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr style="text-align: left">
-                                                        <td>Processo Seletivo</td>
-                                                        <td>O processo seletivo de 2019 foi aberto. Inscreva-se.</td>
-                                                        <td align="center">Mestrado</td>
-                                                        <td>20/05/2019</td>
-                                                        <td>20/06/2019</td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                    <tr style="text-align: left">
-                                                        <td>Atualiza��o de suas informa��es</td>
-                                                        <td>Por favor, mantenha sempre suas informa��es atualizadas.</td>
-                                                        <td align="center">Todos</td>
-                                                        <td>01/04/2019</td>
-                                                        <td>01/07/2019</td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                    <tr style="text-align: left">
-                                                        <td>Oportunidade de Est�gio</td>
-                                                        <td>Uma nova oportunidade de est�gio surgiu em sua regi�o.</td>
-                                                        <td align="center">Tecn�logo</td>
-                                                        <td>10/03/2019</td>
-                                                        <td>23/04/2019</td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>   
+                                        <div class="table-responsive" style="margin-top: 10px;">
+                                            <?php
+                                            $relatorio->gerarCabecalho(12);
+                                            if ($avisos) {
+                                                foreach ($avisos as $dados) {
+                                                    
+                                                    $relatorio->definirVariavel('1', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showEdit('".$dados['cod_aviso']."')><i class='pointer fa fa-edit'></i></button>");
+                                                    $relatorio->definirVariavel('2', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showDelete('".$dados['cod_aviso']."')><i class='pointer fa fa-times'></i></button>");
+                                                    //$relatorio->definirLink('1', "/eventos?codigo=" . $dados['evento']);
+
+                                                    //chamada para imprimir o relatorio linha a linha 
+                                                    //passando as linhas do resultSet como parametro               
+                                                    $relatorio->gerarRelatorio($dados);
+                                                }
+                                            }
+                                            $relatorio->gerarRodape();
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -88,11 +64,11 @@
     </div>
 </div>
 
-<div class="modal fade" id="modalAviso" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title color-primary2"><i class="fa fa-book"></i>&nbsp;Novo Aviso</h2>
+                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Novo Aviso</h2>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -100,25 +76,109 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="add-assunto" class="col-form-label">Assunto:</label>
-                        <input type="text" class="form-control" id="add-assunto">
+                        <label for="add_assunto" class="col-form-label">Assunto:</label>
+                        <input type="text" class="form-control" id="add_assunto">
                     </div>
                     <div class="form-group">
-                        <label for="add-desc" class="col-form-label">Descri��o:</label>
-                        <input type="text" class="form-control" id="add-desc">
+                        <label for="add_desc" class="col-form-label">Descrição:</label>
+                        <input type="text" class="form-control" id="add_desc">
                     </div>
                     <div class="form-group">
-                        <label for="add-escolaridade" class="col-form-label">N�vel Escolaridade:</label>
-                        <select class="form-control" id="add-escolaridade">
-                            <option value="1">teste</option>
+                        <label for="add_escolaridade" class="col-form-label">Nível Escolaridade:</label>
+                        <select class="form-control" id="add_escolaridade">
+                            <option value="-1">Selecionar</option>
+                            <?php foreach($escolaridades as $dados):?>
+                                    <option value="<?= $dados['cod_nivel']?>"><?= $dados['descricao'] ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
-                    <div clas=""
+                    <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="add_dtini" class="col-form-label">Início de Exibição:</label>
+                            <input id="add_dtini" class="form-control input-group-lg" type="date" name="add_dtini" title="Digite o Início da Exibição."/>
+                        </div>
+
+                        <div class="form-group col-xs-6">
+                            <label for="add_hini" class="col-form-label">Horário:</label>
+                            <input id="add_hini" class="form-control input-group-lg" type="text" name="add-hini"  placeholder="00:00" data-mask="00:00" title="Digite o Horário de Início da Exibição."/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="add_dtfim" class="col-form-label">Fim de Exibição:</label>
+                            <input id="add_dtfim" class="form-control input-group-lg" type="date" name="add-dtfim" placeholder="" title="Digite o Fim da Exibição."/>
+                        </div>
+
+                        <div class="form-group col-xs-6">
+                            <label for="add_hfim" class="col-form-label">Horário:</label>
+                            <input id="add_hfim" class="form-control input-group-lg" type="text" name="add-hfim" placeholder="00:00" data-mask="00:00" title="Digite o Horário de Fim da Exibição."/>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary-borded2" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary3">Finalizar <i class="fa fa-check"></i></button>
+                <button type="button" class="btn btn-primary3" onclick="add();">Finalizar <i class="fa fa-check"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title color-primary2"><i class="fa fa-pencil"></i>&nbsp;Editar Aviso</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="edit_assunto" class="col-form-label">Assunto:</label>
+                        <input type="text" class="form-control" id="edit_assunto">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_desc" class="col-form-label">Descrição:</label>
+                        <input type="text" class="form-control" id="edit_desc">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_escolaridade" class="col-form-label">Nível Escolaridade:</label>
+                        <select class="form-control" id="edit_escolaridade">
+                            <?php foreach($escolaridades as $dados):?>
+                                    <option value="<?= $dados['cod_nivel']?>"><?= $dados['descricao'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="edit_dtini" class="col-form-label">Início de Exibição:</label>
+                            <input id="edit_dtini" class="form-control input-group-lg" type="date" name="add_dtini" title="Digite o Início da Exibição."/>
+                        </div>
+
+                        <div class="form-group col-xs-6">
+                            <label for="edit_hini" class="col-form-label">Horário:</label>
+                            <input id="edit_hini" class="form-control input-group-lg" type="text" name="add-hini"  placeholder="00:00" data-mask="00:00" title="Digite o Horário de In�cio da Exibição."/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="edit_dtfim" class="col-form-label">Fim de Exibição:</label>
+                            <input id="edit_dtfim" class="form-control input-group-lg" type="date" name="add-dtfim" placeholder="" title="Digite o Fim da Exibição."/>
+                        </div>
+
+                        <div class="form-group col-xs-6">
+                            <label for="edit_hfim" class="col-form-label">Horário:</label>
+                            <input id="edit_hfim" class="form-control input-group-lg" type="text" name="add-hfim" placeholder="00:00" data-mask="00:00" title="Digite o Horário de Fim da Exibição."/>
+                        </div>
+                    </div>
+                    <input type="hidden" id="edit_cod">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary-borded2" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary3" onclick="edit()">Finalizar <i class="fa fa-check"></i></button>
             </div>
         </div>
     </div>
@@ -137,8 +197,144 @@
         });
     });
     
+    function showAdd(){
+        $('#modalAdd').modal('show');
+    }
+    
     function add(){
-        $('#modalAviso').modal('show');
+        
+        var data = {
+            add_assunto         : $('#add_assunto').val(),
+            add_desc            : $('#add_desc').val(),
+            add_escolaridade    : $('#add_escolaridade').val(),
+            add_dtini           : $('#add_dtini').val(),
+            add_dtfim           : $('#add_dtfim').val(),
+            add_hini            : $('#add_hini').val(),
+            add_hfim            : $('#add_hfim').val()
+        };
+        
+        if(validaParametros(data)){
+            $.ajax({
+                url: '/avisos/add',
+                data: data,
+                type: 'json',
+                method: 'POST',
+                beforeSend: function () {
+                    loader();
+                },
+                success: function (retorno) {
+                    Swal.fire({
+                        title: 'Sucesso!',
+                        html: 'Novo aviso cadastrado.',
+                        type: 'success',
+                        onClose: () => {
+                            window.location.reload();
+                        }
+                    });
+                },
+            });
+        }
+    }
+    
+    function showEdit(cod){
+        $.ajax({
+            url: '/avisos/showEdit',
+            data: {cod_aviso : cod},
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                retorno = JSON.parse(retorno);
+                Swal.close();
+                if(retorno.response){
+                    
+                    $('#edit_cod').val(retorno.result['cod_aviso']);
+                    $('#edit_assunto').val(retorno.result['aviso_assunto']);
+                    $('#edit_desc').val(retorno.result['aviso_desc']);
+                    $('#edit_escolaridade option[value="'+retorno.result['cod_nivel']+'"]').attr('selected','true');
+                    $('#edit_dtini').val(retorno.result['date_ini']);
+                    $('#edit_dtfim').val(retorno.result['date_fim']);
+                    $('#edit_hini').val(retorno.result['inicio_hora']);
+                    $('#edit_hfim').val(retorno.result['fim_hora']);
+                    
+                    $('#modalEdit').modal('show');
+                }else{
+                    Swal.fire({
+                        title: 'Atenção!',
+                        html: 'Aviso não encontrado.',
+                        type: 'info'
+                    });
+                }
+            }
+        });
+    }
+    
+    function edit(){
+        
+        var data = {
+            cod                  : $('#edit_cod').val(),
+            edit_assunto         : $('#edit_assunto').val(),
+            edit_desc            : $('#edit_desc').val(),
+            edit_escolaridade    : $('#edit_escolaridade').val(),
+            edit_dtini           : $('#edit_dtini').val(),
+            edit_dtfim           : $('#edit_dtfim').val(),
+            edit_hini            : $('#edit_hini').val(),
+            edit_hfim            : $('#edit_hfim').val()
+        };
+        
+        if(validaParametros(data)){
+            $.ajax({
+                url: '/avisos/edit',
+                data: data,
+                type: 'json',
+                method: 'POST',
+                beforeSend: function () {
+                    loader();
+                },
+                success: function (retorno) {
+                    Swal.fire({
+                        title: 'Sucesso!',
+                        html: 'Aviso editado com sucesso.',
+                        type: 'success',
+                        onClose: () => {
+                            window.location.reload();
+                        }
+                    });
+                },
+            });
+        }
+    }
+    
+    function showDelete(cod){
+        Swal.fire({
+            title: 'Atenção!',
+            html: 'Deseja realmente excluir esse aviso?',
+            type: 'info',
+            showCancelButton: true,
+            preConfirm: () => {
+                $.ajax({
+                    url: '/avisos/delete',
+                    data: {cod_aviso : cod},
+                    type: 'json',
+                    method: 'POST',
+                    beforeSend: function () {
+                        loader();
+                    },
+                    success: function (retorno) {
+                        Swal.fire({
+                            title: 'Sucesso!',
+                            html: 'Aviso deletado.',
+                            type: 'success',
+                            onClose: () => {
+                                window.location.reload();
+                            }
+                        });
+                    }
+                });
+            }
+        });
     }
 
 </script>

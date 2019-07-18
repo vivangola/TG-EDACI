@@ -47,7 +47,7 @@ return [
             'avisos' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/avisos',
+                    'route'    => '/avisos[/:action]',
                     'defaults' => [
                         'controller' => Controller\QuadroAvisoController::class,
                         'action'     => 'avisos',

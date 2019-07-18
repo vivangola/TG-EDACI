@@ -260,9 +260,9 @@ section{
     color: #000000 !important;
 }
 
-.navbar-hinode {
+.navbar-edaci {
     background-color: #ffffff !important;
-    border-color: #dcdcdc !important;
+    border-top: solid #e0e0e0 1px !important;
 }
 
 .navbar-nav-new > li > a {
@@ -282,12 +282,12 @@ section{
     background-color: #9E9E9E !important;
 }
 
-.navbar-hinode .navbar-nav-new>li>a:focus, .navbar-hinode .navbar-nav-new>li>a:hover {
+.navbar-edaci .navbar-nav-new>li>a:focus, .navbar-edaci .navbar-nav-new>li>a:hover {
     color: #2b7dbc;
     background-color: transparent;
 }
 
-.navbar-hinode .navbar-nav-new>.open>a, .navbar-hinode .navbar-nav-new>.open>a:focus, .navbar-hinode .navbar-nav-new>.open>a:hover {
+.navbar-edaci .navbar-nav-new>.open>a, .navbar-edaci .navbar-nav-new>.open>a:focus, .navbar-edaci .navbar-nav-new>.open>a:hover {
     color: #fff;
     background-color: #2b7dbc;
 }
@@ -1002,7 +1002,7 @@ input#id_produto::-webkit-inner-spin-button {
     }
 
     td {
-        background-color: #EAEAEA !important;
+        background-color: #f2f2f2 !important;
     }
     #content-wrapper{margin-top:  -350px !important; padding: 0px !important}
     #header-navbar{display: none;visibility: hidden}
@@ -1281,7 +1281,7 @@ a:focus {
     opacity: 1
 }
 .main-box {
-    background: #eaeaea;
+    background: #f2f2f2;
     margin-bottom: 16px;
     border-radius: 3px;
     background-clip: padding-box;
@@ -2176,9 +2176,6 @@ thead {
     text-align: center;
     color: #1890E1;
 }
-.ahinode {
-    color: #F1C40F;
-}
 .fixed-header #header-navbar {
     left: 0;
     position: fixed;
@@ -2497,6 +2494,16 @@ thead {
 }
 .btn-primary3:hover{
     background-color: #477482 !important;
+}
+
+.btn-primary4 {
+    background-color: #629bad !important;
+    color:white;
+    border: 1px solid #629bad !important;
+}
+.btn-primary4:hover {
+    background-color: #477482 !important;
+    color:white;
 }
 
 .btn-primary-borded2 {
@@ -2912,7 +2919,7 @@ blockquote.pull-right:before {
 }
 .table-hover > tbody > tr:hover > td,
 .table-hover > tbody > tr:hover > th {
-    background-color: #d9d9d9;
+    background-color: #f2f2f2 !important;
 }
 .table thead > tr > th {
     border-bottom: 2px solid #e7ebee;
@@ -2923,7 +2930,7 @@ blockquote.pull-right:before {
     color: #000
 }
 .table tbody > tr > td {
-    font-size: .875em;
+    font-size: 1em;
     vertical-align: middle;
     border-top: 1px solid #e7ebee;
     padding: 3px 5px
@@ -3014,10 +3021,7 @@ blockquote.pull-right:before {
     color: #3498db;
     border-color: #3498db
 }
-.table.table-hover tbody > tr > td {
-    -webkit-transition: background-color .15s ease-in-out 0;
-    transition: background-color .15s ease-in-out 0
-}
+
 .table-products tbody > tr > td {
     background: none;
     border: none;
@@ -7140,7 +7144,7 @@ svg {
 }
 .theme-whbl #nav-col,
 .theme-whbl #page-wrapper {
-    background-color: #eaeaea;
+    background-color: #f2f2f2;
     padding-top: 7px;
 }
 .theme-whbl #sidebar-nav .nav > li > a {
@@ -8146,10 +8150,6 @@ p.cinza-padrao{
 
 .pd-arruma.pd-0 {
     padding: 0px 0px 40px 0 !important;
-}
-
-#hinode-banners{
-    padding-bottom: 10px !important;
 }
 
 .img-slider {

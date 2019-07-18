@@ -1,11 +1,14 @@
-<?= $this->doctype() ?>
+﻿<?= $this->doctype() ?>
 
-<html lang="en" style="background:#273043 !important">
+<html lang="pt_BR" style="background:#273043 !important">
     <head>
         <?php
             header("Cache-Control: no-cache, must-revalidate");
-            header('Content-type: text/html; charset=CP1252');
+            header('Content-type: text/html; charset=utf-8');
         ?>
+        
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        
         
         <?= $this->headTitle('GRUPO EDACI')->setSeparator(' - ')->setAutoEscape(false) ?>
 
@@ -20,14 +23,18 @@
             ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
             ->prependStylesheet($this->basePath('css/theme_styles.min.css'))
             ->prependStylesheet($this->basePath('css/font-awesome.min.css'))
+            ->prependStylesheet($this->basePath('css/sweetalert.css'))
             ->prependStylesheet($this->basePath('css/css-loader.css'))
             ->prependStylesheet($this->basePath('css/animate.css'))
         ?>
 
         <!-- Scripts -->
         <?= $this->headScript()
+            ->prependFile($this->basePath('js/funcoes.js'))
             ->prependFile($this->basePath('js/datatable/dataTables.min.js'))
+            ->prependFile($this->basePath('js/sweetalert.min.js'))
             ->prependFile($this->basePath('js/bootstrap.js'))
+            ->prependFile($this->basePath('js/jquery.mask.js'))
             ->prependFile($this->basePath('js/jquery-3.1.0.min.js'))
         ?>
     </head>

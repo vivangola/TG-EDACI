@@ -57,8 +57,6 @@ class Funcoes {
     
     public function executarSQL($sql = '', $params = array(), $tipo = 'all') {
         try{
-            $conexao = mysql_connect('localhost', 'root', '');
-            
             $dados = array(
                 'server'    => 'localhost',
                 'username'  => 'root',
@@ -76,6 +74,7 @@ class Funcoes {
                 $sql = str_replace(':'.$key, "'".$param."'", $sql);
             }
             
+            $conn->query('SET NAMES utf8mb4');
             $result = $conn->query($sql);
             
             if(!$result){
@@ -83,12 +82,19 @@ class Funcoes {
             }
             
             $retorno = [];
-            if($tipo == 'all'){
-                while($row = $result->fetch_assoc()){
-                    array_push($retorno, $row);
+            
+            if(is_object($result)){
+                if($tipo == 'all'){
+                    while($row = $result->fetch_assoc()){
+                        array_push($retorno, $row);
+                    }
+                }else{
+                    $retorno = $result->fetch_assoc();
                 }
-            }else{
-                $retorno = $result->fetch_assoc();
+            }
+            
+            if(is_array($result)){
+                $retorno = $this->utf8_converter($retorno, 'all', 'decode');
             }
             
             $conn->close();
@@ -125,7 +131,7 @@ class Funcoes {
         return $array2;
     }
     
-    public function alertBasic($message = 'Access Denied', $close = false, $redirect = false, $type = 'warning', $titulo = 'Atenção!') {
+    public function alertBasic($message = 'Access Denied', $close = false, $redirect = false, $type = 'warning', $titulo = 'AtenÃ§Ã£o!') {
         //$service_translate = $this->getTranslate();
         //$titulo =  $service_translate && $titulo ? $service_translate->translate($titulo) : $titulo;
         
@@ -197,7 +203,7 @@ class Funcoes {
         
         for($i = 1; $i <= $numPag; $i++){
             
-            //primeira parte mostrar em qual pagina o usuario está
+            //primeira parte mostrar em qual pagina o usuario estÃ¡
             if($pagAtual == $i){
                 $class = "active";
             }else{

@@ -3,7 +3,7 @@ use Zend\Session\Container;
 $sessao = new Container('usuario');
 ?>
 
-<nav class="navbar navbar-inverse navbar-hinode sidebar larg-nav" role="navigation">
+<nav class="navbar navbar-inverse navbar-edaci sidebar larg-nav box" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header ">
             <a href="/" style="width:90%; margin-top: 10px;" data-toggle="tooltip" data-placement="bottom" title="Página Inicial!" class="botao-min border-bottom btn btn-primary3 btn-pad" id="botaoPrincipal">
@@ -17,9 +17,10 @@ $sessao = new Container('usuario');
                 </div>
                 <ul class="nav Professor-id nav-id height-padrao">
                     <li class="dropdown mt-7">
-                        <a href="javascript:;" id="make-small-nav" data-toggle="dropdown" class="dropdown-toggle" data-click="toggle-notify">
+                        <a href="javascript:;" id="make-small-nav" data-toggle="dropdown" class="dropdown-toggle" data-click="toggle-notify" style="padding: 0px !important;">
                             <span class="usuario-id" style="color:black"><?= $sessao->nome_usuario ?></span>
                         </a>
+                        <span class="usuario-id color-primary3" style="color:black"><?= $sessao->tipo_usuario_desc ?></span>
                         <div class="row" style="padding: 0px;cursor: default;">
                             <i class="fa fa-calendar-o"></i>&nbsp;<span id="day_painel"><?= date('d/m/Y') ?></span>
                             &nbsp;&nbsp;

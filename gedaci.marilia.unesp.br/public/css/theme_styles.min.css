@@ -2253,10 +2253,6 @@ blockquote.pull-right:before {
 .breadcrumb > li:first-child {
     margin-left: 0
 }
-.table-hover > tbody > tr:hover > td,
-.table-hover > tbody > tr:hover > th {
-    background-color: #e7ebee
-}
 .table thead > tr > th {
     border-bottom: 2px solid #e7ebee;
     text-transform: uppercase;
@@ -2356,10 +2352,6 @@ blockquote.pull-right:before {
     text-decoration: none;
     color: #3498db;
     border-color: #3498db
-}
-.table.table-hover tbody > tr > td {
-    -webkit-transition: background-color .15s ease-in-out 0;
-    transition: background-color .15s ease-in-out 0
 }
 .table-products tbody > tr > td {
     background: none;

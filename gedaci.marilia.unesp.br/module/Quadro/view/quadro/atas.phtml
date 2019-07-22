@@ -7,144 +7,49 @@
                         <div class="col-md-12 ">
                             <div class="box">                           
                                 <div class="icon">
-                                    <div class="image back-primary3"><i class="fa fa-book"></i>&nbsp;<label class="title">Atas de Reunião</label></div>
+                                    <div class="image back-primary3"><i class="fa fa-book"></i>&nbsp;<label class="title">Quadro de Avisos</label></div>
                                     <div class="info" style="min-height:450px">
-                                        <div class="row" style="padding-left: 10px;padding-right: 10px">
-                                            <div class="col-md-6 col-sm-4 col-xs-8">
-                                                <input type="text" placeholder="Pesquisar" class="form-control">
-                                            </div>  
-                                            <div class="col-md-2 col-sm-2 col-xs-4">
-                                                <select class="form-control">
-                                                    <option value="">Todos</option>
-                                                    <option value="">Conteúdo</option>
-                                                    <option value="">Tipo</option>
-                                                    <option value="">Usuário</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-2 col-sm-3 col-xs-6">
-                                                <button class="btn btn-primary2 form-control">
-                                                    Pesquisar&nbsp;
-                                                    <i class="fa fa-search"></i>
-                                                </button>
-                                            </div>
-                                            <div class="col-md-2 col-sm-3 col-xs-6">
-                                                <button class="btn btn-primary2 form-control">
-                                                    Novo&nbsp;
-                                                    <i class="fa fa-plus"></i>
-                                                </button>
-                                            </div>
+                                        <div class="row" style="padding-left: 10px;padding-right: 10px;margin-top: 10px;margin-bottom: 20px;">
+                                            <form action="/atas" method="post" enctype="">
+                                                <div class="col-md-6 col-sm-4 col-xs-8">
+                                                    <input type="text" name="pesquisa" placeholder="Pesquisar" class="form-control" value="<?= $pesq != '' ? $pesq : '' ?>">
+                                                </div>  
+                                                <div class="col-md-2 col-sm-2 col-xs-4">
+                                                    <select class="form-control">
+                                                        <option value="-1">Todos</option>
+                                                        <option value="1">ConteÃºdo</option>
+                                                        <option value="2">UsuÃ¡rio</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-2 col-sm-3 col-xs-6">
+                                                    <button class="btn btn-primary-borded2 form-control" type="submit">
+                                                        Pesquisar&nbsp;
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-2 col-sm-3 col-xs-6">
+                                                    <button class="btn btn-primary-borded2 form-control" type="button" onClick="showAdd()">
+                                                        Novo&nbsp;
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </form>
                                         </div>
-                                        <div class="table-responsive" style="margin-top:10px">
-                                            <table id="tabela" class="table table-striped table-bordered dataTable-primary" style="width:100%">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Conteúdo Sintético</th>
-                                                        <th>Usuário</th>
-                                                        <th>Data</th>
-                                                        <th></th>
-                                                        <th>Alterar</th>
-                                                        <th>Excluir</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr style="text-align: left">
-                                                        <td>Práticas de Organização</td>
-                                                        <td>Claudio Cardoso</td>
-                                                        <td>27/05/2019</td>
-                                                        <td width="20px"><button class="btn btn-primary-borded2 form-control">Visualizar</button></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                    <tr style="text-align: left">
-                                                        <td>Metas para o 2° Semestre</td>
-                                                        <td>Jorge da Silva</td>
-                                                        <td>20/05/2019</td>
-                                                        <td width="20px"><button class="btn btn-primary-borded2 form-control">Visualizar</button></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                    <tr style="text-align: left">
-                                                        <td>Processos Seletivos</td>
-                                                        <td>Jorge da Silva</td>
-                                                        <td>13/05/2019</td>
-                                                        <td width="20px"><button class="btn btn-primary-borded2 form-control">Visualizar</button></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                    <tr style="text-align: left">
-                                                        <td>Reunião Mensal</td>
-                                                        <td>Jorge da Silva</td>
-                                                        <td>02/05/2019</td>
-                                                        <td width="20px"><button class="btn btn-primary-borded2 form-control">Visualizar</button></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                    <tr style="text-align: left">
-                                                        <td>Planejamento de Atividades</td>
-                                                        <td>Tayná Campos</td>
-                                                        <td>23/04/2019</td>
-                                                        <td width="20px"><button class="btn btn-primary-borded2 form-control">Visualizar</button></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                    <tr style="text-align: left">
-                                                        <td>Planejamento IV SIADS</td>
-                                                        <td>Claudio Cardoso</td>
-                                                        <td>20/04/2019</td>
-                                                        <td width="20px"><button class="btn btn-primary-borded2 form-control">Visualizar</button></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                    <tr style="text-align: left">
-                                                        <td>Inclusão Social de Alunos</td>
-                                                        <td>Tayná Campos</td>
-                                                        <td>16/04/2019</td>
-                                                        <td width="20px"><button class="btn btn-primary-borded2 form-control">Visualizar</button></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                    <tr style="text-align: left">
-                                                        <td>Reunião com os Professores</td>
-                                                        <td>Jorge da Silva</td>
-                                                        <td>10/04/2019</td>
-                                                        <td width="20px"><button class="btn btn-primary-borded2 form-control">Visualizar</button></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                    <tr style="text-align: left">
-                                                        <td>Reunião Mensal</td>
-                                                        <td>Jorge da Silva</td>
-                                                        <td>05/04/2019</td>
-                                                        <td width="20px"><button class="btn btn-primary-borded2 form-control">Visualizar</button></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                    <tr style="text-align: left">
-                                                        <td>Definições de Orientações</td>
-                                                        <td>Matheus Oliveira</td>
-                                                        <td>14/03/2019</td>
-                                                        <td width="20px"><button class="btn btn-primary-borded2 form-control">Visualizar</button></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                    <tr style="text-align: left">
-                                                        <td>Definições de Orientações</td>
-                                                        <td>Matheus Oliveira</td>
-                                                        <td>14/03/2019</td>
-                                                        <td width="20px"><button class="btn btn-primary-borded2 form-control">Visualizar</button></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                    <tr style="text-align: left">
-                                                        <td>Reunião Mensal</td>
-                                                        <td>Jorge da Silva</td>
-                                                        <td>05/04/2019</td>
-                                                        <td width="20px"><button class="btn btn-primary-borded2 form-control">Visualizar</button></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>   
+                                        <div class="table-responsive" style="margin-top: 10px;">
+                                            <?php
+                                            $relatorio->gerarCabecalho(12);
+                                            if ($atas) {
+                                                foreach ($atas as $dados) {
+                                                    
+                                                    $relatorio->definirVariavel('1', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showEdit('".$dados['cod_ata']."')><i class='pointer fa fa-search'></i></button>");
+                                                    $relatorio->definirVariavel('2', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showEdit('".$dados['cod_ata']."')><i class='pointer fa fa-edit'></i></button>");
+                                                    $relatorio->definirVariavel('3', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showDelete('".$dados['cod_ata']."')><i class='pointer fa fa-times'></i></button>");
+                                                    
+                                                    $relatorio->gerarRelatorio($dados);
+                                                }
+                                            }
+                                            $relatorio->gerarRodape();
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -153,6 +58,46 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Adicionar nova Ata</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="form" action="/atas/add" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="add_conteudo" class="col-form-label">ConteÃºdo SintÃ©tico:</label>
+                        <input type="text" required class="form-control" id="add_conteudo" name="add_conteudo" title="Digite o ConteÃºdo SintÃ©tico."/>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="add_dt" class="col-form-label">Data da ReuniÃ£o:</label>
+                            <input id="add_dt" required class="form-control input-group-lg" type="date" name="add_dt" title="Digite a data da reuniÃ£o."/>
+                        </div>
+
+                        <div class="form-group col-xs-6">
+                            <label for="add_h" class="col-form-label">HorÃ¡rio da ReuniÃ£o:</label>
+                            <input id="add_h" required class="form-control input-group-lg" type="text" name="add_h"  placeholder="00:00" data-mask="00:00" title="Digite o horÃ¡rio da reuniÃ£o."/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="add_arquivo" class="col-form-label">Arquivo:</label>
+                        <input type="file" required class="form-control" name="add_arquivo" id="add_arquivo">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary-borded2" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary3">Finalizar <i class="fa fa-check"></i></button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -170,5 +115,49 @@
             "searching": false
         });
     });
+    
+    function showAdd(){
+        $('#modalAdd').modal('show');
+    }
+    
+    function add(){
+        
+        var data = {
+            add_conteudo        : $('#add_conteudo').val(),
+            add_dt              : $('#add_dt').val(),
+            add_h               : $('#add_h').val(),
+            add_arquivo         : $('#add_arquivo').val()
+        };
+    }
+    
+    function showDelete(cod){
+        Swal.fire({
+            title: 'AtenÃ§Ã£o!',
+            html: 'Deseja realmente excluir?',
+            type: 'info',
+            showCancelButton: true,
+            preConfirm: () => {
+                $.ajax({
+                    url: '/atas/delete',
+                    data: {cod_ata : cod},
+                    type: 'json',
+                    method: 'POST',
+                    beforeSend: function () {
+                        loader();
+                    },
+                    success: function (retorno) {
+                        Swal.fire({
+                            title: 'Sucesso!',
+                            html: 'Aviso deletado.',
+                            type: 'success',
+                            onClose: () => {
+                                window.location.reload();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
 
 </script>

@@ -9,10 +9,10 @@ namespace Quadro\Controller;
 
 use Application\Classes\Funcoes;
 use Application\Classes\Relatorio;
+use Zend\Json\Json;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\Container;
 use Zend\View\Model\ViewModel;
-use Zend\Json\Json;
 
 class QuadroAvisoController extends AbstractActionController
 {
@@ -25,6 +25,10 @@ class QuadroAvisoController extends AbstractActionController
             'filtro'    => $this->params()->fromPost('filtros', '-1'),
             'pesquisa'  => $this->params()->fromPost('pesquisa', ''),
         );
+        
+        if($params['filtro'] == '-1'){
+            $params['pesquisa'] = '';
+        }
         
         $sqlAvisos = "call us_buscarAvisos2_sp(:filtro,:pesquisa,'0')";
         $resultAvisos = $funcoes->executarSQL($sqlAvisos,$params);

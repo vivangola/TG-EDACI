@@ -13,12 +13,12 @@
                                             <div class="col-md-12">
                                                 <div class="col-md-2 col-sm-3 col-xs-4">
                                                     <div class="form-inline">
-                                                        <label for="mes">Mês:</label>
+                                                        <label for="mes">MÃ©s:</label>
                                                         <div class="col-md-2 col-sm-2 col-xs-8" id="mes" name="mes">
                                                             <select class="form-control">
                                                                 <option value="">Janeiro</option>
                                                                 <option value="">Fevereiro</option>
-                                                                <option value="">Março</option>
+                                                                <option value="">MarÃ§o</option>
                                                                 <option value="">Abril</option>
                                                                 <option value="" selected>Maio</option>
                                                             </select>
@@ -38,7 +38,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2 col-md-offset-5 col-sm-2 col-sm-offset-4 col-xs-4">
-                                                    <button class="btn btn-primary2 form-control">
+                                                    <button class="btn btn-primary-borded2 form-control" onclick="$('#modalAdd').modal('show');">
                                                         Novo&nbsp;
                                                         <i class="fa fa-plus"></i>
                                                     </button>
@@ -55,6 +55,46 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Adicionar nova Ata</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="form" action="/atas/add" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="add_conteudo" class="col-form-label">ConteÃºdo SintÃ©tico:</label>
+                        <input type="text" required class="form-control" id="add_conteudo" name="add_conteudo" title="Digite o ConteÃºdo SintÃ©tico."/>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="add_dt" class="col-form-label">Data da ReuniÃ£o:</label>
+                            <input id="add_dt" required class="form-control input-group-lg" type="date" name="add_dt" title="Digite a data da reuniÃ£o."/>
+                        </div>
+
+                        <div class="form-group col-xs-6">
+                            <label for="add_h" class="col-form-label">HorÃ¡rio da ReuniÃ£o:</label>
+                            <input id="add_h" required class="form-control input-group-lg" type="text" name="add_h"  placeholder="00:00" data-mask="00:00" title="Digite o horÃ¡rio da reuniÃ£o."/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="add_arquivo" class="col-form-label">Arquivo:</label>
+                        <input type="file" required class="form-control" name="add_arquivo" id="add_arquivo">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary-borded2" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary3">Finalizar <i class="fa fa-check"></i></button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -114,31 +154,31 @@
                 },
                 {
                     codigo: '6',
-                    title: 'Tayná Campos',
+                    title: 'Taynï¿½ Campos',
                     start: '2019-05-20 19:00:00',
                     end: '2019-05-20 23:00:01',
                 },
                 {
                     codigo: '6',
-                    title: 'Tayná Campos',
+                    title: 'Taynï¿½ Campos',
                     start: '2019-05-21 19:00:00',
                     end: '2019-05-21 23:00:01',
                 },
                 {
                     codigo: '6',
-                    title: 'Tayná Campos',
+                    title: 'Taynï¿½ Campos',
                     start: '2019-05-22 19:00:00',
                     end: '2019-05-22 23:00:01',
                 },
                 {
                     codigo: '6',
-                    title: 'Tayná Campos',
+                    title: 'Taynï¿½ Campos',
                     start: '2019-05-23 19:00:00',
                     end: '2019-05-23 23:00:01',
                 },
                 {
                     codigo: '6',
-                    title: 'Tayná Campos',
+                    title: 'Taynï¿½ Campos',
                     start: '2019-05-24 19:00:00',
                     end: '2019-05-24 23:00:01',
                 },
@@ -148,4 +188,8 @@
             }
         });
     });
+    
+    function showAdd(){
+        
+    }
 </script>

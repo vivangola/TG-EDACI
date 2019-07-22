@@ -28,7 +28,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="col-md-2 col-sm-3 col-xs-6">
-                                                    <button class="btn btn-primary-borded2 form-control" onClick="showAdd()">
+                                                    <button class="btn btn-primary-borded2 form-control" type="button" onClick="showAdd()">
                                                         Novo&nbsp;
                                                         <i class="fa fa-plus"></i>
                                                     </button>
@@ -68,7 +68,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Novo Aviso</h2>
+                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Adicionar novo Aviso</h2>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -310,7 +310,7 @@
     function showDelete(cod){
         Swal.fire({
             title: 'Atenção!',
-            html: 'Deseja realmente excluir esse aviso?',
+            html: 'Deseja realmente excluir?',
             type: 'info',
             showCancelButton: true,
             preConfirm: () => {

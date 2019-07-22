@@ -134,11 +134,9 @@ class Funcoes {
     public function alertBasic($message = 'Access Denied', $close = false, $redirect = false, $type = 'warning', $titulo = 'AtenÃ§Ã£o!') {
         //$service_translate = $this->getTranslate();
         //$titulo =  $service_translate && $titulo ? $service_translate->translate($titulo) : $titulo;
-        
-
         echo "<script src=\"/js/sweetalert.min.js\"></script>";
         echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"/css/sweetalert.css\">";
-        echo "<body><script>swal({title:'$titulo',text:'$message', type:'$type', html: true}, function(){" . ($close ? "window.close(); " : ($redirect ? "location.href='$redirect';": 'history.back();')) ."});</script></body>";
+        echo "<body><script>Swal.fire({title:'$titulo',text:'$message', type:'$type'}).then((result) => {" . ($close ? "window.close(); " : ($redirect ? "location.href='$redirect'": 'history.back()')) ."});</script></body>";
         exit;
     }
     

@@ -37,7 +37,7 @@ return [
             'atas' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/atas',
+                    'route'    => '/atas[/:action]',
                     'defaults' => [
                         'controller' => Controller\AtasController::class,
                         'action'     => 'atas',

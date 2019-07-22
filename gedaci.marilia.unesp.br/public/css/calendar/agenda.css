@@ -811,12 +811,14 @@ table.fc-header{
     font-family: 'AktivGrotesk';
 }
 .fc-toolbar{
-    background: #273043;
-    color: #fff;
+    background-image: linear-gradient(to bottom,#f8f8f8 0,#ececec 100%);
+    background-repeat: repeat-x;
+    color: #534d4d;
     text-transform: uppercase;
     font-weight: bold;
     padding: 10px 5px;
     margin-bottom: 0 !important;
+    border: 1px solid #ddd;
 }
 
 .fc th {
@@ -836,10 +838,9 @@ table.fc-header{
 }
 
 .fc-toolbar button {
-    border-radius: 0 !important;
-    background: #f5f5f5;
-    color: #273043;
-    border-color: #273043;
+    background: #629bad;
+    color: #ffffff;
+    border-color: #477482;
 }
 
 .fc-event-container a{

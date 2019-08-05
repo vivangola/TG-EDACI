@@ -6,7 +6,7 @@ $sessao = new Container('usuario');
 <nav class="navbar navbar-inverse navbar-edaci sidebar larg-nav box" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header ">
-            <a href="/" style="width:90%; margin-top: 10px;" data-toggle="tooltip" data-placement="bottom" title="Página Inicial!" class="botao-min border-bottom btn btn-primary3 btn-pad" id="botaoPrincipal">
+            <a href="/" style="width:90%; margin-top: 10px;" data-toggle="tooltip" data-placement="bottom" title="Pï¿½gina Inicial!" class="botao-min border-bottom btn btn-primary3 btn-pad" id="botaoPrincipal">
                 <strong><span class="hidden-xs showopacity fa fa-home icon-ajuste"></span> <span class="menu-item hid-menu">Pagina Inicial</span></strong>
             </a>
 
@@ -46,7 +46,7 @@ $sessao = new Container('usuario');
                 <?php 
                 $menu = "";
                 foreach($this->aplicacoes as $dados){
-                    if($dados['submenu'] == '0' && $dados['link'] != ''){ //menu
+                    if($dados['submenu'] == '0' && $dados['link'] != ''){ //menu que n tem submenu
                         $menu = $menu . 
                                 "<li>".
                                     '<a class="'.($pagina == $dados["pagina"] ? "selected-link" : "").'" href="'.$dados["link"].'">'.  

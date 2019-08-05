@@ -132,8 +132,13 @@ class Module
             'cod_usuario' => $sessao->cod_usuario
         );
         
-        $sql = "call sys_listarMenu_sp (:cod_usuario)";
-        $aplicacoes = $funcoes->executarSQL($sql, $params);
+        $sql = "call sys_listarMenu_sp (:cod_usuario,1)";
+        $menu = $funcoes->executarSQL($sql, $params);
+        
+        $sql = "call sys_listarMenu_sp (:cod_usuario,2)";
+        $submenu = $funcoes->executarSQL($sql, $params);
+        
+        $aplicacoes = array_merge($menu, $submenu);
         
         $controller->layout()->aplicacoes = $aplicacoes;
     }

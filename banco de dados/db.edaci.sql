@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `edaci` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `edaci`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: edaci
@@ -63,7 +61,7 @@ CREATE TABLE `avs_avisos` (
   `cod_usuario_fk` int(11) DEFAULT NULL,
   `data_cadastro` datetime DEFAULT NULL,
   PRIMARY KEY (`cod_aviso`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,8 +70,62 @@ CREATE TABLE `avs_avisos` (
 
 LOCK TABLES `avs_avisos` WRITE;
 /*!40000 ALTER TABLE `avs_avisos` DISABLE KEYS */;
-INSERT INTO `avs_avisos` VALUES (1,'Atualização de suas informações','Por favor, mantenha sempre suas informações atualizadas.',2,'2019-07-09 00:00:00','2019-08-09 00:00:00',4,'2019-07-10 11:32:42'),(2,'Processo Seletivo','O processo seletivo de 2019 foi aberto. Inscreva-se.',2,'2019-02-09 00:00:00','2019-10-09 00:00:00',4,'2019-07-10 11:40:50');
+INSERT INTO `avs_avisos` VALUES (1,'Atualização de suas informações','Por favor, mantenha sempre suas informações atualizadas.',2,'2019-07-09 10:00:00','2019-08-09 12:00:00',4,'2019-07-10 11:32:42'),(2,'Processo Seletivo','O processo seletivo de 2019 foi aberto. Inscreva-se.',2,'2019-02-09 08:00:00','2019-10-09 10:00:00',4,'2019-07-10 11:40:50'),(15,'tesad','sadsdadÃ£Ã£',-1,'2222-02-12 22:22:00','2222-02-12 22:22:00',4,'2019-07-18 15:12:09');
 /*!40000 ALTER TABLE `avs_avisos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `biblioteca`
+--
+
+DROP TABLE IF EXISTS `biblioteca`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `biblioteca` (
+  `cod` int(11) NOT NULL AUTO_INCREMENT,
+  `cod_usuario_fk` int(11) DEFAULT NULL,
+  `conteudo` varchar(200) DEFAULT NULL,
+  `assunto_fk` int(11) DEFAULT NULL,
+  `arquivo` varchar(200) DEFAULT NULL,
+  `data_upload` datetime DEFAULT NULL,
+  PRIMARY KEY (`cod`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `biblioteca`
+--
+
+LOCK TABLES `biblioteca` WRITE;
+/*!40000 ALTER TABLE `biblioteca` DISABLE KEYS */;
+INSERT INTO `biblioteca` VALUES (5,4,'teste2',1,'material-2019-08-05-16-08-06.docx','2019-08-05 11:10:06');
+/*!40000 ALTER TABLE `biblioteca` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `biblioteca_assunto`
+--
+
+DROP TABLE IF EXISTS `biblioteca_assunto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `biblioteca_assunto` (
+  `cod` int(11) NOT NULL AUTO_INCREMENT,
+  `cod_usuario_fk` int(11) DEFAULT NULL,
+  `assunto` varchar(200) DEFAULT NULL,
+  `data_inclusao` datetime DEFAULT NULL,
+  PRIMARY KEY (`cod`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `biblioteca_assunto`
+--
+
+LOCK TABLES `biblioteca_assunto` WRITE;
+/*!40000 ALTER TABLE `biblioteca_assunto` DISABLE KEYS */;
+INSERT INTO `biblioteca_assunto` VALUES (1,4,'Modelos de carta de consentimento','2019-08-05 10:04:04');
+/*!40000 ALTER TABLE `biblioteca_assunto` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -86,10 +138,14 @@ DROP TABLE IF EXISTS `disp_quadro_disponibilidade`;
 CREATE TABLE `disp_quadro_disponibilidade` (
   `cod_disponibilidade` int(11) NOT NULL AUTO_INCREMENT,
   `cod_usuario_fk` int(11) DEFAULT NULL,
-  `data` datetime DEFAULT NULL,
   `data_criacao` datetime DEFAULT NULL,
+  `dataini` date DEFAULT NULL,
+  `datafim` date DEFAULT NULL,
+  `horaini` time DEFAULT NULL,
+  `horafim` time DEFAULT NULL,
+  `tipo` int(11) DEFAULT NULL,
   PRIMARY KEY (`cod_disponibilidade`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,7 +154,85 @@ CREATE TABLE `disp_quadro_disponibilidade` (
 
 LOCK TABLES `disp_quadro_disponibilidade` WRITE;
 /*!40000 ALTER TABLE `disp_quadro_disponibilidade` DISABLE KEYS */;
+INSERT INTO `disp_quadro_disponibilidade` VALUES (9,4,'2019-07-25 14:45:18','2019-07-25','2019-07-26','12:00:00','14:00:00',2),(10,4,'2019-07-25 14:49:54','2019-07-25','2019-07-25','15:00:00','16:00:00',1),(11,4,'2019-07-25 15:19:13','2019-07-25','2019-07-25','12:00:00','18:00:00',1),(12,4,'2019-07-25 15:20:53','2019-07-25','2019-07-25','12:00:00','19:00:00',1),(13,4,'2019-07-29 08:50:49','2019-07-29','2019-07-29','12:00:00','14:00:00',1),(14,4,'2019-07-29 08:51:11','2019-07-29','2019-07-29','00:00:10','14:00:00',1),(15,4,'2019-07-29 08:56:17','0000-00-00','0000-00-00','00:00:00','00:00:00',1),(16,4,'2019-07-29 08:58:06','2019-07-29','2019-07-29','10:00:00','15:00:00',1),(17,4,'2019-07-29 10:02:23','2019-07-29','2019-07-29','10:00:00','12:00:00',2),(18,4,'2019-07-29 10:02:23','2019-07-30','2019-07-30','10:00:00','12:00:00',2),(19,4,'2019-07-29 10:02:23','2019-07-31','2019-07-31','10:00:00','12:00:00',2),(20,4,'2019-07-29 10:02:23','2019-08-01','2019-08-01','10:00:00','12:00:00',2);
 /*!40000 ALTER TABLE `disp_quadro_disponibilidade` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `disp_quadro_disponibilidade_color`
+--
+
+DROP TABLE IF EXISTS `disp_quadro_disponibilidade_color`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `disp_quadro_disponibilidade_color` (
+  `cod_usuario` int(11) NOT NULL,
+  `color` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`cod_usuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `disp_quadro_disponibilidade_color`
+--
+
+LOCK TABLES `disp_quadro_disponibilidade_color` WRITE;
+/*!40000 ALTER TABLE `disp_quadro_disponibilidade_color` DISABLE KEYS */;
+INSERT INTO `disp_quadro_disponibilidade_color` VALUES (4,'#18aab1');
+/*!40000 ALTER TABLE `disp_quadro_disponibilidade_color` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `disp_quadro_disponibilidade_semanas`
+--
+
+DROP TABLE IF EXISTS `disp_quadro_disponibilidade_semanas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `disp_quadro_disponibilidade_semanas` (
+  `cod` int(11) NOT NULL AUTO_INCREMENT,
+  `cod_usuario_fk` int(11) DEFAULT NULL,
+  `domingo_1_ini` time DEFAULT NULL,
+  `domingo_1_fim` time DEFAULT NULL,
+  `domingo_2_ini` time DEFAULT NULL,
+  `domingo_2_fim` time DEFAULT NULL,
+  `segunda_1_ini` time DEFAULT NULL,
+  `segunda_1_fim` time DEFAULT NULL,
+  `segunda_2_ini` time DEFAULT NULL,
+  `segunda_2_fim` time DEFAULT NULL,
+  `terca_1_ini` time DEFAULT NULL,
+  `terca_1_fim` time DEFAULT NULL,
+  `terca_2_ini` time DEFAULT NULL,
+  `terca_2_fim` time DEFAULT NULL,
+  `quarta_1_ini` time DEFAULT NULL,
+  `quarta_1_fim` time DEFAULT NULL,
+  `quarta_2_ini` time DEFAULT NULL,
+  `quarta_2_fim` time DEFAULT NULL,
+  `quinta_1_ini` time DEFAULT NULL,
+  `quinta_1_fim` time DEFAULT NULL,
+  `quinta_2_ini` time DEFAULT NULL,
+  `quinta_2_fim` time DEFAULT NULL,
+  `sexta_1_ini` time DEFAULT NULL,
+  `sexta_1_fim` time DEFAULT NULL,
+  `sexta_2_ini` time DEFAULT NULL,
+  `sexta_2_fim` time DEFAULT NULL,
+  `sabado_1_ini` time DEFAULT NULL,
+  `sabado_1_fim` time DEFAULT NULL,
+  `sabado_2_ini` time DEFAULT NULL,
+  `sabado_2_fim` time DEFAULT NULL,
+  `data_movimento` datetime DEFAULT NULL,
+  PRIMARY KEY (`cod`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `disp_quadro_disponibilidade_semanas`
+--
+
+LOCK TABLES `disp_quadro_disponibilidade_semanas` WRITE;
+/*!40000 ALTER TABLE `disp_quadro_disponibilidade_semanas` DISABLE KEYS */;
+INSERT INTO `disp_quadro_disponibilidade_semanas` VALUES (1,4,NULL,NULL,NULL,NULL,'14:00:00','12:00:00','16:00:00','18:00:00',NULL,NULL,NULL,NULL,'10:00:00','14:00:00','16:00:00','18:00:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `disp_quadro_disponibilidade_semanas` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -549,8 +683,9 @@ CREATE TABLE `reu_atas` (
   `conteudo` varchar(100) DEFAULT NULL,
   `texto` varchar(500) DEFAULT NULL,
   `data` datetime DEFAULT NULL,
+  `usuario_fk` int(11) DEFAULT NULL,
   PRIMARY KEY (`cod_ata`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -559,6 +694,7 @@ CREATE TABLE `reu_atas` (
 
 LOCK TABLES `reu_atas` WRITE;
 /*!40000 ALTER TABLE `reu_atas` DISABLE KEYS */;
+INSERT INTO `reu_atas` VALUES (33,'2019-07-24 11:38:20','testee','ata-2019-07-24-16-07-20.docx','2019-07-24 23:33:00',4);
 /*!40000 ALTER TABLE `reu_atas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -624,7 +760,7 @@ CREATE TABLE `sys_aplicacoes` (
   `submenu` int(11) DEFAULT NULL,
   `ativo` int(11) DEFAULT NULL,
   PRIMARY KEY (`cod_aplicacao`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -633,7 +769,7 @@ CREATE TABLE `sys_aplicacoes` (
 
 LOCK TABLES `sys_aplicacoes` WRITE;
 /*!40000 ALTER TABLE `sys_aplicacoes` DISABLE KEYS */;
-INSERT INTO `sys_aplicacoes` VALUES (1,'Atas de Reuniões','atas','/atas',0,1),(2,'Biblioteca','biblioteca','/biblioteca',0,1),(3,'Cadastrar','pre-cadastro','/pre-cadastro',0,1),(4,'Chat','chat','/chat',0,1),(5,'E-mail','email','',0,1),(6,'Enviar E-mail','email','/email/enviar',5,1),(7,'Meus E-mail','email','/email',5,1),(8,'Quadro de Avisos','avisos','/avisos',0,1),(9,'Quadro de Disponibilidade','quadro-disponibilidade','/quadro-disponibilidade',0,1),(10,'Quadro de Eventos','eventos','/eventos',0,1),(11,'Quadro de Literatura','quadro-leitura','/quadro-leitura',0,1),(12,'Níveis de Escolaridade','escolaridade','/escolaridade',0,1),(13,'Plano de Atividades','plano-atividades','/plano_atividades',0,1),(14,'Plano de Metas','plano-metas','/plano-metas',0,1),(15,'Produção de Grupo','producao-grupo','/producao-grupo',0,1),(16,'Questionários','questionario','',0,1),(17,'Aprendizagem','questionario','/questionario/aprendizagem',16,1),(18,'Cadastro','cadastro','/questionario/cadastro',16,1),(19,'Trabalhos de Correção','trabalho-correcao','',0,1),(20,'Meus Trabalhos','trabalho-correcao','/trabalho-correcao',19,1),(21,'Trabalhos Recebidos','trabalho-correcao','/trabalho-correcao/recebidos',19,1),(22,'Usuários','usuarios','',0,1),(23,'Grupos','usuarios','/usuarios/grupos',22,1),(24,'Membros','usuarios','/usuarios/membros',22,1);
+INSERT INTO `sys_aplicacoes` VALUES (1,'Atas de Reuniões','atas','/atas',0,1),(2,'Biblioteca','biblioteca','/biblioteca',0,1),(3,'Cadastrar','pre-cadastro','/pre-cadastro',0,1),(4,'Chat','chat','/chat',0,1),(5,'E-mail','email','',0,1),(6,'Enviar E-mail','email','/email/enviar',5,1),(7,'Meus E-mail','email','/email',5,1),(8,'Quadro de Avisos','avisos','/avisos',0,1),(9,'Quadro de Disponibilidade','quadro-disponibilidade','/quadro-disponibilidade',0,1),(10,'Quadro de Eventos','eventos','/eventos',0,1),(11,'Quadro de Literatura','quadro-leitura','/quadro-leitura',0,1),(12,'Níveis de Escolaridade','escolaridade','/escolaridade',0,1),(13,'Plano de Atividades','plano-atividades','/plano_atividades',0,1),(14,'Plano de Metas','plano-metas','/plano-metas',0,1),(15,'Produção de Grupo','producao-grupo','/producao-grupo',0,1),(16,'Questionários','questionario','',0,1),(17,'Aprendizagem','questionario','/questionario/aprendizagem',16,1),(18,'Cadastro','cadastro','/questionario/cadastro',16,1),(19,'Trabalhos de Correção','trabalho-correcao','',0,1),(20,'Meus Trabalhos','trabalho-correcao','/trabalho-correcao',19,1),(21,'Trabalhos Recebidos','trabalho-correcao','/trabalho-correcao/recebidos',19,1),(22,'Usuários','usuarios','',0,1),(23,'Grupos','usuarios','/usuarios/grupos',22,1),(24,'Membros','usuarios','/usuarios/membros',22,1),(25,'Portfolio','portfolio','/portfolio',0,1);
 /*!40000 ALTER TABLE `sys_aplicacoes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -656,8 +792,53 @@ CREATE TABLE `sys_aplicacoes_permissao` (
 
 LOCK TABLES `sys_aplicacoes_permissao` WRITE;
 /*!40000 ALTER TABLE `sys_aplicacoes_permissao` DISABLE KEYS */;
-INSERT INTO `sys_aplicacoes_permissao` VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),(1,13),(1,14),(1,15),(1,16),(1,17),(1,18),(1,19),(1,20),(1,21),(1,22),(1,23),(1,24);
+INSERT INTO `sys_aplicacoes_permissao` VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),(1,13),(1,14),(1,15),(1,16),(1,17),(1,18),(1,19),(1,20),(1,21),(1,22),(1,23),(1,24),(1,25);
 /*!40000 ALTER TABLE `sys_aplicacoes_permissao` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sys_meses`
+--
+
+DROP TABLE IF EXISTS `sys_meses`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sys_meses` (
+  `mes` int(11) DEFAULT NULL,
+  `descricao` varchar(50) DEFAULT NULL,
+  `abrev` varchar(5) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sys_meses`
+--
+
+LOCK TABLES `sys_meses` WRITE;
+/*!40000 ALTER TABLE `sys_meses` DISABLE KEYS */;
+INSERT INTO `sys_meses` VALUES (1,'Janeiro','Jan'),(2,'Fevereiro','Fev'),(3,'Março','Mar'),(4,'Abril','Abr'),(5,'Maio','Mai'),(6,'Junho','Jun'),(7,'Julho','Jul'),(8,'Agosto','Ago'),(9,'Setembro','Set'),(10,'Outubro','Out'),(11,'Novembro','Nov'),(12,'Dezembro','Dez');
+/*!40000 ALTER TABLE `sys_meses` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `temp_dates`
+--
+
+DROP TABLE IF EXISTS `temp_dates`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `temp_dates` (
+  `dt` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `temp_dates`
+--
+
+LOCK TABLES `temp_dates` WRITE;
+/*!40000 ALTER TABLE `temp_dates` DISABLE KEYS */;
+/*!40000 ALTER TABLE `temp_dates` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -866,6 +1047,7 @@ UNLOCK TABLES;
 -- Dumping routines for database 'edaci'
 --
 /*!50003 DROP PROCEDURE IF EXISTS `sys_listarMenu_sp` */;
+ALTER DATABASE `edaci` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -892,6 +1074,146 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+ALTER DATABASE `edaci` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci ;
+/*!50003 DROP PROCEDURE IF EXISTS `us_buscarAtas_sp` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarAtas_sp`(
+	In filtro int,
+    in pesquisa varchar(100),
+    in cod_atas int
+)
+BEGIN
+
+	set pesquisa = CONCAT('%',pesquisa,'%');
+    
+    
+    if cod_atas = 0 then
+
+		if filtro = 1 then
+		
+			select cod_ata,conteudo,texto,data_inclusao,date_format(data, "%d/%m/%Y %H:%i:%s") as dt_convert,b.nome as usuario
+            from reu_atas a
+				inner join us_usuario b on a.usuario_fk = b.cod_usuario
+            where a.conteudo like pesquisa;
+			
+		else
+		
+			select cod_ata,conteudo,texto,data_inclusao,date_format(data, "%d/%m/%Y %H:%i:%s") as dt_convert,b.nome as usuario
+            from reu_atas a
+				inner join us_usuario b on a.usuario_fk = b.cod_usuario
+            where b.nome like pesquisa;
+			
+		end if;
+        
+    else
+    
+		select cod_ata,conteudo,texto,data_inclusao,date_format(data, "%d/%m/%Y %H:%i:%s") as dt_convert,b.nome as usuario,
+        date_format(data, "%Y-%m-%d") as dt_only,
+        date_format(data, "%H:%i") as hr_only
+        from reu_atas a
+			inner join us_usuario b on a.usuario_fk = b.cod_usuario
+        where a.cod_ata = cod_atas;
+    
+    end if;
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `us_buscarAvisos2_sp` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarAvisos2_sp`(
+	In filtro int,
+    in pesquisa varchar(100),
+    in cod_aviso int
+)
+BEGIN
+
+	set pesquisa = CONCAT('%',pesquisa,'%');
+    
+    
+    if cod_aviso = 0 then
+
+		if filtro = 1 then
+		
+			select a.cod_aviso,a.assunto as aviso_assunto, a.descricao as aviso_desc, b.descricao, b.cod_nivel,
+				date_format(inicio_exibicao, "%d/%m/%Y %H:%i:%s") as inicio_exibicao,
+				date_format(fim_exibicao, "%d/%m/%Y %H:%i:%s") as fim_exibicao,
+                date_format(inicio_exibicao, "%d/%m/%Y") as inicio_exibicao_dt,
+				date_format(fim_exibicao, "%d/%m/%Y") as fim_exibicao_dt,
+                date_format(inicio_exibicao, "%H:%i:%s") as inicio_hora,
+                date_format(fim_exibicao, "%H:%i:%s") as fim_hora,
+                date_format(inicio_exibicao, "%Y-%m-%d") as date_ini,
+                date_format(fim_exibicao, "%Y-%m-%d") as date_fim,
+				inicio_exibicao as date_ini,
+                fim_exibicao as date_fim
+			from avs_avisos a
+				inner join nivel_escolaridade b on a.nivel_escolaridade_fk = b.cod_nivel
+			where a.assunto like pesquisa
+			order by data_cadastro;
+			
+		else
+		
+			select a.cod_aviso,a.assunto as aviso_assunto, a.descricao as aviso_desc, b.descricao, b.cod_nivel,
+				date_format(inicio_exibicao, "%d/%m/%Y %H:%i:%s") as inicio_exibicao,
+				date_format(fim_exibicao, "%d/%m/%Y %H:%i:%s") as fim_exibicao,
+                date_format(inicio_exibicao, "%d/%m/%Y") as inicio_exibicao_dt,
+				date_format(fim_exibicao, "%d/%m/%Y") as fim_exibicao_dt,
+                date_format(inicio_exibicao, "%H:%i:%s") as inicio_hora,
+                date_format(fim_exibicao, "%H:%i:%s") as fim_hora,
+                date_format(inicio_exibicao, "%Y-%m-%d") as date_ini,
+                date_format(fim_exibicao, "%Y-%m-%d") as date_fim,
+				inicio_exibicao as date_ini,
+                fim_exibicao as date_fim
+			from avs_avisos a
+				inner join nivel_escolaridade b on a.nivel_escolaridade_fk = b.cod_nivel
+			where b.descricao like pesquisa
+			order by data_cadastro;
+			
+		end if;
+        
+    else
+    
+		select a.cod_aviso,a.assunto as aviso_assunto, a.descricao as aviso_desc, b.descricao, b.cod_nivel,
+				date_format(inicio_exibicao, "%d/%m/%Y %H:%i:%s") as inicio_exibicao,
+				date_format(fim_exibicao, "%d/%m/%Y %H:%i:%s") as fim_exibicao,
+                date_format(inicio_exibicao, "%d/%m/%Y") as inicio_exibicao_dt,
+				date_format(fim_exibicao, "%d/%m/%Y") as fim_exibicao_dt,
+                date_format(inicio_exibicao, "%H:%i:%s") as inicio_hora,
+                date_format(fim_exibicao, "%H:%i:%s") as fim_hora,
+                date_format(inicio_exibicao, "%Y-%m-%d") as date_ini,
+                date_format(fim_exibicao, "%Y-%m-%d") as date_fim
+			from avs_avisos a
+			inner join nivel_escolaridade b on a.nivel_escolaridade_fk = b.cod_nivel
+		where a.cod_aviso = cod_aviso
+		order by data_cadastro;
+    
+    end if;
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `us_buscarAvisos_sp` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -907,11 +1229,188 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarAvisos_sp`(
 )
 BEGIN
 	
-    select *,date_format(inicio_exibicao, "%d/%m/%Y %H:%i:%s") as dt_convert
+    select a.*,date_format(inicio_exibicao, "%d/%m/%Y %H:%i:%s") as dt_convert
     from avs_avisos a
 		inner join us_usuario b on a.nivel_escolaridade_fk = b.nivel_escolaridade_fk
 	where b.cod_usuario = cod_usuario;
 
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `us_buscarBiblioteca_sp` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarBiblioteca_sp`(
+	In filtro int,
+    in pesquisa varchar(100),
+    in cod_aviso int
+)
+BEGIN
+
+	set pesquisa = CONCAT('%',pesquisa,'%');
+    
+    
+    if cod_aviso = 0 then
+
+		if filtro = 1 then
+		
+			select a.cod, a.conteudo, c.cod as cod_assunto, c.assunto, b.nome as usuario, a.arquivo, date_format(a.data_upload, "%d/%m/%Y %H:%i:%s") as data_upload
+            from biblioteca a
+				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
+                inner join biblioteca_assunto c on c.cod = a.assunto_fk
+			where a.conteudo like pesquisa
+			order by data_upload desc;
+			
+		elseif filtro = 2 then
+			
+            select a.cod, a.conteudo, c.cod as cod_assunto, c.assunto, b.nome as usuario, a.arquivo, date_format(a.data_upload, "%d/%m/%Y %H:%i:%s") as data_upload
+            from biblioteca a
+				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
+                inner join biblioteca_assunto c on c.cod = a.assunto_fk
+			where b.nome like pesquisa
+			order by data_upload desc;
+        
+        elseif filtro = 3 then
+        
+			select a.cod, a.conteudo, c.cod as cod_assunto, c.assunto, b.nome as usuario, a.arquivo, date_format(a.data_upload, "%d/%m/%Y %H:%i:%s") as data_upload
+            from biblioteca a
+				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
+                inner join biblioteca_assunto c on c.cod = a.assunto_fk
+			where c.assunto like pesquisa
+			order by data_upload desc;
+        
+        else 
+        
+			select a.cod, a.conteudo, c.cod as cod_assunto, c.assunto, b.nome as usuario, a.arquivo, date_format(a.data_upload, "%d/%m/%Y %H:%i:%s") as data_upload
+            from biblioteca a
+				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
+                inner join biblioteca_assunto c on c.cod = a.assunto_fk
+			order by data_upload desc;
+			
+		end if;
+		
+    else 
+    
+		select a.cod, a.conteudo, c.cod as cod_assunto, c.assunto, b.nome as usuario, a.arquivo, date_format(a.data_upload, "%d/%m/%Y %H:%i:%s") as data_upload
+		from biblioteca a
+			inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
+			inner join biblioteca_assunto c on c.cod = a.assunto_fk
+		where a.cod = cod_aviso
+		order by data_upload desc;
+    
+    end if;
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `us_BuscarDados1_sp` */;
+ALTER DATABASE `edaci` CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_BuscarDados1_sp`(
+	In cod_usuario int
+)
+BEGIN
+
+	select cod_usuario as cod, nome, b.cod_tipo as tipo_usuario, b.descricao as tipo_usuario_desc, c.cod_nivel as escolaridade, c.descricao as escolaridade_desc
+    from us_usuario a
+		inner join us_tipo_usuario b on a.tipo_usuario_fk = b.cod_tipo
+        inner join nivel_escolaridade c on c.cod_nivel = a.nivel_escolaridade_fk
+	where a.cod_usuario = cod_usuario;
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+ALTER DATABASE `edaci` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci ;
+/*!50003 DROP PROCEDURE IF EXISTS `us_BuscarDisponibilidadesSemanas_sp` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_BuscarDisponibilidadesSemanas_sp`(
+	In cod_usuario int
+)
+BEGIN
+    
+    select b.nome as usuario , c.color as cor, a.*, case when cod_usuario = a.cod_usuario_fk then 1 else 0 end as edit
+    from disp_quadro_disponibilidade_semanas a 
+		inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
+        inner join disp_quadro_disponibilidade_color c on a.cod_usuario_fk = c.cod_usuario;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `us_BuscarDisponibilidades_sp` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_BuscarDisponibilidades_sp`(
+	In cod_usuario int
+)
+BEGIN
+    
+	create temporary table finalDisp (cod int, usuario varchar(100), cor varchar(20), dataini datetime, datafim datetime, tipo int, edit int, inicio varchar(50), fim varchar(50), horaini time, horafim time);
+    
+    insert into finalDisp (cod,usuario,cor,dataini,datafim,tipo,edit,inicio,fim,horaini,horafim)
+    select cod_disponibilidade, b.nome , c.color,  CONCAT(dataini,' ',horaini) as dtini, CONCAT(datafim,' ',horafim) as dtfim, '1', case when cod_usuario = cod_usuario_fk then 1 else 0 end  ,
+		date_format(dataini, "%d/%m/%Y") as inicio, CONCAT(date_format(datafim, "%d/%m/%Y"), ' ', horafim) as fim,
+        horaini,horafim
+    from disp_quadro_disponibilidade a 
+		inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
+        inner join disp_quadro_disponibilidade_color c on a.cod_usuario_fk = c.cod_usuario
+    where tipo = 1;
+    
+    
+    insert into finalDisp (cod,usuario,cor,dataini,datafim,tipo,edit,inicio,fim,horaini,horafim)
+    select cod_disponibilidade, b.nome , c.color,  CONCAT(dataini,' ',horaini) as dtini, CONCAT(datafim,' ',horafim) as dtfim, '1', case when cod_usuario = cod_usuario_fk then 1 else 0 end  ,
+		date_format(dataini, "%d/%m/%Y") as inicio, CONCAT(date_format(datafim, "%d/%m/%Y"), ' ', horafim) as fim,
+        horaini,horafim
+    from disp_quadro_disponibilidade a 
+		inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
+        inner join disp_quadro_disponibilidade_color c on a.cod_usuario_fk = c.cod_usuario
+    where tipo = 2;
+    
+    
+    select * from finalDisp;
+    
+    drop temporary table finalDisp;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -928,4 +1427,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-16 16:11:08
+-- Dump completed on 2019-08-05 15:04:36

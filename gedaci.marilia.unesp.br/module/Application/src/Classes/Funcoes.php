@@ -71,7 +71,11 @@ class Funcoes {
             }
             
             foreach($params as $key => $param){
-                $sql = str_replace(':'.$key, "'".$param."'", $sql);
+                if(is_null($param)){
+                    $sql = str_replace(':'.$key, "null", $sql);
+                }else{
+                    $sql = str_replace(':'.$key, "'".$param."'", $sql);
+                }
             }
             
             $conn->query('SET NAMES utf8mb4');
@@ -102,6 +106,19 @@ class Funcoes {
         } catch(Exception $e){
             throw new Exception(sprintf(("Erro no Banco de Dados SQL:\n\n".$sql."\n\n%s"), $e->getMessage()));
         }
+    }
+    
+    public function sqlBlinded($sql = '', $params = array()) {
+            
+        foreach($params as $key => $param){
+            if(is_null($param)){
+                $sql = str_replace(':'.$key, "null", $sql);
+            }else{
+                $sql = str_replace(':'.$key, "'".$param."'", $sql);
+            }
+        }
+            
+        return $sql;
     }
     
     function utf8_converter($array = array(), $opcao = 'all', $tipo = 'encode') {

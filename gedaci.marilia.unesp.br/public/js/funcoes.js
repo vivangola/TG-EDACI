@@ -6,35 +6,52 @@
 
 function validaParametros(parametros = []){
     retorno = true;
-    msg = "";
-    defaultMsg = false;
     
     $.each(parametros, function( index, value ) {
         if(!value || value == ''){
             retorno = false;
-            if($('#'+index).attr('title')){
-                msg = msg + '<br><br>' + $('#'+index).attr('title');
-            }else{
-                defaultMsg = true;
-            }
         }
     });
     
-    if(msg != ""){
-        Swal.fire({
-            title: 'Atenção!',
-            html: msg,
-            type: 'info'
-        });
-    }
-    
-    if(defaultMsg){
-        Swal.fire({
-            title: 'Atenção!',
-            html: "Digite todos os campos.",
-            type: 'info'
-        });
-    }
-    
     return retorno;
+}
+
+function getExt(filename){
+    return filename.split('.').pop();
+}
+
+function validarHoras(hora) {
+    var isValid = hora.match(/^([0-1][0-9]|2[0-3]):([0-5][0-9])$/g);
+    if(isValid){
+        return true;
+    }else{
+        return false;
+    }
+}
+function getSemana(semana){
+    
+    switch (semana){
+        case 1:
+            return 'Domingo';
+            break;
+        case 2:
+            return 'Segunda-Feira';
+            break;
+        case 3:
+            return 'Terça-Feira';
+            break;
+        case 4:
+            return 'Quarta-Feira';
+            break;
+        case 5:
+            return 'Quinta-Feira';
+            break;
+        case 6:
+            return 'Sexta-Feira';
+            break;
+        case 7:
+            return 'Sábado';
+            break;
+    }
+    
 }

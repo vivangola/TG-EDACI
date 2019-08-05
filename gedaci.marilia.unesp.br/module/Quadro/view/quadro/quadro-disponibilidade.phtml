@@ -1,3 +1,16 @@
+<style>
+    
+    #tipo-disp-3 input[type="text"] {
+        margin: 4px 0 0;
+    }
+    
+    .fc-day-grid-event .fc-content {
+        white-space: normal;
+    }
+    
+</style>
+
+
 <div class="row box-home" align="center" style="height:100%">
     <div class="col-md-12 col-xs-12">  
         <div class="main-box clearfix print min-branco">
@@ -5,39 +18,45 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="box">                           
+                            <div class="box">       
                                 <div class="icon">
                                     <div class="image back-primary3"><i class="fa fa-book"></i>&nbsp;<label class="title">Quadro de Disponibilidade</label></div>
                                     <div class="info" style="min-height:450px">
                                         <div class="row" style="padding-left: 10px;padding-right: 10px">
                                             <div class="col-md-12">
-                                                <div class="col-md-2 col-sm-3 col-xs-4">
+                                                <div class="col-md-2 col-xs-12">
                                                     <div class="form-inline">
                                                         <label for="mes">Més:</label>
-                                                        <div class="col-md-2 col-sm-2 col-xs-8" id="mes" name="mes">
-                                                            <select class="form-control">
-                                                                <option value="">Janeiro</option>
-                                                                <option value="">Fevereiro</option>
-                                                                <option value="">Março</option>
-                                                                <option value="">Abril</option>
-                                                                <option value="" selected>Maio</option>
+                                                        <div class="col-md-6">
+                                                            <select class="form-control" id="mes" name="mes">
+                                                                <?php foreach($meses as $dados):?>
+                                                                    <option <?= $dados['mes'] == $mes ? 'selected' : '' ?> value="<?= $dados['mes'] ?>"><?= $dados['descricao'] ?></option>
+                                                                <?php endforeach; ?>
                                                             </select>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-4">
+                                                <div class="col-md-2 col-xs-12">
                                                     <div class="form-inline">
                                                         <label for="ano">Ano:</label>
-                                                        <div class="col-md-2 col-sm-2 col-xs-8" id="ano" name="ano">
-                                                            <select class="form-control">
-                                                                <option value="">2017</option>
-                                                                <option value="">2018</option>
-                                                                <option value="" selected>2019</option>
+                                                        <div class="col-md-6">
+                                                            <select class="form-control" id="ano" name="ano">
+                                                                <?php foreach($anos as $dados):?>
+                                                                    <option <?= $dados == $ano ? 'selected' : '' ?> value="<?= $dados ?>"><?= $dados ?></option>
+                                                                <?php endforeach; ?>
                                                             </select>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-2 col-md-offset-5 col-sm-2 col-sm-offset-4 col-xs-4">
+                                                <div class="col-md-4 col-xs-12">
+                                                    <div class="form-inline">
+                                                        <label for="cor">Minha cor no quadro:</label>
+                                                        <div class="col-md-6">
+                                                            <input type="color" class="form-control" id="cor" name="cor" value="<?= $color['color'] ?>" style="width: 100%;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 col-xs-12 col-md-offset-2">
                                                     <button class="btn btn-primary-borded2 form-control" onclick="$('#modalAdd').modal('show');">
                                                         Novo&nbsp;
                                                         <i class="fa fa-plus"></i>
@@ -63,38 +82,242 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Adicionar nova Ata</h2>
+                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Adicionar disponibilidade</h2>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="form" action="/atas/add" method="post" enctype="multipart/form-data">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="add_conteudo" class="col-form-label">Conteúdo Sintético:</label>
-                        <input type="text" required class="form-control" id="add_conteudo" name="add_conteudo" title="Digite o Conteúdo Sintético."/>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="escolher-tipo">Adicionar:</label>
+                    <div id="escolher-tipo" class="row">
+                        <div class="col-md-4">
+                            <label class="radio-inline">
+                                <input name="tipo-disp" class='tipo-disp' id="tipo-disp" value="1" type="radio" />Em um dia especifico.
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="radio-inline">
+                                <input name="tipo-disp" class='tipo-disp' id="tipo-disp" value="2" type="radio" />Em um período especifico.
+                            </label>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="radio-inline">
+                                <input name="tipo-disp" class='tipo-disp' id="tipo-disp" value="3" type="radio" />Todas as Semanas.
+                            </label>
+                        </div>
                     </div>
+                </div>
+                <div style="display: none;" id="tipo-disp-1" class='div-tipo-disp'>
+                    <hr>
                     <div class="row">
-                        <div class="form-group col-xs-6">
-                            <label for="add_dt" class="col-form-label">Data da Reunião:</label>
+                        <div class="form-group col-xs-4">
+                            <label for="add_dt" class="col-form-label">Data:</label>
                             <input id="add_dt" required class="form-control input-group-lg" type="date" name="add_dt" title="Digite a data da reunião."/>
                         </div>
 
-                        <div class="form-group col-xs-6">
-                            <label for="add_h" class="col-form-label">Horário da Reunião:</label>
-                            <input id="add_h" required class="form-control input-group-lg" type="text" name="add_h"  placeholder="00:00" data-mask="00:00" title="Digite o horário da reunião."/>
+                        <div class="form-group col-xs-2">
+                            <label for="add_hini" class="col-form-label">De:</label>
+                            <input id="add_hini" required class="form-control input-group-lg" type="text" name="add_hini"  placeholder="00:00" data-mask="00:00" title="Digite o horário da reunião."/>
+                        </div>
+                        
+                        <div class="form-group col-xs-2">
+                            <label for="add_hfim" class="col-form-label">Até:</label>
+                            <input id="add_hfim" required class="form-control input-group-lg" type="text" name="add_hfim"  placeholder="00:00" data-mask="00:00" title="Digite o horário da reunião."/>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="add_arquivo" class="col-form-label">Arquivo:</label>
-                        <input type="file" required class="form-control" name="add_arquivo" id="add_arquivo">
+                </div>
+                <div style="display: none;" id="tipo-disp-2" class='div-tipo-disp'>
+                    <hr>
+                    <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="disp_2_diaini" class="col-form-label">Do dia:</label>
+                            <input id="disp_2_diaini" required class="form-control input-group-lg" type="date" name="disp_2_diaini"/>
+                        </div>
+
+                        <div class="form-group col-xs-6">
+                            <label for="disp_2_diafim" class="col-form-label">Até o dia:</label>
+                            <input id="disp_2_diafim" required class="form-control input-group-lg" type="date" name="disp_2_diafim" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="disp_2_hrini" class="col-form-label">De:</label>
+                            <input id="disp_2_hrini" required class="form-control input-group-lg" type="text" name="disp_2_hrini"  placeholder="00:00" data-mask="00:00" />
+                        </div>
+
+                        <div class="form-group col-xs-6">
+                            <label for="disp_2_hrfim" class="col-form-label">Até:</label>
+                            <input id="disp_2_hrfim" required class="form-control input-group-lg" type="text" name="disp_2_hrfim"  placeholder="00:00" data-mask="00:00" />
+                        </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary-borded2" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary3">Finalizar <i class="fa fa-check"></i></button>
+                <div style="display: none;" id="tipo-disp-3" class='div-tipo-disp'>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-4 col-md-offset-2 text-center"><h3>1° Periodo</h3></div>
+                        <div class="col-md-6 text-center"><h3>2° Periodo</h3></div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-2 text-center">
+                            <label for="chbox_1" class="col-form-label">Domingo:</label>
+                            <input id="chbox_1" name="chbox_1" required class="form-control input-group-lg" type="checkbox" />
+                        </div>
+                        <div class="form-group col-xs-2 text-center chbox_1">
+                            <label for="hrini_1_1" class="col-form-label chbox_1">De:</label>
+                            <input id="hrini_1_1" name="hrini_1_1" required class="form-control input-group-lg" disabled type="text" placeholder="00:00" data-mask="00:00"/>
+                        </div>
+                        <div class="form-group col-xs-2 text-center chbox_1">
+                            <label for="hrfim_1_1" class="col-form-label">Até:</label>
+                            <input id="hrfim_1_1" name="hrfim_1_1" required class="form-control input-group-lg" disabled type="text" placeholder="00:00" data-mask="00:00" />
+                        </div>
+                        <div class="form-group col-xs-2 col-md-offset-1 chbox_1 text-center">
+                            <label for="hrini_1_2" class="col-form-label chbox_1">De:</label>
+                            <input id="hrini_1_2" name="hrini_1_2" required class="form-control input-group-lg" disabled type="text" placeholder="00:00" data-mask="00:00"/>
+                        </div>
+                        <div class="form-group col-xs-2 text-center chbox_1">
+                            <label for="hrfim_1_2" class="col-form-label">Até:</label>
+                            <input id="hrfim_1_2" name="hrfim_1_2" required class="form-control input-group-lg" disabled type="text" placeholder="00:00" data-mask="00:00" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-2 text-center">
+                            <label for="chbox_2" class="col-form-label">Segunda:</label>
+                            <input id="chbox_2" name="chbox_2" required class="form-control input-group-lg" type="checkbox" />
+                        </div>
+                        <div class="form-group col-xs-2 text-center chbox_2">
+                            <label for="hrini_2_1" class="col-form-label">De:</label>
+                            <input id="hrini_2_1" name="hrini_2_1" required class="form-control input-group-lg" disabled type="text" placeholder="00:00" data-mask="00:00"/>
+                        </div>
+                        <div class="form-group col-xs-2 text-center chbox_2">
+                            <label for="hrfim_2_1" class="col-form-label">Até:</label>
+                            <input id="hrfim_2_1" name="hrfim_2_1" required class="form-control input-group-lg" disabled type="text" placeholder="00:00" data-mask="00:00" />
+                        </div>
+                        <div class="form-group col-xs-2 col-md-offset-1 text-center chbox_2">
+                            <label for="hrini_2_2" class="col-form-label">De:</label>
+                            <input id="hrini_2_2" name="hrini_2_2" required class="form-control input-group-lg" disabled type="text" placeholder="00:00" data-mask="00:00"/>
+                        </div>
+                        <div class="form-group col-xs-2 text-center chbox_2">
+                            <label for="hrfim_2_2" class="col-form-label">Até:</label>
+                            <input id="hrfim_2_2" name="hrfim_2_2" required class="form-control input-group-lg" disabled type="text" placeholder="00:00" data-mask="00:00" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-2 text-center">
+                            <label for="chbox_3" class="col-form-label">Terça:</label>
+                            <input id="chbox_3" name="chbox_3" required class="form-control input-group-lg" type="checkbox" />
+                        </div>
+                        <div class="form-group col-xs-2 text-center chbox_3">
+                            <label for="hrini_3_1" class="col-form-label">De:</label>
+                            <input id="hrini_3_1" name="hrini_3_1" required class="form-control input-group-lg" disabled type="text" placeholder="00:00" data-mask="00:00"/>
+                        </div>
+                        <div class="form-group col-xs-2 text-center chbox_3">
+                            <label for="hrfim_3_1" class="col-form-label">Até:</label>
+                            <input id="hrfim_3_1" name="hrfim_3_1" required class="form-control input-group-lg" disabled type="text" placeholder="00:00" data-mask="00:00" />
+                        </div>
+                        <div class="form-group col-xs-2 col-md-offset-1 text-center chbox_3">
+                            <label for="hrini_3_2" class="col-form-label">De:</label>
+                            <input id="hrini_3_2" name="hrini_3_2" required class="form-control input-group-lg" disabled type="text" placeholder="00:00" data-mask="00:00"/>
+                        </div>
+                        <div class="form-group col-xs-2 text-center chbox_3">
+                            <label for="hrfim_3_2" class="col-form-label">Até:</label>
+                            <input id="hrfim_3_2" name="hrfim_3_2" required class="form-control input-group-lg" disabled type="text" placeholder="00:00" data-mask="00:00" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-2 text-center">
+                            <label for="chbox_4" class="col-form-label">Quarta:</label>
+                            <input id="chbox_4" name="chbox_4" required class="form-control input-group-lg" type="checkbox" />
+                        </div>
+                        <div class="form-group col-xs-2 text-center chbox_4">
+                            <label for="hrini_4_1" class="col-form-label">De:</label>
+                            <input id="hrini_4_1" name="hrini_4_1" required class="form-control input-group-lg" disabled type="text" placeholder="00:00" data-mask="00:00"/>
+                        </div>
+                        <div class="form-group col-xs-2 text-center chbox_4">
+                            <label for="hrfim_4_1" class="col-form-label">Até:</label>
+                            <input id="hrfim_4_1" name="hrfim_4_1" required class="form-control input-group-lg" disabled type="text" placeholder="00:00" data-mask="00:00" />
+                        </div>
+                        <div class="form-group col-xs-2 col-md-offset-1 text-center chbox_4">
+                            <label for="hrini_4_2" class="col-form-label">De:</label>
+                            <input id="hrini_4_2" name="hrini_4_2" required class="form-control input-group-lg" disabled type="text" placeholder="00:00" data-mask="00:00"/>
+                        </div>
+                        <div class="form-group col-xs-2 text-center chbox_4">
+                            <label for="hrfim_4_2" class="col-form-label">Até:</label>
+                            <input id="hrfim_4_2" name="hrfim_4_2" required class="form-control input-group-lg" disabled type="text" placeholder="00:00" data-mask="00:00" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-2 text-center">
+                            <label for="chbox_5" class="col-form-label">Quinta:</label>
+                            <input id="chbox_5" name="chbox_5" required class="form-control input-group-lg" type="checkbox" />
+                        </div>
+                        <div class="form-group col-xs-2 text-center chbox_5">
+                            <label for="hrini_5_1" class="col-form-label">De:</label>
+                            <input id="hrini_5_1" name="hrini_5" required class="form-control input-group-lg" disabled type="text" placeholder="00:00" data-mask="00:00"/>
+                        </div>
+                        <div class="form-group col-xs-2 text-center chbox_5">
+                            <label for="hrfim_5_1" class="col-form-label">Até:</label>
+                            <input id="hrfim_5_1" name="hrfim_5_1" required class="form-control input-group-lg" disabled type="text" placeholder="00:00" data-mask="00:00" />
+                        </div>
+                        <div class="form-group col-xs-2 col-md-offset-1 text-center chbox_5">
+                            <label for="hrini_5_2" class="col-form-label">De:</label>
+                            <input id="hrini_5_2" name="hrini_5_2" required class="form-control input-group-lg" disabled type="text" placeholder="00:00" data-mask="00:00"/>
+                        </div>
+                        <div class="form-group col-xs-2 text-center chbox_5">
+                            <label for="hrfim_5_2" class="col-form-label">Até:</label>
+                            <input id="hrfim_5_2" name="hrfim_5_2" required class="form-control input-group-lg" disabled type="text" placeholder="00:00" data-mask="00:00" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-2 text-center">
+                            <label for="chbox_6" class="col-form-label">Sexta:</label>
+                            <input id="chbox_6" name="chbox_6" required class="form-control input-group-lg" type="checkbox" />
+                        </div>
+                        <div class="form-group col-xs-2 text-center chbox_6">
+                            <label for="hrini_6_1" class="col-form-label">De:</label>
+                            <input id="hrini_6_1" name="hrini_6_1" required class="form-control input-group-lg" disabled type="text" placeholder="00:00" data-mask="00:00"/>
+                        </div>
+                        <div class="form-group col-xs-2 text-center chbox_6">
+                            <label for="hrfim_6_1" class="col-form-label">Até:</label>
+                            <input id="hrfim_6_1" name="hrfim_6_1" required class="form-control input-group-lg" disabled type="text" placeholder="00:00" data-mask="00:00" />
+                        </div>
+                        <div class="form-group col-xs-2 col-md-offset-1 text-center chbox_6">
+                            <label for="hrini_6_2" class="col-form-label">De:</label>
+                            <input id="hrini_6_2" name="hrini_6_2" required class="form-control input-group-lg" disabled type="text" placeholder="00:00" data-mask="00:00"/>
+                        </div>
+                        <div class="form-group col-xs-2 text-center chbox_6">
+                            <label for="hrfim_6_2" class="col-form-label">Até:</label>
+                            <input id="hrfim_6_2" name="hrfim_6_2" required class="form-control input-group-lg" disabled type="text" placeholder="00:00" data-mask="00:00" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-2 text-center">
+                            <label for="chbox_7" class="col-form-label">Sábado:</label>
+                            <input id="chbox_7" name="chbox_7" required class="form-control input-group-lg" type="checkbox" />
+                        </div>
+                        <div class="form-group col-xs-2 text-center chbox_7">
+                            <label for="hrini_7_1" class="col-form-label">De:</label>
+                            <input id="hrini_7_1" name="hrini_7_1" required class="form-control input-group-lg" disabled type="text" placeholder="00:00" data-mask="00:00"/>
+                        </div>
+                        <div class="form-group col-xs-2  text-center chbox_7">
+                            <label for="hrfim_7_1" class="col-form-label">Até:</label>
+                            <input id="hrfim_7_1" name="hrfim_7_1" required class="form-control input-group-lg" disabled type="text" placeholder="00:00" data-mask="00:00" />
+                        </div>
+                        <div class="form-group col-xs-2 col-md-offset-1 text-center chbox_7">
+                            <label for="hrini_7_2" class="col-form-label">De:</label>
+                            <input id="hrini_7_2" name="hrini_7_2" required class="form-control input-group-lg" disabled type="text" placeholder="00:00" data-mask="00:00"/>
+                        </div>
+                        <div class="form-group col-xs-2 text-center chbox_7">
+                            <label for="hrfim_7_2" class="col-form-label">Até:</label>
+                            <input id="hrfim_7_2" name="hrfim_7_2" required class="form-control input-group-lg" disabled type="text" placeholder="00:00" data-mask="00:00" />
+                        </div>
+                    </div>
                 </div>
-            </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary-borded2" data-dismiss="modal">Cancelar</button>
+                <button type="submit" onclick="add()" class="btn btn-primary3">Finalizar <i class="fa fa-check"></i></button>
+            </div>
         </div>
     </div>
 </div>
@@ -110,86 +333,560 @@
     $(document).ready(function () {
         $('#calendar').fullCalendar({
             defaultDate: new Date(),
-            editable: true,
+            editable: false,
             firstHour: 6,
+            displayEventTime: false,
             eventLimit: true,
             themeSystem: 'bootstrap4',
             businessHours: false,
             defaultView: 'agendaWeek',
+            slotEventOverlap: false,
             header: {
                 center: 'title',
                 left: 'addEvento', //agendaDay,agendaWeek,month
                 right: 'prev,next' //today
             },
+            eventOverlap: function(stillEvent, movingEvent) {
+                return stillEvent.allDay && movingEvent.allDay;
+            },
             events: [
-                {
-                    codigo: '1',
-                    title: 'Claudio Cardoso',
-                    start: '2019-05-20 12:00:00',
-                    end: '2019-05-20 15:00:01',
-                },
-                {
-                    codigo: '2',
-                    title: 'Claudio Cardoso',
-                    start: '2019-05-21 08:00:00',
-                    end: '2019-05-21 12:00:01',
-                },
-                {
-                    codigo: '3',
-                    title: 'Claudio Cardoso',
-                    start: '2019-05-22 08:00:00',
-                    end: '2019-05-22 12:00:01',
-                },
-                {
-                    codigo: '4',
-                    title: 'Claudio Cardoso',
-                    start: '2019-05-23 13:00:00',
-                    end: '2019-05-23 17:00:01',
-                },
-                {
-                    codigo: '5',
-                    title: 'Claudio Cardoso',
-                    start: '2019-05-24 13:00:00',
-                    end: '2019-05-24 17:00:01',
-                },
-                {
-                    codigo: '6',
-                    title: 'Tayn� Campos',
-                    start: '2019-05-20 19:00:00',
-                    end: '2019-05-20 23:00:01',
-                },
-                {
-                    codigo: '6',
-                    title: 'Tayn� Campos',
-                    start: '2019-05-21 19:00:00',
-                    end: '2019-05-21 23:00:01',
-                },
-                {
-                    codigo: '6',
-                    title: 'Tayn� Campos',
-                    start: '2019-05-22 19:00:00',
-                    end: '2019-05-22 23:00:01',
-                },
-                {
-                    codigo: '6',
-                    title: 'Tayn� Campos',
-                    start: '2019-05-23 19:00:00',
-                    end: '2019-05-23 23:00:01',
-                },
-                {
-                    codigo: '6',
-                    title: 'Tayn� Campos',
-                    start: '2019-05-24 19:00:00',
-                    end: '2019-05-24 23:00:01',
-                },
+                <?php foreach($disponibilidades as $dados):?>
+                    {
+                        codigo:     '<?= $dados['cod'] ?>',
+                        title:      '<?= $dados['usuario'] ?>',
+                        start:      '<?= $dados['dataini'] ?>',
+                        end:        '<?= $dados['datafim'] ?>',
+                        color:      '<?= $dados['cor'] ?>',
+                        inicio:     '<?= $dados['inicio']?>',
+                        fim:        '<?= $dados['fim']?>',
+                        horaini:    '<?= $dados['horaini']?>',
+                        horafim:    '<?= $dados['horafim']?>',
+                    },
+                <?php endforeach; ?>
             ],
             eventClick: function (info) {
                 console.log(info);
-            }
+            },
+            eventRender: function(event, element) {
+                $(element).attr('data-toggle', 'tooltip');
+                $(element).attr('title', event.title + '<br>'+event.inicio+'<br> De '+event.horaini+' até '+event.horafim);
+            },
+            eventAfterAllRender: function(event){
+                $('[data-toggle="tooltip"]').tooltip({
+                    html : true
+                });  
+            },
+            viewRender: function(view, element) {
+                var b = $('#calendar').fullCalendar('getDate');
+                console.log($(element).get(0));
+                
+                ini = $('#calendar').fullCalendar("getView").start.format();
+                fim = $('#calendar').fullCalendar("getView").end.format();
+                
+                var dia = new Date(ini + ' 00:00:00');
+                
+                for(var i = 1; i<= 7; i++){
+                    
+                    var dd = dia.getDate();
+                    var mm = dia.getMonth()+1; 
+                    var yyyy = dia.getFullYear();
+
+                    var all = yyyy + '-' + mm + '-' + dd;
+                    
+                    var eventos = setUserSemana(all,i);
+                    dia.setDate(dia.getDate() + 1);
+                }
+            },
         });
     });
+    
+    function setUserSemana(dia,diaSemana){
+        var userSemanas = <?= json_encode($semanas) ?>;
+        
+        result = [];
+        
+        event = [];
+        
+        $.each(userSemanas, function( index, value ) {
+            if(diaSemana == 1){
+                if(value.domingo_1_ini){
+                    event = {
+                        id      : value.cod,
+                        tipo    : 3,
+                        title   : value.usuario,
+                        start   : new Date(dia + ' ' + value.domingo_1_ini), 
+                        end     : new Date(dia + ' ' + value.domingo_1_fim),
+                        color   : value.cor,
+                        inicio  : dia,
+                        fim     : dia,
+                        horaini : value.domingo_1_ini,
+                        horafim : value.domingo_1_fim
+                    };
+                    $('#calendar').fullCalendar( 'renderEvent', event, true);
+                }
+                if(value.domingo_2_ini){
+                    event = {
+                        id      : value.cod,
+                        tipo    : 3,
+                        title   : value.usuario,
+                        start   : new Date(dia + ' ' + value.domingo_1_ini), 
+                        end     : new Date(dia + ' ' + value.domingo_1_fim),
+                        color   : value.cor,
+                        inicio  : dia,
+                        fim     : dia,
+                        horaini : value.domingo_2_ini,
+                        horafim : value.domingo_2_fim
+                    };
+                    $('#calendar').fullCalendar( 'renderEvent', event, true);
+                }
+            }
+            if(diaSemana == 2){
+                if(value.segunda_1_ini){
+                    event = {
+                        id      : value.cod,
+                        tipo    : 3,
+                        title   : value.usuario,
+                        start   : new Date(dia + ' ' + value.segunda_1_ini), 
+                        end     : new Date(dia + ' ' + value.segunda_1_fim),
+                        color   : value.cor,
+                        inicio  : dia,
+                        fim     : dia,
+                        horaini : value.segunda_1_ini,
+                        horafim : value.segunda_1_fim
+                    };
+                    $('#calendar').fullCalendar( 'renderEvent', event, true);
+                }
+                if(value.segunda_2_ini){
+                    event = {
+                        id      : value.cod,
+                        tipo    : 3,
+                        title   : value.usuario,
+                        start   : new Date(dia + ' ' + value.segunda_2_ini), 
+                        end     : new Date(dia + ' ' + value.segunda_2_fim),
+                        color   : value.cor,
+                        inicio  : dia,
+                        fim     : dia,
+                        horaini : value.segunda_2_ini,
+                        horafim : value.segunda_2_fim
+                    };
+                    $('#calendar').fullCalendar( 'renderEvent', event, true);
+                }
+            }
+            if(diaSemana == 3){
+                if(value.terca_1_ini){
+                    event = {
+                        id      : value.cod,
+                        tipo    : 3,
+                        title   : value.usuario,
+                        start   : new Date(dia + ' ' + value.terca_1_ini), 
+                        end     : new Date(dia + ' ' + value.terca_1_fim),
+                        color   : value.cor,
+                        inicio  : dia,
+                        fim     : dia,
+                        horaini : value.terca_1_ini,
+                        horafim : value.terca_1_fim
+                    };
+                    $('#calendar').fullCalendar( 'renderEvent', event, true);
+                }
+                if(value.terca_2_ini){
+                    event = {
+                        id      : value.cod,
+                        tipo    : 3,
+                        title   : value.usuario,
+                        start   : new Date(dia + ' ' + value.terca_2_ini), 
+                        end     : new Date(dia + ' ' + value.terca_2_fim),
+                        color   : value.cor,
+                        inicio  : dia,
+                        fim     : dia,
+                        horaini : value.terca_2_ini,
+                        horafim : value.terca_2_fim
+                    };
+                    $('#calendar').fullCalendar( 'renderEvent', event, true);
+                }
+            }
+            if(diaSemana == 4){
+                if(value.quarta_1_ini){
+                    event = {
+                        id      : value.cod,
+                        tipo    : 3,
+                        title   : value.usuario,
+                        start   : new Date(dia + ' ' + value.quarta_1_ini), 
+                        end     : new Date(dia + ' ' + value.quarta_1_fim),
+                        color   : value.cor,
+                        inicio  : dia,
+                        fim     : dia,
+                        horaini : value.quarta_1_ini,
+                        horafim : value.quarta_1_fim
+                    };
+                    $('#calendar').fullCalendar( 'renderEvent', event, true);
+                }
+                if(value.quarta_2_ini){
+                    event = {
+                        id      : value.cod,
+                        tipo    : 3,
+                        title   : value.usuario,
+                        start   : new Date(dia + ' ' + value.quarta_2_ini), 
+                        end     : new Date(dia + ' ' + value.quarta_2_fim),
+                        color   : value.cor,
+                        inicio  : dia,
+                        fim     : dia,
+                        horaini : value.quarta_2_ini,
+                        horafim : value.quarta_2_fim
+                    };
+                    $('#calendar').fullCalendar( 'renderEvent', event, true);
+                }
+            }
+            if(diaSemana == 5){
+               if(value.quinta_1_ini){
+                    event = {
+                        id      : value.cod,
+                        tipo    : 3,
+                        title   : value.usuario,
+                        start   : new Date(dia + ' ' + value.quinta_1_ini), 
+                        end     : new Date(dia + ' ' + value.quinta_1_fim),
+                        color   : value.cor,
+                        inicio  : dia,
+                        fim     : dia,
+                        horaini : value.quinta_1_ini,
+                        horafim : value.quinta_1_fim
+                    };
+                    $('#calendar').fullCalendar( 'renderEvent', event, true);
+                }
+                if(value.quinta_2_ini){
+                    event = {
+                        id      : value.cod,
+                        tipo    : 3,
+                        title   : value.usuario,
+                        start   : new Date(dia + ' ' + value.quinta_2_ini), 
+                        end     : new Date(dia + ' ' + value.quinta_2_fim),
+                        color   : value.cor,
+                        inicio  : dia,
+                        fim     : dia,
+                        horaini : value.quinta_2_ini,
+                        horafim : value.quinta_2_fim
+                    };
+                    $('#calendar').fullCalendar( 'renderEvent', event, true);
+                }
+            }
+            if(diaSemana == 6){
+                if(value.sexta_1_ini){
+                    event = {
+                        id      : value.cod,
+                        tipo    : 3,
+                        title   : value.usuario,
+                        start   : new Date(dia + ' ' + value.sexta_1_ini), 
+                        end     : new Date(dia + ' ' + value.sexta_1_fim),
+                        color   : value.cor,
+                        inicio  : dia,
+                        fim     : dia,
+                        horaini : value.sexta_1_ini,
+                        horafim : value.sexta_1_fim
+                    };
+                    $('#calendar').fullCalendar( 'renderEvent', event, true);
+                }
+                if(value.sexta_2_ini){
+                    event = {
+                        id      : value.cod,
+                        tipo    : 3,
+                        title   : value.usuario,
+                        start   : new Date(dia + ' ' + value.sexta_2_ini), 
+                        end     : new Date(dia + ' ' + value.sexta_2_fim),
+                        color   : value.cor,
+                        inicio  : dia,
+                        fim     : dia,
+                        horaini : value.sexta_2_ini,
+                        horafim : value.sexta_2_fim
+                    };
+                    $('#calendar').fullCalendar( 'renderEvent', event, true);
+                }
+            }
+            if(diaSemana == 7){
+                if(value.sabado_1_ini){
+                    event = {
+                        id      : value.cod,
+                        tipo    : 3,
+                        title   : value.usuario,
+                        start   : new Date(dia + ' ' + value.sabado_1_ini), 
+                        end     : new Date(dia + ' ' + value.sabado_1_fim),
+                        color   : value.cor,
+                        inicio  : dia,
+                        fim     : dia,
+                        horaini : value.sabado_1_ini,
+                        horafim : value.sabado_1_fim
+                    };
+                    $('#calendar').fullCalendar( 'renderEvent', event, true);
+                }
+                if(value.sabado_2_ini){
+                    event = {
+                        id      : value.cod,
+                        tipo    : 3,
+                        title   : value.usuario,
+                        start   : new Date(dia + ' ' + value.sabado_2_ini), 
+                        end     : new Date(dia + ' ' + value.sabado_2_fim),
+                        color   : value.cor,
+                        inicio  : dia,
+                        fim     : dia,
+                        horaini : value.sabado_2_ini,
+                        horafim : value.sabado_2_fim
+                    };
+                    $('#calendar').fullCalendar( 'renderEvent', event, true);
+                }
+            }
+        });
+           
+        console.log(userSemanas);
+    }
     
     function showAdd(){
         
     }
+    
+    function add(){
+        
+        var tipo = $('.tipo-disp:checked').val();
+        
+        if(tipo == 1){
+            
+            var data = {
+                tipo     : tipo,
+                dt       : $('#add_dt').val(),
+                hrini    : $('#add_hini').val(),
+                hrfim    : $('#add_hfim').val()
+            };
+            
+            if(!validaParametros(data)){
+                swal.fire({
+                    title : 'Atenção!',
+                    text  : 'Digite todos os campos',
+                    type  : 'info'
+                });
+                return false;
+            };
+            
+            if(!validarHoras(data.hrini)){
+                swal.fire({
+                    title : 'Atenção!',
+                    text  : 'As Horas não são válidas. ',
+                    type  : 'info'
+                });
+                return false;
+            };
+            
+            if(!validarHoras(data.hrfim)){
+                swal.fire({
+                    title : 'Atenção!',
+                    text  : 'As Horas não são válidas. ',
+                    type  : 'info'
+                });
+                return false;
+            };
+            
+        }
+        
+        if(tipo == 2){
+            
+            var data = {
+                tipo    : tipo,
+                dtini   : $('#disp_2_diaini').val(),
+                dtfim   : $('#disp_2_diafim').val(),
+                hrini   : $('#disp_2_hrini').val(),
+                hrfim   : $('#disp_2_hrfim').val()
+            };
+            
+            if(!validaParametros(data)){
+                swal.fire({
+                    title : 'Atenção!',
+                    text  : 'Digite todos os campos.',
+                    type  : 'info'
+                });
+                return false;
+            };
+            
+            var d1 = new Date(data.dtini);
+            var d2 = new Date(data.dtfim);
+            
+            if(d2.getTime() <= d1.getTime()){
+                swal.fire({
+                    title : 'Atenção!',
+                    text  : 'Digite um período válido.',
+                    type  : 'info'
+                });
+                return false;
+            }
+            
+            if(!validarHoras(data.hrini)){
+                swal.fire({
+                    title : 'Atenção!',
+                    text  : 'As Horas não são válidas. ',
+                    type  : 'info'
+                });
+                return false;
+            }
+            
+            if(!validarHoras(data.hrfim)){
+                swal.fire({
+                    title : 'Atenção!',
+                    text  : 'As Horas não são válidas. ',
+                    type  : 'info'
+                });
+                return false;
+            }
+        }
+        
+        if(tipo == 3){
+            
+            var data = [];
+            
+            for(var i = 1; i<= 7; i++){
+                data[i] = {
+                    semana      : i,
+                    checked     : $('#chbox_'+i).is(':checked'),
+                    //periodo1    : $('#hrini_5_2')
+                };
+                
+                if(data[i]['checked'] == 1){
+                
+                    data[i]['periodo1_ini'] = $('#hrini_'+i+'_1').val();
+                    data[i]['periodo1_fim'] = $('#hrfim_'+i+'_1').val();
+                    data[i]['periodo2_ini'] = $('#hrini_'+i+'_2').val();
+                    data[i]['periodo2_fim'] = $('#hrfim_'+i+'_2').val();
+                    
+                    if(data[i]['periodo1_ini'] != '' && data[i]['periodo1_fim'] != ''){
+                        if(!validarHoras(data[i]['periodo1_ini'])){
+                            swal.fire({
+                                title : 'Atenção!',
+                                text  : 'O Horário de início do 1° Periodo de '+getSemana(i)+' não é válido.',
+                                type  : 'info',
+                                onClose: () => {
+                                    $('#hrini_'+i+'_1').focus();
+                                }
+                            });
+                            return false;
+                        }
+                        if(!validarHoras(data[i]['periodo1_fim'])){
+                            swal.fire({
+                                title : 'Atenção!',
+                                text  : 'O Horário de término do 1° Periodo de '+getSemana(i)+' não é válido.',
+                                type  : 'info',
+                                onClose: () => {
+                                    $('#hrfim_'+i+'_1').focus();
+                                }
+                            });
+                            return false;
+                        }
+                    }else{
+                        swal.fire({
+                            title : 'Atenção!',
+                            text  : 'Digite o 1° Periodo de '+getSemana(i)+'.',
+                            type  : 'info',
+                            onClose: () => {
+                                $('#hrini_'+i+'_1').focus();
+                            }
+                        });
+                        return false;
+                    }
+
+
+                    if(data[i]['periodo2_ini'] != '' || data[i]['periodo2_fim'] != ''){
+                        if(!validarHoras(data[i]['periodo2_ini'])){
+                            swal.fire({
+                                title : 'Atenção!',
+                                text  : 'O Horário de início do 2° Periodo de '+getSemana(i)+' não é válido.',
+                                type  : 'info',
+                                onClose: () => {
+                                    $('#hrini_'+i+'_2').focus();
+                                }
+                            });
+                            return false;
+                        }
+                        if(!validarHoras(data[i]['periodo2_fim'])){
+                            swal.fire({
+                                title : 'Atenção!',
+                                text  : 'O Horário de término do 2° Periodo de '+getSemana(i)+' não é válido.',
+                                type  : 'info',
+                                onClose: () => {
+                                    $('#hrfim_'+i+'_2').focus();
+                                }
+                            });
+                            return false;
+                        }
+                    }
+                }else{
+                    data[i]['periodo1_ini'] = '';
+                    data[i]['periodo1_fim'] = '';
+                    data[i]['periodo2_ini'] = '';
+                    data[i]['periodo2_fim'] = '';
+                }
+            }
+            
+            data.splice(0,1);
+            data = {semanas : data, tipo : 3};
+        }
+        
+        
+        $.ajax({
+            url: '/quadro-disponibilidade/add',
+            data: data,
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                Swal.fire({
+                    title: 'Sucesso!',
+                    html: 'Disponibilidade adicionada.',
+                    type: 'success',
+                    onClose: () => {
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+        
+    }
+    
+    $('.tipo-disp').on('click', function(){
+       
+       var n = $(this).val();
+       
+       $('.div-tipo-disp').hide();
+       $('#tipo-disp-'+n).show();
+       
+    });
+    
+    $('#tipo-disp-3 input[type="checkbox"]').on('click', function(){
+        classe = $(this).attr('id'); 
+        
+        if($(this).is(':checked')){
+            $('.'+classe+' input').attr('disabled',false);
+        }else{
+            $('.'+classe+' input').attr('disabled',true);
+        }
+    });
+    
+    $('#mes, #ano').on('change', function(){
+       mes = $('#mes').val();
+       ano = $('#ano').val();
+       
+       $('#calendar').fullCalendar('gotoDate', ano+'-'+mes+'-'+01);
+    });
+    
+    $('#cor').on('change', function(){
+        $.ajax({
+            url: '/quadro-disponibilidade/editColor',
+            data: {
+                color : $(this).val()
+            },
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                window.location.reload();
+            }
+        });
+    });
+                
 </script>

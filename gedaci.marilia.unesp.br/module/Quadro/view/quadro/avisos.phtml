@@ -213,27 +213,52 @@
             add_hfim            : $('#add_hfim').val()
         };
         
-        if(validaParametros(data)){
-            $.ajax({
-                url: '/avisos/add',
-                data: data,
-                type: 'json',
-                method: 'POST',
-                beforeSend: function () {
-                    loader();
-                },
-                success: function (retorno) {
-                    Swal.fire({
-                        title: 'Sucesso!',
-                        html: 'Novo aviso cadastrado.',
-                        type: 'success',
-                        onClose: () => {
-                            window.location.reload();
-                        }
-                    });
-                },
+        if(!validaParametros(data)){
+            Swal.fire({
+                title: 'Atenção!',
+                html: "Digite todos os campos.",
+                type: 'info'
             });
+            return false;
         }
+        
+        if(!validarHoras(data.add_hini)){
+            Swal.fire({
+                title: 'Atenção!',
+                html: "Hora de inicio não é válida.",
+                type: 'info'
+            });
+            return false;
+        }
+        
+        if(!validarHoras(data.add_hini)){
+            Swal.fire({
+                title: 'Atenção!',
+                html: "Hora de fim não é válida.",
+                type: 'info'
+            });
+            return false;
+        }
+        
+        $.ajax({
+            url: '/avisos/add',
+            data: data,
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                Swal.fire({
+                    title: 'Sucesso!',
+                    html: 'Novo aviso cadastrado.',
+                    type: 'success',
+                    onClose: () => {
+                        window.location.reload();
+                    }
+                });
+            }
+        });
     }
     
     function showEdit(cod){

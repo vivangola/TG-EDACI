@@ -7,7 +7,7 @@
                         <div class="col-md-12 ">
                             <div class="box">                           
                                 <div class="icon">
-                                    <div class="image back-primary3"><i class="fa fa-book"></i>&nbsp;<label class="title">Quadro de Avisos</label></div>
+                                    <div class="image back-primary3"><i class="fa fa-book"></i>&nbsp;<label class="title">Atas de Reuniões</label></div>
                                     <div class="info" style="min-height:450px">
                                         <div class="row" style="padding-left: 10px;padding-right: 10px;margin-top: 10px;margin-bottom: 20px;">
                                             <form action="/atas" method="post" enctype="">
@@ -15,10 +15,10 @@
                                                     <input type="text" name="pesquisa" placeholder="Pesquisar" class="form-control" value="<?= $pesq != '' ? $pesq : '' ?>">
                                                 </div>  
                                                 <div class="col-md-2 col-sm-2 col-xs-4">
-                                                    <select class="form-control">
+                                                    <select class="form-control" name="filtros">
                                                         <option value="-1">Todos</option>
-                                                        <option value="1">Conteúdo</option>
-                                                        <option value="2">Usuário</option>
+                                                        <option value="1" <?= $filtro == '1' ? 'selected' : '' ?>>Conteúdo</option>
+                                                        <option value="2" <?= $filtro == '2' ? 'selected' : '' ?>>Usuário</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-2 col-sm-3 col-xs-6">
@@ -41,7 +41,7 @@
                                             if ($atas) {
                                                 foreach ($atas as $dados) {
                                                     
-                                                    $relatorio->definirVariavel('1', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showEdit('".$dados['cod_ata']."')><i class='pointer fa fa-search'></i></button>");
+                                                    $relatorio->definirVariavel('1', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showFile('".$dados['texto']."')><i class='pointer fa fa-download'></i></button>");
                                                     $relatorio->definirVariavel('2', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showEdit('".$dados['cod_ata']."')><i class='pointer fa fa-edit'></i></button>");
                                                     $relatorio->definirVariavel('3', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showDelete('".$dados['cod_ata']."')><i class='pointer fa fa-times'></i></button>");
                                                     
@@ -51,6 +51,7 @@
                                             $relatorio->gerarRodape();
                                             ?>
                                         </div>
+                                        <div id="diva-wrapper"></div>
                                     </div>
                                 </div>
                             </div>
@@ -75,27 +76,68 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="add_conteudo" class="col-form-label">Conteúdo Sintético:</label>
-                        <input type="text" required class="form-control" id="add_conteudo" name="add_conteudo" title="Digite o Conteúdo Sintético."/>
+                        <input type="text"  class="form-control" id="add_conteudo" name="add_conteudo" title="Digite o Conteúdo Sintético."/>
                     </div>
                     <div class="row">
                         <div class="form-group col-xs-6">
                             <label for="add_dt" class="col-form-label">Data da Reunião:</label>
-                            <input id="add_dt" required class="form-control input-group-lg" type="date" name="add_dt" title="Digite a data da reunião."/>
+                            <input id="add_dt"  class="form-control input-group-lg" type="date" name="add_dt" title="Digite a data da reunião."/>
                         </div>
 
                         <div class="form-group col-xs-6">
                             <label for="add_h" class="col-form-label">Horário da Reunião:</label>
-                            <input id="add_h" required class="form-control input-group-lg" type="text" name="add_h"  placeholder="00:00" data-mask="00:00" title="Digite o horário da reunião."/>
+                            <input id="add_h"  class="form-control input-group-lg" type="text" name="add_h"  placeholder="00:00" data-mask="00:00" title="Digite o horário da reunião."/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="add_arquivo" class="col-form-label">Arquivo:</label>
-                        <input type="file" required class="form-control" name="add_arquivo" id="add_arquivo">
+                        <label for="add_arquivo" class="col-form-label">Arquivo: (pdf,doc,docx)</label>
+                        <input type="file" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="form-control" name="add_arquivo" id="add_arquivo">
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary-borded2" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary3">Finalizar <i class="fa fa-check"></i></button>
+                    <button type="button" class="btn btn-primary3" onclick="add()">Finalizar <i class="fa fa-check"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title color-primary2"><i class="fa fa-edit"></i>&nbsp;Editar Ata</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="form" action="/atas/add" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <input type="hidden" id="edit_cod">
+                    <div class="form-group">
+                        <label for="edit_conteudo" class="col-form-label">Conteúdo Sintético:</label>
+                        <input type="text"  class="form-control" id="edit_conteudo" name="edit_conteudo" title="Digite o Conteúdo Sintético."/>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="edit_dt" class="col-form-label">Data da Reunião:</label>
+                            <input id="edit_dt"  class="form-control input-group-lg" type="date" name="edit_dt" title="Digite a data da reunião."/>
+                        </div>
+
+                        <div class="form-group col-xs-6">
+                            <label for="edit_h" class="col-form-label">Horário da Reunião:</label>
+                            <input id="edit_h"  class="form-control input-group-lg" type="text" name="edit_h"  placeholder="00:00" data-mask="00:00" title="Digite o horário da reunião."/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_arquivo" class="col-form-label">Arquivo: (pdf,doc,docx)</label>
+                        <label class="form-control" name="edit_arquivo" id="edit_arquivo">Arquivo:</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary-borded2" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary3" onclick="edit()">Finalizar <i class="fa fa-check"></i></button>
                 </div>
             </form>
         </div>
@@ -128,6 +170,26 @@
             add_h               : $('#add_h').val(),
             add_arquivo         : $('#add_arquivo').val()
         };
+        
+        if(!validaParametros(data)){
+            Swal.fire({
+                title: 'Atenção!',
+                html: "Digite todos os campos.",
+                type: 'info'
+            });
+            return false;
+        }
+        
+        if(!validarHoras(data.add_h)){
+            Swal.fire({
+                title: 'Atenção!',
+                html: "Horário de Reunião não é válido.",
+                type: 'info'
+            });
+            return false;
+        }
+        
+        $('#form').submit();
     }
     
     function showDelete(cod){
@@ -158,6 +220,91 @@
                 });
             }
         });
+    }
+    
+    function showEdit(cod){
+        $.ajax({
+            url: '/atas/showEdit',
+            data: {cod_ata : cod},
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                retorno = JSON.parse(retorno);
+                Swal.close();
+                if(retorno.response){
+                    
+                    $('#edit_cod').val(retorno.result['cod_ata']);
+                    $('#edit_conteudo').val(retorno.result['conteudo']);
+                    $('#edit_dt').val(retorno.result['dt_only']);
+                    $('#edit_h').val(retorno.result['hr_only']);
+                    $('#edit_arquivo').html('Arquivo: <a href="/arquivos/atas/'+retorno.result['texto']+'"> '+retorno.result['texto']+' </a>');
+                    
+                    $('#modalEdit').modal('show');
+                }else{
+                    Swal.fire({
+                        title: 'Atenção!',
+                        html: 'Aviso não encontrado.',
+                        type: 'info'
+                    });
+                }
+            }
+        });
+    }
+    
+    function edit(){
+        
+        var data = {
+            cod                 : $('#edit_cod').val(),
+            edit_conteudo        : $('#edit_conteudo').val(),
+            edit_dt              : $('#edit_dt').val(),
+            edit_h               : $('#edit_h').val()
+        };
+        
+        if(!validaParametros(data)){
+            Swal.fire({
+                title: 'Atenção!',
+                html: "Digite todos os campos.",
+                type: 'info'
+            });
+            return false;
+        }
+        
+        if(!validarHoras(data.edit_h)){
+            Swal.fire({
+                title: 'Atenção!',
+                html: "Horário de Reunião não é válido.",
+                type: 'info'
+            });
+            return false;
+        }
+        
+        $.ajax({
+            url: '/atas/edit',
+            data: data,
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                Swal.fire({
+                    title: 'Sucesso!',
+                    html: 'Aviso editado.',
+                    type: 'success',
+                    onClose: () => {
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+        
+    }
+    
+    function showFile(arquivo){
+        window.open('/arquivos/atas/'+arquivo,'_blank');
     }
 
 </script>

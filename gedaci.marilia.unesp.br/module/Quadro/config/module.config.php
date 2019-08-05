@@ -27,7 +27,7 @@ return [
             'biblioteca' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/biblioteca',
+                    'route'    => '/biblioteca[/:action]',
                     'defaults' => [
                         'controller' => Controller\BibliotecaController::class,
                         'action'     => 'biblioteca',
@@ -67,7 +67,7 @@ return [
             'quadro-disponibilidade' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/quadro-disponibilidade',
+                    'route'    => '/quadro-disponibilidade[/:action]',
                     'defaults' => [
                         'controller' => Controller\QuadroDisponibilidadeController::class,
                         'action'     => 'quadro-disponibilidade',

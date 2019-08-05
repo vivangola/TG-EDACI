@@ -71,7 +71,7 @@ td.fc-day:hover {
 }
 
 td.fc-today {
-    background:#f8f7f7 !important;
+    background:#ececec !important;
     position: relative;
 
 
@@ -402,8 +402,13 @@ span.fc-button {
     background-color: #BEFFBF;
 }
 .fc-event:hover{
-    opacity: 0.7;
+    z-index: 9999 !important;
 }
+
+.fc-event{
+    border: 1px solid white !important;
+}
+
 a.fc-event {
     text-decoration: none;
 }
@@ -789,7 +794,6 @@ table.fc-header{
 -----------------------------------------------------*/
 
 .fc-event {
-    background: #fff !important;
     color: #000 !important;
 }
 
@@ -844,9 +848,7 @@ table.fc-header{
 }
 
 .fc-event-container a{
-    background: #629bad !important;
-    border: none !important;
-    border-radius: 0;
+    border-radius: 2px;
     padding: 7px 5px;
 }
 

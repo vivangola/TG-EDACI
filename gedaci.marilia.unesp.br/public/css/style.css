@@ -1072,7 +1072,7 @@ a {
 }
 a:hover,
 a:focus {
-    color: #FBC601;
+    color: #23527c;
 }
 .container {
     padding-left: 8px;
@@ -2001,7 +2001,7 @@ thead {
 #sidebar-nav .nav > .open > .submenu > li > .submenu > li a:hover,
 #sidebar-nav .nav > .active > .submenu > li > .submenu > li a:hover,
 #sidebar-nav .nav > .active > .submenu > li > .submenu > li a.active {
-    color: #FBC601;
+    color: #23527c;
 }
 #sidebar-nav .nav > .open > .submenu > li > .submenu a,
 #sidebar-nav .nav > .active > .submenu > li > .submenu a {

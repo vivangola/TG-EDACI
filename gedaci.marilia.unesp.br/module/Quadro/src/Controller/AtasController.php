@@ -37,7 +37,7 @@ class AtasController extends AbstractActionController
         $relatorio->definirColuna('CONTEÚDO SINTÉTICO', 'conteudo', '8', 'left', 't', 'n', 'n');
         $relatorio->definirColuna('USUÁRIO', 'usuario', '4', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('DATA REUNIÃO', 'dt_convert', '4', 'center', 't', 'n', 'n');
-        $relatorio->definirColuna('VISUALIZAR', '1', '2', 'center', 't', 'n', 'n');
+        $relatorio->definirColuna('DOWNLOAD', '1', '2', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('ALTERAR', '2', '2', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('EXCLUIR', '3', '2', 'center', 't', 'n', 'n');
         
@@ -66,17 +66,25 @@ class AtasController extends AbstractActionController
                 'h'             => $this->params()->fromPost('add_h', '00:00'),
                 'usuario'       => $sessao->cod_usuario
             );
-
-            $arquivo = $this->params()->fromFiles('add_arquivo', '');
-
+            
             $params['dt'] = $params['dt'] . ' ' . $params['h'];
+            
+            $arquivo = $this->params()->fromFiles('add_arquivo', '');
+            
+            $ext = pathinfo($arquivo['name'], PATHINFO_EXTENSION);
+            
+            $dir = $_SERVER['DOCUMENT_ROOT']. '/arquivos/atas/';
+            
+            $params['arquivo_nome'] = 'ata-' . date("Y-m-d-H-m-s") . '.' . $ext;
+            
+            $destino = $dir . $params['arquivo_nome'];
 
-            $params['arquivo_nome'] = '/arquivos/atas/ata-' . date("Y-m-d-H-m-s");
+            move_uploaded_file($arquivo['tmp_name'], $destino);
 
             $sql = "insert into reu_atas(data_inclusao,conteudo,texto,data,usuario_fk) " .
                         "values(now(),:conteudo,:arquivo_nome,:dt,:usuario);";
             $funcoes->executarSQL($sql,$params);
-
+            
             $funcoes->alertBasic('Ata adicionada.', false, '/atas', 'success', 'Sucesso!');
             exit;
         }else{
@@ -100,5 +108,51 @@ class AtasController extends AbstractActionController
         $funcoes->executarSQL($sql,$params);
         
         return $response->setContent(Json::encode(array('response' => true)));
+    }
+    
+    public function showEditAction(){
+        $funcoes = new Funcoes($this);
+        $sessao = new Container("usuario");
+        
+        $response = $this->getResponse();
+        
+        $params = array(
+            'ata'           => $this->params()->fromPost('cod_ata', ''),
+            'usuario'       => $sessao->cod_usuario
+        );
+        
+        $sql = "call us_buscarAtas_sp('0','0',:ata)";
+        $result = $funcoes->executarSQL($sql,$params, '');
+        
+        if(!$result){
+            $retorno = false;
+        }else{
+            $retorno = true;
+        }
+        
+        return $response->setContent(Json::encode(array('response' => $retorno, 'result' => $result)));
+    }
+    
+    public function editAction(){
+        $funcoes = new Funcoes($this);
+        $sessao = new Container("usuario");
+        
+        $response = $this->getResponse();
+        
+        $params = array(
+            'cod_ata'       => $this->params()->fromPost('cod', ''),
+            'conteudo'      => $this->params()->fromPost('edit_conteudo', ''),
+            'date'            => $this->params()->fromPost('edit_dt', ''),
+            'hora'            => $this->params()->fromPost('edit_h', ''),
+            'usuario'       => $sessao->cod_usuario
+        );
+        
+        $params['date'] = $params['date'] . ' ' . $params['hora'];
+        
+        $sql = "update reu_atas set conteudo =:conteudo,data =:date " .
+                    " where cod_ata =:cod_ata";
+        $funcoes->executarSQL($sql,$params);
+        
+        return $response->setContent(array('response' => true));
     }
 }

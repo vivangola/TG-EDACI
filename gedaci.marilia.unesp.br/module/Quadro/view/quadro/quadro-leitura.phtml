@@ -10,208 +10,50 @@
                                     <div class="image back-primary3"><i class="fa fa-book"></i>&nbsp;<label class="title">Quadro de Literatura</label></div>
                                     <div class="info" style="min-height:450px">
                                         <div class="row" style="padding-left: 10px;padding-right: 10px">
-                                            <div class="col-md-6 col-sm-4 col-xs-8">
-                                                <input type="text" placeholder="Pesquisar" class="form-control">
-                                            </div>  
-                                            <div class="col-md-2 col-sm-2 col-xs-4">
-                                                <select class="form-control">
-                                                    <option value="">Todos</option>
-                                                    <option value="">Autor</option>
-                                                    <option value="">Base</option>
-                                                    <option value="">Palavra-Chave</option>
-                                                    <option value="">T�tulo</option>
-                                                    <option value="">Usu�rio</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-2 col-sm-3 col-xs-6">
-                                                <button class="btn btn-primary2 form-control">
-                                                    Pesquisar&nbsp;
-                                                    <i class="fa fa-search"></i>
-                                                </button>
-                                            </div>
-                                            <div class="col-md-2 col-sm-3 col-xs-6">
-                                                <button class="btn btn-primary2 form-control">
-                                                    Novo&nbsp;
-                                                    <i class="fa fa-plus"></i>
-                                                </button>
-                                            </div>
+                                            <form action="/quadro-leitura" method="post" enctype="">
+                                                <div class="col-md-6 col-sm-4 col-xs-8">
+                                                    <input type="text" name="pesquisa" placeholder="Pesquisar" class="form-control" value="<?= $pesq != '' ? $pesq : '' ?>">
+                                                </div>  
+                                                <div class="col-md-2 col-sm-2 col-xs-4">
+                                                    <select class="form-control" name="filtros">
+                                                        <option value="-1">Todos</option>
+                                                        <option value="1" <?= $filtro == '1' ? 'selected' : '' ?>>Autor</option>
+                                                        <option value="2" <?= $filtro == '2' ? 'selected' : '' ?>>Base</option>
+                                                        <option value="3" <?= $filtro == '3' ? 'selected' : '' ?>>Palavra-Chave</option>
+                                                        <option value="4" <?= $filtro == '4' ? 'selected' : '' ?>>Título Periódico</option>
+                                                        <option value="5" <?= $filtro == '5' ? 'selected' : '' ?>>Usuário</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-2 col-sm-3 col-xs-6">
+                                                    <button class="btn btn-primary-borded2 form-control" type="submit">
+                                                        Pesquisar&nbsp;
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-2 col-sm-3 col-xs-6">
+                                                    <button class="btn btn-primary-borded2 form-control" type="button" onClick="showAdd()">
+                                                        Novo&nbsp;
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </form>
                                         </div>
-                                        <div class="table-responsive" style="margin-top:10px">
-                                            <table id="tabela" class="table table-striped table-bordered dataTable-primary" style="width:100%">
-                                                <thead>
-                                                    <tr>
-                                                        <th>T�tulo do Artigo</th>
-                                                        <th>T�tulo do peri�dico</th>
-                                                        <th>Autor(es)</th>
-                                                        <th>Volume</th>
-                                                        <th>Mes/Ano</th>
-                                                        <th>P�gina</th>
-                                                        <th>Usu�rio</th>
-                                                        <th>Data Pesquisa</th>
-                                                        <th></th>
-                                                        <th>Alterar</th>
-                                                        <th>Excluir</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr style="text-align: left">
-                                                        <td>How to Program in PHP</td>
-                                                        <td>The arte of programming</td>
-                                                        <td>Jorge Cardoso</td>
-                                                        <td>3</td>
-                                                        <td>OUT/2004</td>
-                                                        <td>10 - 15</td>
-                                                        <td>Cleverson Ribeiro</td>
-                                                        <td>10/05/2019</td>
-                                                        <td width="20px"><button class="btn btn-primary-borded2 form-control">Download</button></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                    <tr style="text-align: left">
-                                                        <td>How to Program in PHP</td>
-                                                        <td>The arte of programming</td>
-                                                        <td>Jorge Cardoso</td>
-                                                        <td>3</td>
-                                                        <td>OUT/2004</td>
-                                                        <td>10 - 15</td>
-                                                        <td>Cleverson Ribeiro</td>
-                                                        <td>10/05/2019</td>
-                                                        <td width="20px"><button class="btn btn-primary-borded2 form-control">Download</button></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                    <tr style="text-align: left">
-                                                        <td>How to Program in PHP</td>
-                                                        <td>The arte of programming</td>
-                                                        <td>Jorge Cardoso</td>
-                                                        <td>3</td>
-                                                        <td>OUT/2004</td>
-                                                        <td>10 - 15</td>
-                                                        <td>Cleverson Ribeiro</td>
-                                                        <td>10/05/2019</td>
-                                                        <td width="20px"><button class="btn btn-primary-borded2 form-control">Download</button></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                    <tr style="text-align: left">
-                                                        <td>How to Program in PHP</td>
-                                                        <td>The arte of programming</td>
-                                                        <td>Jorge Cardoso</td>
-                                                        <td>3</td>
-                                                        <td>OUT/2004</td>
-                                                        <td>10 - 15</td>
-                                                        <td>Cleverson Ribeiro</td>
-                                                        <td>11/05/2019</td>
-                                                        <td width="20px"><button class="btn btn-primary-borded2 form-control">Download</button></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                    <tr style="text-align: left">
-                                                        <td>How to Program in PHP</td>
-                                                        <td>The arte of programming</td>
-                                                        <td>Jorge Cardoso</td>
-                                                        <td>3</td>
-                                                        <td>OUT/2004</td>
-                                                        <td>10 - 15</td>
-                                                        <td>Cleverson Ribeiro</td>
-                                                        <td>10/05/2019</td>
-                                                        <td width="20px"><button class="btn btn-primary-borded2 form-control">Download</button></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                    <tr style="text-align: left">
-                                                        <td>How to Program in PHP</td>
-                                                        <td>The arte of programming</td>
-                                                        <td>Jorge Cardoso</td>
-                                                        <td>3</td>
-                                                        <td>OUT/2004</td>
-                                                        <td>10 - 15</td>
-                                                        <td>Cleverson Ribeiro</td>
-                                                        <td>10/05/2019</td>
-                                                        <td width="20px"><button class="btn btn-primary-borded2 form-control">Download</button></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                    <tr style="text-align: left">
-                                                        <td>How to Program in PHP</td>
-                                                        <td>The arte of programming</td>
-                                                        <td>Jorge Cardoso</td>
-                                                        <td>3</td>
-                                                        <td>OUT/2004</td>
-                                                        <td>10 - 15</td>
-                                                        <td>Cleverson Ribeiro</td>
-                                                        <td>10/05/2019</td>
-                                                        <td width="20px"><button class="btn btn-primary-borded2 form-control">Download</button></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                    <tr style="text-align: left">
-                                                        <td>How to Program in PHP</td>
-                                                        <td>The arte of programming</td>
-                                                        <td>Jorge Cardoso</td>
-                                                        <td>3</td>
-                                                        <td>OUT/2004</td>
-                                                        <td>10 - 15</td>
-                                                        <td>Cleverson Ribeiro</td>
-                                                        <td>10/05/2019</td>
-                                                        <td width="20px"><button class="btn btn-primary-borded2 form-control">Download</button></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                    <tr style="text-align: left">
-                                                        <td>How to Program in PHP</td>
-                                                        <td>The arte of programming</td>
-                                                        <td>Jorge Cardoso</td>
-                                                        <td>3</td>
-                                                        <td>OUT/2004</td>
-                                                        <td>10 - 15</td>
-                                                        <td>Cleverson Ribeiro</td>
-                                                        <td>10/05/2019</td>
-                                                        <td width="20px"><button class="btn btn-primary-borded2 form-control">Download</button></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                    <tr style="text-align: left">
-                                                        <td>How to Program in PHP</td>
-                                                        <td>The arte of programming</td>
-                                                        <td>Jorge Cardoso</td>
-                                                        <td>3</td>
-                                                        <td>OUT/2004</td>
-                                                        <td>10 - 15</td>
-                                                        <td>Cleverson Ribeiro</td>
-                                                        <td>10/05/2019</td>
-                                                        <td width="20px"><button class="btn btn-primary-borded2 form-control">Download</button></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                    <tr style="text-align: left">
-                                                        <td>How to Program in PHP</td>
-                                                        <td>The arte of programming</td>
-                                                        <td>Jorge Cardoso</td>
-                                                        <td>3</td>
-                                                        <td>OUT/2004</td>
-                                                        <td>10 - 15</td>
-                                                        <td>Cleverson Ribeiro</td>
-                                                        <td>10/05/2019</td>
-                                                        <td width="20px"><button class="btn btn-primary-borded2 form-control">Download</button></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                    <tr style="text-align: left">
-                                                        <td>How to Program in PHP</td>
-                                                        <td>The arte of programming</td>
-                                                        <td>Jorge Cardoso</td>
-                                                        <td>3</td>
-                                                        <td>OUT/2004</td>
-                                                        <td>10 - 15</td>
-                                                        <td>Cleverson Ribeiro</td>
-                                                        <td>10/05/2019</td>
-                                                        <td width="20px"><button class="btn btn-primary-borded2 form-control">Download</button></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>   
+                                        
+                                        <div class="table-responsive" style="margin-top: 10px;">
+                                            <?php
+                                            $relatorio->gerarCabecalho(12);
+                                            if ($result) {
+                                                foreach ($result as $dados) {
+                                                    
+                                                    $relatorio->definirVariavel('1', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showFile('".$dados['arquivo']."')><i class='pointer fa fa-download'></i></button>");
+                                                    $relatorio->definirVariavel('2', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showEdit('".$dados['cod']."')><i class='pointer fa fa-edit'></i></button>");
+                                                    $relatorio->definirVariavel('3', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showDelete('".$dados['cod']."')><i class='pointer fa fa-times'></i></button>");
+                                                    
+                                                    $relatorio->gerarRelatorio($dados);
+                                                }
+                                            }
+                                            $relatorio->gerarRodape();
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -224,17 +66,101 @@
     </div>
 </div>
 
+<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Adicionar Material</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="form" action="/biblioteca/add" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="add_periodico" class="col-form-label">Título Periódico:</label>
+                        <input type="text"  class="form-control" id="add_periodico" maxlength="200" name="add_periodico" title="Digite o Título Periódico."/>
+                    </div>
+                    <div class="form-group">
+                        <label for="add_artigo" class="col-form-label">Título Artigo:</label>
+                        <input type="text"  class="form-control" id="add_artigo" name="add_artigo" maxlength="200" title="Digite o Título do Artigo."/>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="add_base" class="col-form-label">Base:</label>
+                            <input id="add_base" class="form-control input-group-lg" maxlength="100" type="text" name="add_base"/>
+                        </div>
+
+                        <div class="form-group col-xs-6">
+                            <label for="add_datapesq" class="col-form-label">Data da Pesquisa:</label>
+                            <input id="add_datapesq" class="form-control input-group-lg" type="date" name="add_datapesq"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-2">
+                            <label for="add_pginicial" class="col-form-label">Pag Inícial:</label>
+                            <input id="add_pginicial" class="form-control input-group-lg" type="text" name="add_pginicial" data-mask="00000"/>
+                        </div>
+
+                        <div class="form-group col-xs-2">
+                            <label for="add_pgfim" class="col-form-label">Pag Final:</label>
+                            <input id="add_pgfim" class="form-control input-group-lg" type="text" name="add_pgfim" data-mask="00000"/>
+                        </div>
+                        
+                        <div class="form-group col-xs-2">
+                            <label for="add_volume" class="col-form-label">Volume:</label>
+                            <input id="add_volume" class="form-control input-group-lg" type="text" name="add_volume" data-mask="00000"/>
+                        </div>
+
+                        <div class="form-group col-xs-2">
+                            <label for="add_numero" class="col-form-label">Numero:</label>
+                            <input id="add_numero" class="form-control input-group-lg" type="text" name="add_numero" data-mask="00000"/>
+                        </div>
+                        
+                        <div class="form-group col-xs-2">
+                            <label for="add_mes" class="col-form-label">Mês:</label>
+                            <input id="add_mes" class="form-control input-group-lg" type="text" name="add_mes" data-mask="00" placeholder="Mês"/>
+                        </div>
+                        
+                        <div class="form-group col-xs-2">
+                            <label for="add_ano" class="col-form-label">Ano:</label>
+                            <input id="add_ano" class="form-control input-group-lg" type="text" name="add_ano" data-mask="0000" placeholder="Ano"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="add_autor "class="col-form-label">Autor(es):</label>
+                        <input type="text"  class="form-control" id="add_periodico" maxlength="200" name="add_periodico" title="Digite o Título Periódico."/>
+                    </div>
+                    <div class="form-group">
+                        <label for="add_arquivo" class="col-form-label">Arquivo: (pdf,doc,docx)</label>
+                        <input type="file" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="form-control" name="add_arquivo" id="add_arquivo">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary-borded2" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary3" onclick="add()">Finalizar <i class="fa fa-check"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
 
     $(document).ready(function () {
-        $('#tabela').DataTable({
+        $('#relatorio').DataTable({
             "language": {
                 "url": "js/datatable/pt-br.json"
             },
-            "columnDefs": [ { "orderable": false, "targets": [8,9,10] }],
+            "pageLength": 10, 
+            "ordering": false,
             "lengthChange": false,
             "searching": false
         });
     });
+    
+    function showAdd(){
+        $('#modalAdd').modal('show');
+    }
 
 </script>

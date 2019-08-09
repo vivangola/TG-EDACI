@@ -15,9 +15,9 @@ return [
     'router' => [
         'routes' => [
             'cadastro' => [
-                'type' => Literal::class,
+                'type' => Segment::class,
                 'options' => [
-                    'route'    => '/cadastro',
+                    'route'    => '/cadastro[/:action]',
                     'defaults' => [
                         'controller' => Controller\CadastroController::class,
                         'action'     => 'cadastro',

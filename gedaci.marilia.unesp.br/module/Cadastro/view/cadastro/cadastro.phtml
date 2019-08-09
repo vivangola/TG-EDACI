@@ -31,28 +31,34 @@
                 </div>
                 <div id="login">
 
-                    <form action="/" method="get">
+                    <form action="/" method="post">
                         <fieldset class="clearfix">
-                            <h3 style="color:white;">PR�-CADASTRO</h3>
+                            <h3 style="color:white;">PRÉ-CADASTRO</h3>
                             <div style="margin-top:20px">
-                            <p ><span class="fa fa-user"></span><input type="text"  Placeholder="Nome" required></p>
-                            <p ><span class="fa fa-envelope"></span><input type="text"  Placeholder="E-mail" required></p>
+                            <p ><span class="fa fa-user"></span><input type="text"  Placeholder="Nome" id="nome" required></p>
+                            <p ><span class="fa fa-envelope"></span><input type="text"  Placeholder="E-mail" id="email" required></p>
                             <p ><span class="fa fa-book"></span>
-                                <select name="categoria" id="categoria" style="color:gray">
-                                            <option value="">Escolaridade</option>
+                                <select name="categoria" id="escolaridade" style="color:gray">
+                                            <option value="0">Escolaridade</option>
                                             <option value="1">Doutorado</option>
-                                            <option value="2">Gradua�ao</option>
-                                            <option value="3">P�s-Gradua�ao</option>
+                                            <option value="2">Graduação</option>
+                                            <option value="3">Pós-Graduação</option>
                                             <option value="4">Mestrado</option>
-                                            <option value="5">P�s-Doutorado</option>
-                                            <option value="7">Tecn�logo </option>
+                                            <option value="5">Pós-Doutorado</option>
+                                            <option value="7">Tecnólogo </option>
                                 </select></p>
-                            <p ><span class="fa fa-lock"></span><input type="text"  Placeholder="Senha" required></p>
-                            <p ><span class="fa fa-lock"></span><input type="text"  Placeholder="Confirma��o da Senha" required></p>
+                            <p ><span class="fa fa-lock"></span><input type="password"  Placeholder="Senha" id="senha" required></p>
+                            <p ><span class="fa fa-lock"></span><input type="password"  Placeholder="Confirmção da Senha" id="conf_senha" required></p>
                             
                             </div>
                             <div style="margin-top:20px">
-                                <span class="pull-center" style="display: inline-block;"><a href="/login"><input type="button" style="width:100px" value="Voltar"></a>&nbsp;&nbsp;&nbsp;<input type="submit" style="width:100px" value="Enviar"></span>
+                                <span class="pull-center" style="display: inline-block;">
+                                    <a href="/login">
+                                        <input type="button" style="width:100px" value="Voltar">
+                                    </a>
+                                    &nbsp;&nbsp;&nbsp;
+                                    <input type="button" style="width:100px" value="Enviar" onclick="novo()">
+                                </span>
                             </div>
                         </fieldset>
                         <div class="clearfix"></div>
@@ -67,3 +73,71 @@
     </div>
 
 </div>
+
+
+<script type="text/javascript">
+    
+    function novo(){
+        var data = {
+            nome            : $('#nome').val(),
+            email           : $('#email').val(),
+            escolaridade    : $('#escolaridade').val(),
+            senha           : $('#senha').val()
+        };
+        
+        if(!validaParametros(data)){
+            Swal.fire({
+                title: 'Atenção!',
+                html: "Digite todos os campos.",
+                type: 'info'
+            });
+            return false;
+        }
+        
+        if($('#senha').val() != $('#conf_senha').val()){
+            Swal.fire({
+                title   : 'Atenção!',
+                html    : "Senha e confirmação de senha são diferentes.",
+                type    : 'info'
+            });
+            return false;
+        }
+        
+        $.ajax({
+            url: '/cadastro/novo',
+            data: data,
+            method: 'POST',
+            datatype: 'json',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                retorno = jQuery.parseJSON(retorno);
+                if (retorno.response) {
+                    Swal.fire({
+                        type: 'success',
+                        title: 'Sucesso!',
+                        html: retorno.msg,
+                        onClose: () => {
+                            window.location.href = '/login';
+                        }
+                    });
+                }else{
+                    Swal.fire({
+                        type: 'info',
+                        title: 'Atenção!',
+                        html: retorno.msg
+                    });
+                }
+            },
+            error: function () {
+
+            },
+            complete: function () {
+
+            }
+        });
+        
+    }
+    
+</script>

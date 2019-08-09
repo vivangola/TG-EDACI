@@ -52,7 +52,6 @@
                                             $relatorio->gerarRodape();
                                             ?>
                                         </div>
-                                        <div id="diva-wrapper"></div>
                                     </div>
                                 </div>
                             </div>
@@ -146,11 +145,12 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-        $('#tabela').DataTable({
+        $('#relatorio').DataTable({
             "language": {
                 "url": "js/datatable/pt-br.json"
             },
-            "columnDefs": [ { "orderable": false, "targets": [4,5,6] }],
+            "pageLength": 10, 
+            "ordering": false,
             "lengthChange": false,
             "searching": false
         });

@@ -7,7 +7,7 @@
                         <div class="col-md-offset-3 col-md-6 pd-0">
                             <div class="box">                           
                                 <div class="icon">
-                                    <div class="image back-primary2"><i class="fa fa-user"></i>&nbsp;<label class="title">Pré-Cadastro</label></div>
+                                    <div class="image back-primary2"><i class="fa fa-user"></i>&nbsp;<label class="title">PrÃ©-Cadastro</label></div>
                                     <div class="info" style="height: 447px;padding:30px;">
                                         <hr>
                                         <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12 pd-0">                    
@@ -15,35 +15,35 @@
                                                 <div class="row" style="margin-bottom: 20px">
                                                     <div class="col-md-12 text-left">
                                                         <label class="control-label" for="nome">Nome:</label>
-                                                        <input name="nome" class="form-control" placeholder="Digite aqui o Nome" type="text">
+                                                        <input name="nome" id="nome" class="form-control" placeholder="Digite aqui o Nome" type="text">
                                                     </div>
                                                 </div>
 
                                                 <div class="row" style="margin-bottom: 20px">
                                                     <div class="col-md-12 text-left">
                                                         <label class="control-label" for="email">Email:</label>
-                                                        <input name="email" class="form-control" placeholder="Digite aqui o Email" type="text">
+                                                        <input name="email" id="email" class="form-control" placeholder="Digite aqui o Email" type="text">
                                                     </div>
                                                 </div>
 
                                                 <div class="row" style="margin-bottom: 20px">
                                                     <div class="col-md-12 text-left">
-                                                        <label class="control-label" for="district">Escolaridade:</label>
-                                                        <select name="district" class="form-control">
+                                                        <label class="control-label" for="escolaridade">Escolaridade:</label>
+                                                        <select name="escolaridade" id="escolaridade" class="form-control">
                                                             <option value="">Selecione</option>
                                                             <option value="1">Doutorado</option>
-                                                            <option value="2">Graduação</option>
-                                                            <option value="3">Pós-Graduação</option>
+                                                            <option value="2">GraduaÃ§Ã£o</option>
+                                                            <option value="3">PÃ³s-GraduaÃ§Ã£o</option>
                                                             <option value="4">Mestrado</option>
-                                                            <option value="5">Pós-Doutorado</option>
-                                                            <option value="7">Tecnólogo </option>
+                                                            <option value="5">PÃ³s-Doutorado</option>
+                                                            <option value="7">TecnÃ³logo </option>
                                                         </select>
                                                     </div>
                                                 </div>
 
                                                 <div class="row">
                                                     <div class="col-md-12 text-left">
-                                                        <button type="button" class="btn btn-primary3 btn-block info">Enviar <i class="fa fa-check"></i></button>
+                                                        <button type="button" class="btn btn-primary3 btn-block info" onclick="enviar()">Enviar <i class="fa fa-check"></i></button>
                                                     </div>
                                                 </div>    
                                             </form>
@@ -69,3 +69,40 @@
         </div>
     </div>    
 </div>
+
+<script type="text/javascript">
+    
+    $.ajax({
+        url: '/pre-cadastro/novo',
+        data: {
+            nome            : $('#nome').val(),
+            email           : $('#senha').val(),
+            escolaridade    : $('#escolaridade').val()
+        },
+        method: 'POST',
+        datatype: 'json',
+        beforeSend: function () {
+            loader();
+        },
+        success: function (retorno) {
+            retorno = jQuery.parseJSON(retorno);
+            if (!retorno.response) {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Oops...',
+                    text: retorno.msg,
+                    footer: '<a href>Esqueceu a senha?</a>'
+                });
+            }else{
+                window.location.href = "/";
+            }
+        },
+        error: function () {
+
+        },
+        complete: function () {
+
+        }
+    });
+    
+</script>

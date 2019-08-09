@@ -44,12 +44,23 @@ return [
                     ],
                 ],
             ],
+            'usuarios' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/usuarios[/:action]',
+                    'defaults' => [
+                        'controller' => Controller\UsuariosController::class,
+                        'action'     => 'membros',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => InvokableFactory::class,
             Controller\PerfilController::class => InvokableFactory::class,
+            Controller\UsuariosController::class => InvokableFactory::class,
         ],
     ],
     'view_manager' => [

@@ -12,10 +12,14 @@ use Zend\View\Model\ViewModel;
 
 class PreCadastroController extends AbstractActionController
 {
-    public function preCadastroAction()
-    {
+    public function preCadastroAction(){
         $view = new ViewModel();
         $view->setTemplate('cadastro/pre-cadastro');
         return $view;
+    }
+    
+    
+    public function novoAction(){
+        
     }
 }

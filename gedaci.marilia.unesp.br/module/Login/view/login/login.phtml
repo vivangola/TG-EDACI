@@ -74,10 +74,10 @@
                 retorno = jQuery.parseJSON(retorno);
                 if (!retorno.response) {
                     Swal.fire({
-                        type: 'error',
+                        type: 'info',
                         title: 'Oops...',
-                        text: retorno.msg,
-                        footer: '<a href>Esqueceu a senha?</a>'
+                        html: retorno.msg,
+                        footer: '<a href="/esqueci-senha">Esqueceu a senha?</a>'
                     });
                 }else{
                     window.location.href = "/";

@@ -29,14 +29,6 @@ html{
     color: #68b604;
 }
 
-.btn-success:hover,
-.btn-success:active,
-.btn-success.active,
-.btn-success.disabled,
-.btn-success[disabled] {
-    background-color: #57a900;
-}
-
 div.container a.navbar-brand > img {
     display: inline;
     margin-right: 4px;
@@ -2503,6 +2495,16 @@ thead {
 }
 .btn-primary4:hover {
     background-color: #477482 !important;
+    color:white;
+}
+
+.btn-primary5 {
+    background-color: #629bad !important;
+    color:white;
+    border-bottom: solid 5px #4a7987;
+}
+.btn-primary5:hover {
+    background-color: #558696 !important;
     color:white;
 }
 
@@ -7302,18 +7304,6 @@ svg {
     border-bottom: solid 3px #610000 !important;
 }
 
-.theme-whbl .btn-success {
-    background-color: #3498db;
-    border-color: #2980b9
-}
-.theme-whbl .btn-success:hover,
-.theme-whbl .btn-success:focus,
-.theme-whbl .btn-success:active,
-.theme-whbl .btn-success.active,
-.theme-whbl .open .dropdown-toggle.btn-success {
-    background-color: #2980b9;
-    border-color: #1c5c87
-}
 .theme-whbl .widget-users li > .details > .time {
     color: #3498db
 }

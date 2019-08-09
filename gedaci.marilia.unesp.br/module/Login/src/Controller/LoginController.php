@@ -27,29 +27,38 @@ class LoginController extends AbstractActionController
         $funcao = new Funcoes($this);
         
         $response = $this->getResponse();
+        $request = $this->getRequest();
         
-        $sql = "select * from us_acesso where login =:login and senha =:senha and situacao = 1";
-        $params = array(
-            'login' => $this->params()->fromPost('login','0'),
-            'senha' => $this->params()->fromPost('senha','0'),
-        );
+        if($request->isPost()){
         
-        $result = $funcao->executarSQL($sql,$params, '');
-        
-        if($result){
-            $sql = "call us_BuscarDados1_sp(:cod)";
-            $result2 = $funcao->executarSQL($sql, array('cod' => $result['cod']), '');
-            
-            $sessao = new Container('usuario');
-            
-            $sessao->cod_usuario = $result['cod'];
-            $sessao->nome_usuario = $result2['nome'];
-            $sessao->tipo_usuario = $result2['tipo_usuario'];
-            $sessao->tipo_usuario_desc = $result2['tipo_usuario_desc'];
-            
-            return $response->setContent(Json::encode(array('response' => true)));
+            $sql = "call sys_Login_sp (:login,:senha)";
+            $params = array(
+                'login' => $this->params()->fromPost('login','0'),
+                'senha' => $this->params()->fromPost('senha','0'),
+            );
+
+            $params['senha'] = hash('sha512', $params['senha']);
+
+            $result = $funcao->executarSQL($sql,$params, '');
+
+            if($result['cod'] == '0'){
+                $sql = "call us_BuscarDados1_sp(:cod)";
+                $result2 = $funcao->executarSQL($sql, array('cod' => $result['cod_usuario']), '');
+
+                $sessao = new Container('usuario');
+
+                $sessao->cod_usuario = $result['cod_usuario'];
+                $sessao->nome_usuario = $result2['nome'];
+                $sessao->tipo_usuario = $result2['tipo_usuario'];
+                $sessao->tipo_usuario_desc = $result2['tipo_usuario_desc'];
+
+                return $response->setContent(Json::encode(array('response' => true)));
+            }else{
+                return $response->setContent(Json::encode(array('response' => false, 'msg' => $result['msg'])));
+            }
         }else{
-            return $response->setContent(Json::encode(array('response' => false, 'msg' => utf8_encode('Senha ou/e Login não estão corretos.'))));
+            header('Location: /');
+            exit;
         }
     }
     
@@ -62,12 +71,18 @@ class LoginController extends AbstractActionController
     
     public function logoutAction(){
         $response = $this->getResponse();
+        $request = $this->getRequest();
         
         $sessao = new Container('usuario');
         $sessao->getManager()->destroy();
         $sessao->getManager()->getStorage()->clear();
         
-        return $response->setContent(Json::encode(array('response' => true)));
+        if($request->isPost()){
+            return $response->setContent(Json::encode(array('response' => true)));
+        }else{
+            header('Location: /');
+            exit;
+        }
     }
     
     public function sessaoValuesAction(){

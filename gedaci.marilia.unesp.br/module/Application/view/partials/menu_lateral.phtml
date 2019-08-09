@@ -12,8 +12,8 @@ $sessao = new Container('usuario');
 
             <div class="btn-topo">
                 <div class="img-perfil" style="margin-botton: -10px">
-                    <img class="img img-Professor" src="/img/semfoto.png" onerror="$(this).attr('src','/img/semfoto.png');">
-                    <a onclick="modalFrame('/foto-perfil', '', false);" title="Alterar Foto" class="pointer"><span class="fa fa-camera"></span></a>
+                    <img class="img img-Professor" src="/arquivos/perfil/foto-perfil-<?= $sessao->cod_usuario ?>.jpg" onerror="$(this).attr('src','/img/semfoto.png');">
+                    <a onclick="fotoPerfil();" title="Alterar Foto" class="pointer"><span class="fa fa-camera"></span></a>
                 </div>
                 <ul class="nav Professor-id nav-id height-padrao">
                     <li class="dropdown mt-7">

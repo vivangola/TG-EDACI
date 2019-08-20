@@ -2519,6 +2519,28 @@ thead {
     color: #477482 !important;
 }
 
+.btn-danger-borded2 {
+    background-color: #ffffff !important;
+    border-color:  #c0392b !important;
+    border: 0px;
+    border-left: 1px solid;
+    border-top: 1px solid;
+    border-right: 1px solid;
+    border-bottom: solid 4px;
+    color:  #c0392b !important;
+}
+
+.btn-success-borded2 {
+    background-color: #ffffff !important;
+    border-color:  green !important;
+    border: 0px;
+    border-left: 1px solid;
+    border-top: 1px solid;
+    border-right: 1px solid;
+    border-bottom: solid 4px;
+    color:  green !important;
+}
+
 .btn-gold {
     background-color: #d0a956;
     border-color: #af8a3c
@@ -8074,7 +8096,7 @@ p.cinza-padrao{
 }
 
 #footer{
-    background: #f7f7f7;
+    background: #f2f2f2;
     padding: 20px 20px 0px 20px;
 }
 
@@ -8274,6 +8296,10 @@ p.cinza-padrao{
   width: 2.5em;
   background: #D1D3D4;
   border-radius: 3px 0 0 3px;
+}
+
+.respostas-primary{
+    text-align: left;
 }
 
 .respostas input[type="radio"]:hover:not(respostas-primary:checked) ~ label,

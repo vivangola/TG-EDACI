@@ -38,7 +38,7 @@
                                         <div class="table-responsive" style="margin-top: 10px;">
                                             <?php
                                             $relatorio->gerarCabecalho(12);
-                                            if ($atas) {
+                                            if (!empty($atas)) {
                                                 foreach ($atas as $dados) {
                                                     
                                                     $relatorio->definirVariavel('1', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showFile('".$dados['texto']."')><i class='pointer fa fa-download'></i></button>");

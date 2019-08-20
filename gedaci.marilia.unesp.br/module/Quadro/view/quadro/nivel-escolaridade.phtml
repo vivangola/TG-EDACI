@@ -1,101 +1,56 @@
-<div class="row box-home" align="center" style="height:100%">
+ï»¿<div class="row box-home" align="center" style="height:100%">
     <div class="col-md-12 col-xs-12">  
         <div class="main-box clearfix print min-branco">
-            <div class="main-box-body clearfix mt">            
+            <div class="main-box-body clearfix mt" style="margin-top: 2px !important;">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 ">
                             <div class="box">                           
                                 <div class="icon">
-                                    <div class="image back-primary3"><i class="fa fa-book"></i>&nbsp;<label class="title">Nível de Escolaridade</label></div>
+                                    <div class="image back-primary3"><i class="fa fa-book"></i>&nbsp;<label class="title">NÃ­veis de Escolaridade</label></div>
                                     <div class="info" style="min-height:450px">
-                                        <div class="row" style="padding-left: 10px;padding-right: 10px">
-                                            <div class="col-md-8 col-sm-4 col-xs-8">
-                                                <input type="text" placeholder="Escolaridade" class="form-control">
-                                            </div>  
-                                            <!--div class="col-md-2 col-sm-2 col-xs-4">
-                                                <select class="form-control">
-                                                    <option value="">Todos</option>
-                                                    <option value="">Escolaridade</option>
-                                                </select>
-                                            </div-->
-                                            <div class="col-md-2 col-sm-3 col-xs-6">
-                                                <button class="btn btn-primary2 form-control">
-                                                    Pesquisar&nbsp;
-                                                    <i class="fa fa-search"></i>
-                                                </button>
-                                            </div>
-                                            <div class="col-md-2 col-sm-3 col-xs-6">
-                                                <button class="btn btn-primary2 form-control">
-                                                    Novo&nbsp;
-                                                    <i class="fa fa-plus"></i>
-                                                </button>
-                                            </div>
+                                        <div class="row" style="padding-left: 10px;padding-right: 10px;margin-top: 10px;margin-bottom: 20px;">
+                                            <form action="/escolaridade" method="post" enctype="">
+                                                <div class="col-md-6 col-sm-4 col-xs-8">
+                                                    <input type="text" name="pesquisa" placeholder="Pesquisar" class="form-control" value="<?= $pesq != '' ? $pesq : '' ?>">
+                                                </div>  
+                                                <div class="col-md-2 col-sm-2 col-xs-4">
+                                                    <select class="form-control" name="filtros">
+                                                        <option value="-1" <?= $filtro == '-1' ? 'selected' : '' ?>>Todos</option>
+                                                        <option value="1" <?= $filtro == '1' ? 'selected' : '' ?>>NÃ­vel de Escolaridade</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-2 col-sm-3 col-xs-6">
+                                                    <button class="btn btn-primary-borded2 form-control" type="submit">
+                                                        Pesquisar&nbsp;
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-2 col-sm-3 col-xs-6">
+                                                    <button class="btn btn-primary-borded2 form-control" type="button" onClick="showAdd()">
+                                                        Novo&nbsp;
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </form>
                                         </div>
-                                        <div class="table-responsive" style="margin-top:10px">
-                                            <table id="tabela" class="table table-striped table-bordered dataTable-primary" style="width:100%">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Escolaridade</th>
-                                                        <th>Usuário</th>
-                                                        <th>Data</th
-                                                        <th></th>
-                                                        <th>Alterar</th>
-                                                        <th>Excluir</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr style="text-align: center">
-                                                        <td>PHD</td>
-                                                        <td>Vivangola</td>
-                                                        <td>10/05/2019</td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                    <tr style="text-align: center">
-                                                        <td>Pós-Doutorado</td>
-                                                        <td>Vivangola</td>
-                                                        <td>10/05/2019</td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                    <tr style="text-align: center">
-                                                        <td>Doutorado</td>
-                                                        <td>Vivangola</td>
-                                                        <td>10/05/2019</td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                    <tr style="text-align: center">
-                                                        <td>Mestrado</td>
-                                                        <td>Vivangola</td>
-                                                        <td>10/05/2019</td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>
-                                                    <tr style="text-align: center">
-                                                        <td>Pós Graduação</td>
-                                                        <td>Vivangola</td>
-                                                        <td>10/05/2019</td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>  
-                                                    <tr style="text-align: center">
-                                                        <td>Graduação</td>
-                                                        <td>Vivangola</td>
-                                                        <td>10/05/2019</td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>        
-                                                    <tr style="text-align: center">
-                                                        <td>Tecnólogo</td>
-                                                        <td>Vivangola</td>
-                                                        <td>10/05/2019</td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-edit"></i></td>
-                                                        <td align="center" width="10px"><i class="pointer fa fa-times"></i></td>
-                                                    </tr>        
-                                                </tbody>
-                                            </table>   
+                                        <div class="table-responsive" style="margin-top: 10px;">
+                                            <?php
+                                            $relatorio->gerarCabecalho(12);
+                                            if (!empty($result)) {
+                                                foreach ($result as $dados) {
+                                                    
+                                                    $relatorio->definirVariavel('1', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showEdit('".$dados['cod_nivel']."')><i class='pointer fa fa-edit'></i></button>");
+                                                    $relatorio->definirVariavel('2', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showDelete('".$dados['cod_nivel']."')><i class='pointer fa fa-times'></i></button>");
+                                                    //$relatorio->definirLink('1', "/eventos?codigo=" . $dados['evento']);
+
+                                                    //chamada para imprimir o relatorio linha a linha 
+                                                    //passando as linhas do resultSet como parametro               
+                                                    $relatorio->gerarRelatorio($dados);
+                                                }
+                                            }
+                                            $relatorio->gerarRodape();
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -108,6 +63,56 @@
     </div>
 </div>
 
+<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Adicionar novo NÃ­vel de Escolaridade</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="add_escolaridade" class="col-form-label">NÃ­vel Escolaridade:</label>
+                        <input type="text" class="form-control" id="add_escolaridade">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary-borded2" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary3" onclick="add();">Finalizar <i class="fa fa-check"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title color-primary2"><i class="fa fa-pencil"></i>&nbsp;Editar NÃ­vel de Escolaridade</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="edit_escolaridade" class="col-form-label">NÃ­vel Escolaridade:</label>
+                        <input type="text" class="form-control" id="edit_escolaridade">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary-borded2" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary3" onclick="edit()">Finalizar <i class="fa fa-check"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -115,10 +120,152 @@
             "language": {
                 "url": "js/datatable/pt-br.json"
             },
-            "columnDefs": [ { "orderable": false, "targets": [3,4,5] }],
+            "columnDefs": [ { "orderable": false, "targets": [5,6] }],
             "lengthChange": false,
             "searching": false
         });
     });
+    
+    function showAdd(){
+        $('#modalAdd').modal('show');
+    }
+    
+    function add(){
+        
+        var data = {
+            add_escolaridade    : $('#add_escolaridade').val(),
+        };
+        
+        if(!validaParametros(data)){
+            Swal.fire({
+                title: 'AtenÃ§Ã£o!',
+                html: "Digite todos os campos.",
+                type: 'info'
+            });
+            return false;
+        }
+        
+        $.ajax({
+            url: '/escolaridade/add',
+            data: data,
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                Swal.fire({
+                    title: 'Sucesso!',
+                    html: 'NÃ­vel de Escolaridade cadastrado com sucesso.',
+                    type: 'success',
+                    onClose: () => {
+                        loader();
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+    }
+    
+    function showEdit(cod){
+        $.ajax({
+            url: '/avisos/showEdit',
+            data: {cod_aviso : cod},
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                retorno = JSON.parse(retorno);
+                Swal.close();
+                if(retorno.response){
+                    
+                    $('#edit_cod').val(retorno.result['cod_aviso']);
+                    $('#edit_assunto').val(retorno.result['aviso_assunto']);
+                    $('#edit_desc').val(retorno.result['aviso_desc']);
+                    $('#edit_escolaridade option[value="'+retorno.result['cod_nivel']+'"]').attr('selected','true');
+                    $('#edit_dtini').val(retorno.result['date_ini']);
+                    $('#edit_dtfim').val(retorno.result['date_fim']);
+                    $('#edit_hini').val(retorno.result['inicio_hora']);
+                    $('#edit_hfim').val(retorno.result['fim_hora']);
+                    
+                    $('#modalEdit').modal('show');
+                }else{
+                    Swal.fire({
+                        title: 'AtenÃ§Ã£o!',
+                        html: 'Aviso nÃ£o encontrado.',
+                        type: 'info'
+                    });
+                }
+            }
+        });
+    }
+    
+    function edit(){
+        
+        var data = {
+            cod                  : $('#edit_cod').val(),
+            edit_assunto         : $('#edit_assunto').val(),
+            edit_desc            : $('#edit_desc').val(),
+            edit_escolaridade    : $('#edit_escolaridade').val(),
+            edit_dtini           : $('#edit_dtini').val(),
+            edit_dtfim           : $('#edit_dtfim').val(),
+            edit_hini            : $('#edit_hini').val(),
+            edit_hfim            : $('#edit_hfim').val()
+        };
+        
+        if(validaParametros(data)){
+            $.ajax({
+                url: '/avisos/edit',
+                data: data,
+                type: 'json',
+                method: 'POST',
+                beforeSend: function () {
+                    loader();
+                },
+                success: function (retorno) {
+                    Swal.fire({
+                        title: 'Sucesso!',
+                        html: 'Aviso editado com sucesso.',
+                        type: 'success',
+                        onClose: () => {
+                            window.location.reload();
+                        }
+                    });
+                },
+            });
+        }
+    }
+    
+    function showDelete(cod){
+        Swal.fire({
+            title: 'AtenÃ§Ã£o!',
+            html: 'Deseja realmente excluir?',
+            type: 'info',
+            showCancelButton: true,
+            preConfirm: () => {
+                $.ajax({
+                    url: '/avisos/delete',
+                    data: {cod_aviso : cod},
+                    type: 'json',
+                    method: 'POST',
+                    beforeSend: function () {
+                        loader();
+                    },
+                    success: function (retorno) {
+                        Swal.fire({
+                            title: 'Sucesso!',
+                            html: 'Aviso deletado.',
+                            type: 'success',
+                            onClose: () => {
+                                window.location.reload();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
 
 </script>

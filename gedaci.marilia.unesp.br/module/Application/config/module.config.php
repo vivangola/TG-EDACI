@@ -34,6 +34,16 @@ return [
                     ],
                 ],
             ],
+            'bem-vindo' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/bem-vindo',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action'     => 'bem-vindo',
+                    ],
+                ],
+            ],
             'perfil' => [
                 'type'    => Segment::class,
                 'options' => [

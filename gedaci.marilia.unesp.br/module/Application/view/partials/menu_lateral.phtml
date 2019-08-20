@@ -81,6 +81,35 @@ $sessao = new Container('usuario');
     </div>
 </nav>
 
+<!-- ESCOLHER FOTO -->
+<div class="modal fade" id="modalFoto" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title color-primary2"><i class="fa fa-user"></i>&nbsp;Foto de Perfil</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" enctype="multipart/form-data" id="fotoPerfilForm" name="fotoPerfilForm" action="/perfil/fotoPerfil">
+                <div class="modal-body">
+                    <div class="form-group text-center">
+                        <img src="/img/semfoto.png" onerror="$(this).attr('src','/img/semfoto.png');" class="img-responsive" id="foto_perfil_brev" name="foto_perfil_brev" style="height: 250px;max-width: 250px;display: inline;"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_arquivo" class="col-form-label">Arquivo:* (png,jpg,jpeg)</label>
+                        <input type="file" accept="image/x-png,image/gif,image/jpeg" class="form-control" name="foto_perfil_file" id="foto_perfil_file" onchange="escolherFoto(this)">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary-borded2" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary3" onclick="salvar()">Salvar <i class="fa fa-check"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 <script type="text/javascript">
     //inicializar menu lateral
@@ -108,6 +137,48 @@ $sessao = new Container('usuario');
             i = "0" + i;
         }
         return i;
+    }
+    
+    function fotoPerfil(){
+        
+        $('#foto_perfil_brev').attr('src', '/arquivos/perfil/foto-perfil-<?= $sessao->cod_usuario ?>.jpg');
+        
+        $('#modalFoto').modal('show');
+    }
+    
+    function escolherFoto(input) {
+        
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            var ext = input.files[0].name.split('.').pop().toLowerCase();
+            var isExt = ['png','jpg','jpeg'].indexOf(ext) > -1;
+            
+            if(!isExt){
+                Swal.fire({
+                    type    : 'info',
+                    title   : 'Oops...',
+                    html    : 'Escolha arquivos png, jpg ou jpeg.'
+                });
+                input.value = '';
+                $('#foto_perfil_brev').attr('src', '/arquivos/perfil/foto-perfil-<?= $sessao->cod_usuario ?>.jpg');
+                return false;
+            }
+
+            reader.onload = function (e) {
+                $('#foto_perfil_brev')
+                        .attr('src', e.target.result)
+                        .width(250)
+                        .height(250);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    
+    function salvar(){
+        $('#fotoPerfilForm').submit();
+        
     }
 
 </script>

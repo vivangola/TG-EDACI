@@ -34,6 +34,16 @@ return [
                     ],
                 ],
             ],
+            'questionario-cadastro' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route'    => '/questionario/cadastro',
+                    'defaults' => [
+                        'controller' => Controller\QuestionarioController::class,
+                        'action'     => 'cadastro',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [

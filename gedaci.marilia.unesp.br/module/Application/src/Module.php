@@ -8,6 +8,7 @@
 namespace Application;
 
 use Application\Classes\Funcoes;
+use Zend\Http\PhpEnvironment\RemoteAddress;
 use Zend\ModuleManager\ModuleManager;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
@@ -82,9 +83,16 @@ class Module
     }
     
     public function verificaAutenticacao($e){
+        $sessao = new Container('usuario');
+        
+        $ip = new RemoteAddress();
+        
+        $request = $e->getRequest();
+        
         $controller = $e->getTarget();  
         $nome_controller = $controller->getEvent()->getRouteMatch()->getParam('controller');
-
+        $action = $controller->getEvent()->getRouteMatch()->getParam('action');
+        
         $funcoes = new Funcoes($controller);
         
         $nao_verifica_sessao = array(
@@ -95,15 +103,38 @@ class Module
         $layout_limpo = array(
             'Login\Controller\LoginController',
             'Cadastro\Controller\CadastroController',
-            'Questionario\Controller\QuestionarioController'
         );
         
+        $params = $controller->params()->fromPost();
+        
+        //log acessos
+        $sql = "insert into sys_log_acesso_aplicacao (cod_usuario,controller,action,data,ip,server,params) values(:cod_usuario,:controller,:action,now(),:ip,:server,:params)";
+        $funcoes->executarSQL($sql,
+            array(
+                'cod_usuario'   => $sessao->cod_usuario ? $sessao->cod_usuario : 0,
+                'controller'    => str_replace("\\", '/', $nome_controller),
+                'action'        => $action,
+                'ip'            => $ip->setProxyHeader()->getIpAddress(),
+                'server'        => $request->getServer()->COMPUTERNAME ? $request->getServer()->COMPUTERNAME : 'local',
+                'params'        => !empty($params) ? json_encode($params) : ''
+            )
+        );
+        
+        
+        //nao verificar sessao
         if(!in_array($nome_controller, $nao_verifica_sessao)){
             if(!$funcoes->verificaSessao()){
                 return $controller->redirect()->toUrl("/login");
+            }else{
+                if($sessao->tipo_usuario == 0){
+                    if($action != 'bem-vindo' && $action != 'inicial'){
+                        return $controller->redirect()->toUrl("/bem-vindo");
+                    }
+                }
             }
         }
         
+        //escolher qual view vai ser 
         $view = $e->getViewModel();  
         
         if(in_array($nome_controller, $layout_limpo)){
@@ -129,13 +160,14 @@ class Module
         $sessao = new Container('usuario');
         
         $params = array(
-            'cod_usuario' => $sessao->cod_usuario
+            'cod_usuario'   => $sessao->cod_usuario,
+            'tipo_user'     => $sessao->tipo_usuario
         );
         
-        $sql = "call sys_listarMenu_sp (:cod_usuario,1)";
+        $sql = "call sys_listarMenu_sp (:cod_usuario,1,:tipo_user)";
         $menu = $funcoes->executarSQL($sql, $params);
         
-        $sql = "call sys_listarMenu_sp (:cod_usuario,2)";
+        $sql = "call sys_listarMenu_sp (:cod_usuario,2,:tipo_user)";
         $submenu = $funcoes->executarSQL($sql, $params);
         
         $aplicacoes = array_merge($menu, $submenu);

@@ -97,7 +97,7 @@ return [
              'nivel-escolaridade' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/escolaridade',
+                    'route'    => '/escolaridade[/:action]',
                     'defaults' => [
                         'controller' => Controller\EscolaridadeController::class,
                         'action'     => 'escolaridade',

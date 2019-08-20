@@ -331,6 +331,9 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        
+        var diasJaAdicionados = [];
+        
         $('#calendar').fullCalendar({
             defaultDate: new Date(),
             editable: false,
@@ -377,6 +380,8 @@
                 });  
             },
             viewRender: function(view, element) {
+                console.log(diasJaAdicionados);
+                
                 var b = $('#calendar').fullCalendar('getDate');
                 console.log($(element).get(0));
                 
@@ -393,7 +398,13 @@
 
                     var all = yyyy + '-' + mm + '-' + dd;
                     
-                    var eventos = setUserSemana(all,i);
+                    console.log(all);
+                    console.log(diasJaAdicionados.includes(all));
+                    
+                    if (!diasJaAdicionados.includes(all)){
+                        diasJaAdicionados.push(all);
+                        var eventos = setUserSemana(all,i);
+                    }
                     dia.setDate(dia.getDate() + 1);
                 }
             },

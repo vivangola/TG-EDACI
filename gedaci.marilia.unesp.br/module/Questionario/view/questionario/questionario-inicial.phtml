@@ -1,52 +1,33 @@
 <div class="row box-home" align="center" style="height:100%">
     <div class="col-md-12 col-xs-12">  
-        <div class="main-box clearfix print min-branco">
-            <div class="main-box-body clearfix mt">            
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-offset-2 col-xs-12 col-md-8 back-primary2" style="border-radius: 4px;">
-                            <div class="col-md-12 col-xs-12 col-sm-12">
-                                <h1 style="margin-bottom: 25px !important; color:white;">QUESTIONÁRIO INICIAL</h1>
-                            </div>
-                        </div>
-                        <div class="text-left">
-                            <div class="col-md-offset-2 col-xs-12 col-md-8" style="margin-top: 10px;">
-                                <h2 class="pergunta">1) Qual o nome do Junior perez?</h2>
-                                <div class="respostas">
-                                    <div class="respostas-primary">
-                                        <input type="radio" name="radio" id="radio1"/>
-                                        <label for="radio1">Judinérson Perez</label>
+        <div class="main-box clearfix print min-branco rodapeindex">
+            <div class="main-box-body clearfix">  
+                <div class="row panels">
+                    <div class="col-md-12 pd-0" style="clear: both;">
+                        <div class="box">                           
+                            <div class="icon">
+                                <div class="image back-primary3"><i class="fa fa-book"></i>&nbsp;<label class="title">QuestionÃ¡rio Inicial</label></div>
+                                <div class="info" style="height: 500px">
+                                    <div class="col-md-offset-2 col-xs-12 col-md-8" style="margin-top: 10px;">
+                                        <h2 class="pergunta">1) Qual o nome do Junior perez?</h2>
+                                        <div class="respostas">
+                                            <div class="respostas-primary">
+                                                <input type="radio" name="radio" id="radio1"/>
+                                                <label for="radio1">Judinerson Perez</label>
+                                            </div>
+                                            <div class="respostas-primary">
+                                                <input type="radio" name="radio" id="radio2"/>
+                                                <label for="radio2">Denilson Perez Junior</label>
+                                            </div>
+                                            <div class="respostas-primary">
+                                                <input type="radio" name="radio" id="radio3"/>
+                                                <label for="radio3">Everaldo Perez</label>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="respostas-primary">
-                                        <input type="radio" name="radio" id="radio2"/>
-                                        <label for="radio2">Denilson Perez Junior</label>
-                                    </div>
-                                    <div class="respostas-primary">
-                                        <input type="radio" name="radio" id="radio3"/>
-                                        <label for="radio3">Everaldo Perez</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-offset-2 col-xs-12 col-md-8" style="margin-top: 10px;">
-                                <h2 class="pergunta">2) Quem é o Denilson?</h2>
-                                <div class="respostas-imagem">
-                                    <div class="col-md-2">
-                                        <label class="btn btn-primary2">
-                                            <img src="http://content.nike.com/content/dam/one-nike/globalAssets/menu_header_images/OneNike_Global_Nav_Icons_Soccer.png" alt="..." class="img-thumbnail img-check">
-                                            <input type="checkbox" name="chk4" id="item4" value="val4" class="hidden" autocomplete="off">
-                                        </label>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label class="btn btn-primary2">
-                                            <img src="http://content.nike.com/content/dam/one-nike/globalAssets/menu_header_images/OneNike_Global_Nav_Icons_Soccer.png" alt="..." class="img-thumbnail img-check">
-                                            <input type="checkbox" name="chk4" id="item4" value="val4" class="hidden" autocomplete="off">
-                                        </label>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label class="btn btn-primary2">
-                                            <img src="http://content.nike.com/content/dam/one-nike/globalAssets/menu_header_images/OneNike_Global_Nav_Icons_Soccer.png" alt="..." class="img-thumbnail img-check">
-                                            <input type="checkbox" name="chk4" id="item4" value="val4" class="hidden" autocomplete="off">
-                                        </label>
+                                    <div class='col-md-12' style="margin-top:10px">
+                                        <button type='button' class='btn btn-primary4'>Voltar</button>
+                                        <button type='button' class='btn btn-primary4'>Continuar</button>
                                     </div>
                                 </div>
                             </div>
@@ -58,9 +39,8 @@
     </div>
 </div>
 
-
 <script type="text/javascript">
-    $(".img-check").click(function(){
-            $(this).toggleClass("resposta-imagem-check");
+    $(".img-check").click(function () {
+        $(this).toggleClass("resposta-imagem-check");
     });
 </script>

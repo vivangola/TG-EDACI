@@ -1,4 +1,4 @@
-﻿<div class="row box-home" align="center" style="height:100%">
+<div class="row box-home" align="center" style="height:100%">
     <div class="col-md-12 col-xs-12">  
         <div class="main-box clearfix print min-branco">
             <div class="main-box-body clearfix mt" style="margin-top: 2px !important;">
@@ -41,22 +41,22 @@
                                             if ($membros) {
                                                 foreach ($membros as $dados) {
                                                     
-                                                    //$relatorio->definirVariavel('0', '<img class="img img-Professor" src="/arquivos/perfil/foto-perfil-<?= $sessao->cod_usuario ?>.jpg" onerror="$(this).attr('src',"/img/semfoto.png');">');
+                                                    $relatorio->definirVariavel('0', '<img style="height:80px;width:80px" src="/arquivos/perfil/foto-perfil-' . $dados['cod'] . '.jpg" onerror=$(this).attr("src","/img/semfoto.png")>');
                                                     
                                                     if($dados['ativo'] == 1){
                                                         
                                                     }
                                                     
                                                     if($dados['pre_cadastro'] == '0'){
-                                                        $relatorio->definirVariavel('2', "<button type='button' class='btn btn-primary5' style='width:100%;margin-bottom:2px' onClick=showEdit('".$dados['cod']."')>ACEITAR <i class='pointer fa fa-check'></i></button>".
-                                                                                         "<button type='button' class='btn btn-primary5' style='width:100%' onClick=showEdit('".$dados['cod']."')>RECUSAR <i class='pointer fa fa-times'></i></button>");
+                                                        $relatorio->definirVariavel('2', "<button type='button' class='btn btn-primary4' style='width:100%;margin-bottom:2px' onClick=aceitar('".$dados['cod']."','1')>ACEITAR <i class='pointer fa fa-check'></i></button>".
+                                                                                         "<button type='button' class='btn btn-primary4' style='width:100%' onClick=aceitar('".$dados['cod']."','2')>RECUSAR <i class='pointer fa fa-times'></i></button>");
                                                         $relatorio->definirVariavel('1', "");
                                                     }else if($dados['pre_cadastro'] == '1'){
                                                         $relatorio->definirVariavel('2', "<font style='color:green'>ACEITO <i class='pointer fa fa-check'></i></font>");
                                                         if($dados['ativo'] == "0"){
-                                                            $relatorio->definirVariavel('1', "<button type='button' class='btn btn-danger' style='width:100%' onClick=showEdit('".$dados['cod']."')>INATIVO</button>");
+                                                            $relatorio->definirVariavel('1', "<button type='button' class='btn btn-danger-borded2' style='width:100%' onClick=editAtivo('".$dados['cod']."','1')>INATIVO <i class='fa fa-circle'></i></button>");
                                                         }else{
-                                                            $relatorio->definirVariavel('1', "<button type='button' class='btn btn-success' style='width:100%' onClick=showEdit('".$dados['cod']."')>ATIVO</button>");
+                                                            $relatorio->definirVariavel('1', "<button type='button' class='btn btn-success-borded2' style='width:100%' onClick=editAtivo('".$dados['cod']."','2')>ATIVO <i class='fa fa-circle'></i></button>");
                                                         }
                                                         
                                                     }else if($dados['pre_cadastro'] == '2'){
@@ -223,60 +223,36 @@
         $('#modalAdd').modal('show');
     }
     
-    function add(){
+    function aceitar(usuario,aceitar){
         
-        var data = {
-            add_assunto         : $('#add_assunto').val(),
-            add_desc            : $('#add_desc').val(),
-            add_escolaridade    : $('#add_escolaridade').val(),
-            add_dtini           : $('#add_dtini').val(),
-            add_dtfim           : $('#add_dtfim').val(),
-            add_hini            : $('#add_hini').val(),
-            add_hfim            : $('#add_hfim').val()
-        };
-        
-        if(!validaParametros(data)){
-            Swal.fire({
-                title: 'Atenção!',
-                html: "Digite todos os campos.",
-                type: 'info'
-            });
-            return false;
-        }
-        
-        if(!validarHoras(data.add_hini)){
-            Swal.fire({
-                title: 'Atenção!',
-                html: "Hora de inicio não é válida.",
-                type: 'info'
-            });
-            return false;
-        }
-        
-        if(!validarHoras(data.add_hini)){
-            Swal.fire({
-                title: 'Atenção!',
-                html: "Hora de fim não é válida.",
-                type: 'info'
-            });
-            return false;
-        }
-        
-        $.ajax({
-            url: '/avisos/add',
-            data: data,
-            type: 'json',
-            method: 'POST',
-            beforeSend: function () {
-                loader();
-            },
-            success: function (retorno) {
-                Swal.fire({
-                    title: 'Sucesso!',
-                    html: 'Novo aviso cadastrado.',
-                    type: 'success',
-                    onClose: () => {
-                        window.location.reload();
+        Swal.fire({
+            title: 'Atenção!',
+            html: aceitar == 1 ? 'Deseja realmente <b>aceitar</b> esse Pré-Cadastro?' : 'Deseja realmente <b>recusar</b> esse Pré-Cadastro?' , 
+            type: 'info',
+            showCancelButton: true,
+            preConfirm: () => {
+                $.ajax({
+                    url: '/usuarios/aceitar',
+                    data: {
+                        aceitar     : aceitar,
+                        cod_usuario : usuario
+                    },
+                    type: 'json',
+                    method: 'POST',
+                    beforeSend: function () {
+                        loader();
+                    },
+                    success: function (retorno) {
+                        retorno = JSON.parse(retorno);
+                        Swal.fire({
+                            title: 'Sucesso!',
+                            html: retorno['msg'],
+                            type: 'success',
+                            onClose: () => {
+                                loader();
+                                window.location.reload();
+                            }
+                        });
                     }
                 });
             }

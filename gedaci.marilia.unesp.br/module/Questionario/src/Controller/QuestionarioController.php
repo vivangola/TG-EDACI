@@ -29,4 +29,10 @@ class QuestionarioController extends AbstractActionController
         $view->setTemplate('questionario/questionario-inicial');
         return $view;
     }
+    
+    public function cadastroAction(){
+        $view = new ViewModel();
+        $view->setTemplate('questionario/questionario-cadastro');
+        return $view;
+    }
 }

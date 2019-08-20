@@ -9,6 +9,7 @@ namespace Application\Controller;
 
 use Application\Classes\Funcoes;
 use Application\Classes\Relatorio;
+use Zend\Json\Json;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\Container;
 use Zend\View\Model\ViewModel;
@@ -34,13 +35,13 @@ class UsuariosController extends AbstractActionController
         $sql = "call us_BuscarMembros_sp (:cod_usuario)";
         $membros = $funcoes->executarSQL($sql,$params);
         
-        $relatorio->definirColuna('FOTO', '0', '8', 'center', 't', 'n', 'n');
+        $relatorio->definirColuna('FOTO', '0', '2', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('NOME', 'nome', '10', 'left', 't', 'n', 'n');
-        $relatorio->definirColuna('TIPO', 'tipo_usuario_desc', '10', 'left', 't', 'n', 'n');
-        $relatorio->definirColuna('ESCOLARIDADE', 'escolaridade_descricao', '10', 'left', 't', 'n', 'n');
-        $relatorio->definirColuna('DATA ENTRADA', 'data_criacao', '8', 'center', 't', 'n', 'n');
-        $relatorio->definirColuna('ATIVAR / INATIVAR', '1', '8', 'center', 't', 'n', 'n');
-        $relatorio->definirColuna('ACEITAR / RECUSAR PRÉ-CADASTRO', '2', '8', 'center', 't', 'n', 'n');
+        $relatorio->definirColuna('TIPO', 'tipo_usuario_desc', '4', 'center', 't', 'n', 'n');
+        $relatorio->definirColuna('ESCOLARIDADE', 'escolaridade_descricao', '4', 'center', 't', 'n', 'n');
+        $relatorio->definirColuna('DATA ENTRADA', 'data_criacao', '4', 'center', 't', 'n', 'n');
+        $relatorio->definirColuna('ATIVAR / INATIVAR', '1', '4', 'center', 't', 'n', 'n');
+        $relatorio->definirColuna('ACEITAR / RECUSAR PRÉ-CADASTRO', '2', '4', 'center', 't', 'n', 'n');
         
         $view = new ViewModel(array(
             'membros' => $membros,
@@ -51,6 +52,43 @@ class UsuariosController extends AbstractActionController
         
         $view->setTemplate('application/usuarios/membros');
         return $view;
+    }
+    
+    public function ativarAction(){
+        $funcoes = new Funcoes($this);
+        $sessao = new Container("usuario");
+        
+        $response = $this->getResponse();
+        
+        $params = array(
+            'cod_usuario'   => $sessao->cod_usuario,
+            'filtro'        => $this->params()->fromPost('filtros', '-1'),
+            'pesquisa'      => $this->params()->fromPost('pesquisa', ''),
+        );
+        
+        $sql = "call us_aceitarPreCadastro_sp (:";
+        $funcoes->executarSQL($sql,$params);
+        
+        return $response->setContent(Json::encode(array('response' => true)));
+    }
+    
+    public function aceitarAction(){
+        $funcoes = new Funcoes($this);
+        $sessao = new Container("usuario");
+        
+        $response = $this->getResponse();
+        
+        $params = array(
+            'adm'           => $sessao->cod_usuario,
+            'usuario'       => $this->params()->fromPost('cod_usuario', '-1'),
+            'aceitar'       => $this->params()->fromPost('aceitar', '0'),
+        );
+        
+        $sql = "call us_aceitarPreCadastro_sp (:adm,:usuario,:aceitar)";
+        $result = $funcoes->executarSQL($sql,$params,'');
+        
+        
+        return $response->setContent(Json::encode(array('response' => true, 'msg' => $result['msg'])));
     }
     
     public function gruposAction(){

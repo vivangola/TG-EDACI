@@ -23,20 +23,36 @@ class IndexController extends AbstractActionController
         $params = array(
             'cod_usuario' => $sessao->cod_usuario,
         );
-        
+            
         $sql = "call us_buscarAvisos_sp (:cod_usuario)";
-        $avisos = $funcoes->executarSQL($sql,$params);
-        
+        $avisos = $funcoes->executarSQL($sql, $params);
+
         $relatorio->definirColuna('ASSUNTO', 'assunto', '10', 'left', 't', 'n', 'n');
         $relatorio->definirColuna('DESCRIÇÃO', 'descricao', '10', 'left', 't', 'n', 'n');
         $relatorio->definirColuna('DATA RECEBIDO', 'dt_convert', '8', 'center', 't', 'n', 'n');
-        
+
         $view = new ViewModel(array(
             'avisos' => $avisos,
-            'relatorio' => $relatorio
+            'relatorio' => $relatorio,
+            'nome_usuario'  => $sessao->nome_usuario
         ));
-        
+
         $view->setTemplate('application/index/index');
+        return $view;
+    }
+    
+    public function BemVindoAction(){
+        $sessao = new Container("usuario");
+        
+        if($sessao->tipo_usuario != 0){
+            return $this->redirect()->toUrl("/");
+        }
+        
+        $view = new ViewModel(array(
+            'nome_usuario' => $sessao->nome_usuario,
+        ));
+
+        $view->setTemplate('application/index/bem-vindo');
         return $view;
     }
 	

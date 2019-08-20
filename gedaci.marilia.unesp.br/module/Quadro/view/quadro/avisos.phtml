@@ -38,7 +38,7 @@
                                         <div class="table-responsive" style="margin-top: 10px;">
                                             <?php
                                             $relatorio->gerarCabecalho(12);
-                                            if ($avisos) {
+                                            if (!empty($avisos)) {
                                                 foreach ($avisos as $dados) {
                                                     
                                                     $relatorio->definirVariavel('1', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showEdit('".$dados['cod_aviso']."')><i class='pointer fa fa-edit'></i></button>");

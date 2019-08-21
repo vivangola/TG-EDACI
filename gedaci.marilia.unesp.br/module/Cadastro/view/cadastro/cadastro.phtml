@@ -38,14 +38,11 @@
                             <p ><span class="fa fa-user"></span><input type="text"  Placeholder="Nome" id="nome" required></p>
                             <p ><span class="fa fa-envelope"></span><input type="text"  Placeholder="E-mail" id="email" required></p>
                             <p ><span class="fa fa-book"></span>
-                                <select name="categoria" id="escolaridade" style="color:gray">
-                                            <option value="0">Escolaridade</option>
-                                            <option value="1">Doutorado</option>
-                                            <option value="2">Graduação</option>
-                                            <option value="3">Pós-Graduação</option>
-                                            <option value="4">Mestrado</option>
-                                            <option value="5">Pós-Doutorado</option>
-                                            <option value="7">Tecnólogo </option>
+                                <select name="escolaridade" id="escolaridade" style="color:gray">
+                                    <option value="">Escolaridade</option>
+                                    <?php foreach($escolaridades as $dados):?>
+                                            <option value="<?= $dados['cod_nivel'] ?>"><?= $dados['descricao'] ?></option>
+                                    <?php endforeach; ?>
                                 </select></p>
                             <p ><span class="fa fa-lock"></span><input type="password"  Placeholder="Senha" id="senha" required></p>
                             <p ><span class="fa fa-lock"></span><input type="password"  Placeholder="Confirmção da Senha" id="conf_senha" required></p>
@@ -76,6 +73,10 @@
 
 
 <script type="text/javascript">
+    
+    $('#escolaridade').on('click', function(){
+        $(this).children('option[value=""]').remove();
+    });
     
     function novo(){
         var data = {

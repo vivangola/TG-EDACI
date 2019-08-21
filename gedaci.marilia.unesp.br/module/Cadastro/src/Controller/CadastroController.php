@@ -16,7 +16,15 @@ use Zend\View\Model\ViewModel;
 class CadastroController extends AbstractActionController
 {
     public function cadastroAction(){
-        $view = new ViewModel();
+        $funcoes = new Funcoes($this);
+        
+        $sql = "select cod_nivel,descricao from nivel_escolaridade order by descricao";
+        $escolaridades = $funcoes->executarSQL($sql,[]);
+        
+        $view = new ViewModel(array(
+            'escolaridades' => $escolaridades
+        ));
+        
         $view->setTemplate('cadastro/cadastro');
         return $view;
     }
@@ -36,8 +44,8 @@ class CadastroController extends AbstractActionController
                 'senha'         => $this->params()->fromPost('senha', '')
             );
 
-            $params['senha'] = hash('sha512', $params['senha']);
-
+            $params['senha'] = md5($params['senha']);
+            
             $sql = "call sys_novoPreCadastro_sp(:nome,:email,:escolaridade,:senha)";
             $result = $funcoes->executarSQL($sql,$params, '');
 

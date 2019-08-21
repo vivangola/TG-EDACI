@@ -31,16 +31,17 @@ class LoginController extends AbstractActionController
         
         if($request->isPost()){
         
-            $sql = "call sys_Login_sp (:login,:senha)";
+            $sql = "call sys_Login_sp (:login)";
             $params = array(
                 'login' => $this->params()->fromPost('login','0'),
                 'senha' => $this->params()->fromPost('senha','0'),
             );
-
-            $params['senha'] = hash('sha512', $params['senha']);
-
             $result = $funcao->executarSQL($sql,$params, '');
-
+            
+            if($result['senha_usuario'] != md5($params['senha'])){
+                return $response->setContent(Json::encode(array('response' => false, 'msg' => 'Senha ou/e Login não estão corretos.')));
+            }
+            
             if($result['cod'] == '0'){
                 $sql = "call us_BuscarDados1_sp(:cod)";
                 $result2 = $funcao->executarSQL($sql, array('cod' => $result['cod_usuario']), '');

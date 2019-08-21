@@ -40,7 +40,7 @@ class UsuariosController extends AbstractActionController
         $relatorio->definirColuna('TIPO', 'tipo_usuario_desc', '4', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('ESCOLARIDADE', 'escolaridade_descricao', '4', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('DATA ENTRADA', 'data_criacao', '4', 'center', 't', 'n', 'n');
-        $relatorio->definirColuna('ATIVAR / INATIVAR', '1', '4', 'center', 't', 'n', 'n');
+        $relatorio->definirColuna('INATIVO / ATIVO', '1', '4', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('ACEITAR / RECUSAR PRÉ-CADASTRO', '2', '4', 'center', 't', 'n', 'n');
         
         $view = new ViewModel(array(
@@ -62,11 +62,11 @@ class UsuariosController extends AbstractActionController
         
         $params = array(
             'cod_usuario'   => $sessao->cod_usuario,
-            'filtro'        => $this->params()->fromPost('filtros', '-1'),
-            'pesquisa'      => $this->params()->fromPost('pesquisa', ''),
+            'user'          => $this->params()->fromPost('cod_usuario', '0'),
+            'ativar'        => $this->params()->fromPost('ativar', '0')
         );
         
-        $sql = "call us_aceitarPreCadastro_sp (:";
+        $sql = "update us_acesso set situacao =:ativar where cod_usuario_fk =:user";
         $funcoes->executarSQL($sql,$params);
         
         return $response->setContent(Json::encode(array('response' => true)));

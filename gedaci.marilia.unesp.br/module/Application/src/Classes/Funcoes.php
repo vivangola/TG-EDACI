@@ -23,9 +23,6 @@ class Funcoes {
 
     protected function getEntityManager($connector = "orm_default") {
         //if ($this->em === null) {
-        #$this->em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
-        #$this->em = $this->getServiceLocator()->get("doctrine.entitymanager.orm_hinode_desenv");
-        #$this->em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_homol_hinode_loja');
         $this->em = $this->objeto->getServiceLocator()->get('doctrine.entitymanager.' . $connector);
         //}                
 //        echo "LOG:<br>";

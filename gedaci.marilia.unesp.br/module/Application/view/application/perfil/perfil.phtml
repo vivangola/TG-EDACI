@@ -71,7 +71,7 @@
                                                                                 <div class="col-md-11">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="nome" name="nome" value="Vivangola Perez da Silva Cardoso">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="nome" name="nome" value="<?= $usuario['nome'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -89,7 +89,7 @@
                                                                                 <div class="col-md-3">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="cpf" name="cpf" value="123.456.789-10">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="cpf" name="cpf" value="<?= $usuario['cpf'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -105,7 +105,7 @@
                                                                                 <div class="col-md-3">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="rg" name="rg" value="12.456.789-0">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="rg" name="rg" value="<?= $usuario['rg'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -121,7 +121,7 @@
                                                                                 <div class="col-md-3">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="ra" name="ra" value="0210481683013">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="ra" name="ra" value="<?= $usuario['ra'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -139,9 +139,9 @@
                                                                                 <div class="col-md-3">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <select readonly class="form-control user-success" id="sexo" name="sexo">
-                                                                                                <option value="M" selected>Masculino</option>
-                                                                                                <option value="F" >Feminino</option>
+                                                                                            <select class="form-control user-success" id="sexo" name="sexo">
+                                                                                                <option value="M" <?= $usuario['sexo'] == 'M' ? 'selected' : '' ?>>Masculino</option>
+                                                                                                <option value="F" <?= $usuario['sexo'] == 'F' ? 'selected' : '' ?>>Feminino</option>
                                                                                             </select>
                                                                                         </div>                                                                        
                                                                                     </div>
@@ -151,13 +151,12 @@
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
                                                                                             <b>Idade:</b>
                                                                                         </div> 
-
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="col-md-3">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="idade" name="idade" value="22">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="idade" name="idade" value="<?= $usuario['idade'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -173,8 +172,12 @@
                                                                                 <div class="col-md-3">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <select readonly class="form-control user-success" id="civil" name="civil">
-                                                                                                <option value="1">Vi˙vo</option>
+                                                                                            <select class="form-control user-success" id="civil" name="civil">
+                                                                                                <option value="SOLTEIRO" <?= $usuario['estado_civil']   == 'SOLTEIRO'   ? 'selected' : '' ?>>SOLTEIRO</option>
+                                                                                                <option value="CASADO" <?= $usuario['estado_civil']     == 'CASADO'     ? 'selected' : '' ?>>CASADO</option>
+                                                                                                <option value="SEPARADO" <?= $usuario['estado_civil']   == 'SEPARADO'   ? 'selected' : '' ?>>SEPARADO</option>
+                                                                                                <option value="DIVORCIADO" <?= $usuario['estado_civil'] == 'DIVORCIADO' ? 'selected' : '' ?>>DIVORCIADO</option>
+                                                                                                <option value="VI√öVO" <?= $usuario['estado_civil']      == 'VI√öVO'      ? 'selected' : '' ?>>VI√öVO</option>
                                                                                             </select>
                                                                                         </div> 
 
@@ -183,9 +186,9 @@
                                                                             </div>
                                                                             <div class="row">
                                                                                 <div class="col-md-1">
-                                                                                    <div class="row">     
+                                                                                    <div class="row text-right">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <b>EndereÁo:</b>
+                                                                                            <b>Endere√ßo:</b>
                                                                                         </div> 
 
                                                                                     </div>
@@ -193,7 +196,7 @@
                                                                                 <div class="col-md-7">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="endereco" name="endereco" value="Rua da Minha Casa Onde Eu Moro">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="endereco" name="endereco" value="<?= $usuario['endereco'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -209,7 +212,7 @@
                                                                                 <div class="col-md-3">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="num" name="num" value="53105">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="num" name="num" value="<?= $usuario['numero'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -227,7 +230,7 @@
                                                                                 <div class="col-md-5">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="bairro" name="bairro" value="Vila do Map„o">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="bairro" name="bairro" value="<?= $usuario['bairro'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -243,7 +246,7 @@
                                                                                 <div class="col-md-5">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="cidade" name="cidade" value="Ipaussu">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="cidade" name="cidade" value="<?= $usuario['cidade'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -259,14 +262,39 @@
 
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="col-md-1">
+                                                                                <div class="col-md-2">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <select readonly class="form-control user-success" style=" width: 75px;" id="estado" name="estado">
-                                                                                                <option value="SP">SP</option>
+                                                                                            <select class="form-control user-success" id="estado" name="estado">
+                                                                                                <option value="AC" <?= $usuario['estado']   == 'AC'   ? 'selected' : '' ?>>Acre</option>
+                                                                                                <option value="AL" <?= $usuario['estado']   == 'AL'   ? 'selected' : '' ?>>Alagoas</option>
+                                                                                                <option value="AP" <?= $usuario['estado']   == 'AP'   ? 'selected' : '' ?>>Amap√°</option>
+                                                                                                <option value="AM" <?= $usuario['estado']   == 'AM'   ? 'selected' : '' ?>>Amazonas</option>
+                                                                                                <option value="BA" <?= $usuario['estado']   == 'BA'   ? 'selected' : '' ?>>Bahia</option>
+                                                                                                <option value="CE" <?= $usuario['estado']   == 'CE'   ? 'selected' : '' ?>>Cear√°</option>
+                                                                                                <option value="DF" <?= $usuario['estado']   == 'DF'   ? 'selected' : '' ?>>Distrito Federal</option>
+                                                                                                <option value="ES" <?= $usuario['estado']   == 'ES'   ? 'selected' : '' ?>>Esp√≠rito Santo</option>
+                                                                                                <option value="GO" <?= $usuario['estado']   == 'GO'   ? 'selected' : '' ?>>Goi√°s</option>
+                                                                                                <option value="MA" <?= $usuario['estado']   == 'MA'   ? 'selected' : '' ?>>Maranh√£o</option>
+                                                                                                <option value="MT" <?= $usuario['estado']   == 'MT'   ? 'selected' : '' ?>>Mato Grosso</option>
+                                                                                                <option value="MS" <?= $usuario['estado']   == 'MS'   ? 'selected' : '' ?>>Mato Grosso do Sul</option>
+                                                                                                <option value="MG" <?= $usuario['estado']   == 'MG'   ? 'selected' : '' ?>>Minas Gerais</option>
+                                                                                                <option value="PA" <?= $usuario['estado']   == 'PA'   ? 'selected' : '' ?>>Par√°</option>
+                                                                                                <option value="PB" <?= $usuario['estado']   == 'PB'   ? 'selected' : '' ?>>Para√≠ba</option>
+                                                                                                <option value="PR" <?= $usuario['estado']   == 'PR'   ? 'selected' : '' ?>>Paran√°</option>
+                                                                                                <option value="PE" <?= $usuario['estado']   == 'PE'   ? 'selected' : '' ?>>Pernambuco</option>
+                                                                                                <option value="PI" <?= $usuario['estado']   == 'PI'   ? 'selected' : '' ?>>Piau√≠</option>
+                                                                                                <option value="RJ" <?= $usuario['estado']   == 'RJ'   ? 'selected' : '' ?>>Rio de Janeiro</option>
+                                                                                                <option value="RN" <?= $usuario['estado']   == 'RN'   ? 'selected' : '' ?>>Rio Grande do Norte</option>
+                                                                                                <option value="RS" <?= $usuario['estado']   == 'RS'   ? 'selected' : '' ?>>Rio Grande do Sul</option>
+                                                                                                <option value="RO" <?= $usuario['estado']   == 'RO'   ? 'selected' : '' ?>>Rond√¥nia</option>
+                                                                                                <option value="RR" <?= $usuario['estado']   == 'RR'   ? 'selected' : '' ?>>Roraima</option>
+                                                                                                <option value="SC" <?= $usuario['estado']   == 'SC'   ? 'selected' : '' ?>>Santa Catarina</option>
+                                                                                                <option value="SP" <?= $usuario['estado']   == 'SP'   ? 'selected' : '' ?>>S√£o Paulo</option>
+                                                                                                <option value="SE" <?= $usuario['estado']   == 'SE'   ? 'selected' : '' ?>>Sergipe</option>
+                                                                                                <option value="TO" <?= $usuario['estado']   == 'TO'   ? 'selected' : '' ?>>Tocantins</option>
                                                                                             </select>
                                                                                         </div> 
-
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="col-md-1">
@@ -277,15 +305,15 @@
 
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="col-md-3">
+                                                                                <div class="col-md-2">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="cep" name="cep" value="18950-000">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="cep" name="cep" value="<?= $usuario['cep'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="col-md-2">
+                                                                                <div class="col-md-1">
                                                                                     <div class="row text-right">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
                                                                                             <b>Complemento:</b>
@@ -293,10 +321,10 @@
 
                                                                                     </div>
                                                                                 </div>
-                                                                                <div class="col-md-4">
+                                                                                <div class="col-md-5">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="cep" name="cep" value="Casa">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="cep" name="cep" value="<?= $usuario['complemento'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -314,7 +342,9 @@
                                                                                 <div class="col-md-2">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="escolaridade" name="escolaridade" value="230">
+                                                                                            <select class="form-control user-success" id="escolaridade" name="escolaridade">
+                                                                                                <option value="">Banco do Brasil</option>
+                                                                                            </select>
                                                                                         </div> 
 
                                                                                     </div>
@@ -322,7 +352,7 @@
                                                                                 <div class="col-md-1">
                                                                                     <div class="row text-right">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <b>AgÍncia:</b>
+                                                                                            <b>Ag√™ncia:</b>
                                                                                         </div> 
 
                                                                                     </div>
@@ -330,7 +360,7 @@
                                                                                 <div class="col-md-2">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="periodo" name="periodo" value="2020">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="agencia" name="agencia" value="<?= $usuario['agencia'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -346,7 +376,7 @@
                                                                                 <div class="col-md-5">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="serie" name="serie" value="123564-8">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="conta" name="conta" value="<?= $usuario['conta'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -367,7 +397,7 @@
                                                                                 <div class="col-md-5">
                                                                                     <div class="row text">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="fixo" name="fixo" value="(14) 3344-1526">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="fixo" name="fixo" value="<?= $usuario['fixo'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -383,7 +413,7 @@
                                                                                 <div class="col-md-5">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="celular" name="celular" value="(14) 99782-8864">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="celular" name="celular" value="<?= $usuario['celular'] ?>">
                                                                                         </div> 
                                                                                     </div>
                                                                                 </div>
@@ -400,7 +430,7 @@
                                                                                 <div class="col-md-5">
                                                                                     <div class="row text">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="email" name="email" value="vivangola100%jesus@hotmail.com">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="email1" name="email1" value="<?= $usuario['email'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -416,7 +446,7 @@
                                                                                 <div class="col-md-5">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="telefone" name="telefone" value="vivangola100%jesus@hotmail.com">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="email2" name="email2" value="<?= $usuario['email2'] ?>">
                                                                                         </div> 
                                                                                     </div>
                                                                                 </div>
@@ -433,7 +463,7 @@
                                                                                 <div class="col-md-5">
                                                                                     <div class="row text">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="email" name="email" value="vivangola100%jesus@hotmail.com">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="facebook" name="facebook" value="<?= $usuario['facebook'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -449,7 +479,7 @@
                                                                                 <div class="col-md-5">
                                                                                     <div class="row text">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="email" name="email" value="vivangola100%jesus@hotmail.com">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="skype" name="skype" value="<?= $usuario['skype'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -465,7 +495,7 @@
                                                                                 <div class="col-md-5">
                                                                                     <div class="row text">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="email" name="email" value="vivangola100%jesus@hotmail.com">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="lattes" name="lattes" value="<?= $usuario['lattes'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -486,7 +516,7 @@
                                                                                 <div class="col-md-10">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="curso" name="curso" value="TecnÛlogo em An·lise e Desenvolvimento de Sistemas">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="curso" name="curso" value="<?= $usuario['curso_atual_nome'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -498,47 +528,49 @@
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12 ">
                                                                                             <b>Escolaridade:</b>
                                                                                         </div> 
-
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="col-md-3">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="escolaridade" name="escolaridade" value="GraduaÁ„o">
+                                                                                            <select class="form-control user-success" id="escolaridade" name="escolaridade">
+                                                                                                <?php foreach($escolaridades as $dados):?>
+                                                                                                    <option value="<?= $dados['cod_nivel'] ?> <?= $usuario['nivel_escolaridade_fk']   == $dados['cod_nivel']  ? 'selected' : '' ?>" ><?= $dados['descricao'] ?></option>
+                                                                                                <?php endforeach; ?>
+                                                                                            </select>
                                                                                         </div> 
-
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="col-md-1">
                                                                                     <div class="row text-right">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12 ">
-                                                                                            <b>Serie:</b>
+                                                                                            <b>S√©rie:</b>
                                                                                         </div> 
-
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="col-md-3">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="serie" name="serie" value="6∞ Semestre">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="curso_atual_serie" name="curso_atual_serie" value="<?= $usuario['curso_atual_serie'] ?>">
                                                                                         </div> 
-
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="col-md-1">
                                                                                     <div class="row text-right">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <b>PerÌodo:</b>
+                                                                                            <b>Per√≠odo:</b>
                                                                                         </div> 
-
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="col-md-2">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="periodo" name="periodo" value="Noturno">
+                                                                                            <select class="form-control user-success" id="periodo" name="curso_periodo">
+                                                                                                <option value="DIURNO"      <?= $usuario['curso_periodo']   == 'DIURNO'        ? 'selected' : '' ?>>DIURNO</option>
+                                                                                                <option value="VESPERTINO"  <?= $usuario['curso_periodo']   == 'VESPERTINO'    ? 'selected' : '' ?>>VESPERTINO</option>
+                                                                                                <option value="NOTURNO"     <?= $usuario['curso_periodo']   == 'NOTURNO'       ? 'selected' : '' ?>>NOTURNO</option>
+                                                                                            </select>
                                                                                         </div> 
-
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -546,15 +578,14 @@
                                                                                 <div class="col-md-2">
                                                                                     <div class="row text-right">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <b>Curso de GraduaÁ„o:</b>
+                                                                                            <b>Curso de Gradua√ß√£o:</b>
                                                                                         </div> 
-
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="col-md-10">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="curso" name="curso" value="TecnÛlogo em An·lise e Desenvolvimento de Sistemas">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="graduacao_atual" name="graduacao_atual" value="<?= $usuario['graduacao_atual'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -564,7 +595,7 @@
                                                                                 <div class="col-md-2">
                                                                                     <div class="row text-right">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12 ">
-                                                                                            <b>InstituiÁ„o:</b>
+                                                                                            <b>Institui√ß√£o:</b>
                                                                                         </div> 
 
                                                                                     </div>
@@ -572,7 +603,7 @@
                                                                                 <div class="col-md-7">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="escolaridade" name="escolaridade" value="FATEC Ourinhos">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="graduacao_instituicao" name="graduacao_instituicao" value="<?= $usuario['graduacao_instituicao'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -588,7 +619,7 @@
                                                                                 <div class="col-md-2">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="periodo" name="periodo" value="2019">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="periodo" name="periodo" value="<?= $usuario['graduacao_ano_conclusao'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -598,7 +629,7 @@
                                                                                 <div class="col-md-2">
                                                                                     <div class="row text-right">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <b>Curso de Mestrado:</b>
+                                                                                            <b>Curso de P√≥s-Gradua√ß√£o:</b>
                                                                                         </div> 
 
                                                                                     </div>
@@ -606,7 +637,7 @@
                                                                                 <div class="col-md-10">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="curso" name="curso" value="TecnÛlogo em An·lise e Desenvolvimento de Sistemas">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="curso" name="curso" value="<?= $usuario['pos_graduacao_nome'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -616,7 +647,7 @@
                                                                                 <div class="col-md-2">
                                                                                     <div class="row text-right">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12 ">
-                                                                                            <b>InstituiÁ„o:</b>
+                                                                                            <b>Institui√ß√£o:</b>
                                                                                         </div> 
 
                                                                                     </div>
@@ -624,7 +655,7 @@
                                                                                 <div class="col-md-7">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="escolaridade" name="escolaridade" value="FATEC Ourinhos">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="escolaridade" name="escolaridade" value="<?= $usuario['pos_graduacao_instituicao'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -640,59 +671,7 @@
                                                                                 <div class="col-md-2">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="periodo" name="periodo" value="2019">
-                                                                                        </div> 
-
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="row">
-                                                                                <div class="col-md-2">
-                                                                                    <div class="row text-right">     
-                                                                                        <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <b>Curso de Doutorado:</b>
-                                                                                        </div> 
-
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-10">
-                                                                                    <div class="row">     
-                                                                                        <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="curso" name="curso" value="TecnÛlogo em An·lise e Desenvolvimento de Sistemas">
-                                                                                        </div> 
-
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="row">
-                                                                                <div class="col-md-2">
-                                                                                    <div class="row text-right">     
-                                                                                        <div class="form-group col-xs-12 col-sm-12 col-md-12 ">
-                                                                                            <b>InstituiÁ„o:</b>
-                                                                                        </div> 
-
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-7">
-                                                                                    <div class="row">     
-                                                                                        <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="escolaridade" name="escolaridade" value="FATEC Ourinhos">
-                                                                                        </div> 
-
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-1">
-                                                                                    <div class="row text-right">     
-                                                                                        <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <b>Ano:</b>
-                                                                                        </div> 
-
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-2">
-                                                                                    <div class="row">     
-                                                                                        <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="periodo" name="periodo" value="2019">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="periodo" name="periodo" value="<?= $usuario['pos_graduacao_ano'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -712,7 +691,7 @@
                                                                                 <div class="col-md-11">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="nome" name="nome" value="Vivangola Perez da Silva Cardoso">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="nome" name="nome" value="<?= $usuario['emp_nome'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -720,9 +699,9 @@
                                                                             </div>
                                                                             <div class="row">
                                                                                 <div class="col-md-1">
-                                                                                    <div class="row">     
+                                                                                    <div class="row text-right">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <b>EndereÁo:</b>
+                                                                                            <b>Endere√ßo:</b>
                                                                                         </div> 
 
                                                                                     </div>
@@ -730,7 +709,7 @@
                                                                                 <div class="col-md-7">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="endereco" name="endereco" value="Rua da Minha Casa Onde Eu Moro">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="endereco" name="endereco" value="<?= $usuario['emp_endereco'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -746,7 +725,7 @@
                                                                                 <div class="col-md-3">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="num" name="num" value="53105">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="num" name="num" value="<?= $usuario['emp_num'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -764,7 +743,7 @@
                                                                                 <div class="col-md-5">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="bairro" name="bairro" value="Vila do Map„o">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="bairro" name="bairro" value="<?= $usuario['emp_bairro'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -780,7 +759,7 @@
                                                                                 <div class="col-md-5">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="cidade" name="cidade" value="Ipaussu">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="cidade" name="cidade" value="<?= $usuario['emp_cidade'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -799,7 +778,7 @@
                                                                                 <div class="col-md-1">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <select readonly class="form-control user-success" style=" width: 75px;" id="estado" name="estado">
+                                                                                            <select class="form-control user-success" style=" width: 75px;" id="estado" name="estado">
                                                                                                 <option value="SP">SP</option>
                                                                                             </select>
                                                                                         </div> 
@@ -817,7 +796,7 @@
                                                                                 <div class="col-md-3">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="cep" name="cep" value="18950-000">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="cep" name="cep" value="<?= $usuario['emp_cep'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -833,7 +812,7 @@
                                                                                 <div class="col-md-4">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="cep" name="cep" value="Casa">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="cep" name="cep" value="<?= $usuario['emp_complemento'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -851,7 +830,7 @@
                                                                                 <div class="col-md-5">
                                                                                     <div class="row text">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="fixo" name="fixo" value="(14) 3344-1526">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="fixo" name="fixo" value="<?= $usuario['emp_telefone'] ?>">
                                                                                         </div> 
 
                                                                                     </div>
@@ -867,7 +846,7 @@
                                                                                 <div class="col-md-5">
                                                                                     <div class="row">     
                                                                                         <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                            <input readonly type="text" maxlength="60" class="form-control user-success" id="celular" name="celular" value="(14) 99782-8864">
+                                                                                            <input type="text" maxlength="60" class="form-control user-success" id="celular" name="celular" value="<?= $usuario['celular'] ?>">
                                                                                         </div> 
                                                                                     </div>
                                                                                 </div>

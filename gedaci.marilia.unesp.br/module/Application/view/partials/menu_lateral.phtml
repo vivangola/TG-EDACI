@@ -45,18 +45,19 @@ $sessao = new Container('usuario');
             <ul class="nav navbar-nav navbar-nav-new nav-list hoverzinho-menu">
                 <?php 
                 $menu = "";
+                $set_menu_selected = "";
                 foreach($this->aplicacoes as $dados){
                     if($dados['submenu'] == '0' && $dados['link'] != ''){ //menu que n tem submenu
                         $menu = $menu . 
                                 "<li>".
-                                    '<a class="'.($pagina == $dados["pagina"] ? "selected-link" : "").'" href="'.$dados["link"].'">'.  
+                                    '<a class="'.($pagina == $dados["pagina"] ? "selected-link" : "").' menu-'.$dados['cod_aplicacao'].'" href="'.$dados["link"].'">'.  
                                         '<span class="hidden-xs showopacity fa fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu">' . $dados["titulo"] . '</span>'.
                                     '</a>'.
                                 "</li>";
                     }
                     elseif($dados['submenu'] == '0' && $dados['link'] == ''){ //menu que tem submenu
                         $menu = $menu .
-                                '<li class="list-group-item">'.
+                                '<li class="list-group-item menu-'.$dados['cod_aplicacao'].'">'.
                                     '<div class="toggle">'.
                                         '<span class="hidden-xs showopacity fa fa-chevron-circle-right icon-ajuste"></span> <span class="menu-item hid-menu"> ' .$dados["titulo"]. '</span> <span class="fa fa-chevron-down pull-right sumir-icon-angle mt-10"></span>'.
                                         '<div class="list-group-item-sub">'.
@@ -66,6 +67,11 @@ $sessao = new Container('usuario');
                                 '</li>';
                     }
                     elseif($dados['submenu'] != '0'){
+                        
+                        if($dados['pagina'] == $pagina && $set_menu_selected == ''){
+                            $set_menu_selected = $dados['submenu'];
+                        }
+                        
                         $menu = str_replace('<submenu'.$dados['submenu'].'/>', //submenu
                                 '<div>'.
                                     '<a href="'.$dados['link'].'">'.$dados['titulo'].'</a>'.
@@ -74,6 +80,12 @@ $sessao = new Container('usuario');
                                 $menu);
                     }
                 }
+                
+                //se a pagina atual é um submenu, setar classe selected-link em seu menu 
+                if($set_menu_selected){
+                    $menu = str_replace('menu-'.$set_menu_selected, 'selected-link', $menu);
+                }
+                
                 echo $menu;
                 ?>
             </ul>

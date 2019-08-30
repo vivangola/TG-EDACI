@@ -46,7 +46,7 @@ class CadastroController extends AbstractActionController
 
             $params['senha'] = md5($params['senha']);
             
-            $sql = "call sys_novoPreCadastro_sp(:nome,:email,:escolaridade,:senha)";
+            $sql = "call sys_novoPreCadastro_sp(:nome,:email,:escolaridade,:senha,0)";
             $result = $funcoes->executarSQL($sql,$params, '');
 
             if(!$result){

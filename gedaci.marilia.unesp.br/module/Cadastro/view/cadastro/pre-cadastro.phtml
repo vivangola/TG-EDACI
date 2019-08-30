@@ -11,7 +11,7 @@
                                     <div class="info" style="height: 447px;padding:30px;">
                                         <hr>
                                         <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12 pd-0">                    
-                                            <form id="frmPreCadastro" action="" method="post" class="form">
+                                            <form id="frmPreCadastro" action="/pre-cadastro/novo" method="post" class="form">
                                                 <div class="row" style="margin-bottom: 20px">
                                                     <div class="col-md-12 text-left">
                                                         <label class="control-label" for="nome">Nome:</label>
@@ -30,20 +30,17 @@
                                                     <div class="col-md-12 text-left">
                                                         <label class="control-label" for="escolaridade">Escolaridade:</label>
                                                         <select name="escolaridade" id="escolaridade" class="form-control">
-                                                            <option value="">Selecione</option>
-                                                            <option value="1">Doutorado</option>
-                                                            <option value="2">Graduação</option>
-                                                            <option value="3">Pós-Graduação</option>
-                                                            <option value="4">Mestrado</option>
-                                                            <option value="5">Pós-Doutorado</option>
-                                                            <option value="7">Tecnólogo </option>
+                                                            <option value="">Selecionar Escolaridade</option>
+                                                            <?php foreach($escolaridades as $dados):?>
+                                                                    <option value="<?= $dados['cod_nivel'] ?>"><?= $dados['descricao'] ?></option>
+                                                            <?php endforeach; ?>
                                                         </select>
                                                     </div>
                                                 </div>
 
                                                 <div class="row">
                                                     <div class="col-md-12 text-left">
-                                                        <button type="button" class="btn btn-primary3 btn-block info" onclick="enviar()">Enviar <i class="fa fa-check"></i></button>
+                                                        <button type="submit" class="btn btn-primary3 btn-block info" onclick="">Enviar <i class="fa fa-check"></i></button>
                                                     </div>
                                                 </div>    
                                             </form>
@@ -72,7 +69,12 @@
 
 <script type="text/javascript">
     
-    $.ajax({
+    $('#escolaridade').on('click', function(){
+        $(this).children('option[value=""]').remove();
+    });
+    
+    function enviar(){
+        $.ajax({
         url: '/pre-cadastro/novo',
         data: {
             nome            : $('#nome').val(),
@@ -104,5 +106,7 @@
 
         }
     });
+    }
+    
     
 </script>

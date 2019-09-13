@@ -17,7 +17,7 @@ return [
             'quadro-leitura' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/quadro-leitura',
+                    'route'    => '/quadro-leitura[/:action]',
                     'defaults' => [
                         'controller' => Controller\QuadroLeituraController::class,
                         'action'     => 'quadro-leitura',

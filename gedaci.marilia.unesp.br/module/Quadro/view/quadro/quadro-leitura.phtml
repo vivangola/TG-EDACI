@@ -75,15 +75,15 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="form" action="/biblioteca/add" method="post" enctype="multipart/form-data">
+            <form id="formAdd" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label for="add_periodico" class="col-form-label">Título Periódico:</label>
-                        <input type="text"  class="form-control" id="add_periodico" maxlength="200" name="add_periodico" title="Digite o Título Periódico."/>
-                    </div>
                     <div class="form-group">
                         <label for="add_artigo" class="col-form-label">Título Artigo:</label>
                         <input type="text"  class="form-control" id="add_artigo" name="add_artigo" maxlength="200" title="Digite o Título do Artigo."/>
+                    </div>
+                    <div class="form-group">
+                        <label for="add_periodico" class="col-form-label">Título Periódico:</label>
+                        <input type="text"  class="form-control" id="add_periodico" maxlength="200" name="add_periodico" title="Digite o Título Periódico."/>
                     </div>
                     <div class="row">
                         <div class="form-group col-xs-6">
@@ -129,7 +129,7 @@
                     </div>
                     <div class="form-group">
                         <label for="add_autor "class="col-form-label">Autor(es):</label>
-                        <input type="text"  class="form-control" id="add_periodico" maxlength="200" name="add_periodico" title="Digite o Título Periódico."/>
+                        <input type="text"  class="form-control" id="add_autor" maxlength="200" name="add_autor" title="Digite o(s) Autor(es)."/>
                     </div>
                     <div class="form-group">
                         <label for="add_arquivo" class="col-form-label">Arquivo: (pdf,doc,docx)</label>
@@ -144,6 +144,83 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Adicionar Material</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="form" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <input type="hidden" id="edit_cod"/>
+                    <div class="form-group">
+                        <label for="edit_artigo" class="col-form-label">Título Artigo:</label>
+                        <input type="text"  class="form-control" id="edit_artigo" name="edit_artigo" maxlength="200" title="Digite o Título do Artigo."/>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_periodico" class="col-form-label">Título Periódico:</label>
+                        <input type="text"  class="form-control" id="edit_periodico" maxlength="200" name="edit_periodico" title="Digite o Título Periódico."/>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="edit_base" class="col-form-label">Base:</label>
+                            <input id="edit_base" class="form-control input-group-lg" maxlength="100" type="text" name="edit_base"/>
+                        </div>
+
+                        <div class="form-group col-xs-6">
+                            <label for="edit_datapesq" class="col-form-label">Data da Pesquisa:</label>
+                            <input id="edit_datapesq" class="form-control input-group-lg" type="date" name="edit_datapesq"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-2">
+                            <label for="edit_pginicial" class="col-form-label">Pag Inícial:</label>
+                            <input id="edit_pginicial" class="form-control input-group-lg" type="text" name="edit_pginicial" data-mask="00000"/>
+                        </div>
+
+                        <div class="form-group col-xs-2">
+                            <label for="edit_pgfim" class="col-form-label">Pag Final:</label>
+                            <input id="edit_pgfim" class="form-control input-group-lg" type="text" name="edit_pgfim" data-mask="00000"/>
+                        </div>
+                        
+                        <div class="form-group col-xs-2">
+                            <label for="edit_volume" class="col-form-label">Volume:</label>
+                            <input id="edit_volume" class="form-control input-group-lg" type="text" name="edit_volume" data-mask="00000"/>
+                        </div>
+
+                        <div class="form-group col-xs-2">
+                            <label for="edit_numero" class="col-form-label">Numero:</label>
+                            <input id="edit_numero" class="form-control input-group-lg" type="text" name="edit_numero" data-mask="00000"/>
+                        </div>
+                        
+                        <div class="form-group col-xs-2">
+                            <label for="edit_mes" class="col-form-label">Mês:</label>
+                            <input id="edit_mes" class="form-control input-group-lg" type="text" name="edit_mes" data-mask="00" placeholder="Mês"/>
+                        </div>
+                        
+                        <div class="form-group col-xs-2">
+                            <label for="edit_ano" class="col-form-label">Ano:</label>
+                            <input id="edit_ano" class="form-control input-group-lg" type="text" name="edit_ano" data-mask="0000" placeholder="Ano"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_autor "class="col-form-label">Autor(es):</label>
+                        <input type="text"  class="form-control" id="edit_autor" maxlength="200" name="edit_autor" title="Digite o(s) Autor(s)."/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary-borded2" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary3" onclick="edit()">Finalizar <i class="fa fa-check"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 <script type="text/javascript">
 
@@ -161,6 +238,194 @@
     
     function showAdd(){
         $('#modalAdd').modal('show');
+    }
+    
+    function add(){
+        
+        var data = {
+            base                : $('#add_base').val(),
+            data_pesquisa       : $('#add_datapesq').val(),
+            titulo_periodico    : $('#add_periodico').val(),
+            ano                 : $('#add_ano').val(),
+            mes                 : $('#add_mes').val(),
+            volume              : $('#add_volume').val(),
+            numero              : $('#add_numero').val(),
+            titulo_artigo       : $('#add_artigo').val(),
+            autor               : $('#add_autor').val(),
+            pagina_inicial      : $('#add_pginicial').val(),
+            pagina_final        : $('#add_pgfim').val(),
+            interesse           : '5'
+        };
+        
+        if(!validaParametros(data)){
+            Swal.fire({
+                title: 'Atenção!',
+                html: "Digite todos os campos.",
+                type: 'info'
+            });
+            return false;
+        }
+        
+        if(!validarData(data.data_pesquisa)){
+            Swal.fire({
+                title: 'Atenção!',
+                html: "A data de pesquisa não é válida.",
+                type: 'info'
+            });
+            return false;
+        }
+        
+        var options = {
+            url: '/quadro-leitura/add',
+            type: 'POST',
+            dataType: 'json',
+            cache: false,
+            success: function (retorno) {
+                if (retorno.response) {
+                    Swal.fire({
+                        title: 'Sucesso!',
+                        html: retorno.msg,
+                        type: 'info'
+                    });
+                }
+            }
+        };
+
+        $('#formAdd').ajaxSubmit(options);
+        return false;
+    }
+    
+    function showEdit(cod){
+        $.ajax({
+            url: '/quadro-leitura/showEdit',
+            data: {cod : cod},
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                retorno = JSON.parse(retorno);
+                Swal.close();
+                if(retorno.response){
+                    $('#edit_cod').val(retorno.result['cod']);
+                    $('#edit_base').val(retorno.result['base']),
+                    $('#edit_datapesq').val(retorno.result['dt_pesq']),
+                    $('#edit_periodico').val(retorno.result['titulo_periodico']),
+                    $('#edit_ano').val(retorno.result['ano']),
+                    $('#edit_mes').val(retorno.result['mes']),
+                    $('#edit_volume').val(retorno.result['volume']),
+                    $('#edit_numero').val(retorno.result['numero']),
+                    $('#edit_artigo').val(retorno.result['titulo_artigo']),
+                    $('#edit_autor').val(retorno.result['autor']),
+                    $('#edit_pginicial').val(retorno.result['pagina_inicial']),
+                    $('#edit_pgfim').val(retorno.result['pagina_final']),
+                    
+                    $('#modalEdit').modal('show');
+                }else{
+                    Swal.fire({
+                        title: 'Atenção!',
+                        html: 'Material não encontrado.',
+                        type: 'info'
+                    });
+                }
+            }
+        });
+    }
+    
+    function edit(){
+        
+        var data = {
+            cod                 : $('#edit_cod').val(),
+            base                : $('#edit_base').val(),
+            data_pesq           : $('#edit_datapesq').val(),
+            titulo_periodico    : $('#edit_periodico').val(),
+            ano                 : $('#edit_ano').val(),
+            mes                 : $('#edit_mes').val(),
+            volume              : $('#edit_volume').val(),
+            numero              : $('#edit_numero').val(),
+            titulo_artigo       : $('#edit_artigo').val(),
+            autor               : $('#edit_autor').val(),
+            pginicial           : $('#edit_pginicial').val(),
+            pgfim               : $('#edit_pgfim').val(),
+            interesse           : '5'
+        };
+        
+        console.log(data);
+        
+        if(!validaParametros(data)){
+            Swal.fire({
+                title: 'Atenção!',
+                html: "Digite todos os campos.",
+                type: 'info'
+            });
+            return false;
+        }
+        
+        if(!validarData(data.data_pesq)){
+            Swal.fire({
+                title: 'Atenção!',
+                html: "A data de pesquisa não é válida.",
+                type: 'info'
+            });
+            return false;
+        }
+        
+        $.ajax({
+            url: '/quadro-leitura/edit',
+            data: data,
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                retorno = JSON.parse(retorno);
+                Swal.fire({
+                    title: 'Sucesso!',
+                    html: retorno.msg,
+                    type: 'success',
+                    onClose: () => {
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+    }
+    
+    function showDelete(cod){
+        Swal.fire({
+            title: 'Atenção!',
+            html: 'Deseja realmente excluir?',
+            type: 'info',
+            showCancelButton: true,
+            preConfirm: () => {
+                $.ajax({
+                    url: '/quadro-leitura/delete',
+                    data: {cod : cod},
+                    type: 'json',
+                    method: 'POST',
+                    beforeSend: function () {
+                        loader();
+                    },
+                    success: function (retorno) {
+                        retorno = JSON.parse(retorno);
+                        Swal.fire({
+                            title: 'Sucesso!',
+                            html: retorno.msg,
+                            type: 'success',
+                            onClose: () => {
+                                window.location.reload();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+    
+    function showFile(arquivo){
+        window.open('/arquivos/leitura/'+arquivo,'_blank');
     }
 
 </script>

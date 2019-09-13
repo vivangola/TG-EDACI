@@ -9,6 +9,7 @@ namespace Quadro\Controller;
 
 use Application\Classes\Funcoes;
 use Application\Classes\Relatorio;
+use Zend\Json\Json;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\Container;
 use Zend\View\Model\ViewModel;
@@ -73,11 +74,60 @@ class EscolaridadeController extends AbstractActionController
         }
     }
     
-    public function editAction(){
+    public function showEditAction(){
+        $funcoes = new Funcoes($this);
+        $sessao = new Container("usuario");
         
+        $response = $this->getResponse();
+        $request  = $this->getRequest();
+        
+        if($request->isPost()){
+            $params = array(
+                'usuario'    => $sessao->cod_usuario,
+                'cod_esc'    => $this->params()->fromPost('cod_nivel', '-1'),
+            );
+
+            $sql = "call us_buscarEscolaridade_sp('','',:cod_esc)";
+            $result = $funcoes->executarSQL($sql,$params,'');
+
+            return $response->setContent(Json::encode(array('response' => true, 'escolaridade' => $result)));
+        }else{
+            header('Location: /escolaridade');
+            exit;
+        }
+    }
+    
+    public function editAction(){
+        $funcoes = new Funcoes($this);
+        $sessao = new Container("usuario");
+        
+        $response = $this->getResponse();
+        
+        $params = array(
+            'cod'           => $this->params()->fromPost('cod', ''),
+            'escolaridade'  => $this->params()->fromPost('edit_desc', ''),
+        );
+        
+        $sql = "update nivel_escolaridade set descricao =:escolaridade" .
+                    " where cod_nivel =:cod";
+        $funcoes->executarSQL($sql,$params);
+        
+        return $response->setContent(Json::encode(array('response' => true)));
     }
     
     public function deleteAction(){
+        $funcoes = new Funcoes($this);
+        $sessao = new Container("usuario");
         
+        $response = $this->getResponse();
+        
+        $params = array(
+            'cod'           => $this->params()->fromPost('cod_nivel', ''),
+        );
+        
+        $sql = "delete from nivel_escolaridade where cod_nivel =:cod";
+        $funcoes->executarSQL($sql,$params);
+        
+        return $response->setContent(Json::encode(array('response' => true)));
     }
 }

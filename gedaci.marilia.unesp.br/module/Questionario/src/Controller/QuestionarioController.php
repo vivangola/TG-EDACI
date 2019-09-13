@@ -7,21 +7,21 @@
 
 namespace Questionario\Controller;
 
+use Application\Classes\Funcoes;
+use Application\Classes\Relatorio;
+use Zend\Json\Json;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Session\Container;
 use Zend\View\Model\ViewModel;
 
 class QuestionarioController extends AbstractActionController
 {
-    public function questionarioAction()
-    {
+    
+    public function questionarioAction(){
         echo "<pre>";
-        var_dump('questionario');
+        var_dump('asda');
         echo "</pre>";
         exit;
-        $view = new ViewModel();
-        
-        $view->setTemplate('login/login');
-        return $view;
     }
     
     public function inicialAction(){
@@ -31,8 +31,81 @@ class QuestionarioController extends AbstractActionController
     }
     
     public function cadastroAction(){
-        $view = new ViewModel();
+        $funcoes = new Funcoes($this);
+        $sessao = new Container("usuario");
+        $relatorio = new Relatorio();
+        
+        $params = array(
+            'usuario'   => $sessao->cod_usuario
+        );
+        
+        $sql = "call us_buscarQuestionarios_sp (0)";
+        $questionarios = $funcoes->executarSQL($sql, $params);
+        
+        $relatorio->definirColuna('CODIGO', 'cod_questionario', '2', 'center', 't', 'n', 'n');
+        $relatorio->definirColuna('DESCRIÇÃO', 'descricao', '10', 'left', 't', 'n', 'n');
+        $relatorio->definirColuna('CRIADO POR', 'nome', '4', 'center', 't', 'n', 'n');
+        $relatorio->definirColuna('DATA', 'data_criacao', '4', 'center', 't', 'n', 'n');
+        $relatorio->definirColuna('INATIVAR / ATIVAR', '1', '2', 'center', 't', 'n', 'n');
+        $relatorio->definirColuna('EDITAR', '2', '2', 'center', 't', 'n', 'n');
+        $relatorio->definirColuna('EXCLUIR', '3', '2', 'center', 't', 'n', 'n');
+        
+        $view = new ViewModel(array(
+            'relatorio'     => $relatorio,
+            'questionarios' => $questionarios,
+        ));
+        
         $view->setTemplate('questionario/questionario-cadastro');
         return $view;
     }
+    
+    public function buscarQuestionarioAction(){
+        $funcoes = new Funcoes($this);
+        
+        $response = $this->getResponse();
+        
+        $params = array(
+            'questionario'  => $this->params()->fromPost('questionario', 1)
+        );
+        
+        $sql = "call us_buscarQuestionarios_sp (:questionario)";
+        $result = $funcoes->executarSQL($sql, $params);
+        
+        $arvore = $this->gerarArvore($result);
+        
+        return $response->setContent(Json::encode(array('response' => true, 'titulo' => $result[0]['titulo'] ,'html' => $this->gerarArvore($result))));
+    }
+    
+    public function gerarArvore($datas, $parent = 0, $depth = 0){
+        $ni=count($datas);
+        if($ni === 0 || $depth > 100) return '';
+        $tree = '<div class="list-group">';
+        for($i=0; $i < $ni; $i++){
+            if($datas[$i]['parent'] == $parent){
+                $tree .= '<a href="#" class="list-group-item">'.  
+                            str_repeat('-', $depth) . ' ' .
+                            $datas[$i]['name'] .
+                          '</a>';
+                $tree .= $this->gerarArvore($datas, $datas[$i]['id'], $depth+1);
+            }
+        }
+        $tree .= '</div>';
+        return $tree;
+    }
+    
+    
+    //<div class="list-group">
+    //    <a href="#" class="list-group-item">
+    //        1) Você já recebeu algum tipo de bolsa?
+    //    </a>
+    //    <div class="list-group">
+    //        <a href="#" class="list-group-item">1.1) Sim</a>
+    //        <div class="list-group">
+    //            <a href="#" class="list-group-item">1.1.1) De qual tipo?</a>
+    //            <a href="#" class="list-group-item">1.1.2) Durante qual período?</a>
+    //            <a href="#" class="list-group-item">1.1.3) Quem foi o orientador (nome completo)?</a>
+    //        </div>
+    //        <a href="#" class="list-group-item">1.2) Não</a>
+    //    </div>
+    //</div>
 }

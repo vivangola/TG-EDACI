@@ -1,0 +1,478 @@
+<div class="row box-home" align="center" style="height:100%">
+    <div class="col-md-12 col-xs-12">  
+        <div class="main-box clearfix print min-branco">
+            <div class="main-box-body clearfix mt" style="margin-top: 2px !important;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <div class="box">                           
+                                <div class="icon">
+                                    <div class="image back-primary3"><i class="fa fa-book"></i>&nbsp;<label class="title">QUESTIONÁRIO INICIAL</label></div>
+                                    <div class="info" style="min-height:450px">
+                                        <div class="row" style="padding-left: 10px;padding-right: 10px;margin-top: 10px;margin-bottom: 20px;">
+                                            <form action="/usuarios/membros" method="post" enctype="">
+                                                <div class="col-md-offset-10 col-md-2 col-sm-12 col-xs-6">
+                                                    <button class="btn btn-primary-borded2 form-control" type="button" onClick="showAdd()">
+                                                        Novo&nbsp;
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="table-responsive" style="margin-top: 10px;">
+                                            <?php
+                                            $relatorio->gerarCabecalho(12);
+                                            if ($questionarios) {
+                                                foreach ($questionarios as $dados) {
+                                                    if($dados['status_questionario'] == "0"){
+                                                        $relatorio->definirVariavel('1', '<div class="switch_box box_1"><input type="checkbox" class="switch_1" id="alterar_status" onchange=ativar("'.$dados['cod_questionario'].'",this) name="alterar_status"></div>');
+                                                    }else{
+                                                        $relatorio->definirVariavel('1', '<div class="switch_box box_1"><input type="checkbox" class="switch_1" id="alterar_status" onchange=ativar("'.$dados['cod_questionario'].'",this) name="alterar_status" checked></div>');
+                                                    }
+                                                    $relatorio->definirVariavel('2', "<button type='button' class='btn btn-primary4' style='width:100%;margin-bottom:2px' onClick=showEdit('".$dados['cod_questionario']."','1')><i class='pointer fa fa-pencil'></i></button>");
+                                                    $relatorio->definirVariavel('3', "<button type='button' class='btn btn-primary4' style='width:100%;margin-bottom:2px' onClick=excluir('".$dados['cod_questionario']."','1')><i class='pointer fa fa-times'></i></button>");
+                                                    
+                                                    $relatorio->gerarRelatorio($dados);
+                                                }
+                                            }
+                                            $relatorio->gerarRodape();
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document" style="max-width: 1300px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Adicionar novo Questionário</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="info_quest">
+                    <form>
+                        <div class="form-group">
+                            <label for="add_desc" class="col-form-label">Descrição sobre o Questionário:</label>
+                            <input type="text" class="form-control" id="add_desc">
+                        </div>
+                    </form>
+                </div>
+                <div id="pergunta_quest">
+                    <hr>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-4 col-md-4">
+                                <div class="panel-group" id="accordion">
+                                    <div class="panel-default">
+                                        <div class="panel-heading back-primary3">
+                                            <h4 class="panel-title">
+                                                </span>Questões</a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseFour" class="panel panel-collapse">
+                                            <a href="#" onclick="addQuestao();" class="list-group-item text-center pointer">
+                                                <i class="fa fa-plus"></i>&nbsp;Adicionar Questão
+                                            </a>
+                                            <div class="list-group">
+                                                <a href="#" class="list-group-item">
+                                                    1) Você já recebeu algum tipo de bolsa?
+                                                </a>
+                                                <div class="list-group">
+                                                    <a href="#" class="list-group-item">1.1) Sim</a>
+                                                    <div class="list-group">
+                                                        <a href="#" class="list-group-item">1.1.1) De qual tipo?</a>
+                                                        <a href="#" class="list-group-item">1.1.2) Durante qual período?</a>
+                                                        <a href="#" class="list-group-item">1.1.3) Quem foi o orientador (nome completo)?</a>
+                                                    </div>
+                                                    <a href="#" class="list-group-item">1.2) Não</a>
+                                                </div>
+                                            </div>
+                                            <div class="list-group">
+                                                <a href="#" class="list-group-item">
+                                                    2) Você já recebeu algum tipo de bolsa?
+                                                </a>
+                                                <div class="list-group">
+                                                    <a href="#" class="list-group-item"><span class="color-primary3">2.1)</span> Sim</a>
+                                                    <div class="list-group">
+                                                        <a href="#" class="list-group-item">2.1.1) De qual tipo?</a>
+                                                        <a href="#" class="list-group-item">2.1.2) Durante qual período?</a>
+                                                        <a href="#" class="list-group-item">2.1.2) Quem foi o orientador (nome completo)?</a>
+                                                    </div>
+                                                    <a href="#" class="list-group-item">2.2) Não</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-8 col-md-8">
+                                <div class="panel-default">
+                                    <div class="panel-heading back-primary3" style="border:0px !important">
+                                        Respostas
+                                    </div>
+                                    <div class="panel-body" id="add_nova_pergunta">
+                                        <div id="escolher_tipo_resp text-center" style="text-align: center;">
+                                            <div class="form-group" style="text-align: left">
+                                                <label for="add_desc" class="col-form-label">Digite a pergunta abaixo:</label>
+                                                <br>
+                                                <input type="text" class="form-control" id="add_desc" value="">
+                                            </div>
+                                            <button type="button" class="btn btn-primary3" id="btn_objetiva" onclick="escolher_tipo_resp(1);">Objetiva</button>
+                                            ou
+                                            <button type="button" class="btn btn-primary3" id="btn_dissertativa" onclick="escolher_tipo_resp(2);">Dissertativa</button>
+                                            <hr>
+                                        </div>
+                                        <div class="respostas" id="menu-objetiva" style="display:none">
+                                            <div class="col-md-12 text-right">
+                                                <button type="button" class="btn btn-primary3" disabled="true" onclick="proximo();">Limpar <i class="fa fa-times"></i></button>
+                                                <button type="button" class="btn btn-primary3" onclick="addResposta();">Adicionar <i class="fa fa-plus"></i></button>
+                                                <button type="button" class="btn btn-primary3" disabled="true" onclick="proximo();">Finalizar <i class="fa fa-check"></i></button>
+                                            </div>
+                                            <br><br><br>
+                                            <div id="respostas-objetiva">
+                                            </div>
+                                        </div>
+                                        <div id="menu-dissertativa" style="display:none">
+                                            <div class="col-md-12 text-right">
+                                                <button type="button" class="btn btn-primary3" onclick="proximo();">Finalizar <i class="fa fa-check"></i></button>
+                                            </div>
+                                            <div id="respostas-dissertativa">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body" id="edit_resposta" style="display: none;">
+                                        <div class="form-group">
+                                            <label for="add_desc" class="col-form-label">1.1)</label>
+                                            <input type="text" class="form-control" id="add_desc" value="Sim">
+                                            <hr>
+                                        </div>
+                                        <div class="col-md-12 text-right">
+                                            <button type="button" class="btn btn-primary3" onclick="add();">Adicionar <i class="fa fa-plus"></i></button>
+                                            <button type="button" class="btn btn-primary3" onclick="proximo();">Finalizar <i class="fa fa-check"></i></button>
+                                        </div>
+                                        <hr>
+                                        <br><br>
+                                        <div class="form-group">
+                                            <label for="add_desc" class="col-form-label">1.1.1)</label>
+                                            <input type="text" class="form-control" id="add_desc" value="Durante qual período?">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="add_desc" class="col-form-label">1.1.2)</label>
+                                            <input type="text" class="form-control" id="add_desc" value="Durante qual período?">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="add_desc" class="col-form-label">1.1.3)</label>
+                                            <input type="text" class="form-control" id="add_desc" value="Quem foi o orientador (nome completo)?">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary-borded2" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary3" onclick="proximo();">Finalizar Alterações <i class="fa fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document" style="max-width: 1300px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title color-primary2"><i class="fa fa-pencil"></i>&nbsp;Editar Questionário</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="info_quest">
+                    <form>
+                        <div class="form-group">
+                            <label for="add_desc" class="col-form-label">Descrição sobre o Questionário:</label>
+                            <input type="text" class="form-control" id="edit_desc" value="">
+                        </div>
+                    </form>
+                </div>
+                <div id="pergunta_quest">
+                    <hr>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-4 col-md-4">
+                                <div class="panel-group" id="accordion">
+                                    <div class="panel-default">
+                                        <div class="panel-heading back-primary3">
+                                            <h4 class="panel-title">
+                                                </span>Questões</a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseFour" class="panel panel-collapse">
+                                            <a href="#" onclick="addQuestao();" class="list-group-item text-center pointer">
+                                                <i class="fa fa-plus"></i>&nbsp;Adicionar Questão
+                                            </a>
+                                            <div id="perguntas_edit">
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-8 col-md-8">
+                                <div class="panel-default">
+                                    <div class="panel-heading back-primary3" style="border:0px !important">
+                                        Respostas
+                                    </div>
+                                    <div class="panel-body" id="add_nova_pergunta">
+                                        <div id="escolher_tipo_resp text-center" style="text-align: center;">
+                                            <div class="form-group" style="text-align: left">
+                                                <label for="add_desc" class="col-form-label">Digite a pergunta abaixo:</label>
+                                                <br>
+                                                <input type="text" class="form-control" id="add_desc" value="">
+                                            </div>
+                                            <button type="button" class="btn btn-primary3" id="btn_objetiva" onclick="escolher_tipo_resp(1);">Objetiva</button>
+                                            ou
+                                            <button type="button" class="btn btn-primary3" id="btn_dissertativa" onclick="escolher_tipo_resp(2);">Dissertativa</button>
+                                            <hr>
+                                        </div>
+                                        <div class="respostas" id="menu-objetiva" style="display:none">
+                                            <div class="col-md-12 text-right">
+                                                <button type="button" class="btn btn-primary3" disabled="true" onclick="proximo();">Limpar <i class="fa fa-times"></i></button>
+                                                <button type="button" class="btn btn-primary3" onclick="addResposta();">Adicionar <i class="fa fa-plus"></i></button>
+                                                <button type="button" class="btn btn-primary3" disabled="true" onclick="proximo();">Finalizar <i class="fa fa-check"></i></button>
+                                            </div>
+                                            <br><br><br>
+                                            <div id="respostas-objetiva">
+                                            </div>
+                                        </div>
+                                        <div id="menu-dissertativa" style="display:none">
+                                            <div class="col-md-12 text-right">
+                                                <button type="button" class="btn btn-primary3" onclick="proximo();">Finalizar <i class="fa fa-check"></i></button>
+                                            </div>
+                                            <div id="respostas-dissertativa">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body" id="edit_resposta" style="display: none;">
+                                        <div class="form-group">
+                                            <label for="add_desc" class="col-form-label">1.1)</label>
+                                            <input type="text" class="form-control" id="add_desc" value="Sim">
+                                            <hr>
+                                        </div>
+                                        <div class="col-md-12 text-right">
+                                            <button type="button" class="btn btn-primary3" onclick="add();">Adicionar <i class="fa fa-plus"></i></button>
+                                            <button type="button" class="btn btn-primary3" onclick="proximo();">Finalizar <i class="fa fa-check"></i></button>
+                                        </div>
+                                        <hr>
+                                        <br><br>
+                                        <div class="form-group">
+                                            <label for="add_desc" class="col-form-label">1.1.1)</label>
+                                            <input type="text" class="form-control" id="add_desc" value="Durante qual período?">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="add_desc" class="col-form-label">1.1.2)</label>
+                                            <input type="text" class="form-control" id="add_desc" value="Durante qual período?">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="add_desc" class="col-form-label">1.1.3)</label>
+                                            <input type="text" class="form-control" id="add_desc" value="Quem foi o orientador (nome completo)?">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary-borded2" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary3" onclick="proximo();">Finalizar Alterações <i class="fa fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#tabela').DataTable({
+            "language": {
+                "url": "js/datatable/pt-br.json"
+            },
+            "columnDefs": [ { "orderable": false, "targets": [5,6] }],
+            "lengthChange": false,
+            "searching": false
+        });
+    });
+    
+    function addQuestao(){
+        $('#edit_resposta').hide();
+        $('#add_nova_pergunta').fadeIn('slow');
+    }
+    
+    function addResposta(){
+        html =  '<div class="form-group">'+
+                    '<input type="text" class="form-control" id="add_desc" value="">'+
+                '</div>';
+        $('#respostas-objetiva').append(html);
+    }
+    
+    function escolher_tipo_resp(tipo){
+        if(tipo == 1){
+            $('#btn_objetiva').attr('style','background:#477482 !important');
+            $('#btn_dissertativa').attr('style','background:#629bad !important');
+            $('#menu-dissertativa').hide();
+            $('#menu-objetiva').fadeIn('slow');
+        }else{
+            $('#btn_objetiva').attr('style','background:#629bad !important');
+            $('#btn_dissertativa').attr('style','background:#477482 !important');
+            $('#menu-objetiva').hide();
+            $('#menu-dissertativa').fadeIn('slow');
+        }
+    }
+    
+    function showAdd(){
+        $('#modalAdd').modal('show');
+    }
+    
+    function proximo(){
+        
+        if($('#add_desc').val()){
+            $('#add_desc').attr('readonly',true);
+        }else{
+            Swal.fire({
+                title: 'Atenção!',
+                html: 'Digite a descrição sobre o Questionário.',
+                type: 'info'
+            });
+        }
+    }
+    
+    function ativar(usuario,element){
+        var ativo = $(element).is(':checked') ? 1 : 0;
+        
+        $.ajax({
+            url: '/usuarios/ativar',
+            data: {
+                cod_usuario : usuario,
+                ativar      : ativo
+            },
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                Swal.close();
+            }
+        });
+        
+    }
+    
+    
+    function showEdit(cod){
+        $.ajax({
+            url: '/questionario/buscar-questionario',
+            data: {questionario : cod},
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                retorno = JSON.parse(retorno);
+                Swal.close();
+                if(retorno.response){
+                    $('#edit_desc').val(retorno.titulo);
+                    $('#perguntas_edit').html(retorno.html);
+                    $('#modalEdit').modal('show');
+                }else{
+                    Swal.fire({
+                        title: 'Atenção!',
+                        html: 'Questinario não encontrado.',
+                        type: 'info'
+                    });
+                }
+            }
+        });
+    }
+    
+    function edit(){
+        
+        var data = {
+            cod                  : $('#edit_cod').val(),
+            edit_assunto         : $('#edit_assunto').val(),
+            edit_desc            : $('#edit_desc').val(),
+            edit_escolaridade    : $('#edit_escolaridade').val(),
+            edit_dtini           : $('#edit_dtini').val(),
+            edit_dtfim           : $('#edit_dtfim').val(),
+            edit_hini            : $('#edit_hini').val(),
+            edit_hfim            : $('#edit_hfim').val()
+        };
+        
+        if(validaParametros(data)){
+            $.ajax({
+                url: '/avisos/edit',
+                data: data,
+                type: 'json',
+                method: 'POST',
+                beforeSend: function () {
+                    loader();
+                },
+                success: function (retorno) {
+                    Swal.fire({
+                        title: 'Sucesso!',
+                        html: 'Aviso editado com sucesso.',
+                        type: 'success',
+                        onClose: () => {
+                            window.location.reload();
+                        }
+                    });
+                },
+            });
+        }
+    }
+    
+    function showDelete(cod){
+        Swal.fire({
+            title: 'Atenção!',
+            html: 'Deseja realmente excluir?',
+            type: 'info',
+            showCancelButton: true,
+            preConfirm: () => {
+                $.ajax({
+                    url: '/avisos/delete',
+                    data: {cod_aviso : cod},
+                    type: 'json',
+                    method: 'POST',
+                    beforeSend: function () {
+                        loader();
+                    },
+                    success: function (retorno) {
+                        Swal.fire({
+                            title: 'Sucesso!',
+                            html: 'Aviso deletado.',
+                            type: 'success',
+                            onClose: () => {
+                                window.location.reload();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+
+</script>

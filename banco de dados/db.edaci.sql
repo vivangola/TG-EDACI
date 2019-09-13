@@ -89,7 +89,7 @@ CREATE TABLE `biblioteca` (
   `arquivo` varchar(200) DEFAULT NULL,
   `data_upload` datetime DEFAULT NULL,
   PRIMARY KEY (`cod`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,7 +98,7 @@ CREATE TABLE `biblioteca` (
 
 LOCK TABLES `biblioteca` WRITE;
 /*!40000 ALTER TABLE `biblioteca` DISABLE KEYS */;
-INSERT INTO `biblioteca` VALUES (5,4,'teste2',1,'material-2019-08-05-16-08-06.docx','2019-08-05 11:10:06');
+INSERT INTO `biblioteca` VALUES (5,4,'teste2',1,'material-2019-08-05-16-08-06.docx','2019-08-05 11:10:06'),(6,4,'teste',1,'material-2019-09-03-19-09-11.doc','2019-09-03 14:59:11'),(7,4,'',0,'material-2019-09-04-16-09-15.','2019-09-04 11:34:15');
 /*!40000 ALTER TABLE `biblioteca` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -309,12 +309,11 @@ CREATE TABLE `ltr_material_leitura` (
   `autor` varchar(100) DEFAULT NULL,
   `pagina_inicial` int(11) DEFAULT NULL,
   `pagina_final` int(11) DEFAULT NULL,
-  `endereco_acesso` varchar(200) DEFAULT NULL,
   `interesse` int(11) DEFAULT NULL,
   `arquivo` varchar(50) DEFAULT NULL,
   `data_criacao` datetime DEFAULT NULL,
   PRIMARY KEY (`cod_material`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -323,7 +322,7 @@ CREATE TABLE `ltr_material_leitura` (
 
 LOCK TABLES `ltr_material_leitura` WRITE;
 /*!40000 ALTER TABLE `ltr_material_leitura` DISABLE KEYS */;
-INSERT INTO `ltr_material_leitura` VALUES (1,4,'Base teste','2019-05-01 00:00:00','Como programar em PHP',2018,6,1,12,'Como é programar em PHP','Gilberto',10,25,'teste',1,'teste.doc','2019-09-09 10:00:00'),(2,4,'Base inicial','2019-02-02 00:00:00','Como estudar sozinho',2018,6,1,12,'estudar sozinho é bom','Claudio',10,25,'teste',1,'teste.doc','2019-09-09 10:00:00');
+INSERT INTO `ltr_material_leitura` VALUES (4,4,'teste base','2019-09-04 00:00:00','teste',1998,12,12,12,'teste','12312312',1,15,5,'material-2019-09-04-19-09-54.doc','2019-09-04 14:14:54');
 /*!40000 ALTER TABLE `ltr_material_leitura` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -486,7 +485,7 @@ CREATE TABLE `nivel_escolaridade` (
   `descricao` varchar(50) DEFAULT NULL,
   `data_criacao` datetime DEFAULT NULL,
   PRIMARY KEY (`cod_nivel`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -495,7 +494,7 @@ CREATE TABLE `nivel_escolaridade` (
 
 LOCK TABLES `nivel_escolaridade` WRITE;
 /*!40000 ALTER TABLE `nivel_escolaridade` DISABLE KEYS */;
-INSERT INTO `nivel_escolaridade` VALUES (1,'Médio','2019-07-08 10:26:53'),(2,'Superior','2019-07-08 10:26:59'),(4,'teste2','2019-08-16 12:30:51'),(5,'teste3','2019-08-16 12:32:48'),(6,'testeeee','2019-08-16 16:08:15');
+INSERT INTO `nivel_escolaridade` VALUES (1,'Médio','2019-07-08 10:26:53'),(2,'Superior','2019-07-08 10:26:59'),(7,'Fundamental','2019-09-03 14:59:48');
 /*!40000 ALTER TABLE `nivel_escolaridade` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -527,6 +526,34 @@ LOCK TABLES `qst_questao` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `qst_questao1`
+--
+
+DROP TABLE IF EXISTS `qst_questao1`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `qst_questao1` (
+  `cod` int(11) NOT NULL AUTO_INCREMENT,
+  `cod_questionario` int(11) DEFAULT NULL,
+  `desc_pergunta` varchar(1000) DEFAULT NULL,
+  `tipo_pergunta` int(11) DEFAULT NULL,
+  `is_sub` int(11) DEFAULT NULL,
+  `data_criacao` datetime DEFAULT NULL,
+  PRIMARY KEY (`cod`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `qst_questao1`
+--
+
+LOCK TABLES `qst_questao1` WRITE;
+/*!40000 ALTER TABLE `qst_questao1` DISABLE KEYS */;
+INSERT INTO `qst_questao1` VALUES (1,1,'Teste?',1,0,'2019-09-09 15:19:02'),(2,1,'Sim!',1,1,'2019-09-09 15:29:31'),(3,1,'Não!',1,1,'2019-09-09 15:30:10'),(4,1,'Teste 2?',1,0,'2019-09-09 15:41:12'),(5,1,'eoq?',1,0,'2019-09-09 16:00:52'),(6,1,'sim',1,1,'2019-09-09 16:01:04'),(7,1,'nao',1,1,'2019-09-09 16:01:07'),(8,1,'Se sim, qual?',1,1,'2019-09-13 14:38:51'),(9,1,'Jorge',1,1,'2019-09-13 15:56:20'),(10,1,'Claudio',1,1,'2019-09-13 15:56:29');
+/*!40000 ALTER TABLE `qst_questao1` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `qst_questao_dependencia`
 --
 
@@ -536,8 +563,9 @@ DROP TABLE IF EXISTS `qst_questao_dependencia`;
 CREATE TABLE `qst_questao_dependencia` (
   `cod_dependencia` int(11) NOT NULL AUTO_INCREMENT,
   `cod_questao_dependente` int(11) DEFAULT NULL,
+  `cod_questao` int(11) DEFAULT NULL,
   PRIMARY KEY (`cod_dependencia`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -546,6 +574,7 @@ CREATE TABLE `qst_questao_dependencia` (
 
 LOCK TABLES `qst_questao_dependencia` WRITE;
 /*!40000 ALTER TABLE `qst_questao_dependencia` DISABLE KEYS */;
+INSERT INTO `qst_questao_dependencia` VALUES (1,2,1),(2,3,1),(3,1,1),(4,5,5),(6,6,5),(7,7,5),(8,8,2),(9,9,8),(10,10,8);
 /*!40000 ALTER TABLE `qst_questao_dependencia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -558,13 +587,13 @@ DROP TABLE IF EXISTS `qst_questionario`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `qst_questionario` (
   `cod_questionario` int(11) NOT NULL AUTO_INCREMENT,
-  `descricacao` varchar(500) DEFAULT NULL,
+  `descricao` varchar(500) DEFAULT NULL,
   `status_questionario` int(11) DEFAULT NULL,
   `cod_tipo_fk` int(11) DEFAULT NULL,
   `cod_usuario_fk` int(11) DEFAULT NULL,
   `data_criacao` datetime DEFAULT NULL,
   PRIMARY KEY (`cod_questionario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -573,6 +602,7 @@ CREATE TABLE `qst_questionario` (
 
 LOCK TABLES `qst_questionario` WRITE;
 /*!40000 ALTER TABLE `qst_questionario` DISABLE KEYS */;
+INSERT INTO `qst_questionario` VALUES (1,'teste',1,1,4,'2019-09-09 15:16:08'),(2,'questionario de teste',1,1,4,'2019-09-09 16:00:33');
 /*!40000 ALTER TABLE `qst_questionario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -663,7 +693,7 @@ CREATE TABLE `reu_atas` (
   `data` datetime DEFAULT NULL,
   `usuario_fk` int(11) DEFAULT NULL,
   PRIMARY KEY (`cod_ata`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -672,7 +702,7 @@ CREATE TABLE `reu_atas` (
 
 LOCK TABLES `reu_atas` WRITE;
 /*!40000 ALTER TABLE `reu_atas` DISABLE KEYS */;
-INSERT INTO `reu_atas` VALUES (33,'2019-07-24 11:38:20','testee','ata-2019-07-24-16-07-20.docx','2019-07-24 23:33:00',4);
+INSERT INTO `reu_atas` VALUES (33,'2019-07-24 11:38:20','testee','ata-2019-07-24-16-07-20.docx','2019-07-24 23:33:00',4),(34,'2019-09-03 14:50:07','teste','ata-2019-09-03-19-09-07.doc','2019-09-03 12:00:00',4);
 /*!40000 ALTER TABLE `reu_atas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -791,7 +821,7 @@ CREATE TABLE `sys_log_acesso_aplicacao` (
   `server` varchar(100) DEFAULT NULL,
   `params` varchar(8000) DEFAULT NULL,
   PRIMARY KEY (`cod_log`)
-) ENGINE=InnoDB AUTO_INCREMENT=1039 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=436 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -923,7 +953,7 @@ CREATE TABLE `us_acesso` (
 
 LOCK TABLES `us_acesso` WRITE;
 /*!40000 ALTER TABLE `us_acesso` DISABLE KEYS */;
-INSERT INTO `us_acesso` VALUES (4,'gabriel@hotmail.com','6e976ac2ca7684e4015e0b1c90fa7bfa',1),(14,'denilson@hotmail.com','202cb962ac59075b964b07152d234b70',1),(15,'teste@teste.com','202cb962ac59075b964b07152d234b70',0);
+INSERT INTO `us_acesso` VALUES (4,'gabriel@hotmail.com','202cb962ac59075b964b07152d234b70',1),(14,'denilson@hotmail.com','202cb962ac59075b964b07152d234b70',1),(15,'teste@teste.com','202cb962ac59075b964b07152d234b70',0),(16,'teste@teste1.com','202cb962ac59075b964b07152d234b70',1);
 /*!40000 ALTER TABLE `us_acesso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -941,8 +971,9 @@ CREATE TABLE `us_pre_cadastro` (
   `nivel_escolaridade_fk` int(11) DEFAULT NULL,
   `data_criacao` datetime DEFAULT NULL,
   `situacao` int(11) DEFAULT NULL,
+  `adm` int(11) DEFAULT NULL,
   PRIMARY KEY (`cod_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -951,7 +982,7 @@ CREATE TABLE `us_pre_cadastro` (
 
 LOCK TABLES `us_pre_cadastro` WRITE;
 /*!40000 ALTER TABLE `us_pre_cadastro` DISABLE KEYS */;
-INSERT INTO `us_pre_cadastro` VALUES (4,'Gabriel da Silva Pereira','gabriel@hotmail.com',1,'2019-08-09 12:25:40',2),(14,'Denílson Perez','denilson@hotmail.com',1,'2019-08-09 11:32:43',1),(15,'teste','teste@teste.com',2,'2019-08-21 12:12:57',1);
+INSERT INTO `us_pre_cadastro` VALUES (4,'Gabriel da Silva Pereira','gabriel@hotmail.com',1,'2019-08-09 12:25:40',2,0),(14,'Denílson Perez','denilson@hotmail.com',1,'2019-08-09 11:32:43',1,0),(15,'teste','teste@teste.com',2,'2019-08-21 12:12:57',1,0),(16,'teste','teste@teste1.com',1,'2019-09-04 16:44:15',1,1);
 /*!40000 ALTER TABLE `us_pre_cadastro` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1115,6 +1146,45 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `lista_questionario` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `lista_questionario`(
+	in cod_questionario int
+)
+proc_name:
+BEGIN
+	
+    create temporary table final1(cod_questao int, cod_questao_up int, desc_pergunta varchar(100), tipo_pergunta int, is_sub int);
+    create temporary table final3(cod_questao int, cod_questao_up int, desc_pergunta varchar(100), tipo_pergunta int, is_sub int);
+
+	insert into final1
+	select b.cod, b.cod, b.desc_pergunta,b.tipo_pergunta,b.is_sub
+	from qst_questionario a
+		inner join qst_questao1 b on a.cod_questionario = b.cod_questionario
+	where is_sub = 0 and a.cod_questionario = 1;
+    
+    while exists(select * from final1 limit 1) do
+    begin
+		select * from final1 limit 1;
+        
+        delete from final1 limit 1;
+    end;
+    end while;
+	
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `sys_listarMenu_sp` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1213,7 +1283,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `sys_novoPreCadastro_sp`(
 	in nome varchar(200),
     in email varchar(200),
     in escolaridade int,
-    in senha varchar(1000)
+    in senha varchar(1000),
+    in adm int
 )
 proc_name:
 BEGIN
@@ -1232,14 +1303,27 @@ BEGIN
 			leave proc_name;
     end if;
     
+    if adm = 1
+    then
+		-- caso o pré-cadastro seja feito pelo adm
+		insert into us_pre_cadastro(nome,email,nivel_escolaridade_fk,data_criacao,situacao,adm) values(nome,email,escolaridade,now(),1,1);
     
-    insert into us_pre_cadastro(nome,email,nivel_escolaridade_fk,data_criacao,situacao) values(nome,email,escolaridade,now(),0);
+		set cod_usuario = (select a.cod_usuario from us_pre_cadastro a where a.email = email);
     
-    set cod_usuario = (select a.cod_usuario from us_pre_cadastro a where a.email = email);
+		insert into us_acesso(cod_usuario_fk, login, senha, situacao) values (cod_usuario, email, senha, 1);
     
-    insert into us_acesso(cod_usuario_fk, login, senha, situacao) values (cod_usuario, email, senha, 0);
+		select '0' as cod, 'Pré-cadastro realizado com sucesso.<br>As informações de acesso ao sistema, foram enviadas ao email do novo membro.' as msg;
+	else
+		-- fluxo normal
+		insert into us_pre_cadastro(nome,email,nivel_escolaridade_fk,data_criacao,situacao,adm) values(nome,email,escolaridade,now(),0,0);
     
-    select '0' as cod, 'Seu pré-cadastro foi realizado com sucesso.<br>Aguarde até que ele seja aceito.' as msg;
+		set cod_usuario = (select a.cod_usuario from us_pre_cadastro a where a.email = email);
+    
+		insert into us_acesso(cod_usuario_fk, login, senha, situacao) values (cod_usuario, email, senha, 0);
+    
+		select '0' as cod, 'Seu pré-cadastro foi realizado com sucesso.<br>Aguarde até que ele seja aceito.' as msg;
+	end if;
+    
     
     
     -- us_acesso situacooes = 0)Bloqueado 1)Ativo
@@ -1691,14 +1775,14 @@ BEGIN
 
 		if filtro = 1 then
 			
-            select cod_nivel,descricao as escolaridade, data_criacao
+            select cod_nivel,descricao as escolaridade, date_format(data_criacao, "%d/%m/%Y %H:%i:%s") as data_criacao 
             from nivel_escolaridade
             where descricao like pesquisa
             order by data_criacao desc;
         
         else 
         
-			select cod_nivel,descricao as escolaridade, data_criacao
+			select cod_nivel,descricao as escolaridade, date_format(data_criacao, "%d/%m/%Y %H:%i:%s")  as data_criacao 
             from nivel_escolaridade
             order by data_criacao desc;
 			
@@ -1706,7 +1790,7 @@ BEGIN
 		
     else 
     
-		select cod_nivel,descricao as escolaridade, data_criacao
+		select cod_nivel,descricao as escolaridade, date_format(data_criacao, "%d/%m/%Y %H:%i:%s")  as data_criacao 
 		from nivel_escolaridade
 		where cod_nivel = cod_escolaridade
 		order by data_criacao desc;
@@ -1791,9 +1875,9 @@ BEGIN
 		
     else 
     
-		select a.cod_material as cod, a.titulo_artigo, a.titulo_periodico, a.autor, a.volume, arquivo, CONCAT(mes,'-',ano) as mes_ano, CONCAT(a.pagina_inicial,'-',a.pagina_final) as pagina, b.nome as usuario, date_format(a.data_pesquisa, "%d/%m/%Y") as data_pesquisa
+		select a.cod_material as cod,a.numero, a.base, a.titulo_artigo, a.titulo_periodico, a.autor, a.volume, arquivo,mes,ano, CONCAT(mes,'-',ano) as mes_ano, CONCAT(a.pagina_inicial,'-',a.pagina_final) as pagina, b.nome as usuario, date_format(a.data_pesquisa, "%d/%m/%Y") as data_pesquisa,a.pagina_inicial,a.pagina_final,date_format(a.data_pesquisa, "%Y-%m-%d") as dt_pesq
 		from ltr_material_leitura a
-			inner join us_usuario b on a.cod_usuario_fk = a.cod_usuario
+			inner join us_usuario b on a.cod_usuario_fk = a.cod_usuario_fk
 		where a.cod_material = cod_leitura
 		order by data_criacao desc;
     
@@ -1826,14 +1910,75 @@ BEGIN
 		case when b.tipo_usuario_fk is null then e.cod_nivel else d.cod_nivel end as escolaridade,
 		case when b.tipo_usuario_fk is null then e.descricao else d.descricao end as escolaridade_descricao,
         a.situacao as pre_cadastro, -- 0-pendente 1-aceito 2-rejeitado
-		acesso.situacao as ativo -- 0-inativo 1-ativo
+		acesso.situacao as ativo, -- 0-inativo 1-ativo
+        a.adm
 	from us_pre_cadastro a
 		left join us_usuario b on a.cod_usuario = b.cod_usuario
 		left join us_tipo_usuario c on b.tipo_usuario_fk = c.cod_tipo
 		left join nivel_escolaridade d on d.cod_nivel = b.nivel_escolaridade_fk -- membro/adm
 		left join nivel_escolaridade e on e.cod_nivel = a.nivel_escolaridade_fk -- precadastro
-        inner join us_acesso acesso on acesso.cod_usuario_fk = a.cod_usuario;
+        inner join us_acesso acesso on acesso.cod_usuario_fk = a.cod_usuario
+    where cod_tipo <> 1 or cod_tipo is null;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `us_buscarQuestionarios_sp` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarQuestionarios_sp`(
+	questionario int
+)
+proc_name:
+BEGIN
+	
+	declare while_i int;
+    declare while_max int;
+    declare num_qst2 int;
     
+	if questionario = 0 then
+    begin
+		select a.cod_questionario, a.descricao, a.status_questionario,b.nome,date_format(a.data_criacao, "%d/%m/%Y %H:%i:%s") as data_criacao
+		from qst_questionario a
+			inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario;
+	end;
+    else
+    begin
+			CREATE TEMPORARY TABLE finalQest AS (
+				select a.descricao as titulo, b.cod as id,is_sub, case when is_sub = 0 then 0 else c.cod_questao end as parent, b.desc_pergunta as name, 1 as num_qst
+				from qst_questionario a
+						inner join qst_questao1 b on a.cod_questionario = b.cod_questionario
+					inner join qst_questao_dependencia c on c.cod_questao_dependente = b.cod
+				where a.cod_questionario = questionario order by b.cod asc
+            );
+
+
+			set @while_i = (select min(id) from finalQest);
+            set @while_max = (select max(id) from finalQest);
+
+            
+            WHILE @while_i < @while_max DO
+                    
+					update finalQest set num_qst = @num_qst2 where id = while_i and is_sub = 0;
+                    
+                    set @num_qst2 = (select max(num_qst) from finalQest) + 1;
+                    
+                    set @while_i = @while_i + 1;
+			END WHILE;
+
+            select * from finalQest;
+             drop table finalQest;
+	end;
+    end if;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1850,4 +1995,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-30 17:19:44
+-- Dump completed on 2019-09-13 17:12:40

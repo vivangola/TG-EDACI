@@ -44,6 +44,16 @@ return [
                     ],
                 ],
             ],
+            'buscar-questionario' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route'    => '/questionario/buscar-questionario',
+                    'defaults' => [
+                        'controller' => Controller\QuestionarioController::class,
+                        'action'     => 'buscarQuestionario',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [

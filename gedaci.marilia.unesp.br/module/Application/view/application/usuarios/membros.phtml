@@ -52,7 +52,11 @@
                                                                                          "<button type='button' class='btn btn-primary4' style='width:100%' onClick=aceitar('".$dados['cod']."','2')>RECUSAR <i class='pointer fa fa-times'></i></button>");
                                                         $relatorio->definirVariavel('1', "");
                                                     }else if($dados['pre_cadastro'] == '1'){
-                                                        $relatorio->definirVariavel('2', "<font style='color:green'>ACEITO <i class='pointer fa fa-check'></i></font>");
+                                                        if($dados['adm'] == '1'){
+                                                            $relatorio->definirVariavel('2', "<font style='color:#629bad'>Pré-cadastrado pelo Administrador</font>");
+                                                        }else{
+                                                            $relatorio->definirVariavel('2', "<font style='color:#629bad'>Aceito <i class='pointer fa fa-check'></i></font>");
+                                                        }
                                                         if($dados['ativo'] == "0"){
                                                             $relatorio->definirVariavel('1', '<div class="switch_box box_1"><input type="checkbox" class="switch_1" id="alterar_status" onchange=ativar("'.$dados['cod'].'",this) name="alterar_status"></div>');
                                                         }else{
@@ -60,7 +64,7 @@
                                                         }
                                                         
                                                     }else if($dados['pre_cadastro'] == '2'){
-                                                        $relatorio->definirVariavel('2', "<font style='color:red'>RECUSADO <i class='pointer fa fa-times'></i></font>");
+                                                        $relatorio->definirVariavel('2', "<font style='color:#629bad'>Recusado <i class='pointer fa fa-times'></i></font>");
                                                         $relatorio->definirVariavel('1', "");
                                                     }
                                                     

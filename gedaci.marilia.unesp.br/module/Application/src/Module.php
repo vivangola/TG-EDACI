@@ -104,6 +104,11 @@ class Module
             'Cadastro\Controller\CadastroController',
         );
         
+        $pre_cadastro_actions_permitidas = array(
+            'bem-vindo',
+            'inicial'
+        );
+        
         $params = $controller->params()->fromPost();
         
         //log acessos
@@ -126,7 +131,7 @@ class Module
                 return $controller->redirect()->toUrl("/login");
             }else{
                 if($sessao->tipo_usuario == 0){
-                    if($action != 'bem-vindo' && $action != 'inicial'){
+                    if(!in_array($action, $pre_cadastro_actions_permitidas)){
                         return $controller->redirect()->toUrl("/bem-vindo");
                     }
                 }

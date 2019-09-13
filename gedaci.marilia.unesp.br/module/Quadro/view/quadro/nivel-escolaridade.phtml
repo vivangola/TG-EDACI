@@ -99,6 +99,7 @@
             </div>
             <div class="modal-body">
                 <form>
+                    <input type="hidden" class="form-control" id="edit_cod_escolaridade">
                     <div class="form-group">
                         <label for="edit_escolaridade" class="col-form-label">Nível Escolaridade:</label>
                         <input type="text" class="form-control" id="edit_escolaridade">
@@ -169,8 +170,8 @@
     
     function showEdit(cod){
         $.ajax({
-            url: '/avisos/showEdit',
-            data: {cod_aviso : cod},
+            url: '/escolaridade/showEdit',
+            data: {cod_nivel : cod},
             type: 'json',
             method: 'POST',
             beforeSend: function () {
@@ -180,21 +181,14 @@
                 retorno = JSON.parse(retorno);
                 Swal.close();
                 if(retorno.response){
-                    
-                    $('#edit_cod').val(retorno.result['cod_aviso']);
-                    $('#edit_assunto').val(retorno.result['aviso_assunto']);
-                    $('#edit_desc').val(retorno.result['aviso_desc']);
-                    $('#edit_escolaridade option[value="'+retorno.result['cod_nivel']+'"]').attr('selected','true');
-                    $('#edit_dtini').val(retorno.result['date_ini']);
-                    $('#edit_dtfim').val(retorno.result['date_fim']);
-                    $('#edit_hini').val(retorno.result['inicio_hora']);
-                    $('#edit_hfim').val(retorno.result['fim_hora']);
+                    $('#edit_cod_escolaridade').val(retorno.escolaridade['cod_nivel']);
+                    $('#edit_escolaridade').val(retorno.escolaridade['escolaridade']);
                     
                     $('#modalEdit').modal('show');
                 }else{
                     Swal.fire({
                         title: 'Atenção!',
-                        html: 'Aviso não encontrado.',
+                        html: 'Nível de Escolaridade não encontrado.',
                         type: 'info'
                     });
                 }
@@ -205,19 +199,13 @@
     function edit(){
         
         var data = {
-            cod                  : $('#edit_cod').val(),
-            edit_assunto         : $('#edit_assunto').val(),
-            edit_desc            : $('#edit_desc').val(),
-            edit_escolaridade    : $('#edit_escolaridade').val(),
-            edit_dtini           : $('#edit_dtini').val(),
-            edit_dtfim           : $('#edit_dtfim').val(),
-            edit_hini            : $('#edit_hini').val(),
-            edit_hfim            : $('#edit_hfim').val()
+            cod         : $('#edit_cod_escolaridade').val(),
+            edit_desc   : $('#edit_escolaridade').val()
         };
         
         if(validaParametros(data)){
             $.ajax({
-                url: '/avisos/edit',
+                url: '/escolaridade/edit',
                 data: data,
                 type: 'json',
                 method: 'POST',
@@ -227,7 +215,7 @@
                 success: function (retorno) {
                     Swal.fire({
                         title: 'Sucesso!',
-                        html: 'Aviso editado com sucesso.',
+                        html: 'Nível de Escolaridade editado com sucesso.',
                         type: 'success',
                         onClose: () => {
                             window.location.reload();
@@ -246,8 +234,8 @@
             showCancelButton: true,
             preConfirm: () => {
                 $.ajax({
-                    url: '/avisos/delete',
-                    data: {cod_aviso : cod},
+                    url: '/escolaridade/delete',
+                    data: {cod_nivel : cod},
                     type: 'json',
                     method: 'POST',
                     beforeSend: function () {

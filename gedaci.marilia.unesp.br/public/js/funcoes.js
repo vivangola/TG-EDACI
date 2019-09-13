@@ -28,6 +28,22 @@ function validarHoras(hora) {
         return false;
     }
 }
+
+function validarData(data) {
+    var isValid = data.match(/^\d{4}-\d{2}-\d{2}$/g);
+    if(!isValid){
+        return false;
+    }
+    
+    var d = new Date(data);
+    var dNum = d.getTime();
+    if(!dNum && dNum !== 0){
+        return false;
+    } 
+    
+    return d.toISOString().slice(0,10) === data;
+}
+
 function getSemana(semana){
     
     switch (semana){

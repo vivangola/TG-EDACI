@@ -198,11 +198,7 @@ class PreCadastroController extends AbstractActionController
             $mail->Body = 'CONTEUDO';
             $mail->send();
         } catch (Exception $e) {
-                echo "<pre>";
-                var_dump($e->getMessage());
-                echo "</pre>";
-                exit;
+                
         }
-        exit;
     }
 }

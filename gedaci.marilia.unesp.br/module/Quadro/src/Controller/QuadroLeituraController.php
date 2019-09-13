@@ -9,6 +9,7 @@ namespace Quadro\Controller;
 
 use Application\Classes\Funcoes;
 use Application\Classes\Relatorio;
+use Zend\Json\Json;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\Container;
 use Zend\View\Model\ViewModel;
@@ -55,5 +56,140 @@ class QuadroLeituraController extends AbstractActionController
         
         $view->setTemplate('quadro/quadro-leitura');
         return $view;
+    }
+    
+    public function addAction(){
+        $funcoes = new Funcoes($this);
+        $sessao = new Container("usuario");
+        
+        $response = $this->getResponse();
+        $request = $this->getRequest();
+        
+        if($request->isPost()){
+            $params = array(
+                'usuario'           => $sessao->cod_usuario,
+                'base'              => $this->params()->fromPost('add_base', ''), 
+                'data_pesquisa'     => $this->params()->fromPost('add_datapesq', ''), 
+                'titulo_periodico'  => $this->params()->fromPost('add_periodico', ''), 
+                'ano'               => $this->params()->fromPost('add_ano', ''), 
+                'mes'               => $this->params()->fromPost('add_mes', ''), 
+                'volume'            => $this->params()->fromPost('add_volume', ''), 
+                'numero'            => $this->params()->fromPost('add_numero', ''), 
+                'titulo_artigo'     => $this->params()->fromPost('add_artigo', ''), 
+                'autor'             => $this->params()->fromPost('add_autor', ''), 
+                'pagina_inicial'    => $this->params()->fromPost('add_pginicial', ''), 
+                'pagina_final'      => $this->params()->fromPost('add_pgfim', ''), 
+                'interesse'         => $this->params()->fromPost('add_interesse', ''), 
+                //'arquivo'           => $this->params()->fromPost('arquivo', ''), 
+            ); 
+            
+            $arquivo = $this->params()->fromFiles('add_arquivo', '');
+            
+            $ext = pathinfo($arquivo['name'], PATHINFO_EXTENSION);
+            
+            $dir = $_SERVER['DOCUMENT_ROOT']. '/arquivos/leitura/';
+            
+            $params['arquivo_nome'] = 'material-' . date("Y-m-d-H-m-s") . '.' . $ext;
+            
+            $destino = $dir . $params['arquivo_nome'];
+            
+            move_uploaded_file($arquivo['tmp_name'], $destino);
+            
+            $sql = "insert into ltr_material_leitura(cod_usuario_fk, base, data_pesquisa, titulo_periodico, ano, mes, volume, numero, titulo_artigo, autor, pagina_inicial, pagina_final, interesse, arquivo, data_criacao) " .
+                        "values(:usuario, :base, :data_pesquisa, :titulo_periodico, :ano, :mes, :volume, :numero, :titulo_artigo, :autor, :pagina_inicial, :pagina_final, :interesse, :arquivo_nome, now());";
+            $funcoes->executarSQL($sql,$params);
+            
+            return $response->setContent(Json::encode(array('response' => true, 'msg' => 'Material Adicionado.')));
+        }else{
+            return $response->setContent(Json::encode(array('response' => false)));
+        }
+    }
+    
+    public function showEditAction(){
+        $funcoes = new Funcoes($this);
+        $sessao = new Container("usuario");
+        
+        $response = $this->getResponse();
+        $request  = $this->getRequest();
+        
+        if($request->isPost()){
+            $params = array(
+                'usuario'   => $sessao->cod_usuario,
+                'cod'       => $this->params()->fromPost('cod', '-1'),
+            );
+
+            $sql = "call us_buscarLeitura_sp('','',:cod)";
+            $result = $funcoes->executarSQL($sql,$params,'');
+
+            return $response->setContent(Json::encode(array('response' => true, 'result' => $result)));
+        }else{
+            header('Location: /quadro-leitura');
+            exit;
+        }
+    }
+    
+    public function editAction(){
+        $funcoes = new Funcoes($this);
+        $sessao = new Container("usuario");
+        
+        $response = $this->getResponse();
+        $request = $this->getRequest();
+        
+        if($request->isPost()){
+            $params = array(
+                'usuario'           => $sessao->cod_usuario,
+                'cod'               => $this->params()->fromPost('cod'),
+                'base'              => $this->params()->fromPost('base', ''), 
+                'data_pesquisa'     => $this->params()->fromPost('data_pesq', ''), 
+                'titulo_periodico'  => $this->params()->fromPost('titulo_periodico', ''), 
+                'ano'               => $this->params()->fromPost('ano', ''), 
+                'mes'               => $this->params()->fromPost('mes', ''), 
+                'volume'            => $this->params()->fromPost('volume', ''), 
+                'numero'            => $this->params()->fromPost('numero', ''), 
+                'titulo_artigo'     => $this->params()->fromPost('titulo_artigo', ''), 
+                'autor'             => $this->params()->fromPost('autor', ''), 
+                'pagina_inicial'    => $this->params()->fromPost('pginicial', ''), 
+                'pagina_final'      => $this->params()->fromPost('pgfim', ''), 
+                'interesse'         => $this->params()->fromPost('interesse', ''), 
+                //'arquivo'           => $this->params()->fromPost('arquivo', ''), 
+            ); 
+            
+            /*
+            $arquivo = $this->params()->fromFiles('add_arquivo', '');
+            
+            $ext = pathinfo($arquivo['name'], PATHINFO_EXTENSION);
+            
+            $dir = $_SERVER['DOCUMENT_ROOT']. '/arquivos/leitura/';
+            
+            $params['arquivo_nome'] = 'material-' . date("Y-m-d-H-m-s") . '.' . $ext;
+            
+            $destino = $dir . $params['arquivo_nome'];
+            
+            move_uploaded_file($arquivo['tmp_name'], $destino);
+            */
+            
+            $sql = "update ltr_material_leitura set base = :base, data_pesquisa =:data_pesquisa, titulo_periodico =:titulo_periodico, ano=:ano, mes=:mes, volume=:volume, numero=:numero, titulo_artigo=:titulo_artigo, autor=:autor, pagina_inicial =:pagina_inicial, pagina_final =:pagina_final, interesse=:interesse where cod_material =:cod";
+            $funcoes->executarSQL($sql,$params);
+            
+            return $response->setContent(Json::encode(array('response' => true, 'msg' => 'Alterado com sucesso.')));
+        }else{
+            return $response->setContent(Json::encode(array('response' => false)));
+        }
+    }
+    
+    public function deleteAction(){
+        $funcoes = new Funcoes($this);
+        $sessao = new Container("usuario");
+        
+        $response = $this->getResponse();
+        
+        $params = array(
+            'cod'   => $this->params()->fromPost('cod', ''),
+        );
+        
+        $sql = "delete from ltr_material_leitura where cod_material =:cod";
+        $funcoes->executarSQL($sql,$params);
+        
+        return $response->setContent(Json::encode(array('response' => true, 'msg' => 'Material deletado.')));
     }
 }

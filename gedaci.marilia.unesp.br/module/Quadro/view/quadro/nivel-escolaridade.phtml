@@ -121,9 +121,10 @@
             "language": {
                 "url": "js/datatable/pt-br.json"
             },
-            "columnDefs": [ { "orderable": false, "targets": [5,6] }],
+            //"columnDefs": [ { "orderable": false, "targets": [5,6] }],
             "lengthChange": false,
-            "searching": false
+            "searching": false,
+            "ordering": false,
         });
     });
     
@@ -200,7 +201,7 @@
         
         var data = {
             cod         : $('#edit_cod_escolaridade').val(),
-            edit_desc   : $('#edit_escolaridade').val()
+            edit_desc   : $('#assunto').val()
         };
         
         if(validaParametros(data)){
@@ -221,7 +222,7 @@
                             window.location.reload();
                         }
                     });
-                },
+                }
             });
         }
     }

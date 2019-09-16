@@ -89,17 +89,26 @@ class QuadroLeituraController extends AbstractActionController
             
             $dir = $_SERVER['DOCUMENT_ROOT']. '/arquivos/leitura/';
             
+            if(!file_exists($dir)){
+                mkdir($dir, 0777);
+            }
+            
             $params['arquivo_nome'] = 'material-' . date("Y-m-d-H-m-s") . '.' . $ext;
             
             $destino = $dir . $params['arquivo_nome'];
             
             move_uploaded_file($arquivo['tmp_name'], $destino);
             
-            $sql = "insert into ltr_material_leitura(cod_usuario_fk, base, data_pesquisa, titulo_periodico, ano, mes, volume, numero, titulo_artigo, autor, pagina_inicial, pagina_final, interesse, arquivo, data_criacao) " .
-                        "values(:usuario, :base, :data_pesquisa, :titulo_periodico, :ano, :mes, :volume, :numero, :titulo_artigo, :autor, :pagina_inicial, :pagina_final, :interesse, :arquivo_nome, now());";
-            $funcoes->executarSQL($sql,$params);
+            if(file_exists($destino)){
             
-            return $response->setContent(Json::encode(array('response' => true, 'msg' => 'Material Adicionado.')));
+                $sql = "insert into ltr_material_leitura(cod_usuario_fk, base, data_pesquisa, titulo_periodico, ano, mes, volume, numero, titulo_artigo, autor, pagina_inicial, pagina_final, interesse, arquivo, data_criacao) " .
+                            "values(:usuario, :base, :data_pesquisa, :titulo_periodico, :ano, :mes, :volume, :numero, :titulo_artigo, :autor, :pagina_inicial, :pagina_final, :interesse, :arquivo_nome, now());";
+                $funcoes->executarSQL($sql,$params);
+
+                return $response->setContent(Json::encode(array('response' => true, 'msg' => 'Material Adicionado.')));
+            } else{
+                return $response->setContent(Json::encode(array('response' => false, 'msg' => 'Erro ao adicionar o Material.')));    
+            }
         }else{
             return $response->setContent(Json::encode(array('response' => false)));
         }

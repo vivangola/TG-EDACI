@@ -77,18 +77,28 @@ class BibliotecaController extends AbstractActionController
             
             $dir = $_SERVER['DOCUMENT_ROOT']. '/arquivos/biblioteca/';
             
+            if(!file_exists($dir)){
+                mkdir($dir, 0777);
+            }
+            
             $params['arquivo_nome'] = 'material-' . date("Y-m-d-H-m-s") . '.' . $ext;
             
             $destino = $dir . $params['arquivo_nome'];
 
             move_uploaded_file($arquivo['tmp_name'], $destino);
-
-            $sql = "insert into biblioteca(cod_usuario_fk,conteudo,assunto_fk,arquivo,data_upload) " .
-                        "values(:usuario,:conteudo,:assunto,:arquivo_nome,now());";
-            $funcoes->executarSQL($sql,$params);
             
-            $funcoes->alertBasic('Material adicionado.', false, '/biblioteca', 'success', 'Sucesso!');
-            exit;
+            if(file_exists($destino)){
+
+                $sql = "insert into biblioteca(cod_usuario_fk,conteudo,assunto_fk,arquivo,data_upload) " .
+                            "values(:usuario,:conteudo,:assunto,:arquivo_nome,now());";
+                $funcoes->executarSQL($sql,$params);
+
+                $funcoes->alertBasic('Material adicionado.', false, '/biblioteca', 'success', 'Sucesso!');
+                exit;
+            }else{
+                $funcoes->alertBasic('Erro ao adicionar Material.', false, '/biblioteca', 'info', 'Ops...');
+                exit;
+            }
         }else{
             header('Location: /biblioteca');
             exit;

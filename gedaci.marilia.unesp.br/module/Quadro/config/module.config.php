@@ -114,6 +114,16 @@ return [
                     ],
                 ],
             ],
+            'assunto' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/assunto[/:action]',
+                    'defaults' => [
+                        'controller' => Controller\AssuntoController::class,
+                        'action'     => 'assunto',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
@@ -128,8 +138,8 @@ return [
             Controller\PlanoAtividadesController::class => InvokableFactory::class,
             Controller\PlanoMetasController::class => InvokableFactory::class,
             Controller\EscolaridadeController::class => InvokableFactory::class,
+            Controller\AssuntoController::class => InvokableFactory::class,
             Controller\ProducaoGrupoController::class => InvokableFactory::class,
-            
         ],
     ],
     'view_manager' => [

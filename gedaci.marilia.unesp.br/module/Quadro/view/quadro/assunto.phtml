@@ -7,19 +7,18 @@
                         <div class="col-md-12 ">
                             <div class="box">                           
                                 <div class="icon">
-                                    <div class="image back-primary3"><i class="fa fa-book"></i>&nbsp;<label class="title">Biblioteca</label></div>
+                                    <div class="image back-primary3"><i class="fa fa-book"></i>&nbsp;<label class="title">Assuntos</label></div>
                                     <div class="info" style="min-height:450px">
                                         <div class="row" style="padding-left: 10px;padding-right: 10px;margin-top: 10px;margin-bottom: 20px;">
-                                            <form action="/biblioteca" method="post" enctype="">
+                                            <form action="/assunto" method="post" enctype="">
                                                 <div class="col-md-6 col-sm-4 col-xs-8">
                                                     <input type="text" name="pesquisa" placeholder="Pesquisar" class="form-control" value="<?= $pesq != '' ? $pesq : '' ?>">
                                                 </div>  
                                                 <div class="col-md-2 col-sm-2 col-xs-4">
                                                     <select class="form-control" name="filtros">
                                                         <option value="-1">Todos</option>
-                                                        <option value="1" <?= $filtro == '1' ? 'selected' : '' ?>>Conteúdo</option>
+                                                        <option value="1" <?= $filtro == '1' ? 'selected' : '' ?>>Assunto</option>
                                                         <option value="2" <?= $filtro == '2' ? 'selected' : '' ?>>Usuário</option>
-                                                        <option value="3" <?= $filtro == '3' ? 'selected' : '' ?>>Assunto</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-2 col-sm-3 col-xs-6">
@@ -42,9 +41,8 @@
                                             if (!empty($result)) {
                                                 foreach ($result as $dados) {
                                                     
-                                                    $relatorio->definirVariavel('1', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showFile('".$dados['arquivo']."')><i class='pointer fa fa-download'></i></button>");
-                                                    $relatorio->definirVariavel('2', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showEdit('".$dados['cod']."')><i class='pointer fa fa-edit'></i></button>");
-                                                    $relatorio->definirVariavel('3', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showDelete('".$dados['cod']."')><i class='pointer fa fa-times'></i></button>");
+                                                    $relatorio->definirVariavel('1', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showEdit('".$dados['cod']."')><i class='pointer fa fa-edit'></i></button>");
+                                                    $relatorio->definirVariavel('2', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showDelete('".$dados['cod']."')><i class='pointer fa fa-times'></i></button>");
                                                     
                                                     $relatorio->gerarRelatorio($dados);
                                                 }
@@ -52,6 +50,7 @@
                                             $relatorio->gerarRodape();
                                             ?>
                                         </div>
+                                        <div id="diva-wrapper"></div>
                                     </div>
                                 </div>
                             </div>
@@ -67,30 +66,16 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Adicionar Material</h2>
+                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Adicionar novo Assunto</h2>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="form" action="/biblioteca/add" method="post" enctype="multipart/form-data">
+            <form id="form" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="add_conteudo" class="col-form-label">Conteúdo Sintético:</label>
-                        <input type="text"  class="form-control" id="add_conteudo" name="add_conteudo" title="Digite o Conteúdo Sintético."/>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-xs-6">
-                            <label for="add_assunto" class="col-form-label">Assunto:</label>
-                            <select id="add_assunto" class="form-control input-group-lg" name="add_assunto" title="Selecione o Assunto.">
-                                <?php foreach($assuntos as $dados): ?>
-                                        <option value="<?= $dados['cod'] ?>"> <?= $dados['assunto'] ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="add_arquivo" class="col-form-label">Arquivo: (pdf,doc,docx)</label>
-                        <input type="file" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="form-control" name="add_arquivo" id="add_arquivo">
+                        <label for="add_assunto" class="col-form-label">Assunto:</label>
+                        <input type="text"  class="form-control" id="add_assunto" name="add_assunto" title="Digite o Assunto."/>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -106,31 +91,17 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title color-primary2"><i class="fa fa-edit"></i>&nbsp;Editar Material</h2>
+                <h2 class="modal-title color-primary2"><i class="fa fa-edit"></i>&nbsp;Editar Ata</h2>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="form" method="post" enctype="multipart/form-data">
+            <form id="form" action="/atas/add" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
-                    <input type="hidden" id="edit_cod" name="edit_cod" />
+                    <input type="hidden" id="edit_cod">
                     <div class="form-group">
-                        <label for="edit_conteudo" class="col-form-label">Conteúdo Sintético:</label>
-                        <input type="text"  class="form-control" id="edit_conteudo" name="edit_conteudo" title="Digite o Conteúdo Sintético."/>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-xs-6">
-                            <label for="edit_assunto" class="col-form-label">Assunto:</label>
-                            <select id="edit_assunto" class="form-control input-group-lg" name="edit_assunto" title="Selecione o Assunto.">
-                                <?php foreach($assuntos as $dados): ?>
-                                        <option value="<?= $dados['cod'] ?>"> <?= $dados['assunto'] ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="edit_arquivo" class="col-form-label">Arquivo: (pdf,doc,docx)</label>
-                        <label class="form-control" name="edit_arquivo" id="edit_arquivo">Arquivo:</label>
+                        <label for="edit_assunto" class="col-form-label">Conteúdo Sintético:</label>
+                        <input type="text"  class="form-control" id="edit_assunto" name="edit_assunto" title="Digite o Assunto."/>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -149,10 +120,11 @@
             "language": {
                 "url": "js/datatable/pt-br.json"
             },
-            "pageLength": 10, 
             "ordering": false,
+            "order": [],
+            //"columnDefs": [ { "orderable": false, "targets": [3,4,5] }],
             "lengthChange": false,
-            "searching": false,
+            "searching": false
         });
     });
     
@@ -163,9 +135,7 @@
     function add(){
         
         var data = {
-            add_conteudo        : $('#add_conteudo').val(),
-            add_assunto         : $('#add_assunto').val(),
-            add_arquivo         : $('#add_arquivo').val()
+            add_assunto        : $('#add_assunto').val(),
         };
         
         if(!validaParametros(data)){
@@ -177,7 +147,35 @@
             return false;
         }
         
-        $('#form').submit();
+        $.ajax({
+            url: '/assunto/add',
+            data: data,
+            method: 'POST',
+            datatype: 'json',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                retorno = jQuery.parseJSON(retorno);
+                if (retorno.response) {
+                    Swal.fire({
+                        type: 'success',
+                        title: 'Sucesso!',
+                        text: retorno.msg,
+                        onClose: () => {
+                            loader();
+                            window.location.reload();
+                        }
+                    });
+                }
+            },
+            error: function () {
+
+            },
+            complete: function () {
+
+            }
+        });
     }
     
     function showDelete(cod){
@@ -188,8 +186,8 @@
             showCancelButton: true,
             preConfirm: () => {
                 $.ajax({
-                    url: '/biblioteca/delete',
-                    data: {cod : cod},
+                    url: '/assunto/delete',
+                    data: {cod_assunto : cod},
                     type: 'json',
                     method: 'POST',
                     beforeSend: function () {
@@ -198,7 +196,7 @@
                     success: function (retorno) {
                         Swal.fire({
                             title: 'Sucesso!',
-                            html: 'Material deletado.',
+                            html: 'Assunto deletado.',
                             type: 'success',
                             onClose: () => {
                                 window.location.reload();
@@ -212,8 +210,8 @@
     
     function showEdit(cod){
         $.ajax({
-            url: '/biblioteca/showEdit',
-            data: {cod : cod},
+            url: '/assunto/showEdit',
+            data: {cod_assunto : cod},
             type: 'json',
             method: 'POST',
             beforeSend: function () {
@@ -225,15 +223,13 @@
                 if(retorno.response){
                     
                     $('#edit_cod').val(retorno.result['cod']);
-                    $('#edit_conteudo').val(retorno.result['conteudo']);
-                    $('#edit_assunto option[value="'+retorno.result['cod_assunto']+'"]').attr('selected','true');
-                    $('#edit_arquivo').html('Arquivo: <a href="/arquivos/biblioteca/'+retorno.result['arquivo']+'"> '+retorno.result['arquivo']+' </a>');
+                    $('#edit_assunto').val(retorno.result['assunto']);
                     
                     $('#modalEdit').modal('show');
                 }else{
                     Swal.fire({
                         title: 'Atenção!',
-                        html: 'Material não encontrado.',
+                        html: 'Assunto não encontrado.',
                         type: 'info'
                     });
                 }
@@ -244,14 +240,9 @@
     function edit(){
         
         var data = {
-            cod                  : $('#edit_cod').val(),
-            edit_conteudo        : $('#edit_conteudo').val(),
-            edit_assunto         : $('#edit_assunto').val(),
-            //edit_h               : $('#edit_h').val()
+            cod_assunto         : $('#edit_cod').val(),
+            assunto             : $('#edit_assunto').val(),
         };
-        
-        console.log(data);
-        
         
         if(!validaParametros(data)){
             Swal.fire({
@@ -263,7 +254,7 @@
         }
         
         $.ajax({
-            url: '/biblioteca/edit',
+            url: '/assunto/edit',
             data: data,
             type: 'json',
             method: 'POST',
@@ -273,7 +264,7 @@
             success: function (retorno) {
                 Swal.fire({
                     title: 'Sucesso!',
-                    html: 'Material editado.',
+                    html: 'Assunto editado.',
                     type: 'success',
                     onClose: () => {
                         window.location.reload();
@@ -285,7 +276,7 @@
     }
     
     function showFile(arquivo){
-        window.open('/arquivos/biblioteca/'+arquivo,'_blank');
+        window.open('/arquivos/atas/'+arquivo,'_blank');
     }
 
 </script>

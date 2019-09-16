@@ -38,6 +38,10 @@ class LoginController extends AbstractActionController
             );
             $result = $funcao->executarSQL($sql,$params, '');
             
+            if($result['cod'] == '1'){
+                return $response->setContent(Json::encode(array('response' => false, 'msg' => $result['msg'])));
+            }
+            
             if($result['senha_usuario'] != md5($params['senha'])){
                 return $response->setContent(Json::encode(array('response' => false, 'msg' => 'Senha ou/e Login não estão corretos.')));
             }
@@ -52,6 +56,7 @@ class LoginController extends AbstractActionController
                 $sessao->nome_usuario = $result2['nome'];
                 $sessao->tipo_usuario = $result2['tipo_usuario'];
                 $sessao->tipo_usuario_desc = $result2['tipo_usuario_desc'];
+                $sessao->foto_perfil = $result2['nome_foto'];
 
                 return $response->setContent(Json::encode(array('response' => true)));
             }else{

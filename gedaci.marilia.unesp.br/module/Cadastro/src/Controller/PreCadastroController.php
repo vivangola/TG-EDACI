@@ -53,7 +53,11 @@ class PreCadastroController extends AbstractActionController
             
             $params['pass'] = $params['senha'];
             
-            $this->enviarEmail($params);
+            $envio = $this->enviarEmail($params);
+            
+            if(!$envio){
+                return $response->setContent(Json::encode(array('response' => false, 'msg' => 'Erro ao enviar o email. Contate o(s) Desenvolvedor(es).')));
+            }
             
             $params['senha'] = md5($params['senha']);
             
@@ -175,8 +179,6 @@ class PreCadastroController extends AbstractActionController
                     '</table>'.
                 '</body>';
         
-        echo $tabela;
-        
         $mail = new PHPMailer(true);
         try {
             $mail->isSMTP();
@@ -197,8 +199,9 @@ class PreCadastroController extends AbstractActionController
             $mail->Subject = 'TITULO';
             $mail->Body = 'CONTEUDO';
             $mail->send();
+            return true;
         } catch (Exception $e) {
-                
+            return false;
         }
     }
 }

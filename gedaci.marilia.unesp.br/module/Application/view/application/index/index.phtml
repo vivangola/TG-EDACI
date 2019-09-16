@@ -155,52 +155,10 @@ $sessao = new Container('usuario');
             "language": {
                 "url": "js/datatable/pt-br.json"
             },
-            "columnDefs": [ { "orderable": false, "targets": [0,1,2] }],
+            //"columnDefs": [ { "orderable": false, "targets": [0,1,2] }],
             "lengthChange": false,
-            "searching": false
+            "searching": false,
+            "ordering": false,
         });
     });
-    
-    function fotoPerfil(){
-        
-        $('#foto_perfil_brev').attr('src', '/arquivos/perfil/foto-perfil-<?= $sessao->cod_usuario ?>.jpg');
-        
-        $('#modalFoto').modal('show');
-    }
-    
-    function escolherFoto(input) {
-        
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            
-            var ext = input.files[0].name.split('.').pop().toLowerCase();
-            var isExt = ['png','jpg','jpeg'].indexOf(ext) > -1;
-            
-            if(!isExt){
-                Swal.fire({
-                    type    : 'info',
-                    title   : 'Oops...',
-                    html    : 'Escolha arquivos png, jpg ou jpeg.'
-                });
-                input.value = '';
-                $('#foto_perfil_brev').attr('src', '/arquivos/perfil/foto-perfil-<?= $sessao->cod_usuario ?>.jpg');
-                return false;
-            }
-
-            reader.onload = function (e) {
-                $('#foto_perfil_brev')
-                        .attr('src', e.target.result)
-                        .width(250)
-                        .height(250);
-            };
-
-            reader.readAsDataURL(input.files[0]);
-        }
-    }
-    
-    function salvar(){
-        $('#fotoPerfilForm').submit();
-        
-    }
-    
 </script>

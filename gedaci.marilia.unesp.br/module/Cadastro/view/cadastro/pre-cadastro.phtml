@@ -40,7 +40,7 @@
 
                                                 <div class="row">
                                                     <div class="col-md-12 text-left">
-                                                        <button type="submit" class="btn btn-primary3 btn-block info" onclick="">Enviar <i class="fa fa-check"></i></button>
+                                                        <button type="button" onClick="enviar()" class="btn btn-primary3 btn-block info" onclick="">Enviar <i class="fa fa-check"></i></button>
                                                     </div>
                                                 </div>    
                                             </form>
@@ -75,37 +75,36 @@
     
     function enviar(){
         $.ajax({
-        url: '/pre-cadastro/novo',
-        data: {
-            nome            : $('#nome').val(),
-            email           : $('#senha').val(),
-            escolaridade    : $('#escolaridade').val()
-        },
-        method: 'POST',
-        datatype: 'json',
-        beforeSend: function () {
-            loader();
-        },
-        success: function (retorno) {
-            retorno = jQuery.parseJSON(retorno);
-            if (!retorno.response) {
-                Swal.fire({
-                    type: 'error',
-                    title: 'Oops...',
-                    text: retorno.msg,
-                    footer: '<a href>Esqueceu a senha?</a>'
-                });
-            }else{
-                window.location.href = "/";
+            url: '/pre-cadastro/novo',
+            data: {
+                nome            : $('#nome').val(),
+                email           : $('#senha').val(),
+                escolaridade    : $('#escolaridade').val()
+            },
+            method: 'POST',
+            datatype: 'json',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                retorno = jQuery.parseJSON(retorno);
+                if (!retorno.response) {
+                    Swal.fire({
+                        type: 'info',
+                        title: 'Oops...',
+                        text: retorno.msg,
+                    });
+                }else{
+                    window.location.href = "/";
+                }
+            },
+            error: function () {
+
+            },
+            complete: function () {
+
             }
-        },
-        error: function () {
-
-        },
-        complete: function () {
-
-        }
-    });
+        });
     }
     
     

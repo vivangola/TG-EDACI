@@ -75,18 +75,28 @@ class AtasController extends AbstractActionController
             
             $dir = $_SERVER['DOCUMENT_ROOT']. '/arquivos/atas/';
             
+            if(!file_exists($dir)){
+                mkdir($dir, 0777);
+            }
+            
             $params['arquivo_nome'] = 'ata-' . date("Y-m-d-H-m-s") . '.' . $ext;
             
             $destino = $dir . $params['arquivo_nome'];
 
             move_uploaded_file($arquivo['tmp_name'], $destino);
-
-            $sql = "insert into reu_atas(data_inclusao,conteudo,texto,data,usuario_fk) " .
-                        "values(now(),:conteudo,:arquivo_nome,:dt,:usuario);";
-            $funcoes->executarSQL($sql,$params);
             
-            $funcoes->alertBasic('Ata adicionada.', false, '/atas', 'success', 'Sucesso!');
-            exit;
+            if(file_exists($destino)){
+
+                $sql = "insert into reu_atas(data_inclusao,conteudo,texto,data,usuario_fk) " .
+                            "values(now(),:conteudo,:arquivo_nome,:dt,:usuario);";
+                $funcoes->executarSQL($sql,$params);
+
+                $funcoes->alertBasic('Ata adicionada.', false, '/atas', 'success', 'Sucesso!');
+                exit;
+            }else{
+                $funcoes->alertBasic('Erro ao adicionar Ata.', false, '/atas', 'info', 'Ops...');
+                exit;
+            }
         }else{
             header('Location: /atas');
             exit;

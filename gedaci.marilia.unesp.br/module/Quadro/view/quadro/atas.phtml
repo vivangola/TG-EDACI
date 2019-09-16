@@ -147,12 +147,13 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-        $('#tabela').DataTable({
+        $('#relatorio').DataTable({
             "language": {
                 "url": "js/datatable/pt-br.json"
             },
+            "ordering": false,
             "order": [],
-            "columnDefs": [ { "orderable": false, "targets": [3,4,5] }],
+            //"columnDefs": [ { "orderable": false, "targets": [3,4,5] }],
             "lengthChange": false,
             "searching": false
         });

@@ -26,10 +26,6 @@ class PerfilController extends AbstractActionController
         $sql = "call us_buscarDadosPrincipal_sp (:cod_usuario)";
         $result = $funcoes->executarSQL($sql, $params, '');
         
-        echo "<pre>";
-        var_dump($result);
-        echo "</pre>";
-        
         $sql = "select cod_nivel,descricao from nivel_escolaridade order by descricao";
         $escolaridades = $funcoes->executarSQL($sql,[]);
         
@@ -52,27 +48,38 @@ class PerfilController extends AbstractActionController
         
         if($request->isPost()){
             $params = array(
-                'usuario'       => $sessao->cod_usuario
+                'usuario'   => $sessao->cod_usuario
             );
             
             $arquivo = $this->params()->fromFiles('foto_perfil_file', '');
             
-            $ext = pathinfo($arquivo['name'], PATHINFO_EXTENSION);
-            
             $dir = $_SERVER['DOCUMENT_ROOT']. '/arquivos/perfil/';
             
-            $params['arquivo_nome'] = 'foto-perfil-' . $params['usuario'] . '.' . 'jpg';
+            if(!file_exists($dir)){
+                mkdir($dir, 0777);
+            }
             
+            //nome para a foto de perfil
+            $params['arquivo_nome'] = 'foto-perfil' . '-' . $params['usuario'] . '-' . date('y-m-d-H-i-s') . '.' . 'jpg';
+            
+            // destino
             $destino = $dir . $params['arquivo_nome'];
             
-            if(file_exists($destino)){
-                unlink($destino);
-            }
-
+            //mover para a pasta
             move_uploaded_file($arquivo['tmp_name'], $destino);
-
-            $funcoes->alertBasic('Foto de Perfil alterada com sucesso.', false, '/', 'success', 'Sucesso!');
-            exit;
+            
+            if(file_exists($destino)){
+                unlink($dir . $sessao->foto_perfil);
+                
+                $sessao->foto_perfil = $params['arquivo_nome'];
+                
+                $sql = "update us_foto_perfil set nome_foto =:arquivo_nome where cod_usuario_fk =:usuario";
+                $funcoes->executarSQL($sql, $params);
+                
+                return $response->setContent(Json::encode(array('response' => true, 'msg' => 'Foto de Perfil alterada com sucesso.', 'nova_img' => $destino)));
+            }else{
+                return $response->setContent(Json::encode(array('response' => false, 'msg' => 'Erro ao salvar a foto de perfil.')));
+            }
         }else{
             header('Location: /');
             exit;

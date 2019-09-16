@@ -12,7 +12,7 @@ $sessao = new Container('usuario');
 
             <div class="btn-topo">
                 <div class="img-perfil" style="margin-botton: -10px">
-                    <img class="img img-Professor" src="/arquivos/perfil/foto-perfil-<?= $sessao->cod_usuario ?>.jpg" onerror="$(this).attr('src','/img/semfoto.png');">
+                    <img class="img img-Professor" src="/arquivos/perfil/<?= $sessao->foto_perfil ?>" onerror="$(this).attr('src','/img/semfoto.png');">
                     <a onclick="fotoPerfil();" title="Alterar Foto" class="pointer"><span class="fa fa-camera"></span></a>
                 </div>
                 <ul class="nav Professor-id nav-id height-padrao">
@@ -153,7 +153,9 @@ $sessao = new Container('usuario');
     
     function fotoPerfil(){
         
-        $('#foto_perfil_brev').attr('src', '/arquivos/perfil/foto-perfil-<?= $sessao->cod_usuario ?>.jpg');
+        $('#foto_perfil_brev').attr('src', "/arquivos/perfil/<?= $sessao->foto_perfil ?>");
+        
+        console.log('adas');
         
         $('#modalFoto').modal('show');
     }
@@ -173,7 +175,7 @@ $sessao = new Container('usuario');
                     html    : 'Escolha arquivos png, jpg ou jpeg.'
                 });
                 input.value = '';
-                $('#foto_perfil_brev').attr('src', '/arquivos/perfil/foto-perfil-<?= $sessao->cod_usuario ?>.jpg');
+                $('#foto_perfil_brev').attr('src', "/arquivos/perfil/<?= $sessao->foto_perfil ?>");
                 return false;
             }
 
@@ -189,8 +191,37 @@ $sessao = new Container('usuario');
     }
     
     function salvar(){
-        $('#fotoPerfilForm').submit();
-        
+    
+        var options = {
+            url: '/perfil/fotoPerfil',
+            type: 'POST',
+            dataType: 'json',
+            cache: false,
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                if (retorno.response) {
+                    Swal.fire({
+                        title: 'Sucesso!',
+                        html: retorno.msg,
+                        type: 'success',
+                        onClose: () => {
+                            window.location.reload();
+                        }
+                    });
+                }else{
+                    Swal.fire({
+                        title: 'Ops...',
+                        html: retorno.msg,
+                        type: 'info'
+                    });
+                }
+            },
+        };
+
+        $('#fotoPerfilForm').ajaxSubmit(options);
+        return false;
     }
 
 </script>

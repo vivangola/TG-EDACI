@@ -41,7 +41,7 @@
                                             if ($membros) {
                                                 foreach ($membros as $dados) {
                                                     
-                                                    $relatorio->definirVariavel('0', '<img style="height:80px;width:80px" src="/arquivos/perfil/foto-perfil-' . $dados['cod'] . '.jpg" onerror=$(this).attr("src","/img/semfoto.png")>');
+                                                    $relatorio->definirVariavel('0', '<img style="height:80px;width:80px" src="' . $dados['nome_foto'] . '" onerror=$(this).attr("src","/img/semfoto.png")>');
                                                     
                                                     if($dados['ativo'] == 1){
                                                         
@@ -97,14 +97,15 @@
             "language": {
                 "url": "js/datatable/pt-br.json"
             },
-            "columnDefs": [ { "orderable": false, "targets": [5,6] }],
+            //"columnDefs": [ { "orderable": false, "targets": [5,6] }],
             "lengthChange": false,
-            "searching": false
+            "searching": false,
+            "ordering": false,
         });
     });
     
     function showAdd(){
-        $('#modalAdd').modal('show');
+        window.location.href = '/pre-cadastro';
     }
     
     function aceitar(usuario,aceitar){

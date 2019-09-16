@@ -98,7 +98,7 @@ CREATE TABLE `biblioteca` (
 
 LOCK TABLES `biblioteca` WRITE;
 /*!40000 ALTER TABLE `biblioteca` DISABLE KEYS */;
-INSERT INTO `biblioteca` VALUES (5,4,'teste2',1,'material-2019-08-05-16-08-06.docx','2019-08-05 11:10:06'),(6,4,'teste',1,'material-2019-09-03-19-09-11.doc','2019-09-03 14:59:11'),(7,4,'',0,'material-2019-09-04-16-09-15.','2019-09-04 11:34:15');
+INSERT INTO `biblioteca` VALUES (7,4,'',0,'material-2019-09-04-16-09-15.','2019-09-04 11:34:15');
 /*!40000 ALTER TABLE `biblioteca` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -115,7 +115,7 @@ CREATE TABLE `biblioteca_assunto` (
   `assunto` varchar(200) DEFAULT NULL,
   `data_inclusao` datetime DEFAULT NULL,
   PRIMARY KEY (`cod`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -124,7 +124,6 @@ CREATE TABLE `biblioteca_assunto` (
 
 LOCK TABLES `biblioteca_assunto` WRITE;
 /*!40000 ALTER TABLE `biblioteca_assunto` DISABLE KEYS */;
-INSERT INTO `biblioteca_assunto` VALUES (1,4,'Modelos de carta de consentimento','2019-08-05 10:04:04');
 /*!40000 ALTER TABLE `biblioteca_assunto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -154,7 +153,6 @@ CREATE TABLE `disp_quadro_disponibilidade` (
 
 LOCK TABLES `disp_quadro_disponibilidade` WRITE;
 /*!40000 ALTER TABLE `disp_quadro_disponibilidade` DISABLE KEYS */;
-INSERT INTO `disp_quadro_disponibilidade` VALUES (9,4,'2019-07-25 14:45:18','2019-07-25','2019-07-26','12:00:00','14:00:00',2),(10,4,'2019-07-25 14:49:54','2019-07-25','2019-07-25','15:00:00','16:00:00',1),(11,4,'2019-07-25 15:19:13','2019-07-25','2019-07-25','12:00:00','18:00:00',1),(12,4,'2019-07-25 15:20:53','2019-07-25','2019-07-25','12:00:00','19:00:00',1),(13,4,'2019-07-29 08:50:49','2019-07-29','2019-07-29','12:00:00','14:00:00',1),(14,4,'2019-07-29 08:51:11','2019-07-29','2019-07-29','00:00:10','14:00:00',1),(15,4,'2019-07-29 08:56:17','0000-00-00','0000-00-00','00:00:00','00:00:00',1),(16,4,'2019-07-29 08:58:06','2019-07-29','2019-07-29','10:00:00','15:00:00',1),(17,4,'2019-07-29 10:02:23','2019-07-29','2019-07-29','10:00:00','12:00:00',2),(18,4,'2019-07-29 10:02:23','2019-07-30','2019-07-30','10:00:00','12:00:00',2),(19,4,'2019-07-29 10:02:23','2019-07-31','2019-07-31','10:00:00','12:00:00',2),(20,4,'2019-07-29 10:02:23','2019-08-01','2019-08-01','10:00:00','12:00:00',2);
 /*!40000 ALTER TABLE `disp_quadro_disponibilidade` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -231,7 +229,6 @@ CREATE TABLE `disp_quadro_disponibilidade_semanas` (
 
 LOCK TABLES `disp_quadro_disponibilidade_semanas` WRITE;
 /*!40000 ALTER TABLE `disp_quadro_disponibilidade_semanas` DISABLE KEYS */;
-INSERT INTO `disp_quadro_disponibilidade_semanas` VALUES (1,4,NULL,NULL,NULL,NULL,'14:00:00','12:00:00','16:00:00','18:00:00',NULL,NULL,NULL,NULL,'10:00:00','14:00:00','16:00:00','18:00:00',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `disp_quadro_disponibilidade_semanas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -322,7 +319,6 @@ CREATE TABLE `ltr_material_leitura` (
 
 LOCK TABLES `ltr_material_leitura` WRITE;
 /*!40000 ALTER TABLE `ltr_material_leitura` DISABLE KEYS */;
-INSERT INTO `ltr_material_leitura` VALUES (4,4,'teste base','2019-09-04 00:00:00','teste',1998,12,12,12,'teste','12312312',1,15,5,'material-2019-09-04-19-09-54.doc','2019-09-04 14:14:54');
 /*!40000 ALTER TABLE `ltr_material_leitura` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -693,7 +689,7 @@ CREATE TABLE `reu_atas` (
   `data` datetime DEFAULT NULL,
   `usuario_fk` int(11) DEFAULT NULL,
   PRIMARY KEY (`cod_ata`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -702,7 +698,6 @@ CREATE TABLE `reu_atas` (
 
 LOCK TABLES `reu_atas` WRITE;
 /*!40000 ALTER TABLE `reu_atas` DISABLE KEYS */;
-INSERT INTO `reu_atas` VALUES (33,'2019-07-24 11:38:20','testee','ata-2019-07-24-16-07-20.docx','2019-07-24 23:33:00',4),(34,'2019-09-03 14:50:07','teste','ata-2019-09-03-19-09-07.doc','2019-09-03 12:00:00',4);
 /*!40000 ALTER TABLE `reu_atas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -768,7 +763,7 @@ CREATE TABLE `sys_aplicacoes` (
   `submenu` int(11) DEFAULT NULL,
   `ativo` int(11) DEFAULT NULL,
   PRIMARY KEY (`cod_aplicacao`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -777,7 +772,7 @@ CREATE TABLE `sys_aplicacoes` (
 
 LOCK TABLES `sys_aplicacoes` WRITE;
 /*!40000 ALTER TABLE `sys_aplicacoes` DISABLE KEYS */;
-INSERT INTO `sys_aplicacoes` VALUES (1,'Atas de Reuniões','atas','/atas',0,1),(2,'Biblioteca','biblioteca','/biblioteca',0,1),(3,'Cadastrar','pre-cadastro','/pre-cadastro',0,1),(4,'Chat','chat','/chat',0,1),(5,'E-mail','email','',0,1),(6,'Enviar E-mail','email','/email/enviar',5,1),(7,'Meus E-mail','email','/email',5,1),(8,'Quadro de Avisos','avisos','/avisos',0,1),(9,'Quadro de Disponibilidade','quadro-disponibilidade','/quadro-disponibilidade',0,1),(10,'Quadro de Eventos','eventos','/eventos',0,1),(11,'Quadro de Literatura','quadro-leitura','/quadro-leitura',0,1),(12,'Níveis de Escolaridade','escolaridade','/escolaridade',0,1),(13,'Plano de Atividades','plano-atividades','/plano_atividades',0,1),(14,'Plano de Metas','plano-metas','/plano-metas',0,1),(15,'Produção de Grupo','producao-grupo','/producao-grupo',0,1),(16,'Questionários','questionario','',0,1),(17,'Aprendizagem','questionario','/questionario/aprendizagem',16,1),(18,'Cadastro','cadastro','/questionario/cadastro',16,1),(19,'Trabalhos de Correção','trabalho-correcao','',0,1),(20,'Meus Trabalhos','trabalho-correcao','/trabalho-correcao',19,1),(21,'Trabalhos Recebidos','trabalho-correcao','/trabalho-correcao/recebidos',19,1),(22,'Usuários','usuarios','',0,1),(23,'Grupos','grupos','/usuarios/grupos',22,1),(24,'Membros','membros','/usuarios/membros',22,1),(25,'Portfolio','portfolio','/portfolio',0,1),(26,'Configurações','configuracao','',0,1),(27,'Meu Perfil','perfil','/perfil',26,1),(28,'Alterar Senha','alterar-senha','/perfil/alterar-senha',26,1),(29,'Questionário Inicial','questionario','/questionario/inicial',0,1);
+INSERT INTO `sys_aplicacoes` VALUES (1,'Atas de Reuniões','atas','/atas',0,1),(2,'Biblioteca','biblioteca','/biblioteca',0,1),(3,'Cadastrar','pre-cadastro','/pre-cadastro',0,1),(4,'Chat','chat','/chat',0,0),(5,'E-mail','email','',0,1),(6,'Enviar E-mail','email','/email/enviar',5,1),(7,'Meus E-mail','email','/email',5,1),(8,'Quadro de Avisos','avisos','/avisos',0,1),(9,'Quadro de Disponibilidade','quadro-disponibilidade','/quadro-disponibilidade',0,1),(10,'Quadro de Eventos','eventos','/eventos',0,1),(11,'Quadro de Literatura','quadro-leitura','/quadro-leitura',0,1),(12,'Níveis de Escolaridade','escolaridade','/escolaridade',0,1),(13,'Plano de Atividades','plano-atividades','/plano_atividades',0,1),(14,'Plano de Metas','plano-metas','/plano-metas',0,1),(15,'Produção de Grupo','producao-grupo','/producao-grupo',0,1),(16,'Questionários','questionario','',0,1),(17,'Aprendizagem','questionario','/questionario/aprendizagem',16,1),(18,'Cadastro','cadastro','/questionario/cadastro',16,1),(19,'Trabalhos de Correção','trabalho-correcao','',0,1),(20,'Meus Trabalhos','trabalho-correcao','/trabalho-correcao',19,1),(21,'Trabalhos Recebidos','trabalho-correcao','/trabalho-correcao/recebidos',19,1),(22,'Usuários','usuarios','',0,1),(23,'Grupos','grupos','/usuarios/grupos',22,1),(24,'Membros','membros','/usuarios/membros',22,1),(25,'Portfolio','portfolio','/portfolio',0,1),(26,'Configurações','configuracao','',0,1),(27,'Meu Perfil','perfil','/perfil',26,1),(28,'Alterar Senha','alterar-senha','/perfil/alterar-senha',26,1),(29,'Questionário Inicial','questionario','/questionario/inicial',0,1),(30,'Assuntos','assunto','/assunto',0,1);
 /*!40000 ALTER TABLE `sys_aplicacoes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -800,7 +795,7 @@ CREATE TABLE `sys_aplicacoes_permissao` (
 
 LOCK TABLES `sys_aplicacoes_permissao` WRITE;
 /*!40000 ALTER TABLE `sys_aplicacoes_permissao` DISABLE KEYS */;
-INSERT INTO `sys_aplicacoes_permissao` VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),(1,13),(1,14),(1,15),(1,16),(1,17),(1,18),(1,19),(1,20),(1,21),(1,22),(1,23),(1,24),(1,25),(1,26),(1,27),(1,28),(0,29);
+INSERT INTO `sys_aplicacoes_permissao` VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),(1,13),(1,14),(1,15),(1,16),(1,17),(1,18),(1,19),(1,20),(1,21),(1,22),(1,23),(1,24),(1,25),(1,26),(1,27),(1,28),(0,29),(1,30);
 /*!40000 ALTER TABLE `sys_aplicacoes_permissao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -821,7 +816,7 @@ CREATE TABLE `sys_log_acesso_aplicacao` (
   `server` varchar(100) DEFAULT NULL,
   `params` varchar(8000) DEFAULT NULL,
   PRIMARY KEY (`cod_log`)
-) ENGINE=InnoDB AUTO_INCREMENT=436 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=213 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -953,8 +948,32 @@ CREATE TABLE `us_acesso` (
 
 LOCK TABLES `us_acesso` WRITE;
 /*!40000 ALTER TABLE `us_acesso` DISABLE KEYS */;
-INSERT INTO `us_acesso` VALUES (4,'gabriel@hotmail.com','202cb962ac59075b964b07152d234b70',1),(14,'denilson@hotmail.com','202cb962ac59075b964b07152d234b70',1),(15,'teste@teste.com','202cb962ac59075b964b07152d234b70',0),(16,'teste@teste1.com','202cb962ac59075b964b07152d234b70',1);
+INSERT INTO `us_acesso` VALUES (4,'sandragp@marilia.unesp.br','202cb962ac59075b964b07152d234b70',1),(14,'denilson@hotmail.com','202cb962ac59075b964b07152d234b70',1),(15,'teste@teste.com','202cb962ac59075b964b07152d234b70',0),(16,'teste@teste1.com','202cb962ac59075b964b07152d234b70',1);
 /*!40000 ALTER TABLE `us_acesso` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `us_foto_perfil`
+--
+
+DROP TABLE IF EXISTS `us_foto_perfil`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `us_foto_perfil` (
+  `cod_usuario_fk` int(11) NOT NULL,
+  `nome_foto` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`cod_usuario_fk`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `us_foto_perfil`
+--
+
+LOCK TABLES `us_foto_perfil` WRITE;
+/*!40000 ALTER TABLE `us_foto_perfil` DISABLE KEYS */;
+INSERT INTO `us_foto_perfil` VALUES (4,'foto-perfil-4-19-09-16-17-37-00.jpg');
+/*!40000 ALTER TABLE `us_foto_perfil` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -982,7 +1001,7 @@ CREATE TABLE `us_pre_cadastro` (
 
 LOCK TABLES `us_pre_cadastro` WRITE;
 /*!40000 ALTER TABLE `us_pre_cadastro` DISABLE KEYS */;
-INSERT INTO `us_pre_cadastro` VALUES (4,'Gabriel da Silva Pereira','gabriel@hotmail.com',1,'2019-08-09 12:25:40',2,0),(14,'Denílson Perez','denilson@hotmail.com',1,'2019-08-09 11:32:43',1,0),(15,'teste','teste@teste.com',2,'2019-08-21 12:12:57',1,0),(16,'teste','teste@teste1.com',1,'2019-09-04 16:44:15',1,1);
+INSERT INTO `us_pre_cadastro` VALUES (4,'Sandra','sandragp@marilia.unesp.br',1,'2019-09-16 14:45:05',2,0);
 /*!40000 ALTER TABLE `us_pre_cadastro` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1087,7 +1106,7 @@ CREATE TABLE `us_usuario` (
 
 LOCK TABLES `us_usuario` WRITE;
 /*!40000 ALTER TABLE `us_usuario` DISABLE KEYS */;
-INSERT INTO `us_usuario` VALUES (4,'Gabriel da Silva Pereira',NULL,NULL,NULL,'gabriel@hotmail.com','gabriel2@hotmail.com',2,1,'Rua Sebastião Barlati','59','Casa','Ipaussu',NULL,'SP','18950000','33442025','14997846430','Análise e Desenvolvimento de Sistemas',6,0,'Noite','Análise e Desenvolvimento de Sistemas',2019,'FATEC','',0,'','solteiro','M','1998-02-20 00:00:00','','','','','','','','',0,0,0,1,'Kplay','Rua Humberto',818,'Edificio','Piraju',NULL,'SP',NULL,'18800000','1433443030','14997846431','2019-07-08 10:34:56',1,NULL,NULL,NULL);
+INSERT INTO `us_usuario` VALUES (4,'Sandra Regina Gimeniz',NULL,NULL,NULL,'sandragp@marilia.unesp.br','gabriel2@hotmail.com',2,1,'Rua teste','01','Casa','Marília','Bairro teste','SP','14405101','33443344','14997846430','Análise e Desenvolvimento de Sistemas',6,0,'Noite','Análise e Desenvolvimento de Sistemas',2019,'FATEC','',0,'','solteiro','M','1998-02-20 00:00:00','','','','','','','','',0,0,0,1,'Kplay','Rua Humberto',818,'Edificio','Piraju',NULL,'SP',NULL,'18800000','1433443030','14997846431','2019-07-08 10:34:56',1,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `us_usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1207,6 +1226,7 @@ BEGIN
 		inner join sys_aplicacoes_permissao b on a.cod_aplicacao = b.aplicacao
 	where ((tipo = 1 and submenu = 0) or (tipo = 2 and submenu <> 0))
 		and tipo_usuario = b.tipo_usuario
+        and ativo = 1
     order by a.titulo asc;
 
 END ;;
@@ -1311,6 +1331,8 @@ BEGIN
 		set cod_usuario = (select a.cod_usuario from us_pre_cadastro a where a.email = email);
     
 		insert into us_acesso(cod_usuario_fk, login, senha, situacao) values (cod_usuario, email, senha, 1);
+        
+        insert into us_foto_perfil(cod_usuario_fk, nome_foto) values (cod_usuario, '');
     
 		select '0' as cod, 'Pré-cadastro realizado com sucesso.<br>As informações de acesso ao sistema, foram enviadas ao email do novo membro.' as msg;
 	else
@@ -1369,6 +1391,59 @@ BEGIN
 			
             select '0' as cod, 'Pré-Cadastro aceito com sucesso.' as msg;
 			leave proc_name;
+    end if;
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `us_buscarAssunto_sp` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarAssunto_sp`(
+	In filtro int,
+    in pesquisa varchar(100),
+    in cod_assunto int
+)
+BEGIN
+
+	set pesquisa = CONCAT('%',pesquisa,'%');
+    
+    
+    if cod_assunto = 0 then
+
+		if filtro = 1 then
+		
+			select cod,assunto,date_format(data_inclusao, "%d/%m/%Y %H:%i:%s") as dt_convert,b.nome as usuario
+            from biblioteca_assunto a
+				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
+            where a.assunto like pesquisa;
+			
+		else
+		
+			select cod,assunto,date_format(data_inclusao, "%d/%m/%Y %H:%i:%s") as dt_convert,b.nome as usuario
+            from biblioteca_assunto a
+				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
+            where b.nome like pesquisa;
+			
+		end if;
+        
+    else
+    
+		select cod,assunto,date_format(data_inclusao, "%d/%m/%Y %H:%i:%s") as dt_convert,b.nome as usuario
+		from biblioteca_assunto a
+			inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
+		where cod = cod_assunto;
+    
     end if;
     
 END ;;
@@ -1635,15 +1710,17 @@ BEGIN
 
 	if(select count(0) from us_pre_cadastro a where a.cod_usuario = cod_usuario and situacao = 2) = 1
     then
-			select cod_usuario as cod, nome, b.cod_tipo as tipo_usuario, b.descricao as tipo_usuario_desc, c.cod_nivel as escolaridade, c.descricao as escolaridade_desc
+			select cod_usuario as cod, nome, b.cod_tipo as tipo_usuario, b.descricao as tipo_usuario_desc, c.cod_nivel as escolaridade, c.descricao as escolaridade_desc, d.nome_foto
 			from us_usuario a
 				inner join us_tipo_usuario b on a.tipo_usuario_fk = b.cod_tipo
 				inner join nivel_escolaridade c on c.cod_nivel = a.nivel_escolaridade_fk
+                inner join us_foto_perfil d on d.cod_usuario_fk = a.cod_usuario
 			where a.cod_usuario = cod_usuario;
 	else 
     
-			select cod_usuario as cod, nome, 0 as tipo_usuario, 'Pré-Cadastro' as tipo_usuario_desc 
+			select cod_usuario as cod, nome, 0 as tipo_usuario, 'Pré-Cadastro' as tipo_usuario_desc, d.nome_foto
             from us_pre_cadastro a 
+				 inner join us_foto_perfil d on d.cod_usuario_fk = a.cod_usuario
             where a.cod_usuario = cod_usuario; 
     
     end if;
@@ -1911,13 +1988,15 @@ BEGIN
 		case when b.tipo_usuario_fk is null then e.descricao else d.descricao end as escolaridade_descricao,
         a.situacao as pre_cadastro, -- 0-pendente 1-aceito 2-rejeitado
 		acesso.situacao as ativo, -- 0-inativo 1-ativo
-        a.adm
+        a.adm,
+        f.nome_foto 
 	from us_pre_cadastro a
 		left join us_usuario b on a.cod_usuario = b.cod_usuario
 		left join us_tipo_usuario c on b.tipo_usuario_fk = c.cod_tipo
 		left join nivel_escolaridade d on d.cod_nivel = b.nivel_escolaridade_fk -- membro/adm
 		left join nivel_escolaridade e on e.cod_nivel = a.nivel_escolaridade_fk -- precadastro
         inner join us_acesso acesso on acesso.cod_usuario_fk = a.cod_usuario
+        left join us_foto_perfil f on f.cod_usuario_fk = a.cod_usuario
     where cod_tipo <> 1 or cod_tipo is null;
 END ;;
 DELIMITER ;
@@ -1995,4 +2074,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-13 17:12:40
+-- Dump completed on 2019-09-16 16:24:29

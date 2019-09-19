@@ -86,7 +86,7 @@
                     <div class="form-group">
                         <label for="add_escolaridade" class="col-form-label">Nível Escolaridade:</label>
                         <select class="form-control" id="add_escolaridade">
-                            <option value="-1">Selecionar</option>
+                            <option value="0">Todos</option>
                             <?php foreach($escolaridades as $dados):?>
                                     <option value="<?= $dados['cod_nivel']?>"><?= $dados['descricao'] ?></option>
                             <?php endforeach; ?>
@@ -146,6 +146,7 @@
                     <div class="form-group">
                         <label for="edit_escolaridade" class="col-form-label">Nível Escolaridade:</label>
                         <select class="form-control" id="edit_escolaridade">
+                            <option value="0">Todos</option>
                             <?php foreach($escolaridades as $dados):?>
                                     <option value="<?= $dados['cod_nivel']?>"><?= $dados['descricao'] ?></option>
                             <?php endforeach; ?>
@@ -329,6 +330,12 @@
                         }
                     });
                 },
+            });
+        }else{
+            Swal.fire({
+                title: 'Atenção!',
+                html: "Digite todos os campos.",
+                type: 'info'
             });
         }
     }

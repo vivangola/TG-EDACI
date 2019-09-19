@@ -1606,10 +1606,17 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarAvisos_sp`(
 )
 BEGIN
 	
-    select a.*,date_format(inicio_exibicao, "%d/%m/%Y %H:%i:%s") as dt_convert
-    from avs_avisos a
-		inner join us_usuario b on a.nivel_escolaridade_fk = b.nivel_escolaridade_fk
-	where b.cod_usuario = cod_usuario;
+	IF (select u.tipo_usuario_fk from us_usuario u where u.cod_usuario = cod_usuario) = 1 THEN
+		select *,date_format(inicio_exibicao, "%d/%m/%Y %H:%i:%s") as dt_convert
+		from avs_avisos 
+                where now() between inicio_exibicao and fim_exibicao;
+	ELSE
+		select a.*,date_format(inicio_exibicao, "%d/%m/%Y %H:%i:%s") as dt_convert
+		from avs_avisos a
+			inner join us_usuario b on a.nivel_escolaridade_fk = b.nivel_escolaridade_fk
+		where b.cod_usuario = cod_usuario and now() between a.inicio_exibicao and a.fim_exibicao;
+	
+	END IF;
 
 END ;;
 DELIMITER ;

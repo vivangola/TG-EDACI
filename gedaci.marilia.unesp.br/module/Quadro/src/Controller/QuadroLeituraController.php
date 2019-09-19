@@ -85,29 +85,37 @@ class QuadroLeituraController extends AbstractActionController
             
             $arquivo = $this->params()->fromFiles('add_arquivo', '');
             
-            $ext = pathinfo($arquivo['name'], PATHINFO_EXTENSION);
-            
-            $dir = $_SERVER['DOCUMENT_ROOT']. '/arquivos/leitura/';
-            
-            if(!file_exists($dir)){
-                mkdir($dir, 0777);
-            }
-            
-            $params['arquivo_nome'] = 'material-' . date("Y-m-d-H-m-s") . '.' . $ext;
-            
-            $destino = $dir . $params['arquivo_nome'];
-            
-            move_uploaded_file($arquivo['tmp_name'], $destino);
-            
-            if(file_exists($destino)){
-            
-                $sql = "insert into ltr_material_leitura(cod_usuario_fk, base, data_pesquisa, titulo_periodico, ano, mes, volume, numero, titulo_artigo, autor, pagina_inicial, pagina_final, interesse, arquivo, data_criacao) " .
-                            "values(:usuario, :base, :data_pesquisa, :titulo_periodico, :ano, :mes, :volume, :numero, :titulo_artigo, :autor, :pagina_inicial, :pagina_final, :interesse, :arquivo_nome, now());";
-                $funcoes->executarSQL($sql,$params);
+            if($arquivo){
+                $ext = pathinfo($arquivo['name'], PATHINFO_EXTENSION);
 
-                return $response->setContent(Json::encode(array('response' => true, 'msg' => 'Material Adicionado.')));
-            } else{
-                return $response->setContent(Json::encode(array('response' => false, 'msg' => 'Erro ao adicionar o Material.')));    
+                $dir = $_SERVER['DOCUMENT_ROOT']. '/arquivos/leitura/';
+
+                if(!file_exists($dir)){
+                    mkdir($dir, 0777);
+                }
+
+                $params['arquivo_nome'] = 'material-' . date("Y-m-d-H-m-s") . '.' . $ext;
+
+                $destino = $dir . $params['arquivo_nome'];
+
+                move_uploaded_file($arquivo['tmp_name'], $destino);
+
+                if(file_exists($destino)){
+
+                    $sql = "insert into ltr_material_leitura(cod_usuario_fk, base, data_pesquisa, titulo_periodico, ano, mes, volume, numero, titulo_artigo, autor, pagina_inicial, pagina_final, interesse, arquivo, data_criacao) " .
+                                "values(:usuario, :base, :data_pesquisa, :titulo_periodico, :ano, :mes, :volume, :numero, :titulo_artigo, :autor, :pagina_inicial, :pagina_final, :interesse, :arquivo_nome, now());";
+                    $funcoes->executarSQL($sql,$params);
+
+                    return $response->setContent(Json::encode(array('response' => true, 'msg' => 'Material Adicionado.')));
+                } else{
+                    return $response->setContent(Json::encode(array('response' => false, 'msg' => 'Erro ao adicionar o Material.')));    
+                }
+            }else{
+                 $sql = "insert into ltr_material_leitura(cod_usuario_fk, base, data_pesquisa, titulo_periodico, ano, mes, volume, numero, titulo_artigo, autor, pagina_inicial, pagina_final, interesse, arquivo, data_criacao) " .
+                                "values(:usuario, :base, :data_pesquisa, :titulo_periodico, :ano, :mes, :volume, :numero, :titulo_artigo, :autor, :pagina_inicial, :pagina_final, :interesse, '', now());";
+                    $funcoes->executarSQL($sql,$params);
+
+                    return $response->setContent(Json::encode(array('response' => true, 'msg' => 'Material Adicionado.')));
             }
         }else{
             return $response->setContent(Json::encode(array('response' => false)));

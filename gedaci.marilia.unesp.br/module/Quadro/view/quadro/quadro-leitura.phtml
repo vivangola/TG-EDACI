@@ -44,8 +44,11 @@
                                             $relatorio->gerarCabecalho(12);
                                             if (!empty($result)) {
                                                 foreach ($result as $dados) {
-                                                    
-                                                    $relatorio->definirVariavel('1', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showFile('".$dados['arquivo']."')><i class='pointer fa fa-download'></i></button>");
+                                                    if($dados['arquivo']){
+                                                        $relatorio->definirVariavel('1', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showFile('".$dados['arquivo']."')><i class='pointer fa fa-download'></i></button>");
+                                                    }else{
+                                                        $relatorio->definirVariavel('1', "");
+                                                    }
                                                     $relatorio->definirVariavel('2', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showEdit('".$dados['cod']."')><i class='pointer fa fa-edit'></i></button>");
                                                     $relatorio->definirVariavel('3', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showDelete('".$dados['cod']."')><i class='pointer fa fa-times'></i></button>");
                                                     
@@ -286,7 +289,17 @@
                     Swal.fire({
                         title: 'Sucesso!',
                         html: retorno.msg,
-                        type: 'info'
+                        type: 'info',
+                        onClose: () => {
+                            window.location.reload();
+                        }
+                    });
+                        
+                }else{
+                    Swal.fire({
+                        title: 'Atenção!',
+                        html: retorno.msg,
+                        type: 'warning'
                     });
                 }
             }

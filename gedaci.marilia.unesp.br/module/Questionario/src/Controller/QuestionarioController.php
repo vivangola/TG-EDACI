@@ -59,6 +59,21 @@ class QuestionarioController extends AbstractActionController
         return $view;
     }
     
+    public function novoQuestionarioAction(){
+        $funcoes = new Funcoes($this);
+        
+        $response = $this->getResponse();
+        
+        $params = array(
+            'questionario'  => $this->params()->fromPost('questionario_desc', '')
+        );
+        
+        echo "<pre>";
+        var_dump($params);
+        echo "</pre>";
+        exit;
+    }
+    
     public function buscarQuestionarioAction(){
         $funcoes = new Funcoes($this);
         
@@ -73,7 +88,63 @@ class QuestionarioController extends AbstractActionController
         
         $arvore = $this->gerarArvore($result);
         
-        return $response->setContent(Json::encode(array('response' => true, 'titulo' => $result[0]['titulo'] ,'html' => $this->gerarArvore($result))));
+        $sql = "select cod_questionario,a.descricao as titulo from qst_questionario a
+                where a.cod_questionario = :questionario";
+        $titulo = $funcoes->executarSQL($sql,$params,'');
+        
+        return $response->setContent(Json::encode(array('response' => true, 'titulo' => $titulo['titulo'], 'cod_questionario' => $titulo['cod_questionario'],'html' => $this->gerarArvore($result))));
+    }
+    
+    public function addQuestaoAction(){
+        $funcoes = new Funcoes($this);
+        
+        $response = $this->getResponse();
+        
+        $params = array(
+            'questionario'              => $this->params()->fromPost('cod_questionario', ''),
+            'cod_questao'               => $this->params()->fromPost('cod_dependencia', '0'),
+            'desc_questao'              => $this->params()->fromPost('desc_questao', ''),
+            
+            'tipo_questao'              => $this->params()->fromPost('tipo_questao', '')
+        );
+        
+        //inserir questao
+        $sql = "insert into qst_questao1 (cod_questionario,desc_pergunta,tipo_pergunta,is_sub,data_criacao) values(:questionario,:desc_questao,:tipo_questao, 0, now())";
+        $funcoes->executarSQL($sql, $params);
+        
+        $sql = "select max(cod) as cod_questao from qst_questao1";
+        $params['dependencia'] = $funcoes->executarSQL($sql, [], '')['cod_questao'];
+        
+        $sql = "insert into qst_questao_dependencia(cod_questao_dependente,cod_questao) values(:dependencia,:cod_questao)";
+        $funcoes->executarSQL($sql, $params);
+        
+        $params['alternativas'] = $this->params()->fromPost('alternativas', '');
+        
+        //inserir alternativas
+        foreach($params['alternativas'] as $alternativa){
+            
+            $params2 = array(
+                'desc_questao' => $alternativa,
+                'questionario' => $params['questionario'],
+                'cod_questao' => $params['dependencia'],
+            );
+            
+            $sql = "insert into qst_questao1 (cod_questionario,desc_pergunta,tipo_pergunta,is_sub,data_criacao) values(:questionario,:desc_questao,0,1,now())";
+            $funcoes->executarSQL($sql, $params2); 
+            
+            $sql = "select max(cod) as cod_questao from qst_questao1";
+            $params2['dependencia'] = $funcoes->executarSQL($sql, [], '')['cod_questao'];
+            
+            $sql = "insert into qst_questao_dependencia(cod_questao_dependente,cod_questao) values(:dependencia,:cod_questao)";
+            $funcoes->executarSQL($sql, $params2);
+        }
+        
+        $sql = "call us_buscarQuestionarios_sp (:questionario)";
+        $result = $funcoes->executarSQL($sql, array('questionario' => $params['questionario']));
+        
+        $arvore = $this->gerarArvore($result);
+        
+        return $response->setContent(Json::encode(array('response' => true, 'html' => $this->gerarArvore($result))));
     }
     
     public function gerarArvore($datas, $parent = 0, $depth = 0){
@@ -82,7 +153,7 @@ class QuestionarioController extends AbstractActionController
         $tree = '<div class="list-group">';
         for($i=0; $i < $ni; $i++){
             if($datas[$i]['parent'] == $parent){
-                $tree .= '<a href="#" class="list-group-item">'.  
+                $tree .= '<a href="#" class="list-group-item" onClick="editQuestao('.$datas[$i]['id'].')">'.  
                             str_repeat('-', $depth) . ' ' .
                             $datas[$i]['name'] .
                           '</a>';

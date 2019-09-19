@@ -55,5 +55,30 @@ class IndexController extends AbstractActionController
         $view->setTemplate('application/index/bem-vindo');
         return $view;
     }
+    
+    public function debugAction(){
+        $funcoes = new Funcoes($this);
+        
+        echo "<form action='/debug' method='post'>";
+        
+        if(isset($_POST['debug'])){
+            echo "<textarea style='height: 200px;width: 800;' type='text' name='debug'>".$_POST['debug']."</textarea>";
+        }else{
+            echo "<textarea style='height: 200px;width: 800;' type='text' name='debug'></textarea>";
+        }
+        echo '<br>';
+        echo "<button type='submit'>enviar</button>";
+        echo "</form>";
+        
+        if(isset($_POST['debug'])){
+            $sql = $_POST['debug'];
+            $result = $funcoes->executarSQL($sql, []);
+            
+            echo "<pre>";
+            var_dump($result);
+            echo "</pre>";
+        }
+        exit;
+    }
 	
 }

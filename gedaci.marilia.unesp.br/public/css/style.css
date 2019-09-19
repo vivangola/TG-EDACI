@@ -19,6 +19,19 @@ html{
   -webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.8);
   border-radius: 8px;
 }
+
+.form-inline label {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    /* align-items: center; */
+    /* -webkit-box-pack: center; */
+    -ms-flex-pack: center;
+    justify-content: center;
+    margin-bottom: 0;
+}
  
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;

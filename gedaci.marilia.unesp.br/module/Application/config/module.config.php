@@ -44,6 +44,16 @@ return [
                     ],
                 ],
             ],
+            'debug' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/debug',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action'     => 'debug',
+                    ],
+                ],
+            ],
             'perfil' => [
                 'type'    => Segment::class,
                 'options' => [

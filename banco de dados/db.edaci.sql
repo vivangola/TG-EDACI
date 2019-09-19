@@ -45,6 +45,30 @@ LOCK TABLES `atvs_plano_atividades` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `atvs_plano_atividades_tipo`
+--
+
+DROP TABLE IF EXISTS `atvs_plano_atividades_tipo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `atvs_plano_atividades_tipo` (
+  `cod` int(11) NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`cod`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `atvs_plano_atividades_tipo`
+--
+
+LOCK TABLES `atvs_plano_atividades_tipo` WRITE;
+/*!40000 ALTER TABLE `atvs_plano_atividades_tipo` DISABLE KEYS */;
+INSERT INTO `atvs_plano_atividades_tipo` VALUES (1,'Projeto Pessoal'),(2,'Projeto do Grupo'),(3,'Tutorial'),(4,'Outros');
+/*!40000 ALTER TABLE `atvs_plano_atividades_tipo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `avs_avisos`
 --
 
@@ -115,7 +139,7 @@ CREATE TABLE `biblioteca_assunto` (
   `assunto` varchar(200) DEFAULT NULL,
   `data_inclusao` datetime DEFAULT NULL,
   PRIMARY KEY (`cod`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -144,7 +168,7 @@ CREATE TABLE `disp_quadro_disponibilidade` (
   `horafim` time DEFAULT NULL,
   `tipo` int(11) DEFAULT NULL,
   PRIMARY KEY (`cod_disponibilidade`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -220,7 +244,7 @@ CREATE TABLE `disp_quadro_disponibilidade_semanas` (
   `sabado_2_fim` time DEFAULT NULL,
   `data_movimento` datetime DEFAULT NULL,
   PRIMARY KEY (`cod`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -310,7 +334,7 @@ CREATE TABLE `ltr_material_leitura` (
   `arquivo` varchar(50) DEFAULT NULL,
   `data_criacao` datetime DEFAULT NULL,
   PRIMARY KEY (`cod_material`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -536,7 +560,7 @@ CREATE TABLE `qst_questao1` (
   `is_sub` int(11) DEFAULT NULL,
   `data_criacao` datetime DEFAULT NULL,
   PRIMARY KEY (`cod`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -545,7 +569,7 @@ CREATE TABLE `qst_questao1` (
 
 LOCK TABLES `qst_questao1` WRITE;
 /*!40000 ALTER TABLE `qst_questao1` DISABLE KEYS */;
-INSERT INTO `qst_questao1` VALUES (1,1,'Teste?',1,0,'2019-09-09 15:19:02'),(2,1,'Sim!',1,1,'2019-09-09 15:29:31'),(3,1,'Não!',1,1,'2019-09-09 15:30:10'),(4,1,'Teste 2?',1,0,'2019-09-09 15:41:12'),(5,1,'eoq?',1,0,'2019-09-09 16:00:52'),(6,1,'sim',1,1,'2019-09-09 16:01:04'),(7,1,'nao',1,1,'2019-09-09 16:01:07'),(8,1,'Se sim, qual?',1,1,'2019-09-13 14:38:51'),(9,1,'Jorge',1,1,'2019-09-13 15:56:20'),(10,1,'Claudio',1,1,'2019-09-13 15:56:29');
+INSERT INTO `qst_questao1` VALUES (46,2,'teste?',1,0,'2019-09-18 12:03:40'),(47,2,'sim',0,1,'2019-09-18 12:03:40'),(48,2,'nao',0,1,'2019-09-18 12:03:40'),(49,2,'voce tem dinheiro',1,0,'2019-09-18 12:04:51'),(50,2,'sim',0,1,'2019-09-18 12:04:51'),(51,2,'nao',0,1,'2019-09-18 12:04:51'),(52,2,'voce tem carro?',1,0,'2019-09-18 12:05:23'),(53,2,'nao sei',0,1,'2019-09-18 12:05:23'),(54,2,'tenhoi',0,1,'2019-09-18 12:05:23'),(55,2,'asdasddssad??',1,0,'2019-09-18 12:06:13'),(56,2,'asdasdsa',0,1,'2019-09-18 12:06:13'),(57,2,'dasdsad',0,1,'2019-09-18 12:06:13'),(58,2,'testeeeeee',1,0,'2019-09-18 12:10:57'),(59,2,'sdadad',0,1,'2019-09-18 12:10:57'),(60,2,'sadsadsad',0,1,'2019-09-18 12:10:57'),(61,2,'asdsadsad',0,1,'2019-09-18 12:10:57'),(62,2,'asdsasadad?',1,0,'2019-09-18 12:14:10'),(63,2,'testestet',0,1,'2019-09-18 12:14:10'),(64,2,'testeste',0,1,'2019-09-18 12:14:10'),(65,2,'etsteteste',0,1,'2019-09-18 12:14:11'),(66,2,'etesteste',0,1,'2019-09-18 12:14:11'),(67,2,'eteste',0,1,'2019-09-18 12:14:11'),(68,2,'asdaadsdasdsaadssad',1,0,'2019-09-18 12:14:32'),(69,2,'dadad',0,1,'2019-09-18 12:14:32'),(70,2,'adadads',0,1,'2019-09-18 12:14:32'),(71,2,'testeeeeee',1,0,'2019-09-18 12:29:53'),(72,2,'sadadadasd',0,1,'2019-09-18 12:29:53'),(73,2,'sadsadsadasada',0,1,'2019-09-18 12:29:53'),(74,2,'sadasadadasd',0,1,'2019-09-18 12:29:53'),(75,2,'teeeeeeeeeeeeeeeeeeeeeeee',1,0,'2019-09-18 12:32:44'),(76,2,'asdsadasd',0,1,'2019-09-18 12:32:44'),(77,2,'asdasdsad',0,1,'2019-09-18 12:32:44');
 /*!40000 ALTER TABLE `qst_questao1` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -561,7 +585,7 @@ CREATE TABLE `qst_questao_dependencia` (
   `cod_questao_dependente` int(11) DEFAULT NULL,
   `cod_questao` int(11) DEFAULT NULL,
   PRIMARY KEY (`cod_dependencia`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -570,7 +594,7 @@ CREATE TABLE `qst_questao_dependencia` (
 
 LOCK TABLES `qst_questao_dependencia` WRITE;
 /*!40000 ALTER TABLE `qst_questao_dependencia` DISABLE KEYS */;
-INSERT INTO `qst_questao_dependencia` VALUES (1,2,1),(2,3,1),(3,1,1),(4,5,5),(6,6,5),(7,7,5),(8,8,2),(9,9,8),(10,10,8);
+INSERT INTO `qst_questao_dependencia` VALUES (40,46,0),(41,47,46),(42,48,46),(43,49,0),(44,50,49),(45,51,49),(46,52,0),(47,53,52),(48,54,52),(49,55,0),(50,56,55),(51,57,55),(52,58,0),(53,59,58),(54,60,58),(55,61,58),(56,62,0),(57,63,62),(58,64,62),(59,65,62),(60,66,62),(61,67,62),(62,68,0),(63,69,68),(64,70,68),(65,71,0),(66,72,71),(67,73,71),(68,74,71),(69,75,0),(70,76,75),(71,77,75);
 /*!40000 ALTER TABLE `qst_questao_dependencia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -689,7 +713,7 @@ CREATE TABLE `reu_atas` (
   `data` datetime DEFAULT NULL,
   `usuario_fk` int(11) DEFAULT NULL,
   PRIMARY KEY (`cod_ata`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -772,7 +796,7 @@ CREATE TABLE `sys_aplicacoes` (
 
 LOCK TABLES `sys_aplicacoes` WRITE;
 /*!40000 ALTER TABLE `sys_aplicacoes` DISABLE KEYS */;
-INSERT INTO `sys_aplicacoes` VALUES (1,'Atas de Reuniões','atas','/atas',0,1),(2,'Biblioteca','biblioteca','/biblioteca',0,1),(3,'Cadastrar','pre-cadastro','/pre-cadastro',0,1),(4,'Chat','chat','/chat',0,0),(5,'E-mail','email','',0,1),(6,'Enviar E-mail','email','/email/enviar',5,1),(7,'Meus E-mail','email','/email',5,1),(8,'Quadro de Avisos','avisos','/avisos',0,1),(9,'Quadro de Disponibilidade','quadro-disponibilidade','/quadro-disponibilidade',0,1),(10,'Quadro de Eventos','eventos','/eventos',0,1),(11,'Quadro de Literatura','quadro-leitura','/quadro-leitura',0,1),(12,'Níveis de Escolaridade','escolaridade','/escolaridade',0,1),(13,'Plano de Atividades','plano-atividades','/plano_atividades',0,1),(14,'Plano de Metas','plano-metas','/plano-metas',0,1),(15,'Produção de Grupo','producao-grupo','/producao-grupo',0,1),(16,'Questionários','questionario','',0,1),(17,'Aprendizagem','questionario','/questionario/aprendizagem',16,1),(18,'Cadastro','cadastro','/questionario/cadastro',16,1),(19,'Trabalhos de Correção','trabalho-correcao','',0,1),(20,'Meus Trabalhos','trabalho-correcao','/trabalho-correcao',19,1),(21,'Trabalhos Recebidos','trabalho-correcao','/trabalho-correcao/recebidos',19,1),(22,'Usuários','usuarios','',0,1),(23,'Grupos','grupos','/usuarios/grupos',22,1),(24,'Membros','membros','/usuarios/membros',22,1),(25,'Portfolio','portfolio','/portfolio',0,1),(26,'Configurações','configuracao','',0,1),(27,'Meu Perfil','perfil','/perfil',26,1),(28,'Alterar Senha','alterar-senha','/perfil/alterar-senha',26,1),(29,'Questionário Inicial','questionario','/questionario/inicial',0,1),(30,'Assuntos','assunto','/assunto',0,1);
+INSERT INTO `sys_aplicacoes` VALUES (1,'Atas de Reuniões','atas','/atas',0,1),(2,'Biblioteca','biblioteca','/biblioteca',0,1),(3,'Cadastrar','pre-cadastro','/pre-cadastro',0,1),(4,'Chat','chat','/chat',0,0),(5,'E-mail','email','',0,1),(6,'Enviar E-mail','email','/email/enviar',5,1),(7,'Meus E-mail','email','/email',5,1),(8,'Quadro de Avisos','avisos','/avisos',0,1),(9,'Quadro de Disponibilidade','quadro-disponibilidade','/quadro-disponibilidade',0,1),(10,'Quadro de Eventos','eventos','/eventos',0,1),(11,'Quadro de Literatura','quadro-leitura','/quadro-leitura',0,1),(12,'Níveis de Escolaridade','escolaridade','/escolaridade',0,1),(13,'Plano de Atividades','plano-atividades','/plano-atividades',0,1),(14,'Plano de Metas','plano-metas','/plano-metas',0,1),(15,'Produção de Grupo','producao-grupo','/producao-grupo',0,1),(16,'Questionários','questionario','',0,1),(17,'Aprendizagem','questionario','/questionario/aprendizagem',16,1),(18,'Cadastro','cadastro','/questionario/cadastro',16,1),(19,'Trabalhos de Correção','trabalho-correcao','',0,1),(20,'Meus Trabalhos','trabalho-correcao','/trabalho-correcao',19,1),(21,'Trabalhos Recebidos','trabalho-correcao','/trabalho-correcao/recebidos',19,1),(22,'Usuários','usuarios','',0,1),(23,'Grupos','grupos','/usuarios/grupos',22,1),(24,'Membros','membros','/usuarios/membros',22,1),(25,'Portfolio','portfolio','/portfolio',0,1),(26,'Configurações','configuracao','',0,1),(27,'Meu Perfil','perfil','/perfil',26,1),(28,'Alterar Senha','alterar-senha','/perfil/alterar-senha',26,1),(29,'Questionário Inicial','questionario','/questionario/inicial',0,1),(30,'Assuntos','assunto','/assunto',0,1);
 /*!40000 ALTER TABLE `sys_aplicacoes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -816,7 +840,7 @@ CREATE TABLE `sys_log_acesso_aplicacao` (
   `server` varchar(100) DEFAULT NULL,
   `params` varchar(8000) DEFAULT NULL,
   PRIMARY KEY (`cod_log`)
-) ENGINE=InnoDB AUTO_INCREMENT=213 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=368 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -992,7 +1016,7 @@ CREATE TABLE `us_pre_cadastro` (
   `situacao` int(11) DEFAULT NULL,
   `adm` int(11) DEFAULT NULL,
   PRIMARY KEY (`cod_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1507,6 +1531,141 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `us_buscarAtividades_sp` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarAtividades_sp`(
+	In filtro int,
+    in pesquisa varchar(100),
+    in cod_atividade int,
+    in dt_ini date,
+    in dt_fim date,
+    in is_adm int
+)
+BEGIN
+
+	set pesquisa = CONCAT('%',pesquisa,'%');
+    
+    
+    if cod_atividade = 0 then
+
+		if filtro = 1 then
+			
+			select cod_atividade, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade,
+				case when a.status = 1 then 'Não iniciada'
+					 when a.status = 2 then 'Em andamento'
+					 else 'Realizada' end as status
+			from atvs_plano_atividades a
+				inner join us_usuario b on b.cod_usuario = a.cod_usuario_fk
+				inner join atvs_plano_atividades_tipo c on a.tipo_atividade_fk = c.cod
+			where 
+				(dt_ini is null and dt_fim is null) or ((dt_ini is not null and dt_fim is not null) and (cast(concat(a.ano,'-',a.mes,'-','01') as date) between dt_ini and dt_fim))
+				and
+				c.descricao like pesquisa
+			order by data_criacao desc;
+			
+		elseif filtro = 2 then
+			
+            
+			select cod_atividade, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade,
+				case when a.status = 1 then 'Não iniciada'
+					 when a.status = 2 then 'Em andamento'
+					 else 'Realizada' end as status
+			from atvs_plano_atividades a
+				inner join us_usuario b on b.cod_usuario = a.cod_usuario_fk
+				inner join atvs_plano_atividades_tipo c on a.tipo_atividade_fk = c.cod
+			where 
+				(dt_ini is null and dt_fim is null) or ((dt_ini is not null and dt_fim is not null) and (cast(concat(a.ano,'-',a.mes,'-','01') as date) between dt_ini and dt_fim))
+				and
+				c.descricao like pesquisa
+			order by data_criacao desc;
+            
+        elseif filtro = 3 then
+        
+			
+			select cod_atividade, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade,
+				case when a.status = 1 then 'Não iniciada'
+					 when a.status = 2 then 'Em andamento'
+					 else 'Realizada' end as status
+			from atvs_plano_atividades a
+				inner join us_usuario b on b.cod_usuario = a.cod_usuario_fk
+				inner join atvs_plano_atividades_tipo c on a.tipo_atividade_fk = c.cod
+			where 
+				(dt_ini is null and dt_fim is null) or ((dt_ini is not null and dt_fim is not null) and (cast(concat(a.ano,'-',a.mes,'-','01') as date) between dt_ini and dt_fim))
+				and
+				c.descricao like pesquisa
+			order by data_criacao desc;
+        
+        elseif filtro = 4 then
+        
+			
+			select cod_atividade, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade,
+				case when a.status = 1 then 'Não iniciada'
+					 when a.status = 2 then 'Em andamento'
+					 else 'Realizada' end as status
+			from atvs_plano_atividades a
+				inner join us_usuario b on b.cod_usuario = a.cod_usuario_fk
+				inner join atvs_plano_atividades_tipo c on a.tipo_atividade_fk = c.cod
+			where 
+				(dt_ini is null and dt_fim is null) or ((dt_ini is not null and dt_fim is not null) and (cast(concat(a.ano,'-',a.mes,'-','01') as date) between dt_ini and dt_fim))
+				and
+				c.descricao like pesquisa
+			order by data_criacao desc;
+			
+		elseif filtro = 5 then
+        
+			
+			select cod_atividade, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade,
+				case when a.status = 1 then 'Não iniciada'
+					 when a.status = 2 then 'Em andamento'
+					 else 'Realizada' end as status
+			from atvs_plano_atividades a
+				inner join us_usuario b on b.cod_usuario = a.cod_usuario_fk
+				inner join atvs_plano_atividades_tipo c on a.tipo_atividade_fk = c.cod
+			where 
+				(dt_ini is null and dt_fim is null) or ((dt_ini is not null and dt_fim is not null) and (cast(concat(a.ano,'-',a.mes,'-','01') as date) between dt_ini and dt_fim))
+				and
+				c.descricao like pesquisa
+			order by data_criacao desc;
+        
+        else 
+			
+			select cod_atividade, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade,
+				case when a.status = 1 then 'Não iniciada'
+					 when a.status = 2 then 'Em andamento'
+					 else 'Realizada' end as status
+			from atvs_plano_atividades a
+				inner join us_usuario b on b.cod_usuario = a.cod_usuario_fk
+				inner join atvs_plano_atividades_tipo c on a.tipo_atividade_fk = c.cod
+			where 
+				(dt_ini is null and dt_fim is null) or ((dt_ini is not null and dt_fim is not null) and (cast(concat(a.ano,'-',a.mes,'-','01') as date) between dt_ini and dt_fim))
+			order by data_criacao desc;
+			
+		end if;
+		
+    else 
+    
+		select a.cod_material as cod,a.numero, a.base, a.titulo_artigo, a.titulo_periodico, a.autor, a.volume, arquivo,mes,ano, CONCAT(mes,'-',ano) as mes_ano, CONCAT(a.pagina_inicial,'-',a.pagina_final) as pagina, b.nome as usuario, date_format(a.data_pesquisa, "%d/%m/%Y") as data_pesquisa,a.pagina_inicial,a.pagina_final,date_format(a.data_pesquisa, "%Y-%m-%d") as dt_pesq
+		from ltr_material_leitura a
+			inner join us_usuario b on a.cod_usuario_fk = a.cod_usuario_fk
+		where a.cod_material = cod_atividade
+		order by data_criacao desc;
+    
+    end if;
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `us_buscarAvisos2_sp` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1720,7 +1879,7 @@ BEGIN
 			select cod_usuario as cod, nome, b.cod_tipo as tipo_usuario, b.descricao as tipo_usuario_desc, c.cod_nivel as escolaridade, c.descricao as escolaridade_desc, d.nome_foto
 			from us_usuario a
 				inner join us_tipo_usuario b on a.tipo_usuario_fk = b.cod_tipo
-				inner join nivel_escolaridade c on c.cod_nivel = a.nivel_escolaridade_fk
+				left join nivel_escolaridade c on c.cod_nivel = a.nivel_escolaridade_fk
                 inner join us_foto_perfil d on d.cod_usuario_fk = a.cod_usuario
 			where a.cod_usuario = cod_usuario;
 	else 
@@ -1846,7 +2005,7 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarEscolaridade_sp`(
-	In filtro int,
+	In filtro varchar(2),
     in pesquisa varchar(100),
     in cod_escolaridade int
 )
@@ -1857,7 +2016,7 @@ BEGIN
     
     if cod_escolaridade = 0 then
 
-		if filtro = 1 then
+		if filtro = '1' then
 			
             select cod_nivel,descricao as escolaridade, date_format(data_criacao, "%d/%m/%Y %H:%i:%s") as data_criacao 
             from nivel_escolaridade
@@ -1913,7 +2072,7 @@ BEGIN
 			
             select a.cod_material as cod, a.titulo_artigo, a.titulo_periodico, a.autor, a.volume,arquivo, CONCAT(mes,'-',ano) as mes_ano, CONCAT(a.pagina_inicial,'-',a.pagina_final) as pagina, b.nome as usuario, date_format(a.data_pesquisa, "%d/%m/%Y") as data_pesquisa
             from ltr_material_leitura a
-				inner join us_usuario b on a.cod_usuario_fk = a.cod_usuario_fk
+				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
 			where a.autor like pesquisa
             order by data_criacao desc;
 			
@@ -1921,7 +2080,7 @@ BEGIN
 			
             select a.cod_material as cod, a.titulo_artigo, a.titulo_periodico, a.autor, a.volume,arquivo, CONCAT(mes,'-',ano) as mes_ano, CONCAT(a.pagina_inicial,'-',a.pagina_final) as pagina, b.nome as usuario, date_format(a.data_pesquisa, "%d/%m/%Y") as data_pesquisa
             from ltr_material_leitura a
-				inner join us_usuario b on a.cod_usuario_fk = a.cod_usuario_fk
+				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
 			where a.base like pesquisa
             order by data_criacao desc;
             
@@ -1929,14 +2088,14 @@ BEGIN
         
 			select a.cod_material as cod, a.titulo_artigo, a.titulo_periodico, a.autor, a.volume,arquivo, CONCAT(mes,'-',ano) as mes_ano, CONCAT(a.pagina_inicial,'-',a.pagina_final) as pagina, b.nome as usuario, date_format(a.data_pesquisa, "%d/%m/%Y") as data_pesquisa
             from ltr_material_leitura a
-				inner join us_usuario b on a.cod_usuario_fk = a.cod_usuario_fk
+				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
             order by data_criacao desc;
         
         elseif filtro = 4 then
         
 			select a.cod_material as cod, a.titulo_artigo, a.titulo_periodico, a.autor, a.volume,arquivo, CONCAT(mes,'-',ano) as mes_ano, CONCAT(a.pagina_inicial,'-',a.pagina_final) as pagina, b.nome as usuario, date_format(a.data_pesquisa, "%d/%m/%Y") as data_pesquisa
             from ltr_material_leitura a
-				inner join us_usuario b on a.cod_usuario_fk = a.cod_usuario_fk
+				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
 			where a.titulo_periodico like pesquisa
             order by data_criacao desc;
 			
@@ -1944,7 +2103,7 @@ BEGIN
         
 			select a.cod_material as cod, a.titulo_artigo, a.titulo_periodico, a.autor, a.volume,arquivo, CONCAT(mes,'-',ano) as mes_ano, CONCAT(a.pagina_inicial,'-',a.pagina_final) as pagina, b.nome as usuario, date_format(a.data_pesquisa, "%d/%m/%Y") as data_pesquisa
             from ltr_material_leitura a
-				inner join us_usuario b on a.cod_usuario_fk = a.cod_usuario_fk
+				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
 			where b.nome like pesquisa
             order by data_criacao desc;
         
@@ -1952,7 +2111,7 @@ BEGIN
         
 			select a.cod_material as cod, a.titulo_artigo, a.titulo_periodico, a.autor, a.volume,arquivo, CONCAT(mes,'-',ano) as mes_ano, CONCAT(a.pagina_inicial,'-',a.pagina_final) as pagina, b.nome as usuario, date_format(a.data_pesquisa, "%d/%m/%Y") as data_pesquisa
             from ltr_material_leitura a
-				inner join us_usuario b on a.cod_usuario_fk = a.cod_usuario_fk
+				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
             order by data_criacao desc;
 			
 		end if;
@@ -1961,7 +2120,7 @@ BEGIN
     
 		select a.cod_material as cod,a.numero, a.base, a.titulo_artigo, a.titulo_periodico, a.autor, a.volume, arquivo,mes,ano, CONCAT(mes,'-',ano) as mes_ano, CONCAT(a.pagina_inicial,'-',a.pagina_final) as pagina, b.nome as usuario, date_format(a.data_pesquisa, "%d/%m/%Y") as data_pesquisa,a.pagina_inicial,a.pagina_final,date_format(a.data_pesquisa, "%Y-%m-%d") as dt_pesq
 		from ltr_material_leitura a
-			inner join us_usuario b on a.cod_usuario_fk = a.cod_usuario_fk
+			inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
 		where a.cod_material = cod_leitura
 		order by data_criacao desc;
     
@@ -2040,10 +2199,10 @@ BEGIN
     else
     begin
 			CREATE TEMPORARY TABLE finalQest AS (
-				select a.descricao as titulo, b.cod as id,is_sub, case when is_sub = 0 then 0 else c.cod_questao end as parent, b.desc_pergunta as name, 1 as num_qst
+				select b.cod as id,is_sub, case when is_sub = 0 then 0 else c.cod_questao end as parent, b.desc_pergunta as name, 1 as num_qst
 				from qst_questionario a
 						inner join qst_questao1 b on a.cod_questionario = b.cod_questionario
-					inner join qst_questao_dependencia c on c.cod_questao_dependente = b.cod
+						inner join qst_questao_dependencia c on c.cod_questao_dependente = b.cod
 				where a.cod_questionario = questionario order by b.cod asc
             );
 
@@ -2081,4 +2240,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-16 16:24:29
+-- Dump completed on 2019-09-19 16:54:50

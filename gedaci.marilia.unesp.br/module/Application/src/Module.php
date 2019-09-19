@@ -106,7 +106,8 @@ class Module
         
         $pre_cadastro_actions_permitidas = array(
             'bem-vindo',
-            'inicial'
+            'inicial',
+            'debug'
         );
         
         $params = $controller->params()->fromPost();

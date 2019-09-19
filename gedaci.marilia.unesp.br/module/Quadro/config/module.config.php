@@ -94,7 +94,7 @@ return [
                     ],
                 ],
             ],
-             'nivel-escolaridade' => [
+            'nivel-escolaridade' => [
                 'type'    => Segment::class,
                 'options' => [
                     'route'    => '/escolaridade[/:action]',
@@ -104,7 +104,17 @@ return [
                     ],
                 ],
             ],
-             'producao-grupo' => [
+            'plano-atividades' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/plano-atividades[/:action]',
+                    'defaults' => [
+                        'controller' => Controller\PlanoAtividadesController::class,
+                        'action'     => 'atividades',
+                    ],
+                ],
+            ],
+            'producao-grupo' => [
                 'type'    => Segment::class,
                 'options' => [
                     'route'    => '/producao-grupo',
@@ -140,6 +150,7 @@ return [
             Controller\EscolaridadeController::class => InvokableFactory::class,
             Controller\AssuntoController::class => InvokableFactory::class,
             Controller\ProducaoGrupoController::class => InvokableFactory::class,
+            Controller\PlanoAtividadesController::class => InvokableFactory::class,
         ],
     ],
     'view_manager' => [

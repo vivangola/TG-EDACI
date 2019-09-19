@@ -1,0 +1,174 @@
+<div class="panel-default" id="add_panel_respostas" style="display:none;">
+    <div class="panel-heading back-primary3" style="border:0px !important">
+        Respostas
+    </div>
+    <div class="panel-body" id="add_nova_pergunta">
+        <div id="escolher_tipo_resp text-center" style="text-align: center;">
+            <div class="form-group" style="text-align: left">
+                <label for="add_desc_resp" class="col-form-label">Digite a pergunta abaixo:</label>
+                <br>
+                <input type="text" class="form-control" id="add_desc_resp" value="">
+            </div>
+            <button type="button" class="btn btn-primary3" id="btn_objetiva" onclick="escolher_tipo_resp(1);">Objetiva</button>
+            ou
+            <button type="button" class="btn btn-primary3" id="btn_dissertativa" onclick="escolher_tipo_resp(2);">Dissertativa</button>
+            <hr>
+        </div>
+        <div class="respostas" id="menu-objetiva" style="display:none">
+            <div class="col-md-12 text-right">
+                <button type="button" class="btn btn-primary3" onclick="addLimpar();">Limpar <i class="fa fa-times"></i></button>
+                <button type="button" class="btn btn-primary3" onclick="addAlternativa();">Adicionar Alternativa <i class="fa fa-plus"></i></button>
+                <button type="button" class="btn btn-primary3" onclick="addFinalizar();">Finalizar <i class="fa fa-check"></i></button>
+            </div>
+            <br><br><br>
+            <div id="add-respostas-objetiva">
+            </div>
+        </div>
+        <div id="menu-dissertativa" style="display:none">
+            <div class="col-md-12 text-right">
+                <button type="button" class="btn btn-primary3" onclick="addFinalizar2();">Finalizar <i class="fa fa-check"></i></button>
+            </div>
+            <div id="respostas-dissertativa">
+            </div>
+        </div>
+    </div>
+    <div class="panel-body" id="edit_resposta" style="display: none;">
+        <div class="form-group">
+            <label for="add_desc" class="col-form-label">1.1)</label>
+            <input type="text" class="form-control" id="add_desc" value="Sim">
+            <hr>
+        </div>
+        <div class="col-md-12 text-right">
+            <button type="button" class="btn btn-primary3" onclick="add();">Adicionar <i class="fa fa-plus"></i></button>
+            <button type="button" class="btn btn-primary3" onclick="proximo();">Finalizar <i class="fa fa-check"></i></button>
+        </div>
+        <hr>
+        <br><br>
+        <div class="form-group">
+            <label for="add_desc" class="col-form-label">1.1.1)</label>
+            <input type="text" class="form-control" id="add_desc" value="Durante qual período?">
+        </div>
+        <div class="form-group">
+            <label for="add_desc" class="col-form-label">1.1.2)</label>
+            <input type="text" class="form-control" id="add_desc" value="Durante qual período?">
+        </div>
+        <div class="form-group">
+            <label for="add_desc" class="col-form-label">1.1.3)</label>
+            <input type="text" class="form-control" id="add_desc" value="Quem foi o orientador (nome completo)?">
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function addQuestao() {
+        limparAdd();
+        $('#add_panel_respostas').fadeIn('slow');
+    }
+
+    function addAlternativa() {
+        html = '<div class="form-group divRemoverResposta" style="text-align:right;">' +
+                '<i class="fa fa-times pointer removerResposta"></i>' +
+                '<input type="text" class="form-control" id="add_desc" value="">' +
+                '</div>';
+        $('#add-respostas-objetiva').append(html);
+    }
+
+    $('#add-respostas-objetiva').on('click', '.removerResposta', function (e) {
+        $(this).parent('.divRemoverResposta').remove();
+    });
+
+    function addLimpar() {
+        $('#add-respostas-objetiva').html('');
+    }
+
+    function addFinalizar() {
+        var qtdInputs = 0;
+        $('#add-respostas-objetiva input').filter(function () {
+            return $(this).val() != "" ? qtdInputs = qtdInputs + 1 : '';
+        });
+
+
+        if (qtdInputs <= 0) {
+            Swal.fire({
+                title: 'Atenção!',
+                html: 'Coloque alternativas.',
+                type: 'info'
+            });
+            return false;
+        }
+
+        var alternativas = [];
+        $('#add-respostas-objetiva input').filter(function () {
+            return $(this).val() != "" ? alternativas.push($(this).val()) : '';
+        });
+
+        $.ajax({
+            url: '/questionario/cadastro/add-questao',
+            data: {
+                cod_questionario: $('#cod_questionario').val(),
+                desc_questao: $('#add_desc_resp').val(),
+                cod_questao: '0',
+                alternativas: alternativas,
+                tipo_questao: '1'
+            },
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                retorno = JSON.parse(retorno);
+                $('#perguntas_edit').html(retorno.html);
+                Swal.fire({
+                    title: 'Sucesso!',
+                    html: 'Questão adicionada.',
+                    type: 'info'
+                });
+
+                limparAdd();
+
+            }
+        });
+    }
+
+    function limparAdd() {
+        $('#btn_objetiva').attr('style', 'background:#629bad !important');
+        $('#btn_dissertativa').attr('style', 'background:#629bad !important');
+        $('#menu-dissertativa').hide();
+        $('#menu-objetiva').hide();
+        $('#add-respostas-objetiva').html('');
+        $('#add_desc_resp').val('');
+        $('#add_panel_respostas').hide();
+    }
+
+
+    function escolher_tipo_resp(tipo) {
+
+        if (!$('#add_desc_resp').val()) {
+            Swal.fire({
+                title: 'Atenção!',
+                html: 'Antes de escolher o tipo da questão, digite a questão.',
+                type: 'info'
+            });
+            return false;
+        }
+
+        if (tipo == 1) {
+            $('#btn_objetiva').attr('style', 'background:#477482 !important');
+            $('#btn_dissertativa').attr('style', 'background:#629bad !important');
+            $('#menu-dissertativa').hide();
+            $('#menu-objetiva').fadeIn('slow');
+        } else {
+            $('#btn_objetiva').attr('style', 'background:#629bad !important');
+            $('#btn_dissertativa').attr('style', 'background:#477482 !important');
+            $('#menu-objetiva').hide();
+            $('#menu-dissertativa').fadeIn('slow');
+        }
+    }
+
+    function showAdd() {
+        $('#modalAdd').modal('show');
+    }
+
+</script>    

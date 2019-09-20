@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @copyright Copyright (c) 2019 FATEC OURINHOS
  * @author Gabriel da Silva pereira & Denilson Perez Junior
@@ -13,20 +14,21 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\Container;
 use Zend\View\Model\ViewModel;
 
-class IndexController extends AbstractActionController
-{
-    public function indexAction(){
+class IndexController extends AbstractActionController {
+
+    public function indexAction() {
+
         $funcoes = new Funcoes($this);
         $sessao = new Container("usuario");
         $relatorio = new Relatorio();
-        
+
         $params = array(
             'cod_usuario' => $sessao->cod_usuario,
         );
-            
+
         $sql = "call us_buscarAvisos_sp (:cod_usuario)";
         $avisos = $funcoes->executarSQL($sql, $params);
-
+        
         $relatorio->definirColuna('ASSUNTO', 'assunto', '10', 'left', 't', 'n', 'n');
         $relatorio->definirColuna('DESCRIÇÃO', 'descricao', '10', 'left', 't', 'n', 'n');
         $relatorio->definirColuna('DATA RECEBIDO', 'dt_convert', '8', 'center', 't', 'n', 'n');
@@ -34,20 +36,20 @@ class IndexController extends AbstractActionController
         $view = new ViewModel(array(
             'avisos' => $avisos,
             'relatorio' => $relatorio,
-            'nome_usuario'  => $sessao->nome_usuario
+            'nome_usuario' => $sessao->nome_usuario
         ));
 
         $view->setTemplate('application/index/index');
         return $view;
     }
-    
-    public function BemVindoAction(){
+
+    public function BemVindoAction() {
         $sessao = new Container("usuario");
-        
-        if($sessao->tipo_usuario != 0){
+
+        if ($sessao->tipo_usuario != 0) {
             return $this->redirect()->toUrl("/");
         }
-        
+
         $view = new ViewModel(array(
             'nome_usuario' => $sessao->nome_usuario,
         ));
@@ -55,8 +57,8 @@ class IndexController extends AbstractActionController
         $view->setTemplate('application/index/bem-vindo');
         return $view;
     }
-    
-    public function debugAction(){
+
+    public function debugAction() {
         $funcoes = new Funcoes($this);
         
         echo '<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">';
@@ -70,8 +72,8 @@ class IndexController extends AbstractActionController
             echo "<textarea style='height: 300px;width: 100%;' type='text' name='debug'></textarea>";
         }
         echo "</form>";
-        
-        if(isset($_POST['debug'])){
+
+        if (isset($_POST['debug'])) {
             $sql = $_POST['debug'];
             $result = $funcoes->executarSQL($sql, []);
             

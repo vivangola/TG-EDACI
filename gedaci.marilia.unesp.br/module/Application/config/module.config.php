@@ -64,6 +64,26 @@ return [
                     ],
                 ],
             ],
+            'salvar-doc' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/salvar-doc[/:action]',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action'     => 'salvar-doc',
+                    ],
+                ],
+            ],
+            'salvar-video' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/salvar-video[/:action]',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action'     => 'salvar-video',
+                    ],
+                ],
+            ],
             'usuarios' => [
                 'type'    => Segment::class,
                 'options' => [

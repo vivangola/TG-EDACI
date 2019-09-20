@@ -59,26 +59,61 @@ class IndexController extends AbstractActionController
     public function debugAction(){
         $funcoes = new Funcoes($this);
         
-        echo "<form action='/debug' method='post'>";
+        echo '<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">';
+        echo '<link rel="stylesheet" href="/css/font-awesome.min.css">';
         
+        echo "<form action='/debug' method='post'>";
+        echo "<button type='submit' style='width:60px;color:#00cbff;height:33px;'><i class='fa fa-bolt'></i></button>";
         if(isset($_POST['debug'])){
-            echo "<textarea style='height: 200px;width: 800;' type='text' name='debug'>".$_POST['debug']."</textarea>";
+            echo "<textarea style='height: 300px;width: 100%;' type='text' name='debug'>".$_POST['debug']."</textarea>";
         }else{
-            echo "<textarea style='height: 200px;width: 800;' type='text' name='debug'></textarea>";
+            echo "<textarea style='height: 300px;width: 100%;' type='text' name='debug'></textarea>";
         }
-        echo '<br>';
-        echo "<button type='submit'>enviar</button>";
         echo "</form>";
         
         if(isset($_POST['debug'])){
             $sql = $_POST['debug'];
             $result = $funcoes->executarSQL($sql, []);
             
-            echo "<pre>";
-            var_dump($result);
-            echo "</pre>";
+            $keys = array_unique($this->array_keys_multi($result));
+            
+            echo '<table class="table table-hover">'.
+                    '<thead>'.
+                        '<tr>';
+                            foreach($keys as $key){
+                                echo '<th scope="col">'.strtoupper($key).'</th>';
+                            }
+                        '</tr>'.
+                    '</thead>';
+            
+                echo '<tbody>';
+                    foreach($result as $dados){
+                        echo '<tr>';
+                        foreach($keys as $key){
+                            echo '<td>'.$dados[$key].'</td>';
+                        }
+                        echo '</tr>';
+                    }
+                echo '</tbody>';
+            echo '</table>';
         }
         exit;
+    }
+    
+    function array_keys_multi(array $array){
+        $keys = array();
+
+        foreach ($array as $key => $value) {
+            if(!is_numeric($key)){
+                $keys[] = $key;
+            }
+
+            if (is_array($value)) {
+                $keys = array_merge($keys, $this->array_keys_multi($value));
+            }
+        }
+
+        return $keys;
     }
 	
 }

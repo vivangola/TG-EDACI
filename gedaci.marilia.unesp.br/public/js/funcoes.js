@@ -6,7 +6,7 @@
 
 function validaParametros(parametros){
     retorno = true;
-    
+     
     $.each(parametros, function( index, value ) {
         if(!value || value == ''){            
             retorno = false;

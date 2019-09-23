@@ -64,6 +64,16 @@ return [
                     ],
                 ],
             ],
+            'alterar-dados' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/alterar-dados[/:action]',
+                    'defaults' => [
+                        'controller' => Controller\PerfilController::class,
+                        'action'     => 'alterar-dados',
+                    ],
+                ],
+            ],
             'salvar-doc' => [
                 'type'    => Segment::class,
                 'options' => [

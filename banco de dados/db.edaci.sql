@@ -32,7 +32,7 @@ CREATE TABLE `atvs_plano_atividades` (
   `tipo_atividade_fk` int(11) DEFAULT NULL,
   `data_criacao` datetime DEFAULT NULL,
   PRIMARY KEY (`cod_atividade`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,32 @@ CREATE TABLE `atvs_plano_atividades` (
 
 LOCK TABLES `atvs_plano_atividades` WRITE;
 /*!40000 ALTER TABLE `atvs_plano_atividades` DISABLE KEYS */;
+INSERT INTO `atvs_plano_atividades` VALUES (1,4,'Ativdade de teste',4,2019,1,2,'2019-09-20 10:53:10'),(2,4,'',0,0,0,0,'2019-09-20 16:59:57'),(3,4,'',0,0,0,0,'2019-09-20 17:00:43');
 /*!40000 ALTER TABLE `atvs_plano_atividades` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `atvs_plano_atividades_status`
+--
+
+DROP TABLE IF EXISTS `atvs_plano_atividades_status`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `atvs_plano_atividades_status` (
+  `cod` int(11) NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`cod`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `atvs_plano_atividades_status`
+--
+
+LOCK TABLES `atvs_plano_atividades_status` WRITE;
+/*!40000 ALTER TABLE `atvs_plano_atividades_status` DISABLE KEYS */;
+INSERT INTO `atvs_plano_atividades_status` VALUES (1,'Não iniciada'),(2,'Em andamento'),(3,'Realizada');
+/*!40000 ALTER TABLE `atvs_plano_atividades_status` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -842,7 +867,7 @@ CREATE TABLE `sys_log_acesso_aplicacao` (
   `server` varchar(100) DEFAULT NULL,
   `params` varchar(8000) DEFAULT NULL,
   PRIMARY KEY (`cod_log`)
-) ENGINE=InnoDB AUTO_INCREMENT=368 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1368,6 +1393,8 @@ BEGIN
 		set cod_usuario = (select a.cod_usuario from us_pre_cadastro a where a.email = email);
     
 		insert into us_acesso(cod_usuario_fk, login, senha, situacao) values (cod_usuario, email, senha, 0);
+        
+        insert into us_foto_perfil(cod_usuario_fk, nome_foto) values (cod_usuario, '');
     
 		select '0' as cod, 'Seu pré-cadastro foi realizado com sucesso.<br>Aguarde até que ele seja aceito.' as msg;
 	end if;
@@ -1560,13 +1587,11 @@ BEGIN
 
 		if filtro = 1 then
 			
-			select cod_atividade, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade,
-				case when a.status = 1 then 'Não iniciada'
-					 when a.status = 2 then 'Em andamento'
-					 else 'Realizada' end as status
+			select a.cod_atividade as cod, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade, d.descricao as status, b.nome as usuario
 			from atvs_plano_atividades a
 				inner join us_usuario b on b.cod_usuario = a.cod_usuario_fk
 				inner join atvs_plano_atividades_tipo c on a.tipo_atividade_fk = c.cod
+                inner join atvs_plano_atividades_status d on a.status = d.cod
 			where 
 				(dt_ini is null and dt_fim is null) or ((dt_ini is not null and dt_fim is not null) and (cast(concat(a.ano,'-',a.mes,'-','01') as date) between dt_ini and dt_fim))
 				and
@@ -1575,90 +1600,79 @@ BEGIN
 			
 		elseif filtro = 2 then
 			
-            
-			select cod_atividade, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade,
-				case when a.status = 1 then 'Não iniciada'
-					 when a.status = 2 then 'Em andamento'
-					 else 'Realizada' end as status
+			select a.cod_atividade as cod, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade, d.descricao as status, b.nome as usuario
 			from atvs_plano_atividades a
 				inner join us_usuario b on b.cod_usuario = a.cod_usuario_fk
 				inner join atvs_plano_atividades_tipo c on a.tipo_atividade_fk = c.cod
+                inner join atvs_plano_atividades_status d on a.status = d.cod
 			where 
 				(dt_ini is null and dt_fim is null) or ((dt_ini is not null and dt_fim is not null) and (cast(concat(a.ano,'-',a.mes,'-','01') as date) between dt_ini and dt_fim))
 				and
-				c.descricao like pesquisa
+				d.descricao like pesquisa
 			order by data_criacao desc;
             
         elseif filtro = 3 then
         
 			
-			select cod_atividade, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade,
-				case when a.status = 1 then 'Não iniciada'
-					 when a.status = 2 then 'Em andamento'
-					 else 'Realizada' end as status
+			select a.cod_atividade as cod, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade, d.descricao as status, b.nome as usuario
 			from atvs_plano_atividades a
 				inner join us_usuario b on b.cod_usuario = a.cod_usuario_fk
 				inner join atvs_plano_atividades_tipo c on a.tipo_atividade_fk = c.cod
+                inner join atvs_plano_atividades_status d on a.status = d.cod
 			where 
 				(dt_ini is null and dt_fim is null) or ((dt_ini is not null and dt_fim is not null) and (cast(concat(a.ano,'-',a.mes,'-','01') as date) between dt_ini and dt_fim))
 				and
-				c.descricao like pesquisa
+				a.mes like pesquisa
 			order by data_criacao desc;
         
         elseif filtro = 4 then
         
 			
-			select cod_atividade, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade,
-				case when a.status = 1 then 'Não iniciada'
-					 when a.status = 2 then 'Em andamento'
-					 else 'Realizada' end as status
+			select a.cod_atividade as cod, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade, d.descricao as status, b.nome as usuario
 			from atvs_plano_atividades a
 				inner join us_usuario b on b.cod_usuario = a.cod_usuario_fk
 				inner join atvs_plano_atividades_tipo c on a.tipo_atividade_fk = c.cod
+                inner join atvs_plano_atividades_status d on a.status = d.cod
 			where 
 				(dt_ini is null and dt_fim is null) or ((dt_ini is not null and dt_fim is not null) and (cast(concat(a.ano,'-',a.mes,'-','01') as date) between dt_ini and dt_fim))
 				and
-				c.descricao like pesquisa
+				a.ano like pesquisa
 			order by data_criacao desc;
 			
 		elseif filtro = 5 then
         
 			
-			select cod_atividade, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade,
-				case when a.status = 1 then 'Não iniciada'
-					 when a.status = 2 then 'Em andamento'
-					 else 'Realizada' end as status
+			select a.cod_atividade as cod, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade, d.descricao as status, b.nome as usuario
 			from atvs_plano_atividades a
 				inner join us_usuario b on b.cod_usuario = a.cod_usuario_fk
 				inner join atvs_plano_atividades_tipo c on a.tipo_atividade_fk = c.cod
+                inner join atvs_plano_atividades_status d on a.status = d.cod
 			where 
 				(dt_ini is null and dt_fim is null) or ((dt_ini is not null and dt_fim is not null) and (cast(concat(a.ano,'-',a.mes,'-','01') as date) between dt_ini and dt_fim))
 				and
-				c.descricao like pesquisa
+				b.nome like pesquisa
 			order by data_criacao desc;
         
         else 
 			
-			select cod_atividade, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade,
-				case when a.status = 1 then 'Não iniciada'
-					 when a.status = 2 then 'Em andamento'
-					 else 'Realizada' end as status
+			select a.cod_atividade as cod, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade, d.descricao as status, b.nome as usuario
 			from atvs_plano_atividades a
 				inner join us_usuario b on b.cod_usuario = a.cod_usuario_fk
 				inner join atvs_plano_atividades_tipo c on a.tipo_atividade_fk = c.cod
-			where 
-				(dt_ini is null and dt_fim is null) or ((dt_ini is not null and dt_fim is not null) and (cast(concat(a.ano,'-',a.mes,'-','01') as date) between dt_ini and dt_fim))
+                inner join atvs_plano_atividades_status d on a.status = d.cod
 			order by data_criacao desc;
 			
 		end if;
 		
     else 
     
-		select a.cod_material as cod,a.numero, a.base, a.titulo_artigo, a.titulo_periodico, a.autor, a.volume, arquivo,mes,ano, CONCAT(mes,'-',ano) as mes_ano, CONCAT(a.pagina_inicial,'-',a.pagina_final) as pagina, b.nome as usuario, date_format(a.data_pesquisa, "%d/%m/%Y") as data_pesquisa,a.pagina_inicial,a.pagina_final,date_format(a.data_pesquisa, "%Y-%m-%d") as dt_pesq
-		from ltr_material_leitura a
-			inner join us_usuario b on a.cod_usuario_fk = a.cod_usuario_fk
-		where a.cod_material = cod_atividade
-		order by data_criacao desc;
+		select a.cod_atividade as cod, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade, d.descricao as status, b.nome as usuario
+		from atvs_plano_atividades a
+			inner join us_usuario b on b.cod_usuario = a.cod_usuario_fk
+			inner join atvs_plano_atividades_tipo c on a.tipo_atividade_fk = c.cod
+			inner join atvs_plano_atividades_status d on a.status = d.cod
+		where 
+			a.cod_atividade = cod_atividade;
     
     end if;
     
@@ -1886,9 +1900,9 @@ BEGIN
 			where a.cod_usuario = cod_usuario;
 	else 
     
-			select cod_usuario as cod, nome, 0 as tipo_usuario, 'Pré-Cadastro' as tipo_usuario_desc, d.nome_foto
+			select cod_usuario as cod, nome, 0 as tipo_usuario, 'Pré-Cadastro' as tipo_usuario_desc, case when d.nome_foto is null then '' else d.nome_foto end as nome_foto
             from us_pre_cadastro a 
-				 inner join us_foto_perfil d on d.cod_usuario_fk = a.cod_usuario
+				 left join us_foto_perfil d on d.cod_usuario_fk = a.cod_usuario
             where a.cod_usuario = cod_usuario; 
     
     end if;
@@ -2242,4 +2256,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-19 16:54:50
+-- Dump completed on 2019-09-20 17:08:12

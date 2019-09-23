@@ -64,11 +64,6 @@
                                             $relatorio->gerarCabecalho(12);
                                             if (!empty($result)) {
                                                 foreach ($result as $dados) {
-                                                    if($dados['arquivo']){
-                                                        $relatorio->definirVariavel('1', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showFile('".$dados['arquivo']."')><i class='pointer fa fa-download'></i></button>");
-                                                    }else{
-                                                        $relatorio->definirVariavel('1', "");
-                                                    }
                                                     $relatorio->definirVariavel('2', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showEdit('".$dados['cod']."')><i class='pointer fa fa-edit'></i></button>");
                                                     $relatorio->definirVariavel('3', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showDelete('".$dados['cod']."')><i class='pointer fa fa-times'></i></button>");
                                                     
@@ -93,7 +88,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Adicionar Material</h2>
+                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Adicionar Atividade</h2>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -101,45 +96,29 @@
             <form id="formAdd" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="add_artigo" class="col-form-label">Título Artigo:</label>
-                        <input type="text"  class="form-control" id="add_artigo" name="add_artigo" maxlength="200" title="Digite o Título do Artigo."/>
-                    </div>
-                    <div class="form-group">
-                        <label for="add_periodico" class="col-form-label">Título Periódico:</label>
-                        <input type="text"  class="form-control" id="add_periodico" maxlength="200" name="add_periodico" title="Digite o Título Periódico."/>
+                        <label for="add_desc" class="col-form-label">Descrição:</label>
+                        <input type="text"  class="form-control" id="add_desc" name="add_desc" maxlength="200" title="Digite a Descrição da Atividade."/>
                     </div>
                     <div class="row">
                         <div class="form-group col-xs-6">
-                            <label for="add_base" class="col-form-label">Base:</label>
-                            <input id="add_base" class="form-control input-group-lg" maxlength="100" type="text" name="add_base"/>
+                            <label for="add_tipo" class="col-form-label">Tipo de Atividade:</label>
+                            <select id="add_tipo" class="form-control input-group-lg" name="add_tipo" title="Selecione o tipo da atividade.">
+                                <?php foreach($tipos as $dados): ?>
+                                        <option value="<?= $dados['cod'] ?>"> <?= $dados['descricao'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
 
                         <div class="form-group col-xs-6">
-                            <label for="add_datapesq" class="col-form-label">Data da Pesquisa:</label>
-                            <input id="add_datapesq" class="form-control input-group-lg" type="date" name="add_datapesq"/>
+                            <label for="add_status" class="col-form-label">Status da Atividade:</label>
+                            <select id="add_status" class="form-control input-group-lg" name="add_status" title="Status da atividade.">
+                                <?php foreach($status as $dados): ?>
+                                        <option value="<?= $dados['cod'] ?>"> <?= $dados['descricao'] ?></option>
+                                <?php endforeach; ?>
+                             </select>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-2">
-                            <label for="add_pginicial" class="col-form-label">Pag Inícial:</label>
-                            <input id="add_pginicial" class="form-control input-group-lg" type="text" name="add_pginicial" data-mask="00000"/>
-                        </div>
-
-                        <div class="form-group col-xs-2">
-                            <label for="add_pgfim" class="col-form-label">Pag Final:</label>
-                            <input id="add_pgfim" class="form-control input-group-lg" type="text" name="add_pgfim" data-mask="00000"/>
-                        </div>
-                        
-                        <div class="form-group col-xs-2">
-                            <label for="add_volume" class="col-form-label">Volume:</label>
-                            <input id="add_volume" class="form-control input-group-lg" type="text" name="add_volume" data-mask="00000"/>
-                        </div>
-
-                        <div class="form-group col-xs-2">
-                            <label for="add_numero" class="col-form-label">Numero:</label>
-                            <input id="add_numero" class="form-control input-group-lg" type="text" name="add_numero" data-mask="00000"/>
-                        </div>
-                        
                         <div class="form-group col-xs-2">
                             <label for="add_mes" class="col-form-label">Mês:</label>
                             <input id="add_mes" class="form-control input-group-lg" type="text" name="add_mes" data-mask="00" placeholder="Mês"/>
@@ -149,14 +128,6 @@
                             <label for="add_ano" class="col-form-label">Ano:</label>
                             <input id="add_ano" class="form-control input-group-lg" type="text" name="add_ano" data-mask="0000" placeholder="Ano"/>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="add_autor "class="col-form-label">Autor(es):</label>
-                        <input type="text"  class="form-control" id="add_autor" maxlength="200" name="add_autor" title="Digite o(s) Autor(es)."/>
-                    </div>
-                    <div class="form-group">
-                        <label for="add_arquivo" class="col-form-label">Arquivo: (pdf,doc,docx)</label>
-                        <input type="file" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="form-control" name="add_arquivo" id="add_arquivo">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -267,18 +238,11 @@
     function add(){
         
         var data = {
-            base                : $('#add_base').val(),
-            data_pesquisa       : $('#add_datapesq').val(),
-            titulo_periodico    : $('#add_periodico').val(),
-            ano                 : $('#add_ano').val(),
-            mes                 : $('#add_mes').val(),
-            volume              : $('#add_volume').val(),
-            numero              : $('#add_numero').val(),
-            titulo_artigo       : $('#add_artigo').val(),
-            autor               : $('#add_autor').val(),
-            pagina_inicial      : $('#add_pginicial').val(),
-            pagina_final        : $('#add_pgfim').val(),
-            interesse           : '5'
+            descricao    : $('#add_desc').val(),
+            tipo         : $('#add_tipo').val(),
+            status       : $('#add_status').val(),
+            ano          : $('#add_ano').val(),
+            mes          : $('#add_mes').val()
         };
         
         if(!validaParametros(data)){
@@ -290,17 +254,8 @@
             return false;
         }
         
-        if(!validarData(data.data_pesquisa)){
-            Swal.fire({
-                title: 'Atenção!',
-                html: "A data de pesquisa não é válida.",
-                type: 'info'
-            });
-            return false;
-        }
-        
         var options = {
-            url: '/quadro-leitura/add',
+            url: '/plano-atividades/add',
             type: 'POST',
             dataType: 'json',
             cache: false,
@@ -309,7 +264,7 @@
                     Swal.fire({
                         title: 'Sucesso!',
                         html: retorno.msg,
-                        type: 'info',
+                        type: 'success',
                         onClose: () => {
                             window.location.reload();
                         }
@@ -435,7 +390,7 @@
             showCancelButton: true,
             preConfirm: () => {
                 $.ajax({
-                    url: '/quadro-leitura/delete',
+                    url: '/plano-atividades/delete',
                     data: {cod : cod},
                     type: 'json',
                     method: 'POST',

@@ -22,17 +22,24 @@ class PlanoAtividadesController extends AbstractActionController
         $relatorio = new Relatorio();
         
         $params = array(
-            'cod_usuario' => $sessao->cod_usuario,
-            'filtro'    => $this->params()->fromPost('filtros', '-1'),
-            'pesquisa'  => $this->params()->fromPost('pesquisa', ''),
+            'cod_usuario'   => $sessao->cod_usuario,
+            'filtro'        => $this->params()->fromPost('filtros', '-1'),
+            'pesquisa'      => $this->params()->fromPost('pesquisa', ''),
+            'is_adm'        => $sessao->tipo_usuario == 1 ? 1 : 0
         );
         
         if($params['filtro'] == '-1'){
             $params['pesquisa'] = '';
         }
         
-        $sql = "call us_buscarAtividades_sp(:filtro,:pesquisa,'0')";
-        //$result = $funcoes->executarSQL($sql,$params);
+        $sql = "call us_buscarAtividades_sp(:filtro,:pesquisa,'0',null,null,:is_adm)";
+        $result = $funcoes->executarSQL($sql,$params);
+        
+        $sql = "select * from atvs_plano_atividades_tipo";
+        $tipos = $funcoes->executarSQL($sql, []);
+        
+        $sql = "select * from atvs_plano_atividades_status";
+        $status = $funcoes->executarSQL($sql, []);
         
         $relatorio->definirColuna('DESCRIÇÃO', 'descricao', '8', 'left', 't', 'n', 'n');
         $relatorio->definirColuna('TIPO DE ATIVIDADE', 'tipo_atividade', '4', 'center', 't', 'n', 'n');
@@ -40,16 +47,17 @@ class PlanoAtividadesController extends AbstractActionController
         $relatorio->definirColuna('USUÁRIO', 'usuario', '2', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('MÊS/ANO', 'mes_ano', '2', 'center', 't', 'n', 'n');
         
-        $relatorio->definirColuna('DOWNLOAD', '1', '2', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('ALTERAR', '2', '2', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('EXCLUIR', '3', '2', 'center', 't', 'n', 'n');
         
         $view = new ViewModel(array(
-            'result'    => [],
+            'result'    => $result,
             'relatorio' => $relatorio,
             'filtro'    => $params['filtro'],
             'pesq'      => $params['pesquisa'],
-            'is_adm'    => $sessao->tipo_usuario == 1 ? 1 : 0
+            'is_adm'    => $sessao->tipo_usuario == 1 ? 1 : 0,
+            'tipos'     => $tipos,
+            'status'    => $status
         ));
         
         $view->setTemplate('quadro/quadro-atividades');
@@ -66,55 +74,18 @@ class PlanoAtividadesController extends AbstractActionController
         if($request->isPost()){
             $params = array(
                 'usuario'           => $sessao->cod_usuario,
-                'base'              => $this->params()->fromPost('add_base', ''), 
-                'data_pesquisa'     => $this->params()->fromPost('add_datapesq', ''), 
-                'titulo_periodico'  => $this->params()->fromPost('add_periodico', ''), 
+                'descricao'         => $this->params()->fromPost('add_desc', ''), 
+                'tipo'              => $this->params()->fromPost('add_tipo', ''), 
+                'status'            => $this->params()->fromPost('add_status', ''), 
                 'ano'               => $this->params()->fromPost('add_ano', ''), 
                 'mes'               => $this->params()->fromPost('add_mes', ''), 
-                'volume'            => $this->params()->fromPost('add_volume', ''), 
-                'numero'            => $this->params()->fromPost('add_numero', ''), 
-                'titulo_artigo'     => $this->params()->fromPost('add_artigo', ''), 
-                'autor'             => $this->params()->fromPost('add_autor', ''), 
-                'pagina_inicial'    => $this->params()->fromPost('add_pginicial', ''), 
-                'pagina_final'      => $this->params()->fromPost('add_pgfim', ''), 
-                'interesse'         => $this->params()->fromPost('add_interesse', ''), 
-                //'arquivo'           => $this->params()->fromPost('arquivo', ''), 
             ); 
             
-            $arquivo = $this->params()->fromFiles('add_arquivo', '');
-            
-            if($arquivo){
-                $ext = pathinfo($arquivo['name'], PATHINFO_EXTENSION);
+            $sql = "insert into atvs_plano_atividades(cod_usuario_fk, descricao, mes, ano, status, tipo_atividade_fk, data_criacao) " .
+                                "values(:usuario,:descricao,:tipo,:status,:ano,:mes,now());";
+            $funcoes->executarSQL($sql,$params);
 
-                $dir = $_SERVER['DOCUMENT_ROOT']. '/arquivos/leitura/';
-
-                if(!file_exists($dir)){
-                    mkdir($dir, 0777);
-                }
-
-                $params['arquivo_nome'] = 'material-' . date("Y-m-d-H-m-s") . '.' . $ext;
-
-                $destino = $dir . $params['arquivo_nome'];
-
-                move_uploaded_file($arquivo['tmp_name'], $destino);
-
-                if(file_exists($destino)){
-
-                    $sql = "insert into ltr_material_leitura(cod_usuario_fk, base, data_pesquisa, titulo_periodico, ano, mes, volume, numero, titulo_artigo, autor, pagina_inicial, pagina_final, interesse, arquivo, data_criacao) " .
-                                "values(:usuario, :base, :data_pesquisa, :titulo_periodico, :ano, :mes, :volume, :numero, :titulo_artigo, :autor, :pagina_inicial, :pagina_final, :interesse, :arquivo_nome, now());";
-                    $funcoes->executarSQL($sql,$params);
-
-                    return $response->setContent(Json::encode(array('response' => true, 'msg' => 'Material Adicionado.')));
-                } else{
-                    return $response->setContent(Json::encode(array('response' => false, 'msg' => 'Erro ao adicionar o Material.')));    
-                }
-            }else{
-                 $sql = "insert into ltr_material_leitura(cod_usuario_fk, base, data_pesquisa, titulo_periodico, ano, mes, volume, numero, titulo_artigo, autor, pagina_inicial, pagina_final, interesse, arquivo, data_criacao) " .
-                                "values(:usuario, :base, :data_pesquisa, :titulo_periodico, :ano, :mes, :volume, :numero, :titulo_artigo, :autor, :pagina_inicial, :pagina_final, :interesse, '', now());";
-                    $funcoes->executarSQL($sql,$params);
-
-                    return $response->setContent(Json::encode(array('response' => true, 'msg' => 'Material Adicionado.')));
-            }
+            return $response->setContent(Json::encode(array('response' => true, 'msg' => 'Atividade Adicionada.')));
         }else{
             return $response->setContent(Json::encode(array('response' => false)));
         }
@@ -202,9 +173,9 @@ class PlanoAtividadesController extends AbstractActionController
             'cod'   => $this->params()->fromPost('cod', ''),
         );
         
-        $sql = "delete from ltr_material_leitura where cod_material =:cod";
+        $sql = "delete from atvs_plano_atividades where cod_atividade =:cod";
         $funcoes->executarSQL($sql,$params);
         
-        return $response->setContent(Json::encode(array('response' => true, 'msg' => 'Material deletado.')));
+        return $response->setContent(Json::encode(array('response' => true, 'msg' => 'Atividade deletada.')));
     }
 }

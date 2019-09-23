@@ -2255,5 +2255,54 @@ DELIMITER ;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_log_sp`(
+	In filtro int,
+    in pesquisa varchar(100)
+)
+BEGIN
+
+	set pesquisa = CONCAT('%',pesquisa,'%');
+    
+
+	if filtro = 1 then
+	
+		select nome as user, c.titulo as aplicacao, date_format(a.data, "%d/%m/%Y %H:%i:%s") as data_movimento, link
+		from sys_log_acesso_aplicacao a
+			inner join us_usuario b on a.cod_usuario = b.cod_usuario
+			inner join sys_aplicacoes c on c.cod_aplicacao = a.cod_aplicacao
+		where b.nome like pesquisa
+		order by data desc;
+		
+	else
+	
+		select nome as user, c.titulo as aplicacao, date_format(a.data, "%d/%m/%Y %H:%i:%s") as data_movimento, link
+		from sys_log_acesso_aplicacao a
+			inner join us_usuario b on a.cod_usuario = b.cod_usuario
+			inner join sys_aplicacoes c on c.cod_aplicacao = a.cod_aplicacao
+		where c.titulo like pesquisa
+		order by data desc;
+		
+	end if;
+        
+  
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2019-09-23 15:34:33
+
 
 -- Dump completed on 2019-09-20 17:08:12

@@ -32,7 +32,7 @@ CREATE TABLE `atvs_plano_atividades` (
   `tipo_atividade_fk` int(11) DEFAULT NULL,
   `data_criacao` datetime DEFAULT NULL,
   PRIMARY KEY (`cod_atividade`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -358,6 +358,8 @@ CREATE TABLE `ltr_material_leitura` (
   `interesse` int(11) DEFAULT NULL,
   `arquivo` varchar(50) DEFAULT NULL,
   `data_criacao` datetime DEFAULT NULL,
+  `palavra_chave` varchar(20) DEFAULT NULL,
+  `endereco_acesso` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`cod_material`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -821,7 +823,7 @@ CREATE TABLE `sys_aplicacoes` (
 
 LOCK TABLES `sys_aplicacoes` WRITE;
 /*!40000 ALTER TABLE `sys_aplicacoes` DISABLE KEYS */;
-INSERT INTO `sys_aplicacoes` VALUES (1,'Atas de Reuniões','atas','/atas',0,1),(2,'Biblioteca','biblioteca','/biblioteca',0,1),(3,'Cadastrar','pre-cadastro','/pre-cadastro',0,1),(4,'Chat','chat','/chat',0,0),(5,'E-mail','email','',0,1),(6,'Enviar E-mail','email','/email/enviar',5,1),(7,'Meus E-mail','email','/email',5,1),(8,'Quadro de Avisos','avisos','/avisos',0,1),(9,'Quadro de Disponibilidade','quadro-disponibilidade','/quadro-disponibilidade',0,1),(10,'Quadro de Eventos','eventos','/eventos',0,1),(11,'Quadro de Literatura','quadro-leitura','/quadro-leitura',0,1),(12,'Níveis de Escolaridade','escolaridade','/escolaridade',0,1),(13,'Plano de Atividades','plano-atividades','/plano-atividades',0,1),(14,'Plano de Metas','plano-metas','/plano-metas',0,1),(15,'Produção de Grupo','producao-grupo','/producao-grupo',0,1),(16,'Questionários','questionario','',0,1),(17,'Aprendizagem','questionario','/questionario/aprendizagem',16,1),(18,'Cadastro','cadastro','/questionario/cadastro',16,1),(19,'Trabalhos de Correção','trabalho-correcao','',0,1),(20,'Meus Trabalhos','trabalho-correcao','/trabalho-correcao',19,1),(21,'Trabalhos Recebidos','trabalho-correcao','/trabalho-correcao/recebidos',19,1),(22,'Usuários','usuarios','',0,1),(23,'Log de Acessos','log','/usuarios/log',22,1),(24,'Membros','membros','/usuarios/membros',22,1),(25,'Portfolio','portfolio','/portfolio',0,1),(26,'Configurações','configuracao','',0,1),(27,'Meu Perfil','perfil','/perfil',26,1),(28,'Alterar Senha','alterar-senha','/perfil/alterar-senha',26,1),(29,'Questionário Inicial','questionario','/questionario/inicial',0,1),(30,'Assuntos','assunto','/assunto',0,1);
+INSERT INTO `sys_aplicacoes` VALUES (1,'Atas de Reuniões','atas','/atas',0,1),(2,'Biblioteca','biblioteca','/biblioteca',0,1),(3,'Cadastrar','pre-cadastro','/pre-cadastro',0,1),(4,'Chat','chat','/chat',0,0),(5,'E-mail','email','',0,1),(6,'Enviar E-mail','email','/email/enviar',5,1),(7,'Meus E-mail','email','/email',5,1),(8,'Quadro de Avisos','avisos','/avisos',0,1),(9,'Quadro de Disponibilidade','quadro-disponibilidade','/quadro-disponibilidade',0,1),(10,'Quadro de Eventos','eventos','/eventos',0,1),(11,'Quadro de Literatura','quadro-leitura','/quadro-leitura',0,1),(12,'Níveis de Escolaridade','escolaridade','/escolaridade',0,1),(13,'Plano de Atividades','plano-atividades','/plano-atividades',0,1),(14,'Plano de Metas','plano-metas','/plano-metas',0,1),(15,'Produção de Grupo','producao-grupo','/producao-grupo',0,1),(16,'Questionários','questionario','',0,1),(17,'Aprendizagem','questionario','/questionario/aprendizagem',16,1),(18,'Cadastro','cadastro','/questionario/cadastro',16,1),(19,'Trabalhos de Correção','trabalho-correcao','',0,1),(20,'Meus Trabalhos','trabalho-correcao','/trabalho-correcao',19,1),(21,'Trabalhos Recebidos','trabalho-correcao','/trabalho-correcao/recebidos',19,1),(22,'Usuários','usuarios','',0,1),(24,'Membros','membros','/usuarios/membros',22,1),(25,'Portfolio','portfolio','/portfolio',0,1),(26,'Configurações','configuracao','',0,1),(27,'Meu Perfil','perfil','/perfil',26,1),(28,'Alterar Senha','alterar-senha','/perfil/alterar-senha',26,1),(29,'Questionário Inicial','questionario','/questionario/inicial',0,1),(30,'Assuntos','assunto','/assunto',0,1);
 /*!40000 ALTER TABLE `sys_aplicacoes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -858,7 +860,6 @@ DROP TABLE IF EXISTS `sys_log_acesso_aplicacao`;
 CREATE TABLE `sys_log_acesso_aplicacao` (
   `cod_log` int(11) NOT NULL AUTO_INCREMENT,
   `cod_usuario` int(11) DEFAULT NULL,
-  `cod_aplicacao` int(11) DEFAULT NULL,
   `controller` varchar(200) DEFAULT NULL,
   `action` varchar(200) DEFAULT NULL,
   `data` datetime DEFAULT NULL,
@@ -866,7 +867,7 @@ CREATE TABLE `sys_log_acesso_aplicacao` (
   `server` varchar(100) DEFAULT NULL,
   `params` varchar(8000) DEFAULT NULL,
   PRIMARY KEY (`cod_log`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -875,7 +876,6 @@ CREATE TABLE `sys_log_acesso_aplicacao` (
 
 LOCK TABLES `sys_log_acesso_aplicacao` WRITE;
 /*!40000 ALTER TABLE `sys_log_acesso_aplicacao` DISABLE KEYS */;
-INSERT INTO `sys_log_acesso_aplicacao` VALUES (11,4,3,'Cadastro/Controller/PreCadastroController','pre-cadastro','2019-09-23 10:23:12','::1','local',''),(12,4,NULL,'Application/Controller/IndexController','index','2019-09-23 10:43:35','::1','local',''),(13,4,NULL,'Application/Controller/IndexController','index','2019-09-23 10:44:24','::1','local',''),(14,4,NULL,'Application/Controller/IndexController','index','2019-09-23 10:46:33','::1','local',''),(15,4,NULL,'Application/Controller/IndexController','index','2019-09-23 10:47:25','::1','local',''),(16,4,NULL,'Application/Controller/IndexController','index','2019-09-23 10:48:52','::1','local',''),(17,4,24,'Application/Controller/UsuariosController','membros','2019-09-23 10:48:55','::1','local',''),(18,4,24,'Application/Controller/UsuariosController','membros','2019-09-23 10:53:53','::1','local',''),(19,4,24,'Application/Controller/UsuariosController','membros','2019-09-23 10:54:01','::1','local',''),(20,4,NULL,'Application/Controller/IndexController','index','2019-09-23 10:57:11','::1','local',''),(21,4,NULL,'Application/Controller/IndexController','index','2019-09-23 11:10:29','::1','local',''),(22,4,24,'Application/Controller/UsuariosController','membros','2019-09-23 11:10:37','::1','local',''),(23,4,24,'Application/Controller/UsuariosController','membros','2019-09-23 11:25:07','::1','local',''),(24,4,23,'Application/Controller/UsuariosController','log','2019-09-23 12:05:33','::1','local',''),(25,4,23,'Application/Controller/UsuariosController','log','2019-09-23 12:05:55','::1','local',''),(26,4,23,'Application/Controller/UsuariosController','log','2019-09-23 12:06:38','::1','local',''),(27,4,23,'Application/Controller/UsuariosController','log','2019-09-23 12:06:58','::1','local',''),(28,4,NULL,'Application/Controller/IndexController','index','2019-09-23 14:48:34','::1','local',''),(29,4,23,'Application/Controller/UsuariosController','log','2019-09-23 14:51:27','::1','local',''),(30,4,23,'Application/Controller/UsuariosController','log','2019-09-23 14:52:18','::1','local',''),(31,4,23,'Application/Controller/UsuariosController','log','2019-09-23 14:52:29','::1','local',''),(32,4,23,'Application/Controller/UsuariosController','log','2019-09-23 14:53:37','::1','local',''),(33,4,23,'Application/Controller/UsuariosController','log','2019-09-23 14:54:52','::1','local',''),(34,4,23,'Application/Controller/UsuariosController','log','2019-09-23 14:55:21','::1','local',''),(35,4,23,'Application/Controller/UsuariosController','log','2019-09-23 15:03:04','::1','local',''),(36,4,23,'Application/Controller/UsuariosController','log','2019-09-23 15:03:20','::1','local',''),(37,4,23,'Application/Controller/UsuariosController','log','2019-09-23 15:07:04','::1','local',''),(38,4,23,'Application/Controller/UsuariosController','log','2019-09-23 15:16:20','::1','local',''),(39,4,24,'Application/Controller/UsuariosController','membros','2019-09-23 15:16:50','::1','local','{\"pesquisa\":\"membros\",\"filtros\":\"2\"}'),(40,4,23,'Application/Controller/UsuariosController','log','2019-09-23 15:17:14','::1','local',''),(41,4,23,'Application/Controller/UsuariosController','log','2019-09-23 15:17:15','::1','local',''),(42,4,23,'Application/Controller/UsuariosController','log','2019-09-23 15:17:19','::1','local','{\"pesquisa\":\"membros\",\"filtros\":\"-1\"}'),(43,4,23,'Application/Controller/UsuariosController','log','2019-09-23 15:17:25','::1','local','{\"pesquisa\":\"membros\",\"filtros\":\"2\"}'),(44,4,NULL,'Application/Controller/IndexController','index','2019-09-23 15:18:21','::1','local','');
 /*!40000 ALTER TABLE `sys_log_acesso_aplicacao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2086,7 +2086,7 @@ BEGIN
 
 		if filtro = 1 then
 			
-            select a.cod_material as cod, a.titulo_artigo, a.titulo_periodico, a.autor, a.volume,arquivo, CONCAT(mes,'-',ano) as mes_ano, CONCAT(a.pagina_inicial,'-',a.pagina_final) as pagina, b.nome as usuario, date_format(a.data_pesquisa, "%d/%m/%Y") as data_pesquisa
+            select a.cod_material as cod, a.titulo_artigo, a.titulo_periodico, a.autor, a.volume,arquivo, CONCAT(mes,'-',ano) as mes_ano, CONCAT(a.pagina_inicial,'-',a.pagina_final) as pagina, b.nome as usuario, date_format(a.data_pesquisa, "%d/%m/%Y") as data_pesquisa, palavra_chave, endereco_acesso
             from ltr_material_leitura a
 				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
 			where a.autor like pesquisa
@@ -2094,7 +2094,7 @@ BEGIN
 			
 		elseif filtro = 2 then
 			
-            select a.cod_material as cod, a.titulo_artigo, a.titulo_periodico, a.autor, a.volume,arquivo, CONCAT(mes,'-',ano) as mes_ano, CONCAT(a.pagina_inicial,'-',a.pagina_final) as pagina, b.nome as usuario, date_format(a.data_pesquisa, "%d/%m/%Y") as data_pesquisa
+            select a.cod_material as cod, a.titulo_artigo, a.titulo_periodico, a.autor, a.volume,arquivo, CONCAT(mes,'-',ano) as mes_ano, CONCAT(a.pagina_inicial,'-',a.pagina_final) as pagina, b.nome as usuario, date_format(a.data_pesquisa, "%d/%m/%Y") as data_pesquisa, palavra_chave, endereco_acesso
             from ltr_material_leitura a
 				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
 			where a.base like pesquisa
@@ -2102,14 +2102,14 @@ BEGIN
             
         elseif filtro = 3 then
         
-			select a.cod_material as cod, a.titulo_artigo, a.titulo_periodico, a.autor, a.volume,arquivo, CONCAT(mes,'-',ano) as mes_ano, CONCAT(a.pagina_inicial,'-',a.pagina_final) as pagina, b.nome as usuario, date_format(a.data_pesquisa, "%d/%m/%Y") as data_pesquisa
+			select a.cod_material as cod, a.titulo_artigo, a.titulo_periodico, a.autor, a.volume,arquivo, CONCAT(mes,'-',ano) as mes_ano, CONCAT(a.pagina_inicial,'-',a.pagina_final) as pagina, b.nome as usuario, date_format(a.data_pesquisa, "%d/%m/%Y") as data_pesquisa, palavra_chave, endereco_acesso
             from ltr_material_leitura a
 				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
             order by data_criacao desc;
         
         elseif filtro = 4 then
         
-			select a.cod_material as cod, a.titulo_artigo, a.titulo_periodico, a.autor, a.volume,arquivo, CONCAT(mes,'-',ano) as mes_ano, CONCAT(a.pagina_inicial,'-',a.pagina_final) as pagina, b.nome as usuario, date_format(a.data_pesquisa, "%d/%m/%Y") as data_pesquisa
+			select a.cod_material as cod, a.titulo_artigo, a.titulo_periodico, a.autor, a.volume,arquivo, CONCAT(mes,'-',ano) as mes_ano, CONCAT(a.pagina_inicial,'-',a.pagina_final) as pagina, b.nome as usuario, date_format(a.data_pesquisa, "%d/%m/%Y") as data_pesquisa, palavra_chave, endereco_acesso
             from ltr_material_leitura a
 				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
 			where a.titulo_periodico like pesquisa
@@ -2117,7 +2117,7 @@ BEGIN
 			
 		elseif filtro = 5 then
         
-			select a.cod_material as cod, a.titulo_artigo, a.titulo_periodico, a.autor, a.volume,arquivo, CONCAT(mes,'-',ano) as mes_ano, CONCAT(a.pagina_inicial,'-',a.pagina_final) as pagina, b.nome as usuario, date_format(a.data_pesquisa, "%d/%m/%Y") as data_pesquisa
+			select a.cod_material as cod, a.titulo_artigo, a.titulo_periodico, a.autor, a.volume,arquivo, CONCAT(mes,'-',ano) as mes_ano, CONCAT(a.pagina_inicial,'-',a.pagina_final) as pagina, b.nome as usuario, date_format(a.data_pesquisa, "%d/%m/%Y") as data_pesquisa, palavra_chave, endereco_acesso
             from ltr_material_leitura a
 				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
 			where b.nome like pesquisa
@@ -2125,7 +2125,7 @@ BEGIN
         
         else 
         
-			select a.cod_material as cod, a.titulo_artigo, a.titulo_periodico, a.autor, a.volume,arquivo, CONCAT(mes,'-',ano) as mes_ano, CONCAT(a.pagina_inicial,'-',a.pagina_final) as pagina, b.nome as usuario, date_format(a.data_pesquisa, "%d/%m/%Y") as data_pesquisa
+			select a.cod_material as cod, a.titulo_artigo, a.titulo_periodico, a.autor, a.volume,arquivo, CONCAT(mes,'-',ano) as mes_ano, CONCAT(a.pagina_inicial,'-',a.pagina_final) as pagina, b.nome as usuario, date_format(a.data_pesquisa, "%d/%m/%Y") as data_pesquisa, palavra_chave, endereco_acesso
             from ltr_material_leitura a
 				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
             order by data_criacao desc;
@@ -2134,7 +2134,7 @@ BEGIN
 		
     else 
     
-		select a.cod_material as cod,a.numero, a.base, a.titulo_artigo, a.titulo_periodico, a.autor, a.volume, arquivo,mes,ano, CONCAT(mes,'-',ano) as mes_ano, CONCAT(a.pagina_inicial,'-',a.pagina_final) as pagina, b.nome as usuario, date_format(a.data_pesquisa, "%d/%m/%Y") as data_pesquisa,a.pagina_inicial,a.pagina_final,date_format(a.data_pesquisa, "%Y-%m-%d") as dt_pesq
+		select a.cod_material as cod,a.numero, a.base, a.titulo_artigo, a.titulo_periodico, a.autor, a.volume, arquivo,mes,ano, CONCAT(mes,'-',ano) as mes_ano, CONCAT(a.pagina_inicial,'-',a.pagina_final) as pagina, b.nome as usuario, date_format(a.data_pesquisa, "%d/%m/%Y") as data_pesquisa,a.pagina_inicial,a.pagina_final,date_format(a.data_pesquisa, "%Y-%m-%d") as dt_pesq, palavra_chave, endereco_acesso
 		from ltr_material_leitura a
 			inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
 		where a.cod_material = cod_leitura
@@ -2246,15 +2246,15 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `us_log_sp` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `us_log_sp`(
 	In filtro int,
@@ -2303,3 +2303,6 @@ DELIMITER ;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2019-09-23 15:34:33
+
+
+-- Dump completed on 2019-09-20 17:08:12

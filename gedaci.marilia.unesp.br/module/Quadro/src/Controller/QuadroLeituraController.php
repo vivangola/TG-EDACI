@@ -40,6 +40,8 @@ class QuadroLeituraController extends AbstractActionController
         $relatorio->definirColuna('VOLUME', 'volume', '2', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('MÊS/ANO', 'mes_ano', '2', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('PÁGINA', 'pagina', '2', 'center', 't', 'n', 'n');
+        $relatorio->definirColuna('ENDEREÇO', 'endereco_acesso', '2', 'center', 't', 'n', 'n');
+        $relatorio->definirColuna('PALAVRA CHAVE', 'palavra_chave', '2', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('USUÁRIO', 'usuario', '4', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('DATA PESQUISA', 'data_pesquisa', '4', 'center', 't', 'n', 'n');
         
@@ -80,6 +82,8 @@ class QuadroLeituraController extends AbstractActionController
                 'pagina_inicial'    => $this->params()->fromPost('add_pginicial', ''), 
                 'pagina_final'      => $this->params()->fromPost('add_pgfim', ''), 
                 'interesse'         => $this->params()->fromPost('add_interesse', ''), 
+                'palavra_chave'     => $this->params()->fromPost('add_palavra_chave', ''), 
+                'endereco_acesso'   => $this->params()->fromPost('add_endereco', '')
                 //'arquivo'           => $this->params()->fromPost('arquivo', ''), 
             ); 
             
@@ -102,8 +106,8 @@ class QuadroLeituraController extends AbstractActionController
 
                 if(file_exists($destino)){
 
-                    $sql = "insert into ltr_material_leitura(cod_usuario_fk, base, data_pesquisa, titulo_periodico, ano, mes, volume, numero, titulo_artigo, autor, pagina_inicial, pagina_final, interesse, arquivo, data_criacao) " .
-                                "values(:usuario, :base, :data_pesquisa, :titulo_periodico, :ano, :mes, :volume, :numero, :titulo_artigo, :autor, :pagina_inicial, :pagina_final, :interesse, :arquivo_nome, now());";
+                    $sql = "insert into ltr_material_leitura(cod_usuario_fk, base, data_pesquisa, titulo_periodico, ano, mes, volume, numero, titulo_artigo, autor, pagina_inicial, pagina_final, interesse, arquivo, data_criacao, palavra_chave, endereco_acesso) " .
+                                "values(:usuario, :base, :data_pesquisa, :titulo_periodico, :ano, :mes, :volume, :numero, :titulo_artigo, :autor, :pagina_inicial, :pagina_final, :interesse, :arquivo_nome, now(), :palavra_chave, :endereco_acesso);";
                     $funcoes->executarSQL($sql,$params);
 
                     return $response->setContent(Json::encode(array('response' => true, 'msg' => 'Material Adicionado.')));
@@ -111,8 +115,8 @@ class QuadroLeituraController extends AbstractActionController
                     return $response->setContent(Json::encode(array('response' => false, 'msg' => 'Erro ao adicionar o Material.')));    
                 }
             }else{
-                 $sql = "insert into ltr_material_leitura(cod_usuario_fk, base, data_pesquisa, titulo_periodico, ano, mes, volume, numero, titulo_artigo, autor, pagina_inicial, pagina_final, interesse, arquivo, data_criacao) " .
-                                "values(:usuario, :base, :data_pesquisa, :titulo_periodico, :ano, :mes, :volume, :numero, :titulo_artigo, :autor, :pagina_inicial, :pagina_final, :interesse, '', now());";
+                 $sql = "insert into ltr_material_leitura(cod_usuario_fk, base, data_pesquisa, titulo_periodico, ano, mes, volume, numero, titulo_artigo, autor, pagina_inicial, pagina_final, interesse, arquivo, data_criacao, palavra_chave, endereco_acesso) " .
+                                "values(:usuario, :base, :data_pesquisa, :titulo_periodico, :ano, :mes, :volume, :numero, :titulo_artigo, :autor, :pagina_inicial, :pagina_final, :interesse, '', now(), :palavra_chave, :endereco_acesso);";
                     $funcoes->executarSQL($sql,$params);
 
                     return $response->setContent(Json::encode(array('response' => true, 'msg' => 'Material Adicionado.')));
@@ -137,7 +141,7 @@ class QuadroLeituraController extends AbstractActionController
 
             $sql = "call us_buscarLeitura_sp('','',:cod)";
             $result = $funcoes->executarSQL($sql,$params,'');
-
+            
             return $response->setContent(Json::encode(array('response' => true, 'result' => $result)));
         }else{
             header('Location: /quadro-leitura');
@@ -168,7 +172,8 @@ class QuadroLeituraController extends AbstractActionController
                 'pagina_inicial'    => $this->params()->fromPost('pginicial', ''), 
                 'pagina_final'      => $this->params()->fromPost('pgfim', ''), 
                 'interesse'         => $this->params()->fromPost('interesse', ''), 
-                //'arquivo'           => $this->params()->fromPost('arquivo', ''), 
+                'palavra_chave'     => $this->params()->fromPost('palavra_chave', ''), 
+                'endereco_acesso'   => $this->params()->fromPost('endereco_acesso', '')
             ); 
             
             /*
@@ -185,7 +190,7 @@ class QuadroLeituraController extends AbstractActionController
             move_uploaded_file($arquivo['tmp_name'], $destino);
             */
             
-            $sql = "update ltr_material_leitura set base = :base, data_pesquisa =:data_pesquisa, titulo_periodico =:titulo_periodico, ano=:ano, mes=:mes, volume=:volume, numero=:numero, titulo_artigo=:titulo_artigo, autor=:autor, pagina_inicial =:pagina_inicial, pagina_final =:pagina_final, interesse=:interesse where cod_material =:cod";
+            $sql = "update ltr_material_leitura set base = :base, data_pesquisa =:data_pesquisa, titulo_periodico =:titulo_periodico, ano=:ano, mes=:mes, volume=:volume, numero=:numero, titulo_artigo=:titulo_artigo, autor=:autor, pagina_inicial =:pagina_inicial, pagina_final =:pagina_final, interesse=:interesse, palavra_chave =:palavra_chave, endereco_acesso =:endereco_acesso where cod_material =:cod";
             $funcoes->executarSQL($sql,$params);
             
             return $response->setContent(Json::encode(array('response' => true, 'msg' => 'Alterado com sucesso.')));

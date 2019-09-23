@@ -100,6 +100,17 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="add_palavra_chave" class="col-form-label">Palavra-Chave:</label>
+                            <input id="add_palavra_chave" class="form-control input-group-lg" maxlength="100" type="text" name="add_palavra_chave"/>
+                        </div>
+
+                        <div class="form-group col-xs-6">
+                            <label for="add_endereco" class="col-form-label">Endereço de Acesso:</label>
+                            <input id="add_endereco" class="form-control input-group-lg" maxlength="100" type="text" name="add_endereco"/>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="form-group col-xs-2">
                             <label for="add_pginicial" class="col-form-label">Pag Inícial:</label>
                             <input id="add_pginicial" class="form-control input-group-lg" type="text" name="add_pginicial" data-mask="00000"/>
@@ -177,6 +188,17 @@
                         <div class="form-group col-xs-6">
                             <label for="edit_datapesq" class="col-form-label">Data da Pesquisa:</label>
                             <input id="edit_datapesq" class="form-control input-group-lg" type="date" name="edit_datapesq"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="edit_palavra_chave" class="col-form-label">Palavra-Chave:</label>
+                            <input id="edit_palavra_chave" class="form-control input-group-lg" maxlength="100" type="text" name="edit_palavra_chave"/>
+                        </div>
+
+                        <div class="form-group col-xs-6">
+                            <label for="edit_endereco" class="col-form-label">Endereço de Acesso:</label>
+                            <input id="edit_endereco" class="form-control input-group-lg" maxlength="100" type="text" name="edit_endereco"/>
                         </div>
                     </div>
                     <div class="row">
@@ -258,6 +280,8 @@
             autor               : $('#add_autor').val(),
             pagina_inicial      : $('#add_pginicial').val(),
             pagina_final        : $('#add_pgfim').val(),
+            palavra_chave       : $('#add_palavra_chave').val(),
+            endereco_acesso     : $('#add_endereco').val(),
             interesse           : '5'
         };
         
@@ -334,7 +358,8 @@
                     $('#edit_autor').val(retorno.result['autor']),
                     $('#edit_pginicial').val(retorno.result['pagina_inicial']),
                     $('#edit_pgfim').val(retorno.result['pagina_final']),
-                    
+                    $('#edit_palavra_chave').val(retorno.result['palavra_chave']),
+                    $('#edit_endereco').val(retorno.result['endereco_acesso']),
                     $('#modalEdit').modal('show');
                 }else{
                     Swal.fire({
@@ -362,9 +387,10 @@
             autor               : $('#edit_autor').val(),
             pginicial           : $('#edit_pginicial').val(),
             pgfim               : $('#edit_pgfim').val(),
+            palavra_chave       : $('#edit_palavra_chave').val(),
+            endereco_acesso     : $('#edit_endereco').val(),
             interesse           : '5'
         };
-        
         console.log(data);
         
         if(!validaParametros(data)){

@@ -94,40 +94,5 @@ class UsuariosController extends AbstractActionController
     public function gruposAction(){
         
     }
-    
-    public function logAction(){
-        $funcoes = new Funcoes($this);
-        $sessao = new Container("usuario");
-        $relatorio = new Relatorio();
-        
-        $params = array(
-            'cod_usuario' => $sessao->cod_usuario,
-            'filtro'    => $this->params()->fromPost('filtros', '-1'),
-            'pesquisa'  => $this->params()->fromPost('pesquisa', ''),
-        );
-        
-        if($params['filtro'] == '-1'){
-            $params['pesquisa'] = '';
-        }
-        
-        $sql = "call us_log_sp (:filtro,:pesquisa)";
-        $log = $funcoes->executarSQL($sql,$params);
-        
-        $relatorio->definirColuna('USUÁRIO', 'user', '4', 'left', 't', 'n', 'n');
-        $relatorio->definirColuna('APLICACÃO', 'aplicacao', '4', 'left', 't', 'n', 'n');
-        $relatorio->definirColuna('DATA ENTRADA', 'data_movimento', '4', 'center', 't', 'n', 'n');
-        
-        $relatorio->definirLink('aplicacao', '[link]');
-        
-        $view = new ViewModel(array(
-            'membros'   => $log,
-            'relatorio' => $relatorio,
-            'filtro'    => $params['filtro'],
-            'pesq'      => $params['pesquisa']
-        ));
-        
-        $view->setTemplate('application/usuarios/log');
-        return $view;
-    }
 	
 }

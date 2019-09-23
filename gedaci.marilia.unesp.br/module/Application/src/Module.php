@@ -92,8 +92,6 @@ class Module
         $nome_controller = $controller->getEvent()->getRouteMatch()->getParam('controller');
         $action = $controller->getEvent()->getRouteMatch()->getParam('action');
         
-        $pagina = strtok($_SERVER["REQUEST_URI"],'?');
-        
         $funcoes = new Funcoes($controller);
         
         $nao_verifica_sessao = array(
@@ -114,12 +112,8 @@ class Module
         
         $params = $controller->params()->fromPost();
         
-        //get cod aplicacao
-        $sql = "select cod_aplicacao from sys_aplicacoes where link=:pagina";
-        $aplicacao = $funcoes->executarSQL($sql, array('pagina' => $pagina), '');
-        
         //log acessos
-        $sql = "insert into sys_log_acesso_aplicacao (cod_usuario,cod_aplicacao,controller,action,data,ip,server,params) values(:cod_usuario,:aplicacao,:controller,:action,now(),:ip,:server,:params)";
+        $sql = "insert into sys_log_acesso_aplicacao (cod_usuario,controller,action,data,ip,server,params) values(:cod_usuario,:controller,:action,now(),:ip,:server,:params)";
         $funcoes->executarSQL($sql,
             array(
                 'cod_usuario'   => $sessao->cod_usuario ? $sessao->cod_usuario : 0,
@@ -127,8 +121,7 @@ class Module
                 'action'        => $action,
                 'ip'            => $ip->setProxyHeader()->getIpAddress(),
                 'server'        => $request->getServer()->COMPUTERNAME ? $request->getServer()->COMPUTERNAME : 'local',
-                'params'        => !empty($params) ? json_encode($params) : '',
-                'aplicacao'     => $aplicacao['cod_aplicacao']
+                'params'        => !empty($params) ? json_encode($params) : ''
             )
         );
         

@@ -26,7 +26,8 @@ class PerfilController extends AbstractActionController {
 
         $sql = "call us_buscarDadosPrincipal_sp (:cod_usuario)";
         $result = $funcoes->executarSQL($sql, $params, '');
-
+        $result['data_nascimento'] = substr($result['data_nascimento'], 0, 10);
+        
         $sql = "select cod_nivel,descricao from nivel_escolaridade order by descricao";
         $escolaridades = $funcoes->executarSQL($sql, []);
 
@@ -87,9 +88,7 @@ class PerfilController extends AbstractActionController {
     }
 
     public function alterarSenhaAction() {
-        $funcoes = new Funcoes($this);
-        $sessao = new Container("usuario");
-
+        
         $view = new ViewModel();
         $view->setTemplate('application/perfil/alterar-senha');
         return $view;
@@ -139,7 +138,7 @@ class PerfilController extends AbstractActionController {
         
         if ($request->isPost()) {
 
-            $sql = "UPDATE us_usuario SET nome=:nome,cpf=:cpf,idade=:idade,email=:email1,email2=:email2,nivel_escolaridade_fk=:escolaridade,endereco=:endereco,numero=:num,complemento=:complemento,cidade=:cidade,bairro=:bairro,estado=:estado,cep=:cep,fixo=:fixo,celular=:celular,curso_atual_nome=:curso,curso_atual_serie=:curso_atual_serie,curso_periodo=:curso_periodo,graduacao_nome=:graduacao_nome,graduacao_ano_conclusao=:graduacao_ano_conclusao,graduacao_instituicao=:graduacao_instituicao,pos_graduacao_nome=:pos_graduacao_nome,pos_graduacao_ano=:pos_graduacao_ano,pos_graduacao_instituicao=:pos_graduacao_instituicao,mestrado_nome=:mestrado_nome,mestrado_ano=:mestrado_ano,mestrado_instituicao=:mestrado_instituicao,doutorado_nome=:doutorado_nome,doutorado_ano=:doutorado_ano,doutorado_instituicao=:doutorado_instituicao,estado_civil=:civil,genero=:sexo,data_nascimento=:nascimento, rg=:rg, orgao_emissor='',ra=:ra, skype=:skype,whatsapp=:celular,facebook=:facebook,lattes=:lattes,num_banco=:banco,num_conta=:conta,num_agencia=:agencia,emp_nome=:emp_nome,emp_endereco=:emp_endereco,emp_numero=:emp_numero,emp_complemento=:emp_complemento,emp_cidade=:emp_cidade,emp_bairro=:emp_bairro,emp_estado=:emp_estado,emp_cep=:emp_cep,emp_telefone=:emp_telefone,emp_celular=:emp_celular WHERE cod_usuario =:usuario;";
+            $sql = "UPDATE us_usuario SET nome=:nome,cpf=:cpf,idade=:idade,email=:email1,email2=:email2,nivel_escolaridade_fk=:escolaridade,endereco=:endereco,numero=:num,complemento=:complemento,cidade=:cidade,bairro=:bairro,estado=:estado,cep=:cep,fixo=:fixo,celular=:celular,curso_atual_nome=:curso_nome,curso_atual_serie=:curso_atual_serie,curso_periodo=:curso_periodo,graduacao_nome=:graduacao_nome,graduacao_ano_conclusao=:graduacao_ano_conclusao,graduacao_instituicao=:graduacao_instituicao,pos_graduacao_nome=:pos_graduacao_nome,pos_graduacao_ano=:pos_graduacao_ano,pos_graduacao_instituicao=:pos_graduacao_instituicao,mestrado_nome=:mestrado_nome,mestrado_ano=:mestrado_ano,mestrado_instituicao=:mestrado_instituicao,doutorado_nome=:doutorado_nome,doutorado_ano=:doutorado_ano,doutorado_instituicao=:doutorado_instituicao,estado_civil=:civil,genero=:sexo,data_nascimento=:nascimento, rg=:rg, orgao_emissor='',ra=:ra, skype=:skype,whatsapp=:celular,facebook=:facebook,lattes=:lattes,num_banco=:banco,num_conta=:conta,num_agencia=:agencia,emp_nome=:emp_nome,emp_endereco=:emp_endereco,emp_numero=:emp_numero,emp_complemento=:emp_complemento,emp_cidade=:emp_cidade,emp_bairro=:emp_bairro,emp_estado=:emp_estado,emp_cep=:emp_cep,emp_telefone=:emp_telefone,emp_celular=:emp_celular WHERE cod_usuario =:usuario;";
             $funcoes->executarSQL($sql, $post_data);
 
             return $response->setContent(Json::encode(array('response' => true, 'msg' => 'Perfil alterada com sucesso.')));

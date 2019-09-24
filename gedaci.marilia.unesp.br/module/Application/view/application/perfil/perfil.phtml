@@ -72,7 +72,7 @@
                                                                                     <div class="col-md-11">
                                                                                         <div class="row">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                                <input type="text" maxlength="60" class="form-control user-success" id="nome" name="nome" value="<?= $usuario['nome'] ?>">
+                                                                                                <input type="text" maxlength="60" class="form-control user-success obg" id="nome" name="nome" value="<?= $usuario['nome'] ?>">
                                                                                             </div> 
 
                                                                                         </div>
@@ -90,7 +90,7 @@
                                                                                     <div class="col-md-3">
                                                                                         <div class="row">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                                <input type="text" maxlength="60" class="form-control user-success" id="cpf" name="cpf" value="<?= $usuario['cpf'] ?>">
+                                                                                                <input type="text" maxlength="60" class="form-control user-success obg" id="cpf" name="cpf" value="<?= $usuario['cpf'] ?>">
                                                                                             </div> 
 
                                                                                         </div>
@@ -106,7 +106,7 @@
                                                                                     <div class="col-md-3">
                                                                                         <div class="row">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                                <input type="text" maxlength="60" class="form-control user-success" id="rg" name="rg" value="<?= $usuario['rg'] ?>">
+                                                                                                <input type="text" maxlength="60" class="form-control user-success obg" id="rg" name="rg" value="<?= $usuario['rg'] ?>">
                                                                                             </div> 
 
                                                                                         </div>
@@ -140,7 +140,7 @@
                                                                                     <div class="col-md-3">
                                                                                         <div class="row">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                                <select class="form-control user-success" id="sexo" name="sexo">
+                                                                                                <select class="form-control user-success obg" id="sexo" name="sexo">
                                                                                                     <option value="M" <?= $usuario['genero'] == 'M' ? 'selected' : '' ?>>Masculino</option>
                                                                                                     <option value="F" <?= $usuario['genero'] == 'F' ? 'selected' : '' ?>>Feminino</option>
                                                                                                 </select>
@@ -157,7 +157,7 @@
                                                                                     <div class="col-md-3">
                                                                                         <div class="row">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                                <input type="date" maxlength="60" class="form-control user-success" id="nascimento" name="nascimento" value="<?= $usuario['nascimento'] ?>">
+                                                                                                <input type="date" maxlength="60" class="form-control user-success obg" id="nascimento" name="nascimento" value="<?= $usuario['data_nascimento'] ?>">
                                                                                             </div> 
 
                                                                                         </div>
@@ -173,7 +173,7 @@
                                                                                     <div class="col-md-3">
                                                                                         <div class="row">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                                <select class="form-control user-success" id="civil" name="civil">
+                                                                                                <select class="form-control user-success obg" id="civil" name="civil">
                                                                                                     <option value="SOLTEIRO" <?= $usuario['estado_civil'] == 'SOLTEIRO' ? 'selected' : '' ?>>SOLTEIRO</option>
                                                                                                     <option value="CASADO" <?= $usuario['estado_civil'] == 'CASADO' ? 'selected' : '' ?>>CASADO</option>
                                                                                                     <option value="SEPARADO" <?= $usuario['estado_civil'] == 'SEPARADO' ? 'selected' : '' ?>>SEPARADO</option>
@@ -344,7 +344,12 @@
                                                                                         <div class="row">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
                                                                                                 <select class="form-control user-success" id="banco" name="banco">
-                                                                                                    <option value="">Banco do Brasil</option>
+                                                                                                    <option value="1" <?= $usuario['num_banco'] == '1' ? 'selected' : '' ?>>Banco do Brasil</option>
+                                                                                                    <option value="2" <?= $usuario['num_banco'] == '2' ? 'selected' : '' ?>>Bradesco</option>
+                                                                                                    <option value="3" <?= $usuario['num_banco'] == '3' ? 'selected' : '' ?>>Caixa Econômica Federal</option>
+                                                                                                    <option value="4" <?= $usuario['num_banco'] == '4' ? 'selected' : '' ?>>Itaú</option>
+                                                                                                    <option value="5" <?= $usuario['num_banco'] == '5' ? 'selected' : '' ?>>Santander</option>
+                                                                                                    <option value="6" <?= $usuario['num_banco'] == '6' ? 'selected' : '' ?>>Sicred</option>
                                                                                                 </select>
                                                                                             </div> 
 
@@ -361,7 +366,7 @@
                                                                                     <div class="col-md-2">
                                                                                         <div class="row">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                                <input type="text" maxlength="60" class="form-control user-success" id="agencia" name="agencia" value="<?= $usuario['agencia'] ?>">
+                                                                                                <input type="text" maxlength="60" class="form-control user-success" id="agencia" name="agencia" value="<?= $usuario['num_agencia'] ?>">
                                                                                             </div> 
 
                                                                                         </div>
@@ -377,7 +382,7 @@
                                                                                     <div class="col-md-5">
                                                                                         <div class="row">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                                <input type="text" maxlength="60" class="form-control user-success" id="conta" name="conta" value="<?= $usuario['conta'] ?>">
+                                                                                                <input type="text" maxlength="60" class="form-control user-success" id="conta" name="conta" value="<?= $usuario['num_conta'] ?>">
                                                                                             </div> 
 
                                                                                         </div>
@@ -431,7 +436,7 @@
                                                                                     <div class="col-md-5">
                                                                                         <div class="row text">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                                <input type="text" maxlength="60" class="form-control user-success" id="email1" name="email1" value="<?= $usuario['email'] ?>">
+                                                                                                <input type="text" maxlength="60" class="form-control user-success" readonly id="email1" name="email1" value="<?= $usuario['email'] ?>">
                                                                                             </div> 
 
                                                                                         </div>
@@ -517,7 +522,7 @@
                                                                                     <div class="col-md-10">
                                                                                         <div class="row">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                                <input type="text" maxlength="60" class="form-control user-success" id="curso" name="curso" value="<?= $usuario['curso_atual_nome'] ?>">
+                                                                                                <input type="text" maxlength="60" class="form-control user-success" id="curso_nome" name="curso_nome" value="<?= $usuario['curso_atual_nome'] ?>">
                                                                                             </div> 
 
                                                                                         </div>
@@ -566,7 +571,7 @@
                                                                                     <div class="col-md-2">
                                                                                         <div class="row">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                                <select class="form-control user-success" id="periodo" name="curso_periodo">
+                                                                                                <select class="form-control user-success" id="curso_periodo" name="curso_periodo">
                                                                                                     <option value="DIURNO"      <?= $usuario['curso_periodo'] == 'DIURNO' ? 'selected' : '' ?>>DIURNO</option>
                                                                                                     <option value="VESPERTINO"  <?= $usuario['curso_periodo'] == 'VESPERTINO' ? 'selected' : '' ?>>VESPERTINO</option>
                                                                                                     <option value="NOTURNO"     <?= $usuario['curso_periodo'] == 'NOTURNO' ? 'selected' : '' ?>>NOTURNO</option>
@@ -596,7 +601,7 @@
                                                                                     <div class="col-md-2">
                                                                                         <div class="row text-right">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12 ">
-                                                                                                <b>Instituição:</b>
+                                                                                                <b>Instituição de Graduação:</b>
                                                                                             </div> 
 
                                                                                         </div>
@@ -648,7 +653,7 @@
                                                                                     <div class="col-md-2">
                                                                                         <div class="row text-right">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12 ">
-                                                                                                <b>Instituição:</b>
+                                                                                                <b>Instituição de Pós-Graduação:</b>
                                                                                             </div> 
 
                                                                                         </div>
@@ -700,7 +705,7 @@
                                                                                     <div class="col-md-2">
                                                                                         <div class="row text-right">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12 ">
-                                                                                                <b>Instituição:</b>
+                                                                                                <b>Instituição de Mestrado:</b>
                                                                                             </div> 
 
                                                                                         </div>
@@ -1020,18 +1025,27 @@
         $("#btnEnviar").click(function () {
 
             var data = {};
-            $.each($("#frmDados").serializeArray(), function (_, field) {
+            $.each($("#frmDados .obg").serializeArray(), function (_, field) {
                 data[field.name] = field.value;
             });
-            /*
+            
             if (!validaParametros(data)) {
                 Swal.fire({
                     title: 'Atenção!',
-                    html: "Digite todos os campos.",
+                    html: "Digite todos os campos obrigatórios (*)",
                     type: 'info'
                 });
                 return false;
-            }*/
+            }
+            
+            if(!validarData(data.nascimento)){
+            Swal.fire({
+                title: 'Atenção!',
+                html: "A data de nascimento não é válida.",
+                type: 'info'
+            });
+            return false;
+        }
 
             var options = {
                 url: '/alterar-dados',

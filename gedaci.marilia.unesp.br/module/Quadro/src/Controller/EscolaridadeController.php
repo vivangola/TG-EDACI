@@ -61,7 +61,7 @@ class EscolaridadeController extends AbstractActionController
         if($request->isPost()){
             $params = array(
                 'cod_usuario'   => $sessao->cod_usuario,
-                'escolaridade'  => $this->params()->fromPost('add_escolaridade', ''),
+                'escolaridade'  =>  ucfirst($this->params()->fromPost('add_escolaridade', '')),
             );
 
             $sql = "insert into nivel_escolaridade (descricao,data_criacao) values(:escolaridade,now())";

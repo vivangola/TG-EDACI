@@ -541,7 +541,7 @@ CREATE TABLE `nivel_escolaridade` (
 
 LOCK TABLES `nivel_escolaridade` WRITE;
 /*!40000 ALTER TABLE `nivel_escolaridade` DISABLE KEYS */;
-INSERT INTO `nivel_escolaridade` VALUES (1,'Médio','2019-07-08 10:26:53'),(2,'Superior','2019-07-08 10:26:59'),(7,'Fundamental','2019-09-03 14:59:48');
+INSERT INTO `nivel_escolaridade` VALUES (1,'Graduação','2019-07-08 10:26:53'),(2,'Pós-Graduação','2019-07-08 10:26:59'),(3,'Mestrado','2019-09-03 14:59:48'),(4,'Doutorado','2019-09-04 14:59:48');
 /*!40000 ALTER TABLE `nivel_escolaridade` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -860,6 +860,7 @@ DROP TABLE IF EXISTS `sys_log_acesso_aplicacao`;
 CREATE TABLE `sys_log_acesso_aplicacao` (
   `cod_log` int(11) NOT NULL AUTO_INCREMENT,
   `cod_usuario` int(11) DEFAULT NULL,
+  `cod_aplicacao` int(11) DEFAULT NULL,
   `controller` varchar(200) DEFAULT NULL,
   `action` varchar(200) DEFAULT NULL,
   `data` datetime DEFAULT NULL,
@@ -1157,7 +1158,7 @@ CREATE TABLE `us_usuario` (
 
 LOCK TABLES `us_usuario` WRITE;
 /*!40000 ALTER TABLE `us_usuario` DISABLE KEYS */;
-INSERT INTO `us_usuario` VALUES (4,'Sandra Regina Gimeniz',NULL,NULL,NULL,'sandragp@marilia.unesp.br','gabriel2@hotmail.com',2,1,'Rua teste','01','Casa','Marília','Bairro teste','SP','14405101','33443344','14997846430','Análise e Desenvolvimento de Sistemas',6,0,'Noite','Análise e Desenvolvimento de Sistemas',2019,'FATEC','',0,'','solteiro','M','1998-02-20 00:00:00','','','','','','','','',0,0,0,1,'Kplay','Rua Humberto',818,'Edificio','Piraju',NULL,'SP',NULL,'18800000','1433443030','14997846431','2019-07-08 10:34:56',1,NULL,NULL,NULL);
+INSERT INTO `us_usuario` (`cod_usuario`, `nome`, `email`, `nivel_escolaridade_fk`, `tipo_usuario_fk`, `ativo`) VALUES (4,'Sandra Regina Gimeniz','sandragp@marilia.unesp.br',1,1,1);
 /*!40000 ALTER TABLE `us_usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2303,6 +2304,3 @@ DELIMITER ;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2019-09-23 15:34:33
-
-
--- Dump completed on 2019-09-20 17:08:12

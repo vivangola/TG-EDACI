@@ -110,8 +110,8 @@ $sessao = new Container('usuario');
                                 <div class="info" style="min-height:450px" id="div-video">
                                     <div class="panels box-initial-header">
                                         <div class="row">
-                                            <div class="col-sm-12 col-md-12 col-xs-12">
-                                                <iframe id="iframe" width="100%" height="330" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                            <div class="col-sm-12 col-md-12 col-xs-12" id="divFrame">
+
                                             </div>                                                                                                
                                         </div>  
                                     </div>   
@@ -142,7 +142,7 @@ $sessao = new Container('usuario');
                                         </div> 
                                         <?php if ($sessao->tipo_usuario == 1): ?>
                                             <form id="frmDoc" action="/salvar-doc" method="POST" enctype="multipart/form-data">
-                                                <div class="col-md-12 table-responsive" style="margin: 170px 0 30px ">
+                                                <div class="col-md-12 table-responsive" style="margin: 190px 0 30px ">
                                                     <label for="add_arquivo" class="col-form-label">Selecione um arquivo que será disponibilizado para download (pdf):</label>
                                                     <center><input style="width:75%;" type="file" accept=".pdf" class="pull-center form-control" name="add_arquivo" id="add_arquivo"></center>
                                                     <a style="width:40%; margin-top: 10px;" class="btn btn-primary3 btn-pad" id="upDoc">
@@ -196,26 +196,37 @@ $sessao = new Container('usuario');
         $.ajax({
             url: '/arquivos/principal/video_principal.mp4',
             method: 'HEAD',
-            async: true,
+            async: false,
             success: function () {
-                $("#iframe").attr("src", "/arquivos/principal/video_principal.mp4");
+                $("#divFrame").html('<iframe src="/arquivos/principal/video_principal.mp4" width="100%" height="330" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');                
             },
             error: function () {
-                $("#iframe").attr("src", "/arquivos/principal/not_found.png");
+                $("#divFrame").html('<img src="/arquivos/principal/not_found.png" width="100%" height="330" src="/arquivos/principal/not_found.png">');                
             }
         });
-        
+
         $.ajax({
             url: '/arquivos/principal/arquivo_principal.pdf',
             method: 'HEAD',
-            async: true,
             success: function () {
                 $("#btnDownload").attr("href", "/arquivos/principal/arquivo_principal.pdf");
             },
             error: function () {
-                
+                $("#btnDownload").attr("onclick", "erroArquivo()");
             }
         });
+        
+        setTimeout(function(){
+            $("#div-doc").css('height', $("#div-video").css('height'));
+        }, 500);
     });
 
+    function erroArquivo() {
+        Swal.fire({
+            title: 'Atenção!',
+            html: 'Nenhum arquivo encontrado!',
+            type: 'warning'
+        });
+    }
+    
 </script>

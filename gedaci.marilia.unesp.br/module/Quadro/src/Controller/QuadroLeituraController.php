@@ -81,7 +81,7 @@ class QuadroLeituraController extends AbstractActionController
                 'autor'             => $this->params()->fromPost('add_autor', ''), 
                 'pagina_inicial'    => $this->params()->fromPost('add_pginicial', ''), 
                 'pagina_final'      => $this->params()->fromPost('add_pgfim', ''), 
-                'interesse'         => $this->params()->fromPost('add_interesse', ''), 
+                'interesse'         => 1,//$this->params()->fromPost('add_interesse', ''), 
                 'palavra_chave'     => $this->params()->fromPost('add_palavra_chave', ''), 
                 'endereco_acesso'   => $this->params()->fromPost('add_endereco', '')
                 //'arquivo'           => $this->params()->fromPost('arquivo', ''), 
@@ -139,7 +139,7 @@ class QuadroLeituraController extends AbstractActionController
                 'cod'       => $this->params()->fromPost('cod', '-1'),
             );
 
-            $sql = "call us_buscarLeitura_sp('','',:cod)";
+            $sql = "call us_buscarLeitura_sp(0,'',:cod)";
             $result = $funcoes->executarSQL($sql,$params,'');
             
             return $response->setContent(Json::encode(array('response' => true, 'result' => $result)));
@@ -171,7 +171,7 @@ class QuadroLeituraController extends AbstractActionController
                 'autor'             => $this->params()->fromPost('autor', ''), 
                 'pagina_inicial'    => $this->params()->fromPost('pginicial', ''), 
                 'pagina_final'      => $this->params()->fromPost('pgfim', ''), 
-                'interesse'         => $this->params()->fromPost('interesse', ''), 
+                'interesse'         => 1,//$this->params()->fromPost('interesse', ''), 
                 'palavra_chave'     => $this->params()->fromPost('palavra_chave', ''), 
                 'endereco_acesso'   => $this->params()->fromPost('endereco_acesso', '')
             ); 

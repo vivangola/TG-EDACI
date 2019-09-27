@@ -101,7 +101,7 @@ class Funcoes {
             $conn->close();
             return $retorno;
         } catch(Exception $e){
-            throw new Exception(sprintf(("Erro no Banco de Dados SQL:\n\n".$sql."\n\n%s"), $e->getMessage()));
+            throw new Exception("Erro no Banco de Dados SQL:\n\n".$sql."\n\n" . $e->getMessage());
         }
     }
     

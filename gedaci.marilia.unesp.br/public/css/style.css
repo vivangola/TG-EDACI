@@ -8986,3 +8986,6 @@ input[type="checkbox"].switch_1:after {
     border-right: 1px solid #ddd !important;
     border-bottom: 1px solid #ddd !important;
 }
+.bd-left{
+    border-left: 5px solid #629bad !important;
+}

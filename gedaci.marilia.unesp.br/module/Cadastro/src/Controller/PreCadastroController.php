@@ -45,8 +45,8 @@ class PreCadastroController extends AbstractActionController
         
         if($request->isPost()){
             $params = array(
-                'nome'          => $this->params()->fromPost('nome', 'Gabriel da Silva'),
-                'email'         => $this->params()->fromPost('email', 'gabriel-xp288@hotmail.com'),
+                'nome'          => $this->params()->fromPost('nome', ''),
+                'email'         => $this->params()->fromPost('email', ''),
                 'escolaridade'  => $this->params()->fromPost('escolaridade', ''),
                 'senha'         => $this->gerarSenha()
             );
@@ -54,6 +54,8 @@ class PreCadastroController extends AbstractActionController
             $params['pass'] = $params['senha'];
             
             $envio = $this->enviarEmail($params);
+            
+            $envio = true;
             
             if(!$envio){
                 return $response->setContent(Json::encode(array('response' => false, 'msg' => 'Erro ao enviar o email. Contate o(s) Desenvolvedor(es).')));

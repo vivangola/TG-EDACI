@@ -1,6 +1,6 @@
-<div class="panel-default" id="add_panel_respostas" style="display:none;">
+<div class="panel-default add" id="add_panel_respostas" style="display:none;margin-bottom: 10px">
     <div class="panel-heading back-primary3" style="border:0px !important">
-        Respostas
+        Adicionar nova Questão
     </div>
     <div class="panel-body" id="add_nova_pergunta">
         <div id="escolher_tipo_resp text-center" style="text-align: center;">
@@ -14,56 +14,66 @@
             <button type="button" class="btn btn-primary3" id="btn_dissertativa" onclick="escolher_tipo_resp(2);">Dissertativa</button>
             <hr>
         </div>
-        <div class="respostas" id="menu-objetiva" style="display:none">
-            <div class="col-md-12 text-right">
-                <button type="button" class="btn btn-primary3" onclick="addLimpar();">Limpar <i class="fa fa-times"></i></button>
-                <button type="button" class="btn btn-primary3" onclick="addAlternativa();">Adicionar Alternativa <i class="fa fa-plus"></i></button>
-                <button type="button" class="btn btn-primary3" onclick="addFinalizar();">Finalizar <i class="fa fa-check"></i></button>
-            </div>
-            <br><br><br>
+    </div>
+</div>
+<div class="panel-default add" id="menu-objetiva" style="display:none;margin-bottom: 10px">
+    <div class="panel-heading back-primary3" style="border:0px !important">
+        Alternativas
+    </div>
+    <div class="panel-body">
+        <label class="col-form-label">Adicione abaixo as alternativas para esta questão:</label>
+        <div class="respostas">
             <div id="add-respostas-objetiva">
             </div>
-        </div>
-        <div id="menu-dissertativa" style="display:none">
+            <br>
             <div class="col-md-12 text-right">
-                <button type="button" class="btn btn-primary3" onclick="addFinalizar2();">Finalizar <i class="fa fa-check"></i></button>
+                <button type="button" class="btn btn-primary3" onclick="addLimpar();">Limpar Alternativas <i class="fa fa-times"></i></button>
+                <button type="button" class="btn btn-primary3" onclick="addAlternativa();">Adicionar Alternativa <i class="fa fa-plus"></i></button>
+                <hr>
             </div>
-            <div id="respostas-dissertativa">
-            </div>
-        </div>
-    </div>
-    <div class="panel-body" id="edit_resposta" style="display: none;">
-        <div class="form-group">
-            <label for="add_desc" class="col-form-label">1.1)</label>
-            <input type="text" class="form-control" id="add_desc" value="Sim">
-            <hr>
-        </div>
-        <div class="col-md-12 text-right">
-            <button type="button" class="btn btn-primary3" onclick="add();">Adicionar <i class="fa fa-plus"></i></button>
-            <button type="button" class="btn btn-primary3" onclick="proximo();">Finalizar <i class="fa fa-check"></i></button>
-        </div>
-        <hr>
-        <br><br>
-        <div class="form-group">
-            <label for="add_desc" class="col-form-label">1.1.1)</label>
-            <input type="text" class="form-control" id="add_desc" value="Durante qual período?">
-        </div>
-        <div class="form-group">
-            <label for="add_desc" class="col-form-label">1.1.2)</label>
-            <input type="text" class="form-control" id="add_desc" value="Durante qual período?">
-        </div>
-        <div class="form-group">
-            <label for="add_desc" class="col-form-label">1.1.3)</label>
-            <input type="text" class="form-control" id="add_desc" value="Quem foi o orientador (nome completo)?">
         </div>
     </div>
 </div>
 
+<div class="panel-default add" id="div_dependencia_add" style="display:none;margin-bottom:10px;">
+    <div class="panel-heading back-primary3" style="border:0px !important">
+        Dependência
+    </div>
+    <div class="panel-body">
+        <div class="form-group" style="text-align: left">
+            <label for="select_questao_add" class="col-form-label">Selecione a Questão:</label>
+            <br>
+            <select class="form-control" id="select_questao_add">
+            </select>
+            <br>
+            <label for="select_alternativa_add" class="col-form-label">Selecione a Alternativa:</label>
+            <br>
+            <select class="form-control" id="select_alternativa_add">
+            </select>
+            <hr>
+        </div>
+    </div>
+</div>
+
+<div class='text-right add' id="menu-objetiva0" style="display:none;margin-top: 10px;;margin-bottom: 10px">
+    <button type="button" class="btn btn-primary3" id="btn_add_dependencia3" onClick="dependencia(1);">Adicionar Dependência <i class="fa fa-plus"></i></button>
+    <button type="button" class="btn btn-primary3" id="btn_cancelar_dependencia3" style="display: none;" onClick="addCancelarDependencia();">Remover Dependência <i class="fa fa-times"></i></button>
+    <button type="button" class="btn btn-primary3" onclick="addFinalizar();">Finalizar <i class="fa fa-check"></i></button>
+</div>
+
+<div class='text-right add' id="menu-dissertativa" style="display:none;margin-top: 10px;;margin-bottom: 10px">
+    <button type="button" class="btn btn-primary3" id="btn_add_dependencia4" onClick="dependencia(1);">Adicionar Dependência <i class="fa fa-plus"></i></button>
+    <button type="button" class="btn btn-primary3" id="btn_cancelar_dependencia4" style="display: none;" onClick="addCancelarDependencia();">Remover Dependência <i class="fa fa-times"></i></button>
+    <button type="button" class="btn btn-primary3" onclick="addFinalizar2();">Finalizar <i class="fa fa-check"></i></button>
+</div>
+ 
 <script type="text/javascript">
 
-    function addQuestao() {
+    function addQuestao(dependencia) {
+        $('.edit').hide();
         limparAdd();
         $('#add_panel_respostas').fadeIn('slow');
+        $('#edit_panel_respostas').hide();
     }
 
     function addAlternativa() {
@@ -77,7 +87,7 @@
     $('#add-respostas-objetiva').on('click', '.removerResposta', function (e) {
         $(this).parent('.divRemoverResposta').remove();
     });
-
+    
     function addLimpar() {
         $('#add-respostas-objetiva').html('');
     }
@@ -87,8 +97,6 @@
         $('#add-respostas-objetiva input').filter(function () {
             return $(this).val() != "" ? qtdInputs = qtdInputs + 1 : '';
         });
-
-
         if (qtdInputs <= 0) {
             Swal.fire({
                 title: 'Atenção!',
@@ -102,6 +110,17 @@
         $('#add-respostas-objetiva input').filter(function () {
             return $(this).val() != "" ? alternativas.push($(this).val()) : '';
         });
+        
+        var dependencia = addVerificaDependencia();
+        
+        if (!$('#add_desc_resp').val()) {
+            Swal.fire({
+                title: 'Atenção!',
+                html: 'Digite a questão.',
+                type: 'info'
+            });
+            return false;
+        }
 
         $.ajax({
             url: '/questionario/cadastro/add-questao',
@@ -110,7 +129,9 @@
                 desc_questao: $('#add_desc_resp').val(),
                 cod_questao: '0',
                 alternativas: alternativas,
-                tipo_questao: '1'
+                tipo_questao: '1',
+                dependencia_questao : dependencia.cod_questao,
+                dependencia_alternativa : dependencia.cod_alternativa
             },
             type: 'json',
             method: 'POST',
@@ -123,13 +144,93 @@
                 Swal.fire({
                     title: 'Sucesso!',
                     html: 'Questão adicionada.',
-                    type: 'info'
+                    type: 'success'
                 });
 
                 limparAdd();
 
             }
         });
+    }
+    
+    function addFinalizar2() {
+        
+        var dependencia = addVerificaDependencia();
+        
+        if(!dependencia){
+            return false;
+        }
+        
+        if (!$('#add_desc_resp').val()) {
+            Swal.fire({
+                title: 'Atenção!',
+                html: 'Digite a questão.',
+                type: 'info'
+            });
+            return false;
+        }
+        
+        $.ajax({
+            url: '/questionario/cadastro/add-questao',
+            data: {
+                cod_questionario: $('#cod_questionario').val(),
+                desc_questao: $('#add_desc_resp').val(),
+                cod_questao: '0',
+                alternativas: [],
+                tipo_questao: '2',
+                dependencia_questao : dependencia.cod_questao,
+                dependencia_alternativa : dependencia.cod_alternativa
+            },
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                retorno = JSON.parse(retorno);
+                $('#perguntas_edit').html(retorno.html);
+                Swal.fire({
+                    title: 'Sucesso!',
+                    html: 'Questão adicionada.',
+                    type: 'success'
+                });
+                limparAdd();
+            }
+        });
+    }
+    
+    function addVerificaDependencia(){
+        var dependencia = {cod_questao : 0, cod_alternativa : 0};
+        
+        var has_dependencia = ($('#btn_cancelar_dependencia3').is(':visible') || $('#btn_cancelar_dependencia4').is(':visible'));
+        
+        if(has_dependencia){
+            var cod_dependencia = $('#select_questao_add').val();
+            if(!cod_dependencia || cod_dependencia == 0){
+                Swal.fire({
+                    title: 'Atenção!',
+                    html: 'Selecione a questão pendente.',
+                    type: 'info'
+                });
+                return false;
+            }else{
+                dependencia.cod_questao = cod_dependencia;
+                cod_dependencia = $('#select_alternativa_add').val();
+                if(!cod_dependencia || cod_dependencia == 0){
+                    Swal.fire({
+                        title: 'Atenção!',
+                        html: 'Selecione a alternativa da questão pendente.',
+                        type: 'info'
+                    });
+                    return false;
+                }else{
+                    dependencia.cod_alternativa = cod_dependencia;
+                    return dependencia;
+                }
+            }
+        }else{
+            return {cod_questao : 0, cod_alternativa : 0};
+        }
     }
 
     function limparAdd() {
@@ -140,6 +241,8 @@
         $('#add-respostas-objetiva').html('');
         $('#add_desc_resp').val('');
         $('#add_panel_respostas').hide();
+        $('#div_dependencia_add').hide();
+        $('.add').hide();
     }
 
 
@@ -153,22 +256,92 @@
             });
             return false;
         }
+        
+        addCancelarDependencia();
 
         if (tipo == 1) {
             $('#btn_objetiva').attr('style', 'background:#477482 !important');
             $('#btn_dissertativa').attr('style', 'background:#629bad !important');
             $('#menu-dissertativa').hide();
             $('#menu-objetiva').fadeIn('slow');
+            $('#menu-objetiva0').fadeIn('slow');
         } else {
             $('#btn_objetiva').attr('style', 'background:#629bad !important');
             $('#btn_dissertativa').attr('style', 'background:#477482 !important');
             $('#menu-objetiva').hide();
+            $('#menu-objetiva0').hide();
             $('#menu-dissertativa').fadeIn('slow');
         }
     }
+    
+    function addShowDependencia(){
+        $('#div_dependencia_add').show();
+        $('#btn_cancelar_dependencia3').show();
+        $('#btn_add_dependencia3').hide();
+        $('#btn_cancelar_dependencia4').show();
+        $('#btn_add_dependencia4').hide();
+    }
+    
+    function addCancelarDependencia(){
+        $('#div_dependencia_add').hide();
+        $('#select_questao_add').html('');
+        $('#select_alternativa_add').html('');
+        
+        $('#btn_cancelar_dependencia3').hide();
+        $('#btn_add_dependencia3').show();
+        $('#btn_cancelar_dependencia4').hide();
+        $('#btn_add_dependencia4').show();
+    }
+    
+    $('#select_questao_add').on('change', function(){
+        tipo = 2;
+        
+        dependencia(tipo,$(this).val());
+    });
 
     function showAdd() {
         $('#modalAdd').modal('show');
+    }
+    
+    function dependencia(tipo){
+        addShowDependencia();
+        $.ajax({
+            url: '/questionario/cadastro/buscar-questao',
+            data: {
+                questionario: $('#cod_questionario').val(),
+                questao: tipo == 1 ? 0 : $('#select_questao_add').val(),
+                tipo: tipo
+            },
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                retorno = JSON.parse(retorno);
+                Swal.close();
+                if(tipo == 1){
+                    $('#select_questao_add').html('');
+                    $('#select_questao_add').append("<option value='0'>Selecionar</option>");
+                    for(var i=0; i < retorno.questao.length; i++){
+                        $('#select_questao_add').append("<option value='"+retorno.questao[i].cod+"'>"+retorno.questao[i].desc_pergunta+"</option>");
+                    }
+                }else{
+                    $('#select_alternativa_add').html('');
+                    if(retorno.alternativas.length > 0){
+                        $('#select_alternativa_add').show();
+                        $('[for="select_alternativa_add"').show();
+                        $('#select_alternativa_add').append("<option value='0'>Selecionar</option>");
+                        for(var i=0; i < retorno.alternativas.length; i++){
+                            $('#select_alternativa_add').append("<option value='"+retorno.alternativas[i].cod+"'>"+retorno.alternativas[i].desc_pergunta+"</option>");
+                        }
+                    }else{
+                        $('#select_alternativa_add').hide();
+                        $('[for="select_alternativa_add"]').hide();
+                    }
+                }
+            }
+        });
     }
 
 </script>    

@@ -6,28 +6,28 @@
                     <div class="col-md-12 pd-0" style="clear: both;">
                         <div class="box">                           
                             <div class="icon">
-                                <div class="image back-primary3"><i class="fa fa-book"></i>&nbsp;<label class="title">Questionário Inicial</label></div>
+                                <div class="image back-primary3"><i class="fa fa-book"></i>&nbsp;<label class="title"><?= strtoupper($questionario['descricao']) ?></label></div>
                                 <div class="info" style="height: 500px">
                                     <div class="col-md-offset-2 col-xs-12 col-md-8" style="margin-top: 10px;">
-                                        <h2 class="pergunta">1) Qual o nome do Junior perez?</h2>
+                                        <h2 class="pergunta">1) <?= $questao['desc_pergunta'] ?></h2>
                                         <div class="respostas">
-                                            <div class="respostas-primary">
-                                                <input type="radio" name="radio" id="radio1"/>
-                                                <label for="radio1">Judinerson Perez</label>
-                                            </div>
-                                            <div class="respostas-primary">
-                                                <input type="radio" name="radio" id="radio2"/>
-                                                <label for="radio2">Denilson Perez Junior</label>
-                                            </div>
-                                            <div class="respostas-primary">
-                                                <input type="radio" name="radio" id="radio3"/>
-                                                <label for="radio3">Everaldo Perez</label>
-                                            </div>
+                                            <?php foreach($questao['alternativas'] as $dados):?>
+                                                    <div class="respostas-primary">
+                                                        <input type="radio" name="resposta" id="radio-<?= $dados['cod'] ?>" value="<?= $dados['cod'] ?>"/>
+                                                        <label for="radio-<?= $dados['cod'] ?>"><?= $dados['desc_pergunta'] ?></label>
+                                                    </div>    
+                                            <?php endforeach;?>
                                         </div>
                                     </div>
-                                    <div class='col-md-12' style="margin-top:10px">
-                                        <button type='button' class='btn btn-primary4'>Voltar</button>
-                                        <button type='button' class='btn btn-primary4'>Continuar</button>
+                                    <div class='col-md-12' style="margin-top:100px">
+                                        <?php if($voltar != 0):?>
+                                            <button type='button' class='btn btn-primary3' onclick="voltar(<?= $voltar ?>)"><i class="fa fa-arrow-left"></i> Voltar</button>
+                                        <?php endif;?>
+                                        
+                                        <?php if($proximo != 0):?>
+                                            <button type='button' class='btn btn-primary3' onclick="proximo(<?= $proximo ?>)"> Proxima Questão <i class="fa fa-arrow-right"></i></button>
+                                        <?php endif;?>
+                                        <hr>
                                     </div>
                                 </div>
                             </div>
@@ -43,4 +43,33 @@
     $(".img-check").click(function () {
         $(this).toggleClass("resposta-imagem-check");
     });
+    
+    function proximo(questao){
+        
+        var qtdInputs = 0;
+        $('[name="resposta"]').filter(function () {
+            return $(this).is(':checked') ? qtdInputs = qtdInputs + 1 : '';
+        });
+        if (qtdInputs <= 0) {
+            Swal.fire({
+                title: 'Atenção!',
+                html: 'Selecione uma alternativa.',
+                type: 'info'
+            });
+            return false;
+        }
+        
+        if (qtdInputs > 1) {
+            Swal.fire({
+                title: 'Atenção!',
+                html: 'Selecione <b>apenas</b> uma alternativa.',
+                type: 'info'
+            });
+            return false;
+        }
+    }
+    
+    function voltar(questao){
+        
+    }
 </script>

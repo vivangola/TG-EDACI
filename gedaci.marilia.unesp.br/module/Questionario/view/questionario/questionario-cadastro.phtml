@@ -103,7 +103,7 @@
                                     <div class="panel-default">
                                         <div class="panel-heading back-primary3">
                                             <h4 class="panel-title">
-                                                </span>Questões</a>
+                                                Questões
                                             </h4>
                                         </div>
                                         <div id="collapseFour" class="panel panel-collapse">
@@ -118,13 +118,14 @@
                             </div>
                             <div class="col-sm-8 col-md-8">
                                 <?php echo $this->partial('partials/questionario/nova-questao');?>
+                                <?php echo $this->partial('partials/questionario/edit-questao');?>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary-borded2" data-dismiss="modal">Fechar</button>
+                
             </div>
         </div>
     </div>
@@ -184,6 +185,8 @@
     
     
     function showEdit(cod){
+        $('.edit').hide();
+        $('.add').hide();
         $.ajax({
             url: '/questionario/buscar-questionario',
             data: {questionario : cod},
@@ -196,9 +199,13 @@
                 retorno = JSON.parse(retorno);
                 Swal.close();
                 if(retorno.response){
+                    $('#edit_panel_respostas').hide();
                     $('#edit_desc').val(retorno.titulo);
                     $('#cod_questionario').val(retorno.cod_questionario);
                     $('#perguntas_edit').html(retorno.html);
+                    $('#edit-menu-objetiva').hide();
+                    $('#menu-objetiva2').hide();
+                    $('#menu-dissertativa2').hide();
                     $('#modalEdit').modal('show');
                 }else{
                     Swal.fire({
@@ -209,42 +216,6 @@
                 }
             }
         });
-    }
-    
-    function edit(){
-        
-        var data = {
-            cod                  : $('#edit_cod').val(),
-            edit_assunto         : $('#edit_assunto').val(),
-            edit_desc            : $('#edit_desc').val(),
-            edit_escolaridade    : $('#edit_escolaridade').val(),
-            edit_dtini           : $('#edit_dtini').val(),
-            edit_dtfim           : $('#edit_dtfim').val(),
-            edit_hini            : $('#edit_hini').val(),
-            edit_hfim            : $('#edit_hfim').val()
-        };
-        
-        if(validaParametros(data)){
-            $.ajax({
-                url: '/avisos/edit',
-                data: data,
-                type: 'json',
-                method: 'POST',
-                beforeSend: function () {
-                    loader();
-                },
-                success: function (retorno) {
-                    Swal.fire({
-                        title: 'Sucesso!',
-                        html: 'Aviso editado com sucesso.',
-                        type: 'success',
-                        onClose: () => {
-                            window.location.reload();
-                        }
-                    });
-                },
-            });
-        }
     }
     
     function showDelete(cod){

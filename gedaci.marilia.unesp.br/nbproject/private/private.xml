@@ -2,6 +2,21 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/xampp/htdocs/TG-EDACI/gedaci.marilia.unesp.br/module/Application/config/module.config.php</file>
+            <file>file:/C:/xampp/htdocs/TG-EDACI/gedaci.marilia.unesp.br/public/css/style.css</file>
+            <file>file:/C:/xampp/htdocs/TG-EDACI/gedaci.marilia.unesp.br/module/Application/view/partials/questionario/nova-questao.phtml</file>
+            <file>file:/C:/xampp/htdocs/TG-EDACI/gedaci.marilia.unesp.br/module/Questionario/config/module.config.php</file>
+            <file>file:/C:/xampp/htdocs/TG-EDACI/gedaci.marilia.unesp.br/module/Cadastro/view/cadastro/pre-cadastro.phtml</file>
+            <file>file:/C:/xampp/htdocs/TG-EDACI/gedaci.marilia.unesp.br/module/Cadastro/view/cadastro/cadastro.phtml</file>
+            <file>file:/C:/xampp/htdocs/TG-EDACI/gedaci.marilia.unesp.br/module/Application/view/application/index/bem-vindo.phtml</file>
+            <file>file:/C:/xampp/htdocs/TG-EDACI/gedaci.marilia.unesp.br/module/Application/view/partials/questionario/edit-questao.phtml</file>
+            <file>file:/C:/xampp/htdocs/TG-EDACI/gedaci.marilia.unesp.br/module/Cadastro/src/Controller/PreCadastroController.php</file>
+            <file>file:/C:/xampp/htdocs/TG-EDACI/gedaci.marilia.unesp.br/module/Questionario/view/questionario/questionario-cadastro.phtml</file>
+            <file>file:/C:/xampp/htdocs/TG-EDACI/gedaci.marilia.unesp.br/module/Cadastro/src/Controller/CadastroController.php</file>
+            <file>file:/C:/xampp/htdocs/TG-EDACI/gedaci.marilia.unesp.br/module/Questionario/src/Controller/QuestionarioController.php</file>
+            <file>file:/C:/xampp/htdocs/TG-EDACI/gedaci.marilia.unesp.br/module/Application/src/Classes/Funcoes.php</file>
+            <file>file:/C:/xampp/htdocs/TG-EDACI/gedaci.marilia.unesp.br/module/Questionario/view/questionario/questionario-inicial.phtml</file>
+        </group>
     </open-files>
 </project-private>

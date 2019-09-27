@@ -1,0 +1,408 @@
+<div class="panel-default edit" id="edit_panel_respostas" style="display:none;margin-bottom:10px;">
+    <div class="panel-heading back-primary3" style="border:0px !important" id='edit-panel-heading'>
+        Questão
+    </div>
+    <div class="panel-body" id="edit_nova_pergunta">
+        <input type="hidden" id="cod_questao">
+        <div id="escolher_tipo_resp text-center" style="text-align: center;">
+            <div class="form-group" style="text-align: left">
+                <label for="edit_desc_resp" class="col-form-label">Digite a questão abaixo:</label>
+                <br>
+                <input type="text" class="form-control" id="edit_desc_resp" value="" maxlength="500">
+                <hr>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel-default edit" id="edit-menu-objetiva" style="display:none;margin-bottom:10px;">
+    <div class="panel-heading back-primary3" style="border:0px !important">
+        Alternativas
+    </div>
+    <div class="panel-body" id="edit_nova_pergunta">
+        <label class="col-form-label">Adicione abaixo as alternativas para esta questão:</label>
+        <div class="respostas">
+            <div id="edit-respostas-objetiva">
+            </div>
+            <br>
+            <div class="text-right">
+                <button type="button" class="btn btn-primary3" onclick="editLimpar();">Limpar Alternativas <i class="fa fa-times"></i></button>
+                <button type="button" class="btn btn-primary3" onclick="editAlternativa();">Adicionar Alternativa <i class="fa fa-plus"></i></button>
+                <hr>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel-default edit" id="div_dependencia" style="display:none;margin-bottom:10px;">
+    <div class="panel-heading back-primary3" style="border:0px !important">
+        Dependência
+    </div>
+    <div class="panel-body" id="edit_nova_pergunta">
+        <div class="form-group" style="text-align: left">
+            <label for="select_questao" class="col-form-label">Selecione a Questão:</label>
+            <br>
+            <select class="form-control" id="select_questao">
+            </select>
+            <br>
+            <label for="select_alternativa" class="col-form-label">Selecione a Alternativa:</label>
+            <br>
+            <select class="form-control" id="select_alternativa">
+            </select>
+            <hr>
+        </div>
+    </div>
+</div>
+<div class="text-right edit" id="menu-objetiva2" style='display: none;margin-top: 10px;'>
+    <button type="button" class="btn btn-primary3" id="btn_add_dependencia" onClick="addDependencia(1);">Adicionar Dependência <i class="fa fa-plus"></i></button>
+    <button type="button" class="btn btn-primary3" id="btn_cancelar_dependencia" style="display: none;" onClick="cancelarDependencia();">Remover Dependência <i class="fa fa-times"></i></button>
+    <button type="button" class="btn btn-primary3" onclick="editFinalizarMsg(1);">Finalizar Alterações <i class="fa fa-check"></i></button>
+</div>
+<div class='text-right edit' id="menu-dissertativa2" style="display:none;margin-top: 10px;">
+    <button type="button" class="btn btn-primary3" id="btn_add_dependencia2" onClick="addDependencia(1);">Adicionar Dependência <i class="fa fa-plus"></i></button>
+    <button type="button" class="btn btn-primary3" id="btn_cancelar_dependencia2" style="display: none;" onClick="cancelarDependencia();">Remover Dependência <i class="fa fa-times"></i></button>
+    <button type="button" class="btn btn-primary3" onclick="editFinalizarMsg(2);">Finalizar Alterações <i class="fa fa-check"></i></button>
+</div>
+
+<script type="text/javascript">
+    
+    function editQuestao(questao,questionario){
+        $('.add').hide();
+        cancelarDependencia();
+        $.ajax({
+            url: '/questionario/cadastro/buscar-questao',
+            data: {
+                questionario    : questionario,
+                questao         : questao
+            },
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                retorno = JSON.parse(retorno);
+                Swal.close();
+                if(retorno.response){
+                    $('#edit-respostas-objetiva').html('');
+                    $('#edit-menu-objetiva').hide();
+                    $('#menu-objetiva2').hide();
+                    $('#menu-dissertativa2').hide();
+                    
+                    $('#edit_desc_resp').val(retorno.questao.desc_pergunta);
+                    $('#cod_questao').val(retorno.questao.cod);
+                    
+                    if(retorno.questao.tipo_pergunta == 1){
+                        $('#edit_btn_objetiva').fadeIn('slow');
+                        $('#menu-objetiva2').fadeIn('slow');
+                        for(var i = 0; i < retorno.alternativas.length; i++){
+                            html = '<div class="form-group divRemoverResposta" style="text-align:right;">' +
+                                    '<i class="fa fa-times pointer removerResposta"></i>' +
+                                    '<input type="text" maxlength="500" class="form-control alternativa-existente" data-codigo="'+retorno.alternativas[i].cod+'" id="edit_desc" value="'+retorno.alternativas[i].desc_pergunta+'">' +
+                                    '</div>';
+                            $('#edit-respostas-objetiva').append(html);
+                        }
+                        
+                        $('#edit-menu-objetiva').fadeIn('slow');
+                        $('#edit_btn_dissertativa').hide();
+                        $('#edit-panel-heading').text('Questão Objetiva');
+                    }else if(retorno.questao.tipo_pergunta == 2){
+                        $('#edit_btn_objetiva').hide();
+                        $('#edit_btn_dissertativa').fadeIn('slow');
+                        $('#menu-dissertativa2').fadeIn('slow');
+                        $('#edit-panel-heading').text('Questão Dissertativa');
+                    }else{
+                        $('#edit_btn_objetiva').hide();
+                        $('#edit_btn_dissertativa').hide();
+                    }
+                    
+                    if(retorno.questao.dependencia_questao != 0){
+                        loader();
+                        addDependencia(1);
+                        setTimeout(function(){
+                            $("#select_questao option[value='"+retorno.questao.dependencia_questao+"']").attr('selected', 'selected');
+                            setTimeout(function(){
+                                addDependencia(2);
+                                    setTimeout(function(){
+                                    $('#select_alternativa').val(retorno.questao.dependencia_alternativa);
+                                }, 400);
+                                $('#select_alternativa').val(retorno.questao.dependencia_alternativa);
+                            }, 400);
+                        }, 400);
+                    }else{
+                        cancelarDependencia();
+                    }
+                    
+                    $('#edit_panel_respostas').fadeIn('slow');
+                    $('#add_panel_respostas').hide();
+                    
+                }else{
+                    Swal.fire({
+                        title: 'Atenção!',
+                        html: 'Questão não encontrada.',
+                        type: 'info'
+                    });
+                }
+            }
+        });
+    }
+    
+    function editAlternativa() {
+        html = '<div class="form-group divRemoverResposta" style="text-align:right;">' +
+                '<i class="fa fa-times pointer removerResposta"></i>' +
+                '<input type="text" class="form-control alternativa-nao-existente" id="edit_desc" value="">' +
+                '</div>';
+        $('#edit-respostas-objetiva').append(html);
+    }
+
+    $('#edit-respostas-objetiva').on('click', '.removerResposta', function (e) {
+        console.log($(this).get(0));
+        $(this).parent('.divRemoverResposta').remove();
+    });
+
+    function editLimpar() {
+        $('#edit-respostas-objetiva').html('');
+    }
+    
+    function editFinalizarMsg(tipo){
+        Swal.fire({
+            title: 'Atenção!',
+            html: 'Deseja realmente realizar as seguintes alterações?',
+            type: 'info',
+            showCancelButton: true,
+            preConfirm: () => {
+                if(tipo == 1){ // objetiva
+                    editFinalizar();
+                }else{
+                    editFinalizar2();
+                }
+            }
+        });
+    }
+
+    function editFinalizar() {
+        var qtdInputs = 0;
+        $('#edit-respostas-objetiva input').filter(function () {
+            return $(this).val() != "" ? qtdInputs = qtdInputs + 1 : '';
+        });
+        
+
+        if (qtdInputs <= 0) {
+            Swal.fire({
+                title: 'Atenção!',
+                html: 'Coloque alternativas.',
+                type: 'info'
+            });
+            return false;
+        }
+
+        var alternativas = {existe : [], nexiste : []};
+        
+        $('#edit-respostas-objetiva .alternativa-existente').filter(function () {
+            return $(this).val() != "" ? alternativas.existe.push($(this).val()+'|'+$(this).attr('data-codigo')) : '';
+        });
+        
+        $('#edit-respostas-objetiva .alternativa-nao-existente').filter(function () {
+            return $(this).val() != "" ? alternativas.nexiste.push($(this).val()) : '';
+        });
+        
+        var dependencia = editVerificaDependencia();
+        
+        if(!dependencia){
+            return false;
+        }
+        
+        if (!$('#edit_desc_resp').val()) {
+            Swal.fire({
+                title: 'Atenção!',
+                html: 'Digite a questão.',
+                type: 'info'
+            });
+            return false;
+        }
+        
+        $.ajax({
+            url: '/questionario/cadastro/edit-questao',
+            data: {
+                cod_questionario: $('#cod_questionario').val(),
+                desc_questao: $('#edit_desc_resp').val(),
+                cod_questao: $('#cod_questao').val(),
+                alternativas: alternativas,
+                tipo_questao: '1',
+                dependencia_questao : dependencia.cod_questao,
+                dependencia_alternativa : dependencia.cod_alternativa
+            },
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                retorno = JSON.parse(retorno);
+                $('#perguntas_edit').html(retorno.html);
+                Swal.fire({
+                    title: 'Sucesso!',
+                    html: 'Alterações concluídas.',
+                    type: 'success',
+                    onClose: () => {
+                        editQuestao($('#cod_questao').val(), $('#cod_questionario').val());
+                    }
+                });
+                limparEdit();
+            }
+        });
+    }
+    
+    function editFinalizar2() {
+
+        var alternativas = {existe : [], nexiste : []};
+        
+        var dependencia = editVerificaDependencia();
+        
+        if(!dependencia){
+            return false;
+        }
+        
+        if (!$('#edit_desc_resp').val()) {
+            Swal.fire({
+                title: 'Atenção!',
+                html: 'Digite a questão.',
+                type: 'info'
+            });
+            return false;
+        }
+        
+        $.ajax({
+            url: '/questionario/cadastro/edit-questao',
+            data: {
+                cod_questionario: $('#cod_questionario').val(),
+                desc_questao: $('#edit_desc_resp').val(),
+                cod_questao: $('#cod_questao').val(),
+                alternativas: alternativas,
+                tipo_questao: '2',
+                dependencia_questao : dependencia.cod_questao,
+                dependencia_alternativa : dependencia.cod_alternativa
+            },
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                retorno = JSON.parse(retorno);
+                $('#perguntas_edit').html(retorno.html);
+                Swal.fire({
+                    title: 'Sucesso!',
+                    html: 'Alterações concluídas.',
+                    type: 'success',
+                    onClose: () => {
+                        editQuestao($('#cod_questao').val(),$('#cod_questionario').val());
+                    }
+                });
+                limparEdit();
+            }
+        });
+    }
+    
+    $('#select_questao').on('change', function(){
+        tipo = 2;
+        
+        addDependencia(tipo,$(this).val());
+    });
+    
+    function showDependencia(){
+        $('#div_dependencia').show();
+        $('#btn_cancelar_dependencia').show();
+        $('#btn_add_dependencia').hide();
+        $('#btn_cancelar_dependencia2').show();
+        $('#btn_add_dependencia2').hide();
+    }
+    
+    function cancelarDependencia(){
+        $('#div_dependencia').hide();
+        $('#select_questao').html('');
+        $('#select_alternativa').html('');
+        $('#btn_cancelar_dependencia2').hide();
+        $('#btn_add_dependencia2').show();
+        $('#btn_cancelar_dependencia').hide();
+        $('#btn_add_dependencia').show();
+    }
+    
+    function addDependencia(tipo){
+        showDependencia();
+        $.ajax({
+            url: '/questionario/cadastro/buscar-questao',
+            data: {
+                questionario: $('#cod_questionario').val(),
+                questao: tipo == 1 ? $('#cod_questao').val() : $('#select_questao').val(),
+                tipo: tipo
+            },
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                retorno = JSON.parse(retorno);
+                Swal.close();
+                if(tipo == 1){
+                    $('#select_questao').html('');
+                    $('#select_questao').append("<option value='0'>Selecionar</option>");
+                    for(var i=0; i < retorno.questao.length; i++){
+                        $('#select_questao').append("<option value='"+retorno.questao[i].cod+"'>"+retorno.questao[i].desc_pergunta+"</option>");
+                    }
+                }else{
+                    $('#select_alternativa').html('');
+                    if(retorno.alternativas.length > 0){
+                        $('#select_alternativa').show();
+                        $('[for="select_alternativa"]').show();
+                        $('#select_alternativa').append("<option value='0'>Selecionar</option>");
+                        for(var i=0; i < retorno.alternativas.length; i++){
+                            $('#select_alternativa').append("<option value='"+retorno.alternativas[i].cod+"'>"+retorno.alternativas[i].desc_pergunta+"</option>");
+                        }
+                    }else{
+                        $('#select_alternativa').hide();
+                        $('[for="select_alternativa"]').hide();
+                    }
+                }
+            }
+        });
+    }
+    
+    function editVerificaDependencia(){
+        var dependencia = {cod_questao : 0, cod_alternativa : 0};
+        
+        var has_dependencia = ($('#btn_cancelar_dependencia').is(':visible') || $('#btn_cancelar_dependencia2').is(':visible'));
+        
+        console.log(has_dependencia);
+        
+        if(has_dependencia){
+            var cod_dependencia = $('#select_questao').val();
+            console.log(cod_dependencia,1);
+            if(!cod_dependencia || cod_dependencia == 0){
+                Swal.fire({
+                    title: 'Atenção!',
+                    html: 'Selecione a questão pendente.',
+                    type: 'info'
+                });
+                return false;
+            }else{
+                dependencia.cod_questao = cod_dependencia;
+                cod_dependencia = $('#select_alternativa').val();
+                console.log(cod_dependencia,2);
+                if(!cod_dependencia || cod_dependencia == 0){
+                    Swal.fire({
+                        title: 'Atenção!',
+                        html: 'Selecione a alternativa da questão pendente.',
+                        type: 'info'
+                    });
+                    return false;
+                }else{
+                    dependencia.cod_alternativa = cod_dependencia;
+                    return dependencia;
+                }
+            }
+        }else{
+            return {cod_questao : 0, cod_alternativa : 0};
+        }
+    }
+
+</script>    

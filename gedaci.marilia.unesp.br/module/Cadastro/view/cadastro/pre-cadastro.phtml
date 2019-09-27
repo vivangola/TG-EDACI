@@ -78,7 +78,7 @@
             url: '/pre-cadastro/novo',
             data: {
                 nome            : $('#nome').val(),
-                email           : $('#senha').val(),
+                email           : $('#email').val(),
                 escolaridade    : $('#escolaridade').val()
             },
             method: 'POST',
@@ -95,7 +95,14 @@
                         text: retorno.msg,
                     });
                 }else{
-                    window.location.href = "/";
+                    Swal.fire({
+                        type: 'success',
+                        title: 'Sucesso!',
+                        html: 'Novo membro cadastrado com sucesso!<br>Informações para o acesso foram enviadas ao email do novo membro.',
+                        onClose: () => {
+                            window.location.reload();
+                        }
+                    });
                 }
             },
             error: function () {

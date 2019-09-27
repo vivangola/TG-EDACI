@@ -585,9 +585,11 @@ CREATE TABLE `qst_questao1` (
   `desc_pergunta` varchar(1000) DEFAULT NULL,
   `tipo_pergunta` int(11) DEFAULT NULL,
   `is_sub` int(11) DEFAULT NULL,
+  `dependencia_questao` int(11) DEFAULT NULL,
+  `dependencia_alternativa` int(11) DEFAULT NULL,
   `data_criacao` datetime DEFAULT NULL,
   PRIMARY KEY (`cod`)
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=146 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -596,7 +598,7 @@ CREATE TABLE `qst_questao1` (
 
 LOCK TABLES `qst_questao1` WRITE;
 /*!40000 ALTER TABLE `qst_questao1` DISABLE KEYS */;
-INSERT INTO `qst_questao1` VALUES (46,2,'teste?',1,0,'2019-09-18 12:03:40'),(47,2,'sim',0,1,'2019-09-18 12:03:40'),(48,2,'nao',0,1,'2019-09-18 12:03:40'),(49,2,'voce tem dinheiro',1,0,'2019-09-18 12:04:51'),(50,2,'sim',0,1,'2019-09-18 12:04:51'),(51,2,'nao',0,1,'2019-09-18 12:04:51'),(52,2,'voce tem carro?',1,0,'2019-09-18 12:05:23'),(53,2,'nao sei',0,1,'2019-09-18 12:05:23'),(54,2,'tenhoi',0,1,'2019-09-18 12:05:23'),(55,2,'asdasddssad??',1,0,'2019-09-18 12:06:13'),(56,2,'asdasdsa',0,1,'2019-09-18 12:06:13'),(57,2,'dasdsad',0,1,'2019-09-18 12:06:13'),(58,2,'testeeeeee',1,0,'2019-09-18 12:10:57'),(59,2,'sdadad',0,1,'2019-09-18 12:10:57'),(60,2,'sadsadsad',0,1,'2019-09-18 12:10:57'),(61,2,'asdsadsad',0,1,'2019-09-18 12:10:57'),(62,2,'asdsasadad?',1,0,'2019-09-18 12:14:10'),(63,2,'testestet',0,1,'2019-09-18 12:14:10'),(64,2,'testeste',0,1,'2019-09-18 12:14:10'),(65,2,'etsteteste',0,1,'2019-09-18 12:14:11'),(66,2,'etesteste',0,1,'2019-09-18 12:14:11'),(67,2,'eteste',0,1,'2019-09-18 12:14:11'),(68,2,'asdaadsdasdsaadssad',1,0,'2019-09-18 12:14:32'),(69,2,'dadad',0,1,'2019-09-18 12:14:32'),(70,2,'adadads',0,1,'2019-09-18 12:14:32'),(71,2,'testeeeeee',1,0,'2019-09-18 12:29:53'),(72,2,'sadadadasd',0,1,'2019-09-18 12:29:53'),(73,2,'sadsadsadasada',0,1,'2019-09-18 12:29:53'),(74,2,'sadasadadasd',0,1,'2019-09-18 12:29:53'),(75,2,'teeeeeeeeeeeeeeeeeeeeeeee',1,0,'2019-09-18 12:32:44'),(76,2,'asdsadasd',0,1,'2019-09-18 12:32:44'),(77,2,'asdasdsad',0,1,'2019-09-18 12:32:44');
+INSERT INTO `qst_questao1` VALUES (123,2,'Isso é um teste?',1,0,0,0,'2019-09-27 11:38:48'),(124,2,'Sim',0,1,NULL,NULL,'2019-09-27 11:38:48'),(125,2,'Não',0,1,NULL,NULL,'2019-09-27 11:38:49'),(126,2,'Se sim, porq?',1,0,123,124,'2019-09-27 11:39:17'),(127,2,'Porq sim',0,1,NULL,NULL,'2019-09-27 11:39:18'),(128,2,'Não sei dizer',0,1,NULL,NULL,'2019-09-27 11:39:18'),(129,2,'Teste??',1,0,0,0,'2019-09-27 12:50:37'),(130,2,'teste 1',0,1,NULL,NULL,'2019-09-27 12:50:37'),(131,2,'teste 2',0,1,NULL,NULL,'2019-09-27 12:50:37'),(132,2,'testeeeee22',1,0,123,124,'2019-09-27 12:52:04'),(133,2,'1',0,1,NULL,NULL,'2019-09-27 12:52:05'),(134,2,'2',0,1,NULL,NULL,'2019-09-27 12:52:05'),(135,2,'testeeeeeeeeeeeeee',2,0,126,127,'2019-09-27 14:40:03'),(136,2,'11',0,1,NULL,NULL,'2019-09-27 16:14:25'),(137,2,'11',0,1,NULL,NULL,'2019-09-27 16:15:09'),(138,2,'11',0,1,NULL,NULL,'2019-09-27 16:20:00'),(139,2,'22',0,1,NULL,NULL,'2019-09-27 16:20:00'),(140,2,'33',0,1,NULL,NULL,'2019-09-27 16:20:25'),(141,2,'11teste',0,1,NULL,NULL,'2019-09-27 16:24:20'),(142,2,'teste22',0,1,NULL,NULL,'2019-09-27 16:24:20'),(143,2,'33teste',0,1,NULL,NULL,'2019-09-27 16:25:35'),(144,2,'sim',0,1,NULL,NULL,'2019-09-27 16:33:45'),(145,2,'aararasr',2,0,0,0,'2019-09-27 16:53:01');
 /*!40000 ALTER TABLE `qst_questao1` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -612,7 +614,7 @@ CREATE TABLE `qst_questao_dependencia` (
   `cod_questao_dependente` int(11) DEFAULT NULL,
   `cod_questao` int(11) DEFAULT NULL,
   PRIMARY KEY (`cod_dependencia`)
-) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=157 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -621,7 +623,7 @@ CREATE TABLE `qst_questao_dependencia` (
 
 LOCK TABLES `qst_questao_dependencia` WRITE;
 /*!40000 ALTER TABLE `qst_questao_dependencia` DISABLE KEYS */;
-INSERT INTO `qst_questao_dependencia` VALUES (40,46,0),(41,47,46),(42,48,46),(43,49,0),(44,50,49),(45,51,49),(46,52,0),(47,53,52),(48,54,52),(49,55,0),(50,56,55),(51,57,55),(52,58,0),(53,59,58),(54,60,58),(55,61,58),(56,62,0),(57,63,62),(58,64,62),(59,65,62),(60,66,62),(61,67,62),(62,68,0),(63,69,68),(64,70,68),(65,71,0),(66,72,71),(67,73,71),(68,74,71),(69,75,0),(70,76,75),(71,77,75);
+INSERT INTO `qst_questao_dependencia` VALUES (121,123,0),(122,124,123),(123,125,123),(124,126,124),(125,126,0),(126,127,126),(127,128,126),(128,129,0),(129,130,129),(130,131,129),(135,135,127),(147,141,132),(148,142,132),(150,143,132),(154,132,124),(155,144,132);
 /*!40000 ALTER TABLE `qst_questao_dependencia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -649,7 +651,7 @@ CREATE TABLE `qst_questionario` (
 
 LOCK TABLES `qst_questionario` WRITE;
 /*!40000 ALTER TABLE `qst_questionario` DISABLE KEYS */;
-INSERT INTO `qst_questionario` VALUES (1,'teste',1,1,4,'2019-09-09 15:16:08'),(2,'questionario de teste',1,1,4,'2019-09-09 16:00:33');
+INSERT INTO `qst_questionario` VALUES (1,'teste',0,1,4,'2019-09-09 15:16:08'),(2,'questionario de teste',1,1,4,'2019-09-09 16:00:33');
 /*!40000 ALTER TABLE `qst_questionario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -819,11 +821,11 @@ CREATE TABLE `sys_aplicacoes` (
 
 --
 -- Dumping data for table `sys_aplicacoes`
--- 
+--
 
 LOCK TABLES `sys_aplicacoes` WRITE;
 /*!40000 ALTER TABLE `sys_aplicacoes` DISABLE KEYS */;
-INSERT INTO `sys_aplicacoes` VALUES (1,'Atas de Reuniões','atas','/atas',0,1),(2,'Biblioteca','biblioteca','/biblioteca',0,1),(3,'Cadastrar','pre-cadastro','/pre-cadastro',0,1),(4,'Chat','chat','/chat',0,0),(5,'E-mail','email','',0,1),(6,'Enviar E-mail','email','/email/enviar',5,1),(7,'Meus E-mail','email','/email',5,1),(8,'Quadro de Avisos','avisos','/avisos',0,1),(9,'Quadro de Disponibilidade','quadro-disponibilidade','/quadro-disponibilidade',0,1),(10,'Quadro de Eventos','eventos','/eventos',0,1),(11,'Quadro de Literatura','quadro-leitura','/quadro-leitura',0,1),(12,'Níveis de Escolaridade','escolaridade','/escolaridade',0,1),(13,'Plano de Atividades','plano-atividades','/plano-atividades',0,1),(14,'Plano de Metas','plano-metas','/plano-metas',0,1),(15,'Produção de Grupo','producao-grupo','/producao-grupo',0,1),(16,'Questionários','questionario','',0,1),(17,'Aprendizagem','questionario','/questionario/aprendizagem',16,1),(18,'Cadastro','cadastro','/questionario/cadastro',16,1),(19,'Trabalhos de Correção','trabalho-correcao','',0,1),(20,'Meus Trabalhos','trabalho-correcao','/trabalho-correcao',19,1),(21,'Trabalhos Recebidos','trabalho-correcao','/trabalho-correcao/recebidos',19,1),(22,'Usuários','usuarios','',0,1),(23,'Log de Acessos','log','/usuarios/log',22,1),(24,'Membros','membros','/usuarios/membros',22,1),(25,'Portfolio','portfolio','/portfolio',0,1),(26,'Configurações','configuracao','',0,1),(27,'Meu Perfil','perfil','/perfil',26,1),(28,'Alterar Senha','alterar-senha','/perfil/alterar-senha',26,1),(29,'Questionário Inicial','questionario','/questionario/inicial',0,1),(30,'Assuntos','assunto','/assunto',0,1);
+INSERT INTO `sys_aplicacoes` VALUES (1,'Atas de Reuniões','atas','/atas',0,1),(2,'Biblioteca','biblioteca','/biblioteca',0,1),(3,'Cadastrar','pre-cadastro','/pre-cadastro',0,1),(4,'Chat','chat','/chat',0,0),(5,'E-mail','email','',0,1),(6,'Enviar E-mail','email','/email/enviar',5,1),(7,'Meus E-mail','email','/email',5,1),(8,'Quadro de Avisos','avisos','/avisos',0,1),(9,'Quadro de Disponibilidade','quadro-disponibilidade','/quadro-disponibilidade',0,1),(10,'Quadro de Eventos','eventos','/eventos',0,1),(11,'Quadro de Literatura','quadro-leitura','/quadro-leitura',0,1),(12,'Níveis de Escolaridade','escolaridade','/escolaridade',0,1),(13,'Plano de Atividades','plano-atividades','/plano-atividades',0,1),(14,'Plano de Metas','plano-metas','/plano-metas',0,1),(15,'Produção de Grupo','producao-grupo','/producao-grupo',0,1),(16,'Questionários','questionario','',0,1),(17,'Aprendizagem','questionario','/questionario/aprendizagem',16,1),(18,'Cadastro','cadastro','/questionario/cadastro',16,1),(19,'Trabalhos de Correção','trabalho-correcao','',0,1),(20,'Meus Trabalhos','trabalho-correcao','/trabalho-correcao',19,1),(21,'Trabalhos Recebidos','trabalho-correcao','/trabalho-correcao/recebidos',19,1),(22,'Usuários','usuarios','',0,1),(23,'Log de Acessos','log','/usuarios/log',22,1),(24,'Membros','membros','/usuarios/membros',22,1),(25,'Portfolio','portfolio','/portfolio',0,1),(26,'Configurações','configuracao','',0,1),(27,'Meu Perfil','perfil','/perfil',26,1),(28,'Alterar Senha','alterar-senha','/perfil/alterar-senha',26,1),(29,'Questionário Inicial','inicial','/questionario/inicial',0,1),(30,'Assuntos','assunto','/assunto',0,1);
 /*!40000 ALTER TABLE `sys_aplicacoes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -868,7 +870,7 @@ CREATE TABLE `sys_log_acesso_aplicacao` (
   `server` varchar(100) DEFAULT NULL,
   `params` varchar(8000) DEFAULT NULL,
   PRIMARY KEY (`cod_log`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=219 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1024,7 +1026,7 @@ CREATE TABLE `us_foto_perfil` (
 
 LOCK TABLES `us_foto_perfil` WRITE;
 /*!40000 ALTER TABLE `us_foto_perfil` DISABLE KEYS */;
-INSERT INTO `us_foto_perfil` VALUES (4,'foto-perfil-4-19-09-16-17-37-00.jpg');
+INSERT INTO `us_foto_perfil` VALUES (4,'foto-perfil-4-19-09-16-17-37-00.jpg'),(7,'');
 /*!40000 ALTER TABLE `us_foto_perfil` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1044,7 +1046,7 @@ CREATE TABLE `us_pre_cadastro` (
   `situacao` int(11) DEFAULT NULL,
   `adm` int(11) DEFAULT NULL,
   PRIMARY KEY (`cod_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1053,7 +1055,7 @@ CREATE TABLE `us_pre_cadastro` (
 
 LOCK TABLES `us_pre_cadastro` WRITE;
 /*!40000 ALTER TABLE `us_pre_cadastro` DISABLE KEYS */;
-INSERT INTO `us_pre_cadastro` VALUES (4,'Sandra','sandragp@marilia.unesp.br',1,'2019-09-16 14:45:05',2,0);
+INSERT INTO `us_pre_cadastro` VALUES (4,'Sandra','sandragp@marilia.unesp.br',1,'2019-09-16 14:45:05',2,0),(7,'membro de testes','teste@teste.com',3,'2019-09-26 16:06:37',1,1);
 /*!40000 ALTER TABLE `us_pre_cadastro` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1158,7 +1160,7 @@ CREATE TABLE `us_usuario` (
 
 LOCK TABLES `us_usuario` WRITE;
 /*!40000 ALTER TABLE `us_usuario` DISABLE KEYS */;
-INSERT INTO `us_usuario` (`cod_usuario`, `nome`, `email`, `nivel_escolaridade_fk`, `tipo_usuario_fk`, `ativo`) VALUES (4,'Sandra Regina Gimeniz','sandragp@marilia.unesp.br',1,1,1);
+	INSERT INTO `us_usuario` (`cod_usuario`, `nome`, `email`, `nivel_escolaridade_fk`, `tipo_usuario_fk`, `ativo`) VALUES (4,'Sandra Regina Gimeniz','sandragp@marilia.unesp.br',1,1,1);
 /*!40000 ALTER TABLE `us_usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2215,30 +2217,12 @@ BEGIN
 	end;
     else
     begin
-			CREATE TEMPORARY TABLE finalQest AS (
-				select b.cod as id,is_sub, case when is_sub = 0 then 0 else c.cod_questao end as parent, b.desc_pergunta as name, 1 as num_qst
-				from qst_questionario a
-						inner join qst_questao1 b on a.cod_questionario = b.cod_questionario
-						inner join qst_questao_dependencia c on c.cod_questao_dependente = b.cod
-				where a.cod_questionario = questionario order by b.cod asc
-            );
+			
+			select b.cod as id,is_sub, 0 as parent, b.desc_pergunta as name, 1 as num_qst, b.dependencia_questao, b.dependencia_alternativa
+			from qst_questionario a
+				inner join qst_questao1 b on a.cod_questionario = b.cod_questionario
+			where a.cod_questionario = questionario and is_sub = 0 order by b.cod asc;
 
-
-			set @while_i = (select min(id) from finalQest);
-            set @while_max = (select max(id) from finalQest);
-
-            
-            WHILE @while_i < @while_max DO
-                    
-					update finalQest set num_qst = @num_qst2 where id = while_i and is_sub = 0;
-                    
-                    set @num_qst2 = (select max(num_qst) from finalQest) + 1;
-                    
-                    set @while_i = @while_i + 1;
-			END WHILE;
-
-            select * from finalQest;
-             drop table finalQest;
 	end;
     end if;
 END ;;
@@ -2247,15 +2231,15 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!50003 DROP PROCEDURE IF EXISTS `us_log_sp` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `us_log_sp`(
 	In filtro int,
@@ -2285,6 +2269,7 @@ BEGIN
 		order by data desc;
 		
 	end if;
+        
   
 END ;;
 DELIMITER ;
@@ -2302,4 +2287,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-09-23 15:34:33
+-- Dump completed on 2019-09-27 17:14:55

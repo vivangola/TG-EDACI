@@ -69,7 +69,7 @@
 
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div class="col-md-11">
+                                                                                    <div class="col-md-7">
                                                                                         <div class="row">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
                                                                                                 <input type="text" maxlength="60" class="form-control user-success obg" id="nome" name="nome" value="<?= $usuario['nome'] ?>">
@@ -77,8 +77,6 @@
 
                                                                                         </div>
                                                                                     </div>
-                                                                                </div>
-                                                                                <div class="row">
                                                                                     <div class="col-md-1">
                                                                                         <div class="row text-right">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12 ">
@@ -90,11 +88,14 @@
                                                                                     <div class="col-md-3">
                                                                                         <div class="row">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                                <input type="text" maxlength="60" class="form-control user-success obg" id="cpf" name="cpf" value="<?= $usuario['cpf'] ?>">
+                                                                                                <input type="text" maxlength="11" class="form-control user-success obg" id="cpf" name="cpf" value="<?= $usuario['cpf'] ?>">
                                                                                             </div> 
 
                                                                                         </div>
                                                                                     </div>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    
                                                                                     <div class="col-md-1">
                                                                                         <div class="row text-right">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12 ">
@@ -106,9 +107,23 @@
                                                                                     <div class="col-md-3">
                                                                                         <div class="row">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                                <input type="text" maxlength="60" class="form-control user-success obg" id="rg" name="rg" value="<?= $usuario['rg'] ?>">
+                                                                                                <input type="text" maxlength="11" class="form-control user-success obg" id="rg" name="rg" value="<?= $usuario['rg'] ?>">
                                                                                             </div> 
 
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-1">
+                                                                                        <div class="row text-right">     
+                                                                                            <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                                                                                <b>Emissor:</b>
+                                                                                            </div> 
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-3">
+                                                                                        <div class="row">     
+                                                                                            <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                                                                                <input type="text" maxlength="20" class="form-control user-success" id="emissor" name="emissor" value="<?= $usuario['orgao_emissor'] ?>">
+                                                                                            </div> 
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="col-md-1">
@@ -122,7 +137,7 @@
                                                                                     <div class="col-md-3">
                                                                                         <div class="row">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                                <input type="text" maxlength="60" class="form-control user-success" id="ra" name="ra" value="<?= $usuario['ra'] ?>">
+                                                                                                <input type="text" maxlength="20" class="form-control user-success" id="ra" name="ra" value="<?= $usuario['ra'] ?>">
                                                                                             </div> 
 
                                                                                         </div>
@@ -130,6 +145,7 @@
                                                                                 </div>
 
                                                                                 <div class="row">
+                                                                                    
                                                                                     <div class="col-md-1">
                                                                                         <div class="row text-right">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
@@ -194,7 +210,7 @@
 
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div class="col-md-7">
+                                                                                    <div class="col-md-8">
                                                                                         <div class="row">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
                                                                                                 <input type="text" maxlength="60" class="form-control user-success" id="endereco" name="endereco" value="<?= $usuario['endereco'] ?>">
@@ -210,7 +226,7 @@
 
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div class="col-md-3">
+                                                                                    <div class="col-md-2">
                                                                                         <div class="row">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
                                                                                                 <input type="text" maxlength="60" class="form-control user-success" id="num" name="num" value="<?= $usuario['numero'] ?>">
@@ -220,6 +236,22 @@
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="row">
+                                                                                    <div class="col-md-1">
+                                                                                        <div class="row text-right">     
+                                                                                            <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                                                                                <b>Complemento:</b>
+                                                                                            </div> 
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-5">
+                                                                                        <div class="row">     
+                                                                                            <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                                                                                <input type="text" maxlength="60" class="form-control user-success" id="complemento" name="complemento" value="<?= $usuario['complemento'] ?>">
+                                                                                            </div> 
+
+                                                                                        </div>
+                                                                                    </div>
                                                                                     <div class="col-md-1">
                                                                                         <div class="row text-right">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
@@ -236,6 +268,9 @@
 
                                                                                         </div>
                                                                                     </div>
+                                                                                    
+                                                                                </div>
+                                                                                <div class="row">
                                                                                     <div class="col-md-1">
                                                                                         <div class="row text-right">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
@@ -252,9 +287,6 @@
 
                                                                                         </div>
                                                                                     </div>
-                                                                                </div>
-                                                                                <div class="row">
-
                                                                                     <div class="col-md-1">
                                                                                         <div class="row text-right">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
@@ -309,23 +341,7 @@
                                                                                     <div class="col-md-2">
                                                                                         <div class="row">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                                <input type="text" maxlength="60" class="form-control user-success" id="cep" name="cep" value="<?= $usuario['cep'] ?>">
-                                                                                            </div> 
-
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-1">
-                                                                                        <div class="row text-right">     
-                                                                                            <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                                <b>Complemento:</b>
-                                                                                            </div> 
-
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-5">
-                                                                                        <div class="row">     
-                                                                                            <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                                <input type="text" maxlength="60" class="form-control user-success" id="complemento" name="complemento" value="<?= $usuario['complemento'] ?>">
+                                                                                                <input type="text" maxlength="8" class="form-control user-success" id="cep" name="cep" value="<?= $usuario['cep'] ?>">
                                                                                             </div> 
 
                                                                                         </div>
@@ -514,7 +530,7 @@
                                                                                     <div class="col-md-2">
                                                                                         <div class="row text-right">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                                <b>Nome do Curso:</b>
+                                                                                                <b>Nome do Curso Atual:</b>
                                                                                             </div> 
 
                                                                                         </div>
@@ -571,11 +587,7 @@
                                                                                     <div class="col-md-2">
                                                                                         <div class="row">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                                <select class="form-control user-success" id="curso_periodo" name="curso_periodo">
-                                                                                                    <option value="DIURNO"      <?= $usuario['curso_periodo'] == 'DIURNO' ? 'selected' : '' ?>>DIURNO</option>
-                                                                                                    <option value="VESPERTINO"  <?= $usuario['curso_periodo'] == 'VESPERTINO' ? 'selected' : '' ?>>VESPERTINO</option>
-                                                                                                    <option value="NOTURNO"     <?= $usuario['curso_periodo'] == 'NOTURNO' ? 'selected' : '' ?>>NOTURNO</option>
-                                                                                                </select>
+                                                                                                <input type="text" maxlength="60" class="form-control user-success" id="curso_periodo" name="curso_periodo" value="<?= $usuario['curso_periodo'] ?>">
                                                                                             </div> 
                                                                                         </div>
                                                                                     </div>
@@ -845,6 +857,22 @@
                                                                                     <div class="col-md-1">
                                                                                         <div class="row text-right">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                                                                                <b>Complemento:</b>
+                                                                                            </div> 
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-5">
+                                                                                        <div class="row">     
+                                                                                            <div class="form-group col-xs-12 col-sm-12 col-md-12">
+                                                                                                <input type="text" maxlength="60" class="form-control user-success" id="emp_complemento" name="emp_complemento" value="<?= $usuario['emp_complemento'] ?>">
+                                                                                            </div> 
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-1">
+                                                                                        <div class="row text-right">     
+                                                                                            <div class="form-group col-xs-12 col-sm-12 col-md-12">
                                                                                                 <b>Bairro:</b>
                                                                                             </div> 
 
@@ -858,6 +886,9 @@
 
                                                                                         </div>
                                                                                     </div>
+                                                                                    
+                                                                                </div>
+                                                                                <div class="row">
                                                                                     <div class="col-md-1">
                                                                                         <div class="row text-right">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
@@ -874,9 +905,6 @@
 
                                                                                         </div>
                                                                                     </div>
-                                                                                </div>
-                                                                                <div class="row">
-
                                                                                     <div class="col-md-1">
                                                                                         <div class="row text-right">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
@@ -937,22 +965,7 @@
 
                                                                                         </div>
                                                                                     </div>
-                                                                                    <div class="col-md-2">
-                                                                                        <div class="row text-right">     
-                                                                                            <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                                <b>Complemento:</b>
-                                                                                            </div> 
-
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-4">
-                                                                                        <div class="row">     
-                                                                                            <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                                <input type="text" maxlength="60" class="form-control user-success" id="emp_complemento" name="emp_complemento" value="<?= $usuario['emp_complemento'] ?>">
-                                                                                            </div> 
-
-                                                                                        </div>
-                                                                                    </div>
+                                                                                    
                                                                                 </div>
                                                                                 <div class="row">
                                                                                     <div class="col-md-1">

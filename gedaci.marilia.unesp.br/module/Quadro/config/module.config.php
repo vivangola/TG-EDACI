@@ -117,7 +117,7 @@ return [
             'producao-grupo' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/producao-grupo',
+                    'route'    => '/producao-grupo[/:action]',
                     'defaults' => [
                         'controller' => Controller\ProducaoGrupoController::class,
                         'action'     => 'producao-grupo',

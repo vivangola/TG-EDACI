@@ -1,1238 +1,32 @@
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+-- phpMyAdmin SQL Dump
+-- version 4.8.5
+-- https://www.phpmyadmin.net/
 --
--- Host: localhost    Database: edaci
--- ------------------------------------------------------
--- Server version	5.5.5-10.1.36-MariaDB
+-- Host: 127.0.0.1
+-- Generation Time: 02-Out-2019 às 22:07
+-- Versão do servidor: 10.1.38-MariaDB
+-- versão do PHP: 7.3.3
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Table structure for table `atvs_plano_atividades`
+-- Database: `edaci`
 --
 
-DROP TABLE IF EXISTS `atvs_plano_atividades`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `atvs_plano_atividades` (
-  `cod_atividade` int(11) NOT NULL AUTO_INCREMENT,
-  `cod_usuario_fk` int(11) DEFAULT NULL,
-  `descricao` varchar(100) DEFAULT NULL,
-  `mes` int(11) DEFAULT NULL,
-  `ano` int(11) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
-  `tipo_atividade_fk` int(11) DEFAULT NULL,
-  `data_criacao` datetime DEFAULT NULL,
-  PRIMARY KEY (`cod_atividade`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `atvs_plano_atividades`
---
-
-LOCK TABLES `atvs_plano_atividades` WRITE;
-/*!40000 ALTER TABLE `atvs_plano_atividades` DISABLE KEYS */;
-INSERT INTO `atvs_plano_atividades` VALUES (1,4,'Ativdade de teste',4,2019,1,2,'2019-09-20 10:53:10'),(2,4,'',0,0,0,0,'2019-09-20 16:59:57'),(3,4,'',0,0,0,0,'2019-09-20 17:00:43');
-/*!40000 ALTER TABLE `atvs_plano_atividades` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `atvs_plano_atividades_status`
---
-
-DROP TABLE IF EXISTS `atvs_plano_atividades_status`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `atvs_plano_atividades_status` (
-  `cod` int(11) NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`cod`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `atvs_plano_atividades_status`
---
-
-LOCK TABLES `atvs_plano_atividades_status` WRITE;
-/*!40000 ALTER TABLE `atvs_plano_atividades_status` DISABLE KEYS */;
-INSERT INTO `atvs_plano_atividades_status` VALUES (1,'Não iniciada'),(2,'Em andamento'),(3,'Realizada');
-/*!40000 ALTER TABLE `atvs_plano_atividades_status` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `atvs_plano_atividades_tipo`
---
-
-DROP TABLE IF EXISTS `atvs_plano_atividades_tipo`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `atvs_plano_atividades_tipo` (
-  `cod` int(11) NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(30) DEFAULT NULL,
-  PRIMARY KEY (`cod`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `atvs_plano_atividades_tipo`
---
-
-LOCK TABLES `atvs_plano_atividades_tipo` WRITE;
-/*!40000 ALTER TABLE `atvs_plano_atividades_tipo` DISABLE KEYS */;
-INSERT INTO `atvs_plano_atividades_tipo` VALUES (1,'Projeto Pessoal'),(2,'Projeto do Grupo'),(3,'Tutorial'),(4,'Outros');
-/*!40000 ALTER TABLE `atvs_plano_atividades_tipo` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `avs_avisos`
---
-
-DROP TABLE IF EXISTS `avs_avisos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `avs_avisos` (
-  `cod_aviso` int(11) NOT NULL AUTO_INCREMENT,
-  `assunto` varchar(100) DEFAULT NULL,
-  `descricao` varchar(500) DEFAULT NULL,
-  `nivel_escolaridade_fk` int(11) DEFAULT NULL,
-  `inicio_exibicao` datetime DEFAULT NULL,
-  `fim_exibicao` datetime DEFAULT NULL,
-  `cod_usuario_fk` int(11) DEFAULT NULL,
-  `data_cadastro` datetime DEFAULT NULL,
-  PRIMARY KEY (`cod_aviso`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `avs_avisos`
---
-
-LOCK TABLES `avs_avisos` WRITE;
-/*!40000 ALTER TABLE `avs_avisos` DISABLE KEYS */;
-INSERT INTO `avs_avisos` VALUES (1,'Atualização de suas informações','Por favor, mantenha sempre suas informações atualizadas.',2,'2019-07-09 10:00:00','2019-08-09 12:00:00',4,'2019-07-10 11:32:42'),(2,'Processo Seletivo','O processo seletivo de 2019 foi aberto. Inscreva-se.',2,'2019-02-09 08:00:00','2019-10-09 10:00:00',4,'2019-07-10 11:40:50'),(15,'tesad','sadsdadÃ£Ã£',-1,'2222-02-12 22:22:00','2222-02-12 22:22:00',4,'2019-07-18 15:12:09');
-/*!40000 ALTER TABLE `avs_avisos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `biblioteca`
---
-
-DROP TABLE IF EXISTS `biblioteca`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `biblioteca` (
-  `cod` int(11) NOT NULL AUTO_INCREMENT,
-  `cod_usuario_fk` int(11) DEFAULT NULL,
-  `conteudo` varchar(200) DEFAULT NULL,
-  `assunto_fk` int(11) DEFAULT NULL,
-  `arquivo` varchar(200) DEFAULT NULL,
-  `data_upload` datetime DEFAULT NULL,
-  PRIMARY KEY (`cod`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `biblioteca`
---
-
-LOCK TABLES `biblioteca` WRITE;
-/*!40000 ALTER TABLE `biblioteca` DISABLE KEYS */;
-INSERT INTO `biblioteca` VALUES (7,4,'',0,'material-2019-09-04-16-09-15.','2019-09-04 11:34:15');
-/*!40000 ALTER TABLE `biblioteca` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `biblioteca_assunto`
---
-
-DROP TABLE IF EXISTS `biblioteca_assunto`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `biblioteca_assunto` (
-  `cod` int(11) NOT NULL AUTO_INCREMENT,
-  `cod_usuario_fk` int(11) DEFAULT NULL,
-  `assunto` varchar(200) DEFAULT NULL,
-  `data_inclusao` datetime DEFAULT NULL,
-  PRIMARY KEY (`cod`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `biblioteca_assunto`
---
-
-LOCK TABLES `biblioteca_assunto` WRITE;
-/*!40000 ALTER TABLE `biblioteca_assunto` DISABLE KEYS */;
-/*!40000 ALTER TABLE `biblioteca_assunto` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `disp_quadro_disponibilidade`
---
-
-DROP TABLE IF EXISTS `disp_quadro_disponibilidade`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `disp_quadro_disponibilidade` (
-  `cod_disponibilidade` int(11) NOT NULL AUTO_INCREMENT,
-  `cod_usuario_fk` int(11) DEFAULT NULL,
-  `data_criacao` datetime DEFAULT NULL,
-  `dataini` date DEFAULT NULL,
-  `datafim` date DEFAULT NULL,
-  `horaini` time DEFAULT NULL,
-  `horafim` time DEFAULT NULL,
-  `tipo` int(11) DEFAULT NULL,
-  PRIMARY KEY (`cod_disponibilidade`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `disp_quadro_disponibilidade`
---
-
-LOCK TABLES `disp_quadro_disponibilidade` WRITE;
-/*!40000 ALTER TABLE `disp_quadro_disponibilidade` DISABLE KEYS */;
-/*!40000 ALTER TABLE `disp_quadro_disponibilidade` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `disp_quadro_disponibilidade_color`
---
-
-DROP TABLE IF EXISTS `disp_quadro_disponibilidade_color`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `disp_quadro_disponibilidade_color` (
-  `cod_usuario` int(11) NOT NULL,
-  `color` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`cod_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `disp_quadro_disponibilidade_color`
---
-
-LOCK TABLES `disp_quadro_disponibilidade_color` WRITE;
-/*!40000 ALTER TABLE `disp_quadro_disponibilidade_color` DISABLE KEYS */;
-INSERT INTO `disp_quadro_disponibilidade_color` VALUES (4,'#18aab1');
-/*!40000 ALTER TABLE `disp_quadro_disponibilidade_color` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `disp_quadro_disponibilidade_semanas`
---
-
-DROP TABLE IF EXISTS `disp_quadro_disponibilidade_semanas`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `disp_quadro_disponibilidade_semanas` (
-  `cod` int(11) NOT NULL AUTO_INCREMENT,
-  `cod_usuario_fk` int(11) DEFAULT NULL,
-  `domingo_1_ini` time DEFAULT NULL,
-  `domingo_1_fim` time DEFAULT NULL,
-  `domingo_2_ini` time DEFAULT NULL,
-  `domingo_2_fim` time DEFAULT NULL,
-  `segunda_1_ini` time DEFAULT NULL,
-  `segunda_1_fim` time DEFAULT NULL,
-  `segunda_2_ini` time DEFAULT NULL,
-  `segunda_2_fim` time DEFAULT NULL,
-  `terca_1_ini` time DEFAULT NULL,
-  `terca_1_fim` time DEFAULT NULL,
-  `terca_2_ini` time DEFAULT NULL,
-  `terca_2_fim` time DEFAULT NULL,
-  `quarta_1_ini` time DEFAULT NULL,
-  `quarta_1_fim` time DEFAULT NULL,
-  `quarta_2_ini` time DEFAULT NULL,
-  `quarta_2_fim` time DEFAULT NULL,
-  `quinta_1_ini` time DEFAULT NULL,
-  `quinta_1_fim` time DEFAULT NULL,
-  `quinta_2_ini` time DEFAULT NULL,
-  `quinta_2_fim` time DEFAULT NULL,
-  `sexta_1_ini` time DEFAULT NULL,
-  `sexta_1_fim` time DEFAULT NULL,
-  `sexta_2_ini` time DEFAULT NULL,
-  `sexta_2_fim` time DEFAULT NULL,
-  `sabado_1_ini` time DEFAULT NULL,
-  `sabado_1_fim` time DEFAULT NULL,
-  `sabado_2_ini` time DEFAULT NULL,
-  `sabado_2_fim` time DEFAULT NULL,
-  `data_movimento` datetime DEFAULT NULL,
-  PRIMARY KEY (`cod`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `disp_quadro_disponibilidade_semanas`
---
-
-LOCK TABLES `disp_quadro_disponibilidade_semanas` WRITE;
-/*!40000 ALTER TABLE `disp_quadro_disponibilidade_semanas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `disp_quadro_disponibilidade_semanas` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `evts_evento_usuario`
---
-
-DROP TABLE IF EXISTS `evts_evento_usuario`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `evts_evento_usuario` (
-  `codigo` int(11) NOT NULL AUTO_INCREMENT,
-  `cod_usuario_fk` int(11) DEFAULT NULL,
-  `cod_evento_fk` int(11) DEFAULT NULL,
-  PRIMARY KEY (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `evts_evento_usuario`
---
-
-LOCK TABLES `evts_evento_usuario` WRITE;
-/*!40000 ALTER TABLE `evts_evento_usuario` DISABLE KEYS */;
-/*!40000 ALTER TABLE `evts_evento_usuario` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `evts_eventos`
---
-
-DROP TABLE IF EXISTS `evts_eventos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `evts_eventos` (
-  `cod_evento` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(100) DEFAULT NULL,
-  `data_ini` datetime DEFAULT NULL,
-  `data_fim` datetime DEFAULT NULL,
-  `local` varchar(200) DEFAULT NULL,
-  `valor` decimal(18,2) DEFAULT NULL,
-  `site` varchar(200) DEFAULT NULL,
-  `data_criacao` datetime DEFAULT NULL,
-  PRIMARY KEY (`cod_evento`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `evts_eventos`
---
-
-LOCK TABLES `evts_eventos` WRITE;
-/*!40000 ALTER TABLE `evts_eventos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `evts_eventos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `ltr_material_leitura`
---
-
-DROP TABLE IF EXISTS `ltr_material_leitura`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ltr_material_leitura` (
-  `cod_material` int(11) NOT NULL AUTO_INCREMENT,
-  `cod_usuario_fk` int(11) DEFAULT NULL,
-  `base` varchar(100) DEFAULT NULL,
-  `data_pesquisa` datetime DEFAULT NULL,
-  `titulo_periodico` varchar(200) DEFAULT NULL,
-  `ano` int(11) DEFAULT NULL,
-  `mes` int(11) DEFAULT NULL,
-  `volume` int(11) DEFAULT NULL,
-  `numero` int(11) DEFAULT NULL,
-  `titulo_artigo` varchar(200) DEFAULT NULL,
-  `autor` varchar(100) DEFAULT NULL,
-  `pagina_inicial` int(11) DEFAULT NULL,
-  `pagina_final` int(11) DEFAULT NULL,
-  `interesse` int(11) DEFAULT NULL,
-  `arquivo` varchar(50) DEFAULT NULL,
-  `data_criacao` datetime DEFAULT NULL,
-  `palavra_chave` varchar(20) DEFAULT NULL,
-  `endereco_acesso` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`cod_material`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ltr_material_leitura`
---
-
-LOCK TABLES `ltr_material_leitura` WRITE;
-/*!40000 ALTER TABLE `ltr_material_leitura` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ltr_material_leitura` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `ltr_material_palavra_chaves`
---
-
-DROP TABLE IF EXISTS `ltr_material_palavra_chaves`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ltr_material_palavra_chaves` (
-  `cod` int(11) NOT NULL AUTO_INCREMENT,
-  `cod_material_fk` int(11) DEFAULT NULL,
-  `cod_palavra_chave_fk` int(11) DEFAULT NULL,
-  PRIMARY KEY (`cod`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ltr_material_palavra_chaves`
---
-
-LOCK TABLES `ltr_material_palavra_chaves` WRITE;
-/*!40000 ALTER TABLE `ltr_material_palavra_chaves` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ltr_material_palavra_chaves` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `ltr_palavra_chave`
---
-
-DROP TABLE IF EXISTS `ltr_palavra_chave`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ltr_palavra_chave` (
-  `cod_palavra_chave` int(11) NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`cod_palavra_chave`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `ltr_palavra_chave`
---
-
-LOCK TABLES `ltr_palavra_chave` WRITE;
-/*!40000 ALTER TABLE `ltr_palavra_chave` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ltr_palavra_chave` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `material_grupo`
---
-
-DROP TABLE IF EXISTS `material_grupo`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `material_grupo` (
-  `cod_material` int(11) NOT NULL AUTO_INCREMENT,
-  `nivel_escolaridade_fk` int(11) DEFAULT NULL,
-  `conteudo_sintetico` varchar(500) DEFAULT NULL,
-  `arquivo` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`cod_material`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `material_grupo`
---
-
-LOCK TABLES `material_grupo` WRITE;
-/*!40000 ALTER TABLE `material_grupo` DISABLE KEYS */;
-/*!40000 ALTER TABLE `material_grupo` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `migrations`
---
-
-DROP TABLE IF EXISTS `migrations`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `migrations` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `migrations`
---
-
-LOCK TABLES `migrations` WRITE;
-/*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-/*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `mts_metas`
---
-
-DROP TABLE IF EXISTS `mts_metas`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mts_metas` (
-  `cod_meta` int(11) NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(500) DEFAULT NULL,
-  `mes` int(11) DEFAULT NULL,
-  `ano` int(11) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
-  `tipo_atividade_fk` int(11) DEFAULT NULL,
-  `data_criacao` datetime DEFAULT NULL,
-  PRIMARY KEY (`cod_meta`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `mts_metas`
---
-
-LOCK TABLES `mts_metas` WRITE;
-/*!40000 ALTER TABLE `mts_metas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `mts_metas` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `mts_plano_metas`
---
-
-DROP TABLE IF EXISTS `mts_plano_metas`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mts_plano_metas` (
-  `cod_quadro` int(11) NOT NULL AUTO_INCREMENT,
-  `cod_usuario_fk` int(11) DEFAULT NULL,
-  PRIMARY KEY (`cod_quadro`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `mts_plano_metas`
---
-
-LOCK TABLES `mts_plano_metas` WRITE;
-/*!40000 ALTER TABLE `mts_plano_metas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `mts_plano_metas` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `nivel_escolaridade`
---
-
-DROP TABLE IF EXISTS `nivel_escolaridade`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `nivel_escolaridade` (
-  `cod_nivel` int(11) NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(50) DEFAULT NULL,
-  `data_criacao` datetime DEFAULT NULL,
-  PRIMARY KEY (`cod_nivel`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `nivel_escolaridade`
---
-
-LOCK TABLES `nivel_escolaridade` WRITE;
-/*!40000 ALTER TABLE `nivel_escolaridade` DISABLE KEYS */;
-INSERT INTO `nivel_escolaridade` VALUES (1,'Graduação','2019-07-08 10:26:53'),(2,'Pós-Graduação','2019-07-08 10:26:59'),(3,'Mestrado','2019-09-03 14:59:48'),(4,'Doutorado','2019-09-04 14:59:48');
-/*!40000 ALTER TABLE `nivel_escolaridade` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `qst_questao`
---
-
-DROP TABLE IF EXISTS `qst_questao`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `qst_questao` (
-  `cod_questao` int(11) NOT NULL AUTO_INCREMENT,
-  `descricao_pergunta` varchar(500) DEFAULT NULL,
-  `cod_questionario_fk` int(11) DEFAULT NULL,
-  `tipo_pergunta_fk` int(11) DEFAULT NULL,
-  `nivel_escolaridade_fk` int(11) DEFAULT NULL,
-  `data_criacao` datetime DEFAULT NULL,
-  PRIMARY KEY (`cod_questao`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `qst_questao`
---
-
-LOCK TABLES `qst_questao` WRITE;
-/*!40000 ALTER TABLE `qst_questao` DISABLE KEYS */;
-/*!40000 ALTER TABLE `qst_questao` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `qst_questao1`
---
-
-DROP TABLE IF EXISTS `qst_questao1`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `qst_questao1` (
-  `cod` int(11) NOT NULL AUTO_INCREMENT,
-  `cod_questionario` int(11) DEFAULT NULL,
-  `desc_pergunta` varchar(1000) DEFAULT NULL,
-  `tipo_pergunta` int(11) DEFAULT NULL,
-  `is_sub` int(11) DEFAULT NULL,
-  `dependencia_questao` int(11) DEFAULT NULL,
-  `dependencia_alternativa` int(11) DEFAULT NULL,
-  `data_criacao` datetime DEFAULT NULL,
-  PRIMARY KEY (`cod`)
-) ENGINE=InnoDB AUTO_INCREMENT=146 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `qst_questao1`
---
-
-LOCK TABLES `qst_questao1` WRITE;
-/*!40000 ALTER TABLE `qst_questao1` DISABLE KEYS */;
-INSERT INTO `qst_questao1` VALUES (123,2,'Isso é um teste?',1,0,0,0,'2019-09-27 11:38:48'),(124,2,'Sim',0,1,NULL,NULL,'2019-09-27 11:38:48'),(125,2,'Não',0,1,NULL,NULL,'2019-09-27 11:38:49'),(126,2,'Se sim, porq?',1,0,123,124,'2019-09-27 11:39:17'),(127,2,'Porq sim',0,1,NULL,NULL,'2019-09-27 11:39:18'),(128,2,'Não sei dizer',0,1,NULL,NULL,'2019-09-27 11:39:18'),(129,2,'Teste??',1,0,0,0,'2019-09-27 12:50:37'),(130,2,'teste 1',0,1,NULL,NULL,'2019-09-27 12:50:37'),(131,2,'teste 2',0,1,NULL,NULL,'2019-09-27 12:50:37'),(132,2,'testeeeee22',1,0,123,124,'2019-09-27 12:52:04'),(133,2,'1',0,1,NULL,NULL,'2019-09-27 12:52:05'),(134,2,'2',0,1,NULL,NULL,'2019-09-27 12:52:05'),(135,2,'testeeeeeeeeeeeeee',2,0,126,127,'2019-09-27 14:40:03'),(136,2,'11',0,1,NULL,NULL,'2019-09-27 16:14:25'),(137,2,'11',0,1,NULL,NULL,'2019-09-27 16:15:09'),(138,2,'11',0,1,NULL,NULL,'2019-09-27 16:20:00'),(139,2,'22',0,1,NULL,NULL,'2019-09-27 16:20:00'),(140,2,'33',0,1,NULL,NULL,'2019-09-27 16:20:25'),(141,2,'11teste',0,1,NULL,NULL,'2019-09-27 16:24:20'),(142,2,'teste22',0,1,NULL,NULL,'2019-09-27 16:24:20'),(143,2,'33teste',0,1,NULL,NULL,'2019-09-27 16:25:35'),(144,2,'sim',0,1,NULL,NULL,'2019-09-27 16:33:45'),(145,2,'aararasr',2,0,0,0,'2019-09-27 16:53:01');
-/*!40000 ALTER TABLE `qst_questao1` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `qst_questao_dependencia`
---
-
-DROP TABLE IF EXISTS `qst_questao_dependencia`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `qst_questao_dependencia` (
-  `cod_dependencia` int(11) NOT NULL AUTO_INCREMENT,
-  `cod_questao_dependente` int(11) DEFAULT NULL,
-  `cod_questao` int(11) DEFAULT NULL,
-  PRIMARY KEY (`cod_dependencia`)
-) ENGINE=InnoDB AUTO_INCREMENT=157 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `qst_questao_dependencia`
---
-
-LOCK TABLES `qst_questao_dependencia` WRITE;
-/*!40000 ALTER TABLE `qst_questao_dependencia` DISABLE KEYS */;
-INSERT INTO `qst_questao_dependencia` VALUES (121,123,0),(122,124,123),(123,125,123),(124,126,124),(125,126,0),(126,127,126),(127,128,126),(128,129,0),(129,130,129),(130,131,129),(135,135,127),(147,141,132),(148,142,132),(150,143,132),(154,132,124),(155,144,132);
-/*!40000 ALTER TABLE `qst_questao_dependencia` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `qst_questionario`
---
-
-DROP TABLE IF EXISTS `qst_questionario`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `qst_questionario` (
-  `cod_questionario` int(11) NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(500) DEFAULT NULL,
-  `status_questionario` int(11) DEFAULT NULL,
-  `cod_tipo_fk` int(11) DEFAULT NULL,
-  `cod_usuario_fk` int(11) DEFAULT NULL,
-  `data_criacao` datetime DEFAULT NULL,
-  PRIMARY KEY (`cod_questionario`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `qst_questionario`
---
-
-LOCK TABLES `qst_questionario` WRITE;
-/*!40000 ALTER TABLE `qst_questionario` DISABLE KEYS */;
-INSERT INTO `qst_questionario` VALUES (1,'teste',0,1,4,'2019-09-09 15:16:08'),(2,'questionario de teste',1,1,4,'2019-09-09 16:00:33');
-/*!40000 ALTER TABLE `qst_questionario` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `qst_respostas`
---
-
-DROP TABLE IF EXISTS `qst_respostas`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `qst_respostas` (
-  `cod_resposta` int(11) NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(500) DEFAULT NULL,
-  `is_correta` int(11) DEFAULT NULL,
-  `cod_questao_fk` int(11) DEFAULT NULL,
-  `data_criacao` datetime DEFAULT NULL,
-  PRIMARY KEY (`cod_resposta`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `qst_respostas`
---
-
-LOCK TABLES `qst_respostas` WRITE;
-/*!40000 ALTER TABLE `qst_respostas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `qst_respostas` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `qst_tipo_pergunta`
---
-
-DROP TABLE IF EXISTS `qst_tipo_pergunta`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `qst_tipo_pergunta` (
-  `cod_tipo` int(11) NOT NULL AUTO_INCREMENT,
-  `descricao_tipo` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`cod_tipo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `qst_tipo_pergunta`
---
-
-LOCK TABLES `qst_tipo_pergunta` WRITE;
-/*!40000 ALTER TABLE `qst_tipo_pergunta` DISABLE KEYS */;
-/*!40000 ALTER TABLE `qst_tipo_pergunta` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `qst_tipo_questionario`
---
-
-DROP TABLE IF EXISTS `qst_tipo_questionario`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `qst_tipo_questionario` (
-  `cod_tipo` int(11) NOT NULL AUTO_INCREMENT,
-  `descricacao` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`cod_tipo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `qst_tipo_questionario`
---
-
-LOCK TABLES `qst_tipo_questionario` WRITE;
-/*!40000 ALTER TABLE `qst_tipo_questionario` DISABLE KEYS */;
-/*!40000 ALTER TABLE `qst_tipo_questionario` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `reu_atas`
---
-
-DROP TABLE IF EXISTS `reu_atas`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `reu_atas` (
-  `cod_ata` int(11) NOT NULL AUTO_INCREMENT,
-  `data_inclusao` datetime DEFAULT NULL,
-  `conteudo` varchar(100) DEFAULT NULL,
-  `texto` varchar(500) DEFAULT NULL,
-  `data` datetime DEFAULT NULL,
-  `usuario_fk` int(11) DEFAULT NULL,
-  PRIMARY KEY (`cod_ata`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `reu_atas`
---
-
-LOCK TABLES `reu_atas` WRITE;
-/*!40000 ALTER TABLE `reu_atas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `reu_atas` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `reu_reuniao`
---
-
-DROP TABLE IF EXISTS `reu_reuniao`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `reu_reuniao` (
-  `cod_reuniao` int(11) NOT NULL AUTO_INCREMENT,
-  `data_criacao` datetime DEFAULT NULL,
-  PRIMARY KEY (`cod_reuniao`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `reu_reuniao`
---
-
-LOCK TABLES `reu_reuniao` WRITE;
-/*!40000 ALTER TABLE `reu_reuniao` DISABLE KEYS */;
-/*!40000 ALTER TABLE `reu_reuniao` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `reu_reuniao_usuario`
---
-
-DROP TABLE IF EXISTS `reu_reuniao_usuario`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `reu_reuniao_usuario` (
-  `cod` int(11) NOT NULL AUTO_INCREMENT,
-  `cod_reuniao_fk` int(11) DEFAULT NULL,
-  `cod_usuario_fk` int(11) DEFAULT NULL,
-  PRIMARY KEY (`cod`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `reu_reuniao_usuario`
---
-
-LOCK TABLES `reu_reuniao_usuario` WRITE;
-/*!40000 ALTER TABLE `reu_reuniao_usuario` DISABLE KEYS */;
-/*!40000 ALTER TABLE `reu_reuniao_usuario` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `sys_aplicacoes`
---
-
-DROP TABLE IF EXISTS `sys_aplicacoes`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `sys_aplicacoes` (
-  `cod_aplicacao` int(11) NOT NULL AUTO_INCREMENT,
-  `titulo` varchar(200) DEFAULT NULL,
-  `pagina` varchar(200) DEFAULT NULL,
-  `link` varchar(200) DEFAULT NULL,
-  `submenu` int(11) DEFAULT NULL,
-  `ativo` int(11) DEFAULT NULL,
-  PRIMARY KEY (`cod_aplicacao`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `sys_aplicacoes`
---
-
-LOCK TABLES `sys_aplicacoes` WRITE;
-/*!40000 ALTER TABLE `sys_aplicacoes` DISABLE KEYS */;
-INSERT INTO `sys_aplicacoes` VALUES (1,'Atas de Reuniões','atas','/atas',0,1),(2,'Biblioteca','biblioteca','/biblioteca',0,1),(3,'Cadastrar','pre-cadastro','/pre-cadastro',0,1),(4,'Chat','chat','/chat',0,0),(5,'E-mail','email','',0,1),(6,'Enviar E-mail','email','/email/enviar',5,1),(7,'Meus E-mail','email','/email',5,1),(8,'Quadro de Avisos','avisos','/avisos',0,1),(9,'Quadro de Disponibilidade','quadro-disponibilidade','/quadro-disponibilidade',0,1),(10,'Quadro de Eventos','eventos','/eventos',0,1),(11,'Quadro de Literatura','quadro-leitura','/quadro-leitura',0,1),(12,'Níveis de Escolaridade','escolaridade','/escolaridade',0,1),(13,'Plano de Atividades','plano-atividades','/plano-atividades',0,1),(14,'Plano de Metas','plano-metas','/plano-metas',0,1),(15,'Produção de Grupo','producao-grupo','/producao-grupo',0,1),(16,'Questionários','questionario','',0,1),(17,'Aprendizagem','questionario','/questionario/aprendizagem',16,1),(18,'Cadastro','cadastro','/questionario/cadastro',16,1),(19,'Trabalhos de Correção','trabalho-correcao','',0,1),(20,'Meus Trabalhos','trabalho-correcao','/trabalho-correcao',19,1),(21,'Trabalhos Recebidos','trabalho-correcao','/trabalho-correcao/recebidos',19,1),(22,'Usuários','usuarios','',0,1),(23,'Log de Acessos','log','/usuarios/log',22,1),(24,'Membros','membros','/usuarios/membros',22,1),(25,'Portfolio','portfolio','/portfolio',0,1),(26,'Configurações','configuracao','',0,1),(27,'Meu Perfil','perfil','/perfil',26,1),(28,'Alterar Senha','alterar-senha','/perfil/alterar-senha',26,1),(29,'Questionário Inicial','inicial','/questionario/inicial',0,1),(30,'Assuntos','assunto','/assunto',0,1);
-/*!40000 ALTER TABLE `sys_aplicacoes` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `sys_aplicacoes_permissao`
---
-
-DROP TABLE IF EXISTS `sys_aplicacoes_permissao`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `sys_aplicacoes_permissao` (
-  `tipo_usuario` int(11) DEFAULT NULL,
-  `aplicacao` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `sys_aplicacoes_permissao`
---
-
-LOCK TABLES `sys_aplicacoes_permissao` WRITE;
-/*!40000 ALTER TABLE `sys_aplicacoes_permissao` DISABLE KEYS */;
-INSERT INTO `sys_aplicacoes_permissao` VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),(1,13),(1,14),(1,15),(1,16),(1,17),(1,18),(1,19),(1,20),(1,21),(1,22),(1,23),(1,24),(1,25),(1,26),(1,27),(1,28),(0,29),(1,30);
-/*!40000 ALTER TABLE `sys_aplicacoes_permissao` ENABLE KEYS */;
-UNLOCK TABLES;
-
+DELIMITER $$
 --
--- Table structure for table `sys_log_acesso_aplicacao`
+-- Procedures
 --
-
-DROP TABLE IF EXISTS `sys_log_acesso_aplicacao`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `sys_log_acesso_aplicacao` (
-  `cod_log` int(11) NOT NULL AUTO_INCREMENT,
-  `cod_usuario` int(11) DEFAULT NULL,
-  `cod_aplicacao` int(11) DEFAULT NULL,
-  `controller` varchar(200) DEFAULT NULL,
-  `action` varchar(200) DEFAULT NULL,
-  `data` datetime DEFAULT NULL,
-  `ip` varchar(50) DEFAULT NULL,
-  `server` varchar(100) DEFAULT NULL,
-  `params` varchar(8000) DEFAULT NULL,
-  PRIMARY KEY (`cod_log`)
-) ENGINE=InnoDB AUTO_INCREMENT=219 DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `sys_log_acesso_aplicacao`
---
-
-LOCK TABLES `sys_log_acesso_aplicacao` WRITE;
-/*!40000 ALTER TABLE `sys_log_acesso_aplicacao` DISABLE KEYS */;
-/*!40000 ALTER TABLE `sys_log_acesso_aplicacao` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `sys_meses`
---
-
-DROP TABLE IF EXISTS `sys_meses`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `sys_meses` (
-  `mes` int(11) DEFAULT NULL,
-  `descricao` varchar(50) DEFAULT NULL,
-  `abrev` varchar(5) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `sys_meses`
---
-
-LOCK TABLES `sys_meses` WRITE;
-/*!40000 ALTER TABLE `sys_meses` DISABLE KEYS */;
-INSERT INTO `sys_meses` VALUES (1,'Janeiro','Jan'),(2,'Fevereiro','Fev'),(3,'Março','Mar'),(4,'Abril','Abr'),(5,'Maio','Mai'),(6,'Junho','Jun'),(7,'Julho','Jul'),(8,'Agosto','Ago'),(9,'Setembro','Set'),(10,'Outubro','Out'),(11,'Novembro','Nov'),(12,'Dezembro','Dez');
-/*!40000 ALTER TABLE `sys_meses` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `temp_dates`
---
-
-DROP TABLE IF EXISTS `temp_dates`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `temp_dates` (
-  `dt` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `temp_dates`
---
-
-LOCK TABLES `temp_dates` WRITE;
-/*!40000 ALTER TABLE `temp_dates` DISABLE KEYS */;
-/*!40000 ALTER TABLE `temp_dates` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `trbl_correcao_trabalho`
---
-
-DROP TABLE IF EXISTS `trbl_correcao_trabalho`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `trbl_correcao_trabalho` (
-  `cod` int(11) NOT NULL AUTO_INCREMENT,
-  `destinatario_fk` int(11) DEFAULT NULL,
-  `reemetente_fk` int(11) DEFAULT NULL,
-  `arquivo` varchar(50) DEFAULT NULL,
-  `observacao` varchar(500) DEFAULT NULL,
-  `data_enviado` datetime DEFAULT NULL,
-  `data_correcao` datetime DEFAULT NULL,
-  `corrigido` int(11) DEFAULT NULL,
-  `modalidade_fk` int(11) DEFAULT NULL,
-  PRIMARY KEY (`cod`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `trbl_correcao_trabalho`
---
-
-LOCK TABLES `trbl_correcao_trabalho` WRITE;
-/*!40000 ALTER TABLE `trbl_correcao_trabalho` DISABLE KEYS */;
-/*!40000 ALTER TABLE `trbl_correcao_trabalho` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `trbl_tipo_modalidade`
---
-
-DROP TABLE IF EXISTS `trbl_tipo_modalidade`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `trbl_tipo_modalidade` (
-  `cod_modalidade` int(11) NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`cod_modalidade`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `trbl_tipo_modalidade`
---
-
-LOCK TABLES `trbl_tipo_modalidade` WRITE;
-/*!40000 ALTER TABLE `trbl_tipo_modalidade` DISABLE KEYS */;
-/*!40000 ALTER TABLE `trbl_tipo_modalidade` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `us_acesso`
---
-
-DROP TABLE IF EXISTS `us_acesso`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `us_acesso` (
-  `cod_usuario_fk` int(11) NOT NULL,
-  `login` varchar(200) DEFAULT NULL,
-  `senha` varchar(1000) DEFAULT NULL,
-  `situacao` int(11) NOT NULL,
-  PRIMARY KEY (`cod_usuario_fk`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `us_acesso`
---
-
-LOCK TABLES `us_acesso` WRITE;
-/*!40000 ALTER TABLE `us_acesso` DISABLE KEYS */;
-INSERT INTO `us_acesso` VALUES (4,'sandragp@marilia.unesp.br','202cb962ac59075b964b07152d234b70',1),(14,'denilson@hotmail.com','202cb962ac59075b964b07152d234b70',1),(15,'teste@teste.com','202cb962ac59075b964b07152d234b70',0),(16,'teste@teste1.com','202cb962ac59075b964b07152d234b70',1);
-/*!40000 ALTER TABLE `us_acesso` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `us_foto_perfil`
---
-
-DROP TABLE IF EXISTS `us_foto_perfil`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `us_foto_perfil` (
-  `cod_usuario_fk` int(11) NOT NULL,
-  `nome_foto` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`cod_usuario_fk`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `us_foto_perfil`
---
-
-LOCK TABLES `us_foto_perfil` WRITE;
-/*!40000 ALTER TABLE `us_foto_perfil` DISABLE KEYS */;
-INSERT INTO `us_foto_perfil` VALUES (4,'foto-perfil-4-19-09-16-17-37-00.jpg'),(7,'');
-/*!40000 ALTER TABLE `us_foto_perfil` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `us_pre_cadastro`
---
-
-DROP TABLE IF EXISTS `us_pre_cadastro`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `us_pre_cadastro` (
-  `cod_usuario` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(100) DEFAULT NULL,
-  `email` varchar(200) DEFAULT NULL,
-  `nivel_escolaridade_fk` int(11) DEFAULT NULL,
-  `data_criacao` datetime DEFAULT NULL,
-  `situacao` int(11) DEFAULT NULL,
-  `adm` int(11) DEFAULT NULL,
-  PRIMARY KEY (`cod_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `us_pre_cadastro`
---
-
-LOCK TABLES `us_pre_cadastro` WRITE;
-/*!40000 ALTER TABLE `us_pre_cadastro` DISABLE KEYS */;
-INSERT INTO `us_pre_cadastro` VALUES (4,'Sandra','sandragp@marilia.unesp.br',1,'2019-09-16 14:45:05',2,0),(7,'membro de testes','teste@teste.com',3,'2019-09-26 16:06:37',1,1);
-/*!40000 ALTER TABLE `us_pre_cadastro` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `us_tipo_usuario`
---
-
-DROP TABLE IF EXISTS `us_tipo_usuario`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `us_tipo_usuario` (
-  `cod_tipo` int(11) NOT NULL AUTO_INCREMENT,
-  `descricao` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`cod_tipo`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `us_tipo_usuario`
---
-
-LOCK TABLES `us_tipo_usuario` WRITE;
-/*!40000 ALTER TABLE `us_tipo_usuario` DISABLE KEYS */;
-INSERT INTO `us_tipo_usuario` VALUES (0,'Pré-Cadastro'),(1,'Administrador'),(2,'Membro');
-/*!40000 ALTER TABLE `us_tipo_usuario` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `us_usuario`
---
-
-DROP TABLE IF EXISTS `us_usuario`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `us_usuario` (
-  `cod_usuario` int(11) NOT NULL,
-  `nome` varchar(200) DEFAULT NULL,
-  `cpf` varchar(45) DEFAULT NULL,
-  `idade` int(11) DEFAULT NULL,
-  `genero` char(1) DEFAULT NULL,
-  `email` varchar(200) DEFAULT NULL,
-  `email2` varchar(200) DEFAULT NULL,
-  `nivel_escolaridade_fk` int(11) DEFAULT NULL,
-  `tipo_usuario_fk` int(11) DEFAULT NULL,
-  `endereco` varchar(200) DEFAULT NULL,
-  `numero` varchar(20) DEFAULT NULL,
-  `complemento` varchar(100) DEFAULT NULL,
-  `cidade` varchar(100) DEFAULT NULL,
-  `bairro` varchar(45) DEFAULT NULL,
-  `estado` varchar(2) DEFAULT NULL,
-  `cep` varchar(8) DEFAULT NULL,
-  `fixo` varchar(15) DEFAULT NULL,
-  `celular` varchar(15) DEFAULT NULL,
-  `curso_atual_nome` varchar(100) DEFAULT NULL,
-  `curso_atual_serie` int(11) DEFAULT NULL,
-  `curso_periodo` varchar(20) DEFAULT NULL,
-  `graduacao_nome` varchar(100) DEFAULT NULL,
-  `graduacao_ano_conclusao` int(11) DEFAULT NULL,
-  `graduacao_instituicao` varchar(100) DEFAULT NULL,
-  `pos_graduacao_nome` varchar(100) DEFAULT NULL,
-  `pos_graduacao_ano` int(11) DEFAULT NULL,
-  `pos_graduacao_instituicao` varchar(100) DEFAULT NULL,
-  `mestrado_nome` varchar(100) DEFAULT NULL,
-  `mestrado_ano` int(11) DEFAULT NULL,
-  `mestrado_instituicao` varchar(100) DEFAULT NULL,
-  `doutorado_nome` varchar(100) DEFAULT NULL,
-  `doutorado_ano` int(11) DEFAULT NULL,
-  `doutorado_instituicao` varchar(100) DEFAULT NULL,
-  `estado_civil` varchar(30) DEFAULT NULL,
-  `data_nascimento` datetime DEFAULT NULL,
-  `rg` varchar(20) DEFAULT NULL,
-  `orgao_emissor` varchar(50) DEFAULT NULL,
-  `ra` varchar(50) DEFAULT NULL,
-  `skype` varchar(100) DEFAULT NULL,
-  `whatsapp` varchar(20) DEFAULT NULL,
-  `facebook` varchar(100) DEFAULT NULL,
-  `lattes` varchar(100) DEFAULT NULL,
-  `foto` varchar(50) DEFAULT NULL,
-  `num_banco` int(11) DEFAULT NULL,
-  `num_conta` int(11) DEFAULT NULL,
-  `num_agencia` int(11) DEFAULT NULL,
-  `status` int(11) DEFAULT NULL,
-  `emp_nome` varchar(100) DEFAULT NULL,
-  `emp_endereco` varchar(200) DEFAULT NULL,
-  `emp_numero` int(11) DEFAULT NULL,
-  `emp_complemento` varchar(100) DEFAULT NULL,
-  `emp_cidade` varchar(100) DEFAULT NULL,
-  `emp_bairro` varchar(200) DEFAULT NULL,
-  `emp_estado` varchar(2) DEFAULT NULL,
-  `emp_cep` varchar(8) DEFAULT NULL,
-  `emp_telefone` varchar(20) DEFAULT NULL,
-  `emp_celular` varchar(20) DEFAULT NULL,
-  `data_entrada` datetime DEFAULT NULL,
-  `ativo` int(11) DEFAULT NULL,
-  PRIMARY KEY (`cod_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `us_usuario`
---
-
-LOCK TABLES `us_usuario` WRITE;
-/*!40000 ALTER TABLE `us_usuario` DISABLE KEYS */;
-	INSERT INTO `us_usuario` (`cod_usuario`, `nome`, `email`, `nivel_escolaridade_fk`, `tipo_usuario_fk`, `ativo`) VALUES (4,'Sandra Regina Gimeniz','sandragp@marilia.unesp.br',1,1,1);
-/*!40000 ALTER TABLE `us_usuario` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping routines for database 'edaci'
---
-/*!50003 DROP FUNCTION IF EXISTS `sys_gerarSenha` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `sys_gerarSenha`() RETURNS varchar(500) CHARSET utf8mb4
-begin
-	declare v_codigo bigint; 
-    declare v_complemento bigint;
-    declare v_c1 varchar(500);
-    declare v_x1 int;
-    declare v_x2 int;
-	declare v_r1 double; 
-    declare v_l1 varchar(5);
-    declare v_l2 varchar(5);  declare v_l3 varchar(5);
-
-	select rand() as rand into v_r1;
-    
-    set v_x1= cast(v_r1*20 as UNSIGNED) + 1, v_x2= cast(v_r1*400 as UNSIGNED) + 1;
-    
-	set v_codigo=datepart(second,now())*datepart(minute,timestampadd(minute,v_x1,now()));
-    
-	set v_codigo=datepart(minute,now())+v_codigo;
-    
-	if (datepart(second,now())<30) then
-		set v_complemento = datepart(minute,timestampadd(minute,v_x2,now()))*v_x1;
-	else
-		set v_complemento = datepart(minute,now())*v_x2;
-	end if;
-    
-	set v_l1=substring(datename(month,timestampadd(month,v_x1*3,now())),3,1);
-    
-	set v_l2=substring(datename(weekday,timestampadd(month,v_x1*1,now())),2,1);
-    
-	set v_l3=substring(datename(month,timestampadd(month,v_x1*1,now())),1,1);
-    
-	set v_c1=left(convert(v_x2, char(100)),1) + v_l1 + left(concat(convert(v_codigo, char(100))
-		,date_format(v_complemento,0)),1)+v_l2 + convert(v_x1, char(100)) + v_l3;
-	set v_c1=upper(dbo.shuffle(replace(replace(v_c1,'o','B'),'I','g')));
-
-	return v_c1;
-end ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `lista_questionario` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `lista_questionario`(
-	in cod_questionario int
-)
-proc_name:
+CREATE DEFINER=`root`@`localhost` PROCEDURE `lista_questionario` (IN `cod_questionario` INT)  proc_name:
 BEGIN
 	
     create temporary table final1(cod_questao int, cod_questao_up int, desc_pergunta varchar(100), tipo_pergunta int, is_sub int);
@@ -1252,28 +46,9 @@ BEGIN
     end;
     end while;
 	
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `sys_listarMenu_sp` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sys_listarMenu_sp`(
-	IN cod_usuario int,
-    IN tipo int,
-    IN tipo_usuario int
-)
-BEGIN
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sys_listarMenu_sp` (IN `cod_usuario` INT, IN `tipo` INT, IN `tipo_usuario` INT)  BEGIN
 	
     select *
     from sys_aplicacoes a
@@ -1283,26 +58,9 @@ BEGIN
         and ativo = 1
     order by a.titulo asc;
 
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `sys_Login_sp` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sys_Login_sp`(
-	in login varchar(200)
-)
-proc_name:
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sys_Login_sp` (IN `login` VARCHAR(200))  proc_name:
 BEGIN
 
 	declare cod_usuario int;
@@ -1337,30 +95,9 @@ BEGIN
     -- situacoes: 0) Pré-cadastro pendente de aceitação 1) Pré-cadastro aceito 2) Pré-cadastro finalizado 3) Pré-cadastro rejeitado pelo adm
     
     select '0' as cod, senha_usuario, cod_usuario_fk as cod_usuario from us_acesso a where a.login = login;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `sys_novoPreCadastro_sp` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sys_novoPreCadastro_sp`(
-	in nome varchar(200),
-    in email varchar(200),
-    in escolaridade int,
-    in senha varchar(1000),
-    in adm int
-)
-proc_name:
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sys_novoPreCadastro_sp` (IN `nome` VARCHAR(200), IN `email` VARCHAR(200), IN `escolaridade` INT, IN `senha` VARCHAR(1000), IN `adm` INT)  proc_name:
 BEGIN
 
 	declare cod_usuario int;
@@ -1407,28 +144,9 @@ BEGIN
     -- us_acesso situacooes = 0)Bloqueado 1)Ativo
     
     -- us_pre_cadastro situacoes = 0) Pré-cadastro pendente de aceitação 1) Pré-cadastro aceito 2) Pré-cadastro finalizado 3) Pré-cadastro rejeitado pelo adm
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `us_aceitarPreCadastro_sp` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `us_aceitarPreCadastro_sp`(
-	in adm int,
-    in usuario int,
-    in aceitar int
-)
-proc_name:
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_aceitarPreCadastro_sp` (IN `adm` INT, IN `usuario` INT, IN `aceitar` INT)  proc_name:
 BEGIN
     
     update us_pre_cadastro set situacao = aceitar
@@ -1449,28 +167,9 @@ BEGIN
 			leave proc_name;
     end if;
     
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `us_buscarAssunto_sp` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarAssunto_sp`(
-	In filtro int,
-    in pesquisa varchar(100),
-    in cod_assunto int
-)
-BEGIN
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarAssunto_sp` (IN `filtro` INT, IN `pesquisa` VARCHAR(100), IN `cod_assunto` INT)  BEGIN
 
 	set pesquisa = CONCAT('%',pesquisa,'%');
     
@@ -1502,28 +201,9 @@ BEGIN
     
     end if;
     
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `us_buscarAtas_sp` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarAtas_sp`(
-	In filtro int,
-    in pesquisa varchar(100),
-    in cod_atas int
-)
-BEGIN
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarAtas_sp` (IN `filtro` INT, IN `pesquisa` VARCHAR(100), IN `cod_atas` INT)  BEGIN
 
 	set pesquisa = CONCAT('%',pesquisa,'%');
     
@@ -1557,31 +237,9 @@ BEGIN
     
     end if;
     
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `us_buscarAtividades_sp` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarAtividades_sp`(
-	In filtro int,
-    in pesquisa varchar(100),
-    in cod_atividade int,
-    in dt_ini date,
-    in dt_fim date,
-    in is_adm int
-)
-BEGIN
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarAtividades_sp` (IN `filtro` INT, IN `pesquisa` VARCHAR(100), IN `cod_atividade` INT, IN `dt_ini` DATE, IN `dt_fim` DATE, IN `is_adm` INT)  BEGIN
 
 	set pesquisa = CONCAT('%',pesquisa,'%');
     
@@ -1679,28 +337,9 @@ BEGIN
     
     end if;
     
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `us_buscarAvisos2_sp` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarAvisos2_sp`(
-	In filtro int,
-    in pesquisa varchar(100),
-    in cod_aviso int
-)
-BEGIN
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarAvisos2_sp` (IN `filtro` INT, IN `pesquisa` VARCHAR(100), IN `cod_aviso` INT)  BEGIN
 
 	set pesquisa = CONCAT('%',pesquisa,'%');
     
@@ -1763,26 +402,9 @@ BEGIN
     
     end if;
     
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `us_buscarAvisos_sp` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarAvisos_sp`(
-	IN cod_usuario int
-)
-BEGIN
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarAvisos_sp` (IN `cod_usuario` INT)  BEGIN
 	
 	IF (select u.tipo_usuario_fk from us_usuario u where u.cod_usuario = cod_usuario) = 1 THEN
 		select *,date_format(inicio_exibicao, "%d/%m/%Y %H:%i:%s") as dt_convert
@@ -1796,28 +418,9 @@ BEGIN
 	
 	END IF;
 
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `us_buscarBiblioteca_sp` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarBiblioteca_sp`(
-	In filtro int,
-    in pesquisa varchar(100),
-    in cod_material int
-)
-BEGIN
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarBiblioteca_sp` (IN `filtro` INT, IN `pesquisa` VARCHAR(100), IN `cod_material` INT)  BEGIN
 
 	set pesquisa = CONCAT('%',pesquisa,'%');
     
@@ -1872,26 +475,9 @@ BEGIN
     
     end if;
     
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `us_BuscarDados1_sp` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `us_BuscarDados1_sp`(
-	In cod_usuario int
-)
-BEGIN
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_BuscarDados1_sp` (IN `cod_usuario` INT)  BEGIN
 
 	if(select count(0) from us_pre_cadastro a where a.cod_usuario = cod_usuario and situacao = 2) = 1
     then
@@ -1910,77 +496,26 @@ BEGIN
     
     end if;
     
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `us_buscarDadosPrincipal_sp` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarDadosPrincipal_sp`(
-	IN cod_usuario int
-)
-BEGIN
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarDadosPrincipal_sp` (IN `cod_usuario` INT)  BEGIN
 	
     select * 
     from edaci.us_usuario a
     where a.cod_usuario = cod_usuario;
 
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `us_BuscarDisponibilidadesSemanas_sp` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `us_BuscarDisponibilidadesSemanas_sp`(
-	In cod_usuario int
-)
-BEGIN
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_BuscarDisponibilidadesSemanas_sp` (IN `cod_usuario` INT)  BEGIN
     
     select b.nome as usuario , c.color as cor, a.*, case when cod_usuario = a.cod_usuario_fk then 1 else 0 end as edit
     from disp_quadro_disponibilidade_semanas a 
 		inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
         inner join disp_quadro_disponibilidade_color c on a.cod_usuario_fk = c.cod_usuario;
 
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `us_BuscarDisponibilidades_sp` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `us_BuscarDisponibilidades_sp`(
-	In cod_usuario int
-)
-BEGIN
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_BuscarDisponibilidades_sp` (IN `cod_usuario` INT)  BEGIN
     
 	create temporary table finalDisp (cod int, usuario varchar(100), cor varchar(20), dataini datetime, datafim datetime, tipo int, edit int, inicio varchar(50), fim varchar(50), horaini time, horafim time);
     
@@ -2007,28 +542,9 @@ BEGIN
     select * from finalDisp;
     
     drop temporary table finalDisp;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `us_buscarEscolaridade_sp` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarEscolaridade_sp`(
-	In filtro varchar(2),
-    in pesquisa varchar(100),
-    in cod_escolaridade int
-)
-BEGIN
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarEscolaridade_sp` (IN `filtro` VARCHAR(2), IN `pesquisa` VARCHAR(100), IN `cod_escolaridade` INT)  BEGIN
 
 	set pesquisa = CONCAT('%',pesquisa,'%');
     
@@ -2059,28 +575,9 @@ BEGIN
     
     end if;
     
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `us_buscarLeitura_sp` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarLeitura_sp`(
-	In filtro int,
-    in pesquisa varchar(100),
-    in cod_leitura int
-)
-BEGIN
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarLeitura_sp` (IN `filtro` INT, IN `pesquisa` VARCHAR(100), IN `cod_leitura` INT)  BEGIN
 
 	set pesquisa = CONCAT('%',pesquisa,'%');
     
@@ -2145,26 +642,9 @@ BEGIN
     
     end if;
     
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `us_BuscarMembros_sp` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `us_BuscarMembros_sp`(
-	In cod_usuario int
-)
-BEGIN
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_BuscarMembros_sp` (IN `cod_usuario` INT)  BEGIN
 
 	select a.cod_usuario as cod, a.nome, date_format(a.data_criacao, "%d/%m/%Y %H:%i:%s") as data_criacao,
 		case when b.tipo_usuario_fk is null then 0 else b.tipo_usuario_fk end as tipo_usuario,
@@ -2183,26 +663,74 @@ BEGIN
         inner join us_acesso acesso on acesso.cod_usuario_fk = a.cod_usuario
         left join us_foto_perfil f on f.cod_usuario_fk = a.cod_usuario
     where cod_tipo <> 1 or cod_tipo is null;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `us_buscarQuestionarios_sp` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarQuestionarios_sp`(
-	questionario int
-)
-proc_name:
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarProducaoGrupo_sp` (IN `filtro` INT, IN `pesquisa` VARCHAR(100), IN `cod_producao` INT)  BEGIN
+
+	set pesquisa = CONCAT('%',pesquisa,'%');
+    
+    
+    if cod_producao = 0 then
+
+		if filtro = 1 then
+			
+            select a.cod_producao, a.origem, a.titulo, a.autor, a.modalidade, a.nome, a.qualis, a.link, a.esclarecimentos, a.status, b.nome as usuario, a.arquivo, 
+            date_format(a.data_publicacao, "%d/%m/%Y") as data_publicacao, date_format(a.data_submissao, "%d/%m/%Y") as data_submissao
+            from producao_grupo a
+				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
+			where a.origem like pesquisa
+            order by data_submissao desc;
+			
+		elseif filtro = 2 then
+			
+            select a.cod_producao, a.origem, a.titulo, a.autor, a.modalidade, a.nome, a.qualis, a.link, a.esclarecimentos, a.status, b.nome as usuario, a.arquivo,
+            date_format(a.data_publicacao, "%d/%m/%Y") as data_publicacao, date_format(a.data_submissao, "%d/%m/%Y") as data_submissao
+            from producao_grupo a
+				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
+			where a.titulo like pesquisa
+            order by data_submissao desc;
+            
+        elseif filtro = 3 then
+        
+			select a.cod_producao, a.origem, a.titulo, a.autor, a.modalidade, a.nome, a.qualis, a.link, a.esclarecimentos, a.status, b.nome as usuario,  a.arquivo,
+            date_format(a.data_publicacao, "%d/%m/%Y") as data_publicacao, date_format(a.data_submissao, "%d/%m/%Y") as data_submissao
+            from producao_grupo a
+				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
+			where a.autor like pesquisa
+            order by data_submissao desc;
+        
+        elseif filtro = 4 then
+        
+			select a.cod_producao, a.origem, a.titulo, a.autor, a.modalidade, a.nome, a.qualis, a.link, a.esclarecimentos, a.status, b.nome as usuario, a.arquivo,
+            date_format(a.data_publicacao, "%d/%m/%Y") as data_publicacao, date_format(a.data_submissao, "%d/%m/%Y") as data_submissao
+            from producao_grupo a
+				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
+			where b.nome like pesquisa
+            order by data_submissao desc;
+        else 
+        
+			select a.cod_producao, a.origem, a.titulo, a.autor, a.modalidade, a.nome, a.qualis, a.link, a.esclarecimentos, a.status, b.nome as usuario, a.arquivo,
+            date_format(a.data_publicacao, "%d/%m/%Y") as data_publicacao, date_format(a.data_submissao, "%d/%m/%Y") as data_submissao
+            from producao_grupo a
+				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
+            order by data_submissao desc;
+			
+		end if;
+		
+    else 
+    
+		select a.cod_producao, a.origem, a.titulo, a.autor, a.modalidade, a.nome, a.qualis, a.link, a.esclarecimentos, a.status, b.nome as usuario, a.arquivo,
+            date_format(a.data_publicacao, "%d/%m/%Y") as data_publicacao, date_format(a.data_submissao, "%d/%m/%Y") as data_submissao
+            from producao_grupo  a
+				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
+			where a.cod_producao = cod_producao
+            order by data_submissao desc;
+    
+    end if;
+    
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarQuestionarios_sp` (`questionario` INT)  proc_name:
 BEGIN
 	
 	declare while_i int;
@@ -2217,35 +745,35 @@ BEGIN
 	end;
     else
     begin
-			
-			select b.cod as id,is_sub, 0 as parent, b.desc_pergunta as name, 1 as num_qst, b.dependencia_questao, b.dependencia_alternativa
-			from qst_questionario a
-				inner join qst_questao1 b on a.cod_questionario = b.cod_questionario
-			where a.cod_questionario = questionario and is_sub = 0 order by b.cod asc;
+			CREATE TEMPORARY TABLE finalQest AS (
+				select b.cod as id,is_sub, case when is_sub = 0 then 0 else c.cod_questao end as parent, b.desc_pergunta as name, 1 as num_qst
+				from qst_questionario a
+						inner join qst_questao1 b on a.cod_questionario = b.cod_questionario
+						inner join qst_questao_dependencia c on c.cod_questao_dependente = b.cod
+				where a.cod_questionario = questionario order by b.cod asc
+            );
 
+
+			set @while_i = (select min(id) from finalQest);
+            set @while_max = (select max(id) from finalQest);
+
+            
+            WHILE @while_i < @while_max DO
+                    
+					update finalQest set num_qst = @num_qst2 where id = while_i and is_sub = 0;
+                    
+                    set @num_qst2 = (select max(num_qst) from finalQest) + 1;
+                    
+                    set @while_i = @while_i + 1;
+			END WHILE;
+
+            select * from finalQest;
+             drop table finalQest;
 	end;
     end if;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `us_log_sp` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `us_log_sp`(
-	In filtro int,
-    in pesquisa varchar(100)
-)
-BEGIN
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_log_sp` (IN `filtro` INT, IN `pesquisa` VARCHAR(100))  BEGIN
 
 	set pesquisa = CONCAT('%',pesquisa,'%');
     
@@ -2269,22 +797,1599 @@ BEGIN
 		order by data desc;
 		
 	end if;
-        
   
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+END$$
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+--
+-- Functions
+--
+CREATE DEFINER=`root`@`localhost` FUNCTION `sys_gerarSenha` () RETURNS VARCHAR(500) CHARSET utf8mb4 begin
+	declare v_codigo bigint; 
+    declare v_complemento bigint;
+    declare v_c1 varchar(500);
+    declare v_x1 int;
+    declare v_x2 int;
+	declare v_r1 double; 
+    declare v_l1 varchar(5);
+    declare v_l2 varchar(5);  declare v_l3 varchar(5);
+
+	select rand() as rand into v_r1;
+    
+    set v_x1= cast(v_r1*20 as UNSIGNED) + 1, v_x2= cast(v_r1*400 as UNSIGNED) + 1;
+    
+	set v_codigo=datepart(second,now())*datepart(minute,timestampadd(minute,v_x1,now()));
+    
+	set v_codigo=datepart(minute,now())+v_codigo;
+    
+	if (datepart(second,now())<30) then
+		set v_complemento = datepart(minute,timestampadd(minute,v_x2,now()))*v_x1;
+	else
+		set v_complemento = datepart(minute,now())*v_x2;
+	end if;
+    
+	set v_l1=substring(datename(month,timestampadd(month,v_x1*3,now())),3,1);
+    
+	set v_l2=substring(datename(weekday,timestampadd(month,v_x1*1,now())),2,1);
+    
+	set v_l3=substring(datename(month,timestampadd(month,v_x1*1,now())),1,1);
+    
+	set v_c1=left(convert(v_x2, char(100)),1) + v_l1 + left(concat(convert(v_codigo, char(100))
+		,date_format(v_complemento,0)),1)+v_l2 + convert(v_x1, char(100)) + v_l3;
+	set v_c1=upper(dbo.shuffle(replace(replace(v_c1,'o','B'),'I','g')));
+
+	return v_c1;
+end$$
+
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `atvs_plano_atividades`
+--
+
+CREATE TABLE `atvs_plano_atividades` (
+  `cod_atividade` int(11) NOT NULL,
+  `cod_usuario_fk` int(11) DEFAULT NULL,
+  `descricao` varchar(100) DEFAULT NULL,
+  `mes` int(11) DEFAULT NULL,
+  `ano` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `tipo_atividade_fk` int(11) DEFAULT NULL,
+  `data_criacao` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `atvs_plano_atividades`
+--
+
+INSERT INTO `atvs_plano_atividades` (`cod_atividade`, `cod_usuario_fk`, `descricao`, `mes`, `ano`, `status`, `tipo_atividade_fk`, `data_criacao`) VALUES
+(1, 4, 'Ativdade de teste', 4, 2019, 1, 2, '2019-09-20 10:53:10'),
+(2, 4, '', 0, 0, 0, 0, '2019-09-20 16:59:57'),
+(3, 4, '', 0, 0, 0, 0, '2019-09-20 17:00:43');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `atvs_plano_atividades_status`
+--
+
+CREATE TABLE `atvs_plano_atividades_status` (
+  `cod` int(11) NOT NULL,
+  `descricao` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `atvs_plano_atividades_status`
+--
+
+INSERT INTO `atvs_plano_atividades_status` (`cod`, `descricao`) VALUES
+(1, 'Não iniciada'),
+(2, 'Em andamento'),
+(3, 'Realizada');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `atvs_plano_atividades_tipo`
+--
+
+CREATE TABLE `atvs_plano_atividades_tipo` (
+  `cod` int(11) NOT NULL,
+  `descricao` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `atvs_plano_atividades_tipo`
+--
+
+INSERT INTO `atvs_plano_atividades_tipo` (`cod`, `descricao`) VALUES
+(1, 'Projeto Pessoal'),
+(2, 'Projeto do Grupo'),
+(3, 'Tutorial'),
+(4, 'Outros');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `avs_avisos`
+--
+
+CREATE TABLE `avs_avisos` (
+  `cod_aviso` int(11) NOT NULL,
+  `assunto` varchar(100) DEFAULT NULL,
+  `descricao` varchar(500) DEFAULT NULL,
+  `nivel_escolaridade_fk` int(11) DEFAULT NULL,
+  `inicio_exibicao` datetime DEFAULT NULL,
+  `fim_exibicao` datetime DEFAULT NULL,
+  `cod_usuario_fk` int(11) DEFAULT NULL,
+  `data_cadastro` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `avs_avisos`
+--
+
+INSERT INTO `avs_avisos` (`cod_aviso`, `assunto`, `descricao`, `nivel_escolaridade_fk`, `inicio_exibicao`, `fim_exibicao`, `cod_usuario_fk`, `data_cadastro`) VALUES
+(1, 'Atualização de suas informações', 'Por favor, mantenha sempre suas informações atualizadas.', 2, '2019-07-09 10:00:00', '2019-08-09 12:00:00', 4, '2019-07-10 11:32:42'),
+(2, 'Processo Seletivo', 'O processo seletivo de 2019 foi aberto. Inscreva-se.', 2, '2019-02-09 08:00:00', '2019-10-09 10:00:00', 4, '2019-07-10 11:40:50'),
+(15, 'tesad', 'sadsdadÃ£Ã£', -1, '2222-02-12 22:22:00', '2222-02-12 22:22:00', 4, '2019-07-18 15:12:09');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `biblioteca`
+--
+
+CREATE TABLE `biblioteca` (
+  `cod` int(11) NOT NULL,
+  `cod_usuario_fk` int(11) DEFAULT NULL,
+  `conteudo` varchar(200) DEFAULT NULL,
+  `assunto_fk` int(11) DEFAULT NULL,
+  `arquivo` varchar(200) DEFAULT NULL,
+  `data_upload` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `biblioteca`
+--
+
+INSERT INTO `biblioteca` (`cod`, `cod_usuario_fk`, `conteudo`, `assunto_fk`, `arquivo`, `data_upload`) VALUES
+(7, 4, '', 0, 'material-2019-09-04-16-09-15.', '2019-09-04 11:34:15');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `biblioteca_assunto`
+--
+
+CREATE TABLE `biblioteca_assunto` (
+  `cod` int(11) NOT NULL,
+  `cod_usuario_fk` int(11) DEFAULT NULL,
+  `assunto` varchar(200) DEFAULT NULL,
+  `data_inclusao` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `biblioteca_assunto`
+--
+
+INSERT INTO `biblioteca_assunto` (`cod`, `cod_usuario_fk`, `assunto`, `data_inclusao`) VALUES
+(1, 4, 'teste', '2019-10-02 12:23:55');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `disp_quadro_disponibilidade`
+--
+
+CREATE TABLE `disp_quadro_disponibilidade` (
+  `cod_disponibilidade` int(11) NOT NULL,
+  `cod_usuario_fk` int(11) DEFAULT NULL,
+  `data_criacao` datetime DEFAULT NULL,
+  `dataini` date DEFAULT NULL,
+  `datafim` date DEFAULT NULL,
+  `horaini` time DEFAULT NULL,
+  `horafim` time DEFAULT NULL,
+  `tipo` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `disp_quadro_disponibilidade_color`
+--
+
+CREATE TABLE `disp_quadro_disponibilidade_color` (
+  `cod_usuario` int(11) NOT NULL,
+  `color` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `disp_quadro_disponibilidade_color`
+--
+
+INSERT INTO `disp_quadro_disponibilidade_color` (`cod_usuario`, `color`) VALUES
+(4, '#18aab1');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `disp_quadro_disponibilidade_semanas`
+--
+
+CREATE TABLE `disp_quadro_disponibilidade_semanas` (
+  `cod` int(11) NOT NULL,
+  `cod_usuario_fk` int(11) DEFAULT NULL,
+  `domingo_1_ini` time DEFAULT NULL,
+  `domingo_1_fim` time DEFAULT NULL,
+  `domingo_2_ini` time DEFAULT NULL,
+  `domingo_2_fim` time DEFAULT NULL,
+  `segunda_1_ini` time DEFAULT NULL,
+  `segunda_1_fim` time DEFAULT NULL,
+  `segunda_2_ini` time DEFAULT NULL,
+  `segunda_2_fim` time DEFAULT NULL,
+  `terca_1_ini` time DEFAULT NULL,
+  `terca_1_fim` time DEFAULT NULL,
+  `terca_2_ini` time DEFAULT NULL,
+  `terca_2_fim` time DEFAULT NULL,
+  `quarta_1_ini` time DEFAULT NULL,
+  `quarta_1_fim` time DEFAULT NULL,
+  `quarta_2_ini` time DEFAULT NULL,
+  `quarta_2_fim` time DEFAULT NULL,
+  `quinta_1_ini` time DEFAULT NULL,
+  `quinta_1_fim` time DEFAULT NULL,
+  `quinta_2_ini` time DEFAULT NULL,
+  `quinta_2_fim` time DEFAULT NULL,
+  `sexta_1_ini` time DEFAULT NULL,
+  `sexta_1_fim` time DEFAULT NULL,
+  `sexta_2_ini` time DEFAULT NULL,
+  `sexta_2_fim` time DEFAULT NULL,
+  `sabado_1_ini` time DEFAULT NULL,
+  `sabado_1_fim` time DEFAULT NULL,
+  `sabado_2_ini` time DEFAULT NULL,
+  `sabado_2_fim` time DEFAULT NULL,
+  `data_movimento` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `evts_eventos`
+--
+
+CREATE TABLE `evts_eventos` (
+  `cod_evento` int(11) NOT NULL,
+  `nome` varchar(100) DEFAULT NULL,
+  `data_ini` datetime DEFAULT NULL,
+  `data_fim` datetime DEFAULT NULL,
+  `local` varchar(200) DEFAULT NULL,
+  `valor` decimal(18,2) DEFAULT NULL,
+  `site` varchar(200) DEFAULT NULL,
+  `data_criacao` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `evts_evento_usuario`
+--
+
+CREATE TABLE `evts_evento_usuario` (
+  `codigo` int(11) NOT NULL,
+  `cod_usuario_fk` int(11) DEFAULT NULL,
+  `cod_evento_fk` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `ltr_material_leitura`
+--
+
+CREATE TABLE `ltr_material_leitura` (
+  `cod_material` int(11) NOT NULL,
+  `cod_usuario_fk` int(11) DEFAULT NULL,
+  `base` varchar(100) DEFAULT NULL,
+  `data_pesquisa` datetime DEFAULT NULL,
+  `titulo_periodico` varchar(200) DEFAULT NULL,
+  `ano` int(11) DEFAULT NULL,
+  `mes` int(11) DEFAULT NULL,
+  `volume` int(11) DEFAULT NULL,
+  `numero` int(11) DEFAULT NULL,
+  `titulo_artigo` varchar(200) DEFAULT NULL,
+  `autor` varchar(100) DEFAULT NULL,
+  `pagina_inicial` int(11) DEFAULT NULL,
+  `pagina_final` int(11) DEFAULT NULL,
+  `interesse` int(11) DEFAULT NULL,
+  `arquivo` varchar(50) DEFAULT NULL,
+  `data_criacao` datetime DEFAULT NULL,
+  `palavra_chave` varchar(20) DEFAULT NULL,
+  `endereco_acesso` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `ltr_material_palavra_chaves`
+--
+
+CREATE TABLE `ltr_material_palavra_chaves` (
+  `cod` int(11) NOT NULL,
+  `cod_material_fk` int(11) DEFAULT NULL,
+  `cod_palavra_chave_fk` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `ltr_palavra_chave`
+--
+
+CREATE TABLE `ltr_palavra_chave` (
+  `cod_palavra_chave` int(11) NOT NULL,
+  `descricao` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `material_grupo`
+--
+
+CREATE TABLE `material_grupo` (
+  `cod_material` int(11) NOT NULL,
+  `nivel_escolaridade_fk` int(11) DEFAULT NULL,
+  `conteudo_sintetico` varchar(500) DEFAULT NULL,
+  `arquivo` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `mts_metas`
+--
+
+CREATE TABLE `mts_metas` (
+  `cod_meta` int(11) NOT NULL,
+  `descricao` varchar(500) DEFAULT NULL,
+  `mes` int(11) DEFAULT NULL,
+  `ano` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `tipo_atividade_fk` int(11) DEFAULT NULL,
+  `data_criacao` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `mts_plano_metas`
+--
+
+CREATE TABLE `mts_plano_metas` (
+  `cod_quadro` int(11) NOT NULL,
+  `cod_usuario_fk` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `nivel_escolaridade`
+--
+
+CREATE TABLE `nivel_escolaridade` (
+  `cod_nivel` int(11) NOT NULL,
+  `descricao` varchar(50) DEFAULT NULL,
+  `data_criacao` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `nivel_escolaridade`
+--
+
+INSERT INTO `nivel_escolaridade` (`cod_nivel`, `descricao`, `data_criacao`) VALUES
+(1, 'Graduação', '2019-07-08 10:26:53'),
+(2, 'Pós-Graduação', '2019-07-08 10:26:59'),
+(3, 'Mestrado', '2019-09-03 14:59:48'),
+(4, 'Doutorado', '2019-09-04 14:59:48');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `producao_grupo`
+--
+
+CREATE TABLE `producao_grupo` (
+  `cod_producao` int(11) NOT NULL,
+  `cod_usuario_fk` int(11) DEFAULT NULL,
+  `origem` varchar(100) DEFAULT NULL,
+  `titulo` varchar(100) DEFAULT NULL,
+  `autor` varchar(100) DEFAULT NULL,
+  `modalidade` varchar(100) DEFAULT NULL,
+  `nome` varchar(100) DEFAULT NULL,
+  `qualis` varchar(100) DEFAULT NULL,
+  `link` varchar(50) DEFAULT NULL,
+  `esclarecimentos` varchar(100) DEFAULT NULL,
+  `status` varchar(50) DEFAULT NULL,
+  `formato` varchar(100) DEFAULT NULL,
+  `arquivo` varchar(50) DEFAULT NULL,
+  `data_publicacao` datetime DEFAULT NULL,
+  `data_submissao` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `producao_grupo`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `qst_questao`
+--
+
+CREATE TABLE `qst_questao` (
+  `cod_questao` int(11) NOT NULL,
+  `descricao_pergunta` varchar(500) DEFAULT NULL,
+  `cod_questionario_fk` int(11) DEFAULT NULL,
+  `tipo_pergunta_fk` int(11) DEFAULT NULL,
+  `nivel_escolaridade_fk` int(11) DEFAULT NULL,
+  `data_criacao` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `qst_questao1`
+--
+
+CREATE TABLE `qst_questao1` (
+  `cod` int(11) NOT NULL,
+  `cod_questionario` int(11) DEFAULT NULL,
+  `desc_pergunta` varchar(1000) DEFAULT NULL,
+  `tipo_pergunta` int(11) DEFAULT NULL,
+  `is_sub` int(11) DEFAULT NULL,
+  `data_criacao` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `qst_questao1`
+--
+
+INSERT INTO `qst_questao1` (`cod`, `cod_questionario`, `desc_pergunta`, `tipo_pergunta`, `is_sub`, `data_criacao`) VALUES
+(46, 2, 'teste?', 1, 0, '2019-09-18 12:03:40'),
+(47, 2, 'sim', 0, 1, '2019-09-18 12:03:40'),
+(48, 2, 'nao', 0, 1, '2019-09-18 12:03:40'),
+(49, 2, 'voce tem dinheiro', 1, 0, '2019-09-18 12:04:51'),
+(50, 2, 'sim', 0, 1, '2019-09-18 12:04:51'),
+(51, 2, 'nao', 0, 1, '2019-09-18 12:04:51'),
+(52, 2, 'voce tem carro?', 1, 0, '2019-09-18 12:05:23'),
+(53, 2, 'nao sei', 0, 1, '2019-09-18 12:05:23'),
+(54, 2, 'tenhoi', 0, 1, '2019-09-18 12:05:23'),
+(55, 2, 'asdasddssad??', 1, 0, '2019-09-18 12:06:13'),
+(56, 2, 'asdasdsa', 0, 1, '2019-09-18 12:06:13'),
+(57, 2, 'dasdsad', 0, 1, '2019-09-18 12:06:13'),
+(58, 2, 'testeeeeee', 1, 0, '2019-09-18 12:10:57'),
+(59, 2, 'sdadad', 0, 1, '2019-09-18 12:10:57'),
+(60, 2, 'sadsadsad', 0, 1, '2019-09-18 12:10:57'),
+(61, 2, 'asdsadsad', 0, 1, '2019-09-18 12:10:57'),
+(62, 2, 'asdsasadad?', 1, 0, '2019-09-18 12:14:10'),
+(63, 2, 'testestet', 0, 1, '2019-09-18 12:14:10'),
+(64, 2, 'testeste', 0, 1, '2019-09-18 12:14:10'),
+(65, 2, 'etsteteste', 0, 1, '2019-09-18 12:14:11'),
+(66, 2, 'etesteste', 0, 1, '2019-09-18 12:14:11'),
+(67, 2, 'eteste', 0, 1, '2019-09-18 12:14:11'),
+(68, 2, 'asdaadsdasdsaadssad', 1, 0, '2019-09-18 12:14:32'),
+(69, 2, 'dadad', 0, 1, '2019-09-18 12:14:32'),
+(70, 2, 'adadads', 0, 1, '2019-09-18 12:14:32'),
+(71, 2, 'testeeeeee', 1, 0, '2019-09-18 12:29:53'),
+(72, 2, 'sadadadasd', 0, 1, '2019-09-18 12:29:53'),
+(73, 2, 'sadsadsadasada', 0, 1, '2019-09-18 12:29:53'),
+(74, 2, 'sadasadadasd', 0, 1, '2019-09-18 12:29:53'),
+(75, 2, 'teeeeeeeeeeeeeeeeeeeeeeee', 1, 0, '2019-09-18 12:32:44'),
+(76, 2, 'asdsadasd', 0, 1, '2019-09-18 12:32:44'),
+(77, 2, 'asdasdsad', 0, 1, '2019-09-18 12:32:44');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `qst_questao_dependencia`
+--
+
+CREATE TABLE `qst_questao_dependencia` (
+  `cod_dependencia` int(11) NOT NULL,
+  `cod_questao_dependente` int(11) DEFAULT NULL,
+  `cod_questao` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `qst_questao_dependencia`
+--
+
+INSERT INTO `qst_questao_dependencia` (`cod_dependencia`, `cod_questao_dependente`, `cod_questao`) VALUES
+(40, 46, 0),
+(41, 47, 46),
+(42, 48, 46),
+(43, 49, 0),
+(44, 50, 49),
+(45, 51, 49),
+(46, 52, 0),
+(47, 53, 52),
+(48, 54, 52),
+(49, 55, 0),
+(50, 56, 55),
+(51, 57, 55),
+(52, 58, 0),
+(53, 59, 58),
+(54, 60, 58),
+(55, 61, 58),
+(56, 62, 0),
+(57, 63, 62),
+(58, 64, 62),
+(59, 65, 62),
+(60, 66, 62),
+(61, 67, 62),
+(62, 68, 0),
+(63, 69, 68),
+(64, 70, 68),
+(65, 71, 0),
+(66, 72, 71),
+(67, 73, 71),
+(68, 74, 71),
+(69, 75, 0),
+(70, 76, 75),
+(71, 77, 75);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `qst_questionario`
+--
+
+CREATE TABLE `qst_questionario` (
+  `cod_questionario` int(11) NOT NULL,
+  `descricao` varchar(500) DEFAULT NULL,
+  `status_questionario` int(11) DEFAULT NULL,
+  `cod_tipo_fk` int(11) DEFAULT NULL,
+  `cod_usuario_fk` int(11) DEFAULT NULL,
+  `data_criacao` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `qst_questionario`
+--
+
+INSERT INTO `qst_questionario` (`cod_questionario`, `descricao`, `status_questionario`, `cod_tipo_fk`, `cod_usuario_fk`, `data_criacao`) VALUES
+(1, 'teste', 1, 1, 4, '2019-09-09 15:16:08'),
+(2, 'questionario de teste', 1, 1, 4, '2019-09-09 16:00:33');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `qst_respostas`
+--
+
+CREATE TABLE `qst_respostas` (
+  `cod_resposta` int(11) NOT NULL,
+  `descricao` varchar(500) DEFAULT NULL,
+  `is_correta` int(11) DEFAULT NULL,
+  `cod_questao_fk` int(11) DEFAULT NULL,
+  `data_criacao` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `qst_tipo_pergunta`
+--
+
+CREATE TABLE `qst_tipo_pergunta` (
+  `cod_tipo` int(11) NOT NULL,
+  `descricao_tipo` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `qst_tipo_questionario`
+--
+
+CREATE TABLE `qst_tipo_questionario` (
+  `cod_tipo` int(11) NOT NULL,
+  `descricacao` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `reu_atas`
+--
+
+CREATE TABLE `reu_atas` (
+  `cod_ata` int(11) NOT NULL,
+  `data_inclusao` datetime DEFAULT NULL,
+  `conteudo` varchar(100) DEFAULT NULL,
+  `texto` varchar(500) DEFAULT NULL,
+  `data` datetime DEFAULT NULL,
+  `usuario_fk` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `reu_reuniao`
+--
+
+CREATE TABLE `reu_reuniao` (
+  `cod_reuniao` int(11) NOT NULL,
+  `data_criacao` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `reu_reuniao_usuario`
+--
+
+CREATE TABLE `reu_reuniao_usuario` (
+  `cod` int(11) NOT NULL,
+  `cod_reuniao_fk` int(11) DEFAULT NULL,
+  `cod_usuario_fk` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `sys_aplicacoes`
+--
+
+CREATE TABLE `sys_aplicacoes` (
+  `cod_aplicacao` int(11) NOT NULL,
+  `titulo` varchar(200) DEFAULT NULL,
+  `pagina` varchar(200) DEFAULT NULL,
+  `link` varchar(200) DEFAULT NULL,
+  `submenu` int(11) DEFAULT NULL,
+  `ativo` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `sys_aplicacoes`
+--
+
+INSERT INTO `sys_aplicacoes` (`cod_aplicacao`, `titulo`, `pagina`, `link`, `submenu`, `ativo`) VALUES
+(1, 'Atas de Reuniões', 'atas', '/atas', 0, 1),
+(2, 'Biblioteca', 'biblioteca', '/biblioteca', 0, 1),
+(3, 'Cadastrar', 'pre-cadastro', '/pre-cadastro', 0, 1),
+(4, 'Chat', 'chat', '/chat', 0, 0),
+(5, 'E-mail', 'email', '', 0, 1),
+(6, 'Enviar E-mail', 'email', '/email/enviar', 5, 1),
+(7, 'Meus E-mail', 'email', '/email', 5, 1),
+(8, 'Quadro de Avisos', 'avisos', '/avisos', 0, 1),
+(9, 'Quadro de Disponibilidade', 'quadro-disponibilidade', '/quadro-disponibilidade', 0, 1),
+(10, 'Quadro de Eventos', 'eventos', '/eventos', 0, 1),
+(11, 'Quadro de Literatura', 'quadro-leitura', '/quadro-leitura', 0, 1),
+(12, 'Níveis de Escolaridade', 'escolaridade', '/escolaridade', 0, 1),
+(13, 'Plano de Atividades', 'plano-atividades', '/plano-atividades', 0, 1),
+(14, 'Plano de Metas', 'plano-metas', '/plano-metas', 0, 1),
+(15, 'Produção de Grupo', 'producao-grupo', '/producao-grupo', 0, 1),
+(16, 'Questionários', 'questionario', '', 0, 1),
+(17, 'Aprendizagem', 'questionario', '/questionario/aprendizagem', 16, 1),
+(18, 'Cadastro', 'cadastro', '/questionario/cadastro', 16, 1),
+(19, 'Trabalhos de Correção', 'trabalho-correcao', '', 0, 1),
+(20, 'Meus Trabalhos', 'trabalho-correcao', '/trabalho-correcao', 19, 1),
+(21, 'Trabalhos Recebidos', 'trabalho-correcao', '/trabalho-correcao/recebidos', 19, 1),
+(22, 'Usuários', 'usuarios', '', 0, 1),
+(23, 'Log de Acessos', 'log', '/usuarios/log', 22, 1),
+(24, 'Membros', 'membros', '/usuarios/membros', 22, 1),
+(25, 'Portfolio', 'portfolio', '/portfolio', 0, 1),
+(26, 'Configurações', 'configuracao', '', 0, 1),
+(27, 'Meu Perfil', 'perfil', '/perfil', 26, 1),
+(28, 'Alterar Senha', 'alterar-senha', '/perfil/alterar-senha', 26, 1),
+(29, 'Questionário Inicial', 'questionario', '/questionario/inicial', 0, 1),
+(30, 'Assuntos', 'assunto', '/assunto', 0, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `sys_aplicacoes_permissao`
+--
+
+CREATE TABLE `sys_aplicacoes_permissao` (
+  `tipo_usuario` int(11) DEFAULT NULL,
+  `aplicacao` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `sys_aplicacoes_permissao`
+--
+
+INSERT INTO `sys_aplicacoes_permissao` (`tipo_usuario`, `aplicacao`) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(1, 5),
+(1, 6),
+(1, 7),
+(1, 8),
+(1, 9),
+(1, 10),
+(1, 11),
+(1, 12),
+(1, 13),
+(1, 14),
+(1, 15),
+(1, 16),
+(1, 17),
+(1, 18),
+(1, 19),
+(1, 20),
+(1, 21),
+(1, 22),
+(1, 23),
+(1, 24),
+(1, 25),
+(1, 26),
+(1, 27),
+(1, 28),
+(0, 29),
+(1, 30);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `sys_arquivos`
+--
+
+CREATE TABLE `sys_arquivos` (
+  `cod` int(11) NOT NULL,
+  `nome` varchar(50) DEFAULT NULL,
+  `tipo` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `sys_arquivos`
+--
+
+INSERT INTO `sys_arquivos` (`cod`, `nome`, `tipo`) VALUES
+(1, NULL, 1),
+(2, NULL, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `sys_log_acesso_aplicacao`
+--
+
+CREATE TABLE `sys_log_acesso_aplicacao` (
+  `cod_log` int(11) NOT NULL,
+  `cod_usuario` int(11) DEFAULT NULL,
+  `cod_aplicacao` int(11) DEFAULT NULL,
+  `controller` varchar(200) DEFAULT NULL,
+  `action` varchar(200) DEFAULT NULL,
+  `data` datetime DEFAULT NULL,
+  `ip` varchar(50) DEFAULT NULL,
+  `server` varchar(100) DEFAULT NULL,
+  `params` varchar(8000) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `sys_log_acesso_aplicacao`
+--
+
+INSERT INTO `sys_log_acesso_aplicacao` (`cod_log`, `cod_usuario`, `cod_aplicacao`, `controller`, `action`, `data`, `ip`, `server`, `params`) VALUES
+(1, 0, NULL, 'Application/Controller/IndexController', 'index', '2019-09-25 12:29:24', '127.0.0.1', 'local', ''),
+(2, 0, NULL, 'Login/Controller/LoginController', 'login', '2019-09-25 12:29:24', '127.0.0.1', 'local', ''),
+(3, 0, NULL, 'Application/Controller/IndexController', 'index', '2019-09-25 12:29:36', '127.0.0.1', 'local', ''),
+(4, 0, NULL, 'Login/Controller/LoginController', 'login', '2019-09-25 12:29:37', '127.0.0.1', 'local', ''),
+(5, 0, 11, 'Quadro/Controller/QuadroLeituraController', 'quadro-leitura', '2019-09-25 12:43:14', '127.0.0.1', 'local', ''),
+(6, 0, NULL, 'Login/Controller/LoginController', 'login', '2019-09-25 12:43:15', '127.0.0.1', 'local', ''),
+(7, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-09-25 12:43:24', '127.0.0.1', 'local', ''),
+(8, 4, 11, 'Quadro/Controller/QuadroLeituraController', 'quadro-leitura', '2019-09-25 12:43:30', '127.0.0.1', 'local', ''),
+(9, 0, NULL, 'Application/Controller/IndexController', 'index', '2019-09-27 11:10:46', '127.0.0.1', 'local', ''),
+(10, 0, NULL, 'Application/Controller/IndexController', 'index', '2019-09-27 11:17:12', '127.0.0.1', 'local', ''),
+(11, 0, NULL, 'Login/Controller/LoginController', 'login', '2019-09-27 11:42:16', '127.0.0.1', 'local', ''),
+(12, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-09-27 11:42:24', '127.0.0.1', 'local', ''),
+(13, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-09-27 11:42:45', '127.0.0.1', 'local', ''),
+(14, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-09-27 11:42:59', '127.0.0.1', 'local', ''),
+(15, 4, 11, 'Quadro/Controller/QuadroLeituraController', 'quadro-leitura', '2019-09-27 11:43:54', '127.0.0.1', 'local', ''),
+(16, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-09-27 11:48:19', '127.0.0.1', 'local', ''),
+(17, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-09-27 11:59:17', '127.0.0.1', 'local', ''),
+(18, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-09-27 12:00:08', '127.0.0.1', 'local', ''),
+(19, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-09-27 12:04:32', '127.0.0.1', 'local', ''),
+(20, 0, NULL, 'Application/Controller/IndexController', 'index', '2019-10-02 08:47:52', '127.0.0.1', 'local', ''),
+(21, 0, NULL, 'Login/Controller/LoginController', 'login', '2019-10-02 08:47:53', '127.0.0.1', 'local', ''),
+(22, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-10-02 08:48:02', '127.0.0.1', 'local', ''),
+(23, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:48:34', '127.0.0.1', 'local', ''),
+(24, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:51:34', '127.0.0.1', 'local', ''),
+(25, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:52:01', '127.0.0.1', 'local', ''),
+(26, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:53:47', '127.0.0.1', 'local', ''),
+(27, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:54:12', '127.0.0.1', 'local', ''),
+(28, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:54:57', '127.0.0.1', 'local', ''),
+(29, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:55:24', '127.0.0.1', 'local', ''),
+(30, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:55:40', '127.0.0.1', 'local', ''),
+(31, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:56:02', '127.0.0.1', 'local', ''),
+(32, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:56:25', '127.0.0.1', 'local', ''),
+(33, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:57:55', '127.0.0.1', 'local', ''),
+(34, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:58:13', '127.0.0.1', 'local', ''),
+(35, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:58:23', '127.0.0.1', 'local', ''),
+(36, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:58:38', '127.0.0.1', 'local', ''),
+(37, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:58:51', '127.0.0.1', 'local', ''),
+(38, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:00:10', '127.0.0.1', 'local', ''),
+(39, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:01:30', '127.0.0.1', 'local', ''),
+(40, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:01:49', '127.0.0.1', 'local', ''),
+(41, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:01:58', '127.0.0.1', 'local', ''),
+(42, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:02:24', '127.0.0.1', 'local', ''),
+(43, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:02:37', '127.0.0.1', 'local', ''),
+(44, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:02:57', '127.0.0.1', 'local', ''),
+(45, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:04:02', '127.0.0.1', 'local', ''),
+(46, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:05:00', '127.0.0.1', 'local', ''),
+(47, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:07:17', '127.0.0.1', 'local', ''),
+(48, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:07:39', '127.0.0.1', 'local', ''),
+(49, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:07:48', '127.0.0.1', 'local', ''),
+(50, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:08:38', '127.0.0.1', 'local', ''),
+(51, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:14:37', '127.0.0.1', 'local', ''),
+(52, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:16:54', '127.0.0.1', 'local', ''),
+(53, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:17:16', '127.0.0.1', 'local', ''),
+(54, 0, NULL, 'Application/Controller/IndexController', 'index', '2019-10-02 11:37:44', '127.0.0.1', 'local', ''),
+(55, 0, NULL, 'Login/Controller/LoginController', 'login', '2019-10-02 11:37:45', '127.0.0.1', 'local', ''),
+(56, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-10-02 11:37:52', '127.0.0.1', 'local', ''),
+(57, 4, 2, 'Quadro/Controller/BibliotecaController', 'biblioteca', '2019-10-02 11:38:09', '127.0.0.1', 'local', ''),
+(58, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 11:38:16', '127.0.0.1', 'local', ''),
+(59, 4, 1, 'Quadro/Controller/AtasController', 'atas', '2019-10-02 11:38:38', '127.0.0.1', 'local', ''),
+(60, 4, 13, 'Quadro/Controller/PlanoAtividadesController', 'atividades', '2019-10-02 11:38:45', '127.0.0.1', 'local', ''),
+(61, 4, 13, 'Quadro/Controller/PlanoAtividadesController', 'atividades', '2019-10-02 11:39:03', '127.0.0.1', 'local', ''),
+(62, 4, 1, 'Quadro/Controller/AtasController', 'atas', '2019-10-02 11:43:02', '127.0.0.1', 'local', ''),
+(63, 4, 2, 'Quadro/Controller/BibliotecaController', 'biblioteca', '2019-10-02 11:43:13', '127.0.0.1', 'local', ''),
+(64, 4, 11, 'Quadro/Controller/QuadroLeituraController', 'quadro-leitura', '2019-10-02 11:43:45', '127.0.0.1', 'local', ''),
+(65, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-10-02 11:53:55', '127.0.0.1', 'local', ''),
+(66, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 11:55:51', '127.0.0.1', 'local', ''),
+(67, 4, 30, 'Quadro/Controller/AssuntoController', 'assunto', '2019-10-02 12:23:15', '127.0.0.1', 'local', ''),
+(68, 4, 11, 'Quadro/Controller/QuadroLeituraController', 'quadro-leitura', '2019-10-02 12:23:25', '127.0.0.1', 'local', ''),
+(69, 4, 3, 'Cadastro/Controller/PreCadastroController', 'pre-cadastro', '2019-10-02 12:23:30', '127.0.0.1', 'local', ''),
+(70, 4, 2, 'Quadro/Controller/BibliotecaController', 'biblioteca', '2019-10-02 12:23:32', '127.0.0.1', 'local', ''),
+(71, 4, 30, 'Quadro/Controller/AssuntoController', 'assunto', '2019-10-02 12:23:48', '127.0.0.1', 'local', ''),
+(72, 4, 30, 'Quadro/Controller/AssuntoController', 'assunto', '2019-10-02 12:23:57', '127.0.0.1', 'local', ''),
+(73, 4, 2, 'Quadro/Controller/BibliotecaController', 'biblioteca', '2019-10-02 12:33:09', '127.0.0.1', 'local', ''),
+(74, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-10-02 14:36:07', '127.0.0.1', 'local', ''),
+(75, 0, NULL, 'Application/Controller/IndexController', 'index', '2019-10-02 15:11:42', '127.0.0.1', 'local', ''),
+(76, 0, NULL, 'Login/Controller/LoginController', 'login', '2019-10-02 15:11:43', '127.0.0.1', 'local', ''),
+(77, 0, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 15:11:49', '127.0.0.1', 'local', ''),
+(78, 0, NULL, 'Login/Controller/LoginController', 'login', '2019-10-02 15:11:50', '127.0.0.1', 'local', ''),
+(79, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-10-02 15:12:02', '127.0.0.1', 'local', ''),
+(80, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 15:12:14', '127.0.0.1', 'local', ''),
+(81, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 15:15:49', '127.0.0.1', 'local', ''),
+(82, 4, 1, 'Quadro/Controller/AtasController', 'atas', '2019-10-02 15:15:55', '127.0.0.1', 'local', ''),
+(83, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 15:15:59', '127.0.0.1', 'local', ''),
+(84, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 15:22:35', '127.0.0.1', 'local', ''),
+(85, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 15:22:58', '127.0.0.1', 'local', ''),
+(86, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 15:28:15', '127.0.0.1', 'local', ''),
+(87, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 15:34:40', '127.0.0.1', 'local', ''),
+(88, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 15:44:25', '127.0.0.1', 'local', ''),
+(89, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 15:44:57', '127.0.0.1', 'local', ''),
+(90, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 15:45:17', '127.0.0.1', 'local', ''),
+(91, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:06:04', '127.0.0.1', 'local', ''),
+(92, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:17:56', '127.0.0.1', 'local', ''),
+(93, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:20:28', '127.0.0.1', 'local', ''),
+(94, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:22:34', '127.0.0.1', 'local', ''),
+(95, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:23:48', '127.0.0.1', 'local', ''),
+(96, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-10-02 16:39:16', '127.0.0.1', 'local', ''),
+(97, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:44:35', '127.0.0.1', 'local', ''),
+(98, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:44:47', '127.0.0.1', 'local', ''),
+(99, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:46:31', '127.0.0.1', 'local', ''),
+(100, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:47:00', '127.0.0.1', 'local', ''),
+(101, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:49:31', '127.0.0.1', 'local', ''),
+(102, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:49:36', '127.0.0.1', 'local', ''),
+(103, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:49:44', '127.0.0.1', 'local', ''),
+(104, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:49:50', '127.0.0.1', 'local', ''),
+(105, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:52:16', '127.0.0.1', 'local', ''),
+(106, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:52:30', '127.0.0.1', 'local', ''),
+(107, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:53:38', '127.0.0.1', 'local', '');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `sys_meses`
+--
+
+CREATE TABLE `sys_meses` (
+  `mes` int(11) DEFAULT NULL,
+  `descricao` varchar(50) DEFAULT NULL,
+  `abrev` varchar(5) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `sys_meses`
+--
+
+INSERT INTO `sys_meses` (`mes`, `descricao`, `abrev`) VALUES
+(1, 'Janeiro', 'Jan'),
+(2, 'Fevereiro', 'Fev'),
+(3, 'Março', 'Mar'),
+(4, 'Abril', 'Abr'),
+(5, 'Maio', 'Mai'),
+(6, 'Junho', 'Jun'),
+(7, 'Julho', 'Jul'),
+(8, 'Agosto', 'Ago'),
+(9, 'Setembro', 'Set'),
+(10, 'Outubro', 'Out'),
+(11, 'Novembro', 'Nov'),
+(12, 'Dezembro', 'Dez');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `temp_dates`
+--
+
+CREATE TABLE `temp_dates` (
+  `dt` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `trbl_correcao_trabalho`
+--
+
+CREATE TABLE `trbl_correcao_trabalho` (
+  `cod` int(11) NOT NULL,
+  `destinatario_fk` int(11) DEFAULT NULL,
+  `reemetente_fk` int(11) DEFAULT NULL,
+  `arquivo` varchar(50) DEFAULT NULL,
+  `observacao` varchar(500) DEFAULT NULL,
+  `data_enviado` datetime DEFAULT NULL,
+  `data_correcao` datetime DEFAULT NULL,
+  `corrigido` int(11) DEFAULT NULL,
+  `modalidade_fk` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `trbl_tipo_modalidade`
+--
+
+CREATE TABLE `trbl_tipo_modalidade` (
+  `cod_modalidade` int(11) NOT NULL,
+  `descricao` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `us_acesso`
+--
+
+CREATE TABLE `us_acesso` (
+  `cod_usuario_fk` int(11) NOT NULL,
+  `login` varchar(200) DEFAULT NULL,
+  `senha` varchar(1000) DEFAULT NULL,
+  `situacao` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `us_acesso`
+--
+
+INSERT INTO `us_acesso` (`cod_usuario_fk`, `login`, `senha`, `situacao`) VALUES
+(4, 'sandragp@marilia.unesp.br', '202cb962ac59075b964b07152d234b70', 1),
+(14, 'denilson@hotmail.com', '202cb962ac59075b964b07152d234b70', 1),
+(15, 'teste@teste.com', '202cb962ac59075b964b07152d234b70', 0),
+(16, 'teste@teste1.com', '202cb962ac59075b964b07152d234b70', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `us_foto_perfil`
+--
+
+CREATE TABLE `us_foto_perfil` (
+  `cod_usuario_fk` int(11) NOT NULL,
+  `nome_foto` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `us_foto_perfil`
+--
+
+INSERT INTO `us_foto_perfil` (`cod_usuario_fk`, `nome_foto`) VALUES
+(4, 'foto-perfil-4-19-09-16-17-37-00.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `us_pre_cadastro`
+--
+
+CREATE TABLE `us_pre_cadastro` (
+  `cod_usuario` int(11) NOT NULL,
+  `nome` varchar(100) DEFAULT NULL,
+  `email` varchar(200) DEFAULT NULL,
+  `nivel_escolaridade_fk` int(11) DEFAULT NULL,
+  `data_criacao` datetime DEFAULT NULL,
+  `situacao` int(11) DEFAULT NULL,
+  `adm` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `us_pre_cadastro`
+--
+
+INSERT INTO `us_pre_cadastro` (`cod_usuario`, `nome`, `email`, `nivel_escolaridade_fk`, `data_criacao`, `situacao`, `adm`) VALUES
+(4, 'Sandra', 'sandragp@marilia.unesp.br', 1, '2019-09-16 14:45:05', 2, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `us_tipo_usuario`
+--
+
+CREATE TABLE `us_tipo_usuario` (
+  `cod_tipo` int(11) NOT NULL,
+  `descricao` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `us_tipo_usuario`
+--
+
+INSERT INTO `us_tipo_usuario` (`cod_tipo`, `descricao`) VALUES
+(0, 'Pré-Cadastro'),
+(1, 'Administrador'),
+(2, 'Membro');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `us_usuario`
+--
+
+CREATE TABLE `us_usuario` (
+  `cod_usuario` int(11) NOT NULL,
+  `nome` varchar(200) DEFAULT NULL,
+  `cpf` varchar(45) DEFAULT NULL,
+  `idade` int(11) DEFAULT NULL,
+  `genero` char(1) DEFAULT NULL,
+  `email` varchar(200) DEFAULT NULL,
+  `email2` varchar(200) DEFAULT NULL,
+  `nivel_escolaridade_fk` int(11) DEFAULT NULL,
+  `tipo_usuario_fk` int(11) DEFAULT NULL,
+  `endereco` varchar(200) DEFAULT NULL,
+  `numero` varchar(20) DEFAULT NULL,
+  `complemento` varchar(100) DEFAULT NULL,
+  `cidade` varchar(100) DEFAULT NULL,
+  `bairro` varchar(45) DEFAULT NULL,
+  `estado` varchar(2) DEFAULT NULL,
+  `cep` varchar(8) DEFAULT NULL,
+  `fixo` varchar(15) DEFAULT NULL,
+  `celular` varchar(15) DEFAULT NULL,
+  `curso_atual_nome` varchar(100) DEFAULT NULL,
+  `curso_atual_serie` int(11) DEFAULT NULL,
+  `curso_periodo` varchar(20) DEFAULT NULL,
+  `graduacao_nome` varchar(100) DEFAULT NULL,
+  `graduacao_ano_conclusao` int(11) DEFAULT NULL,
+  `graduacao_instituicao` varchar(100) DEFAULT NULL,
+  `pos_graduacao_nome` varchar(100) DEFAULT NULL,
+  `pos_graduacao_ano` int(11) DEFAULT NULL,
+  `pos_graduacao_instituicao` varchar(100) DEFAULT NULL,
+  `mestrado_nome` varchar(100) DEFAULT NULL,
+  `mestrado_ano` int(11) DEFAULT NULL,
+  `mestrado_instituicao` varchar(100) DEFAULT NULL,
+  `doutorado_nome` varchar(100) DEFAULT NULL,
+  `doutorado_ano` int(11) DEFAULT NULL,
+  `doutorado_instituicao` varchar(100) DEFAULT NULL,
+  `estado_civil` varchar(30) DEFAULT NULL,
+  `data_nascimento` datetime DEFAULT NULL,
+  `rg` varchar(20) DEFAULT NULL,
+  `orgao_emissor` varchar(50) DEFAULT NULL,
+  `ra` varchar(50) DEFAULT NULL,
+  `skype` varchar(100) DEFAULT NULL,
+  `whatsapp` varchar(20) DEFAULT NULL,
+  `facebook` varchar(100) DEFAULT NULL,
+  `lattes` varchar(100) DEFAULT NULL,
+  `foto` varchar(50) DEFAULT NULL,
+  `num_banco` int(11) DEFAULT NULL,
+  `num_conta` int(11) DEFAULT NULL,
+  `num_agencia` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `emp_nome` varchar(100) DEFAULT NULL,
+  `emp_endereco` varchar(200) DEFAULT NULL,
+  `emp_numero` int(11) DEFAULT NULL,
+  `emp_complemento` varchar(100) DEFAULT NULL,
+  `emp_cidade` varchar(100) DEFAULT NULL,
+  `emp_bairro` varchar(200) DEFAULT NULL,
+  `emp_estado` varchar(2) DEFAULT NULL,
+  `emp_cep` varchar(8) DEFAULT NULL,
+  `emp_telefone` varchar(20) DEFAULT NULL,
+  `emp_celular` varchar(20) DEFAULT NULL,
+  `data_entrada` datetime DEFAULT NULL,
+  `ativo` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `us_usuario`
+--
+
+INSERT INTO `us_usuario` (`cod_usuario`, `nome`, `cpf`, `idade`, `genero`, `email`, `email2`, `nivel_escolaridade_fk`, `tipo_usuario_fk`, `endereco`, `numero`, `complemento`, `cidade`, `bairro`, `estado`, `cep`, `fixo`, `celular`, `curso_atual_nome`, `curso_atual_serie`, `curso_periodo`, `graduacao_nome`, `graduacao_ano_conclusao`, `graduacao_instituicao`, `pos_graduacao_nome`, `pos_graduacao_ano`, `pos_graduacao_instituicao`, `mestrado_nome`, `mestrado_ano`, `mestrado_instituicao`, `doutorado_nome`, `doutorado_ano`, `doutorado_instituicao`, `estado_civil`, `data_nascimento`, `rg`, `orgao_emissor`, `ra`, `skype`, `whatsapp`, `facebook`, `lattes`, `foto`, `num_banco`, `num_conta`, `num_agencia`, `status`, `emp_nome`, `emp_endereco`, `emp_numero`, `emp_complemento`, `emp_cidade`, `emp_bairro`, `emp_estado`, `emp_cep`, `emp_telefone`, `emp_celular`, `data_entrada`, `ativo`) VALUES
+(4, 'Sandra Regina Gimeniz', '410.431.028-09', 22, 'M', 'sandragp@marilia.unesp.br', '', 4, 1, 'qwdqwdqwdqwd', '123', 'qwdqwdqwd', 'qwdqwdqwd', 'qwdqwdqw', 'AC', '18950000', '1433442526', '14997828864', 'ADS', 6, 'MANHA', '', 0, '', '', 0, '', '', 0, '', '', 0, '', 'SOLTEIRO', '1996-10-26 00:00:00', '533515774', 'ssp', '12312312323', '', '14997828864', '', '', NULL, 1, 12312312, 123, NULL, '', '', 0, '', '', '', 'AC', '', '', '', NULL, 1);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `atvs_plano_atividades`
+--
+ALTER TABLE `atvs_plano_atividades`
+  ADD PRIMARY KEY (`cod_atividade`);
+
+--
+-- Indexes for table `atvs_plano_atividades_status`
+--
+ALTER TABLE `atvs_plano_atividades_status`
+  ADD PRIMARY KEY (`cod`);
+
+--
+-- Indexes for table `atvs_plano_atividades_tipo`
+--
+ALTER TABLE `atvs_plano_atividades_tipo`
+  ADD PRIMARY KEY (`cod`);
+
+--
+-- Indexes for table `avs_avisos`
+--
+ALTER TABLE `avs_avisos`
+  ADD PRIMARY KEY (`cod_aviso`);
+
+--
+-- Indexes for table `biblioteca`
+--
+ALTER TABLE `biblioteca`
+  ADD PRIMARY KEY (`cod`);
+
+--
+-- Indexes for table `biblioteca_assunto`
+--
+ALTER TABLE `biblioteca_assunto`
+  ADD PRIMARY KEY (`cod`);
+
+--
+-- Indexes for table `disp_quadro_disponibilidade`
+--
+ALTER TABLE `disp_quadro_disponibilidade`
+  ADD PRIMARY KEY (`cod_disponibilidade`);
+
+--
+-- Indexes for table `disp_quadro_disponibilidade_color`
+--
+ALTER TABLE `disp_quadro_disponibilidade_color`
+  ADD PRIMARY KEY (`cod_usuario`);
+
+--
+-- Indexes for table `disp_quadro_disponibilidade_semanas`
+--
+ALTER TABLE `disp_quadro_disponibilidade_semanas`
+  ADD PRIMARY KEY (`cod`);
+
+--
+-- Indexes for table `evts_eventos`
+--
+ALTER TABLE `evts_eventos`
+  ADD PRIMARY KEY (`cod_evento`);
+
+--
+-- Indexes for table `evts_evento_usuario`
+--
+ALTER TABLE `evts_evento_usuario`
+  ADD PRIMARY KEY (`codigo`);
+
+--
+-- Indexes for table `ltr_material_leitura`
+--
+ALTER TABLE `ltr_material_leitura`
+  ADD PRIMARY KEY (`cod_material`);
+
+--
+-- Indexes for table `ltr_material_palavra_chaves`
+--
+ALTER TABLE `ltr_material_palavra_chaves`
+  ADD PRIMARY KEY (`cod`);
+
+--
+-- Indexes for table `ltr_palavra_chave`
+--
+ALTER TABLE `ltr_palavra_chave`
+  ADD PRIMARY KEY (`cod_palavra_chave`);
+
+--
+-- Indexes for table `material_grupo`
+--
+ALTER TABLE `material_grupo`
+  ADD PRIMARY KEY (`cod_material`);
+
+--
+-- Indexes for table `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `mts_metas`
+--
+ALTER TABLE `mts_metas`
+  ADD PRIMARY KEY (`cod_meta`);
+
+--
+-- Indexes for table `mts_plano_metas`
+--
+ALTER TABLE `mts_plano_metas`
+  ADD PRIMARY KEY (`cod_quadro`);
+
+--
+-- Indexes for table `nivel_escolaridade`
+--
+ALTER TABLE `nivel_escolaridade`
+  ADD PRIMARY KEY (`cod_nivel`);
+
+--
+-- Indexes for table `producao_grupo`
+--
+ALTER TABLE `producao_grupo`
+  ADD PRIMARY KEY (`cod_producao`);
+
+--
+-- Indexes for table `qst_questao`
+--
+ALTER TABLE `qst_questao`
+  ADD PRIMARY KEY (`cod_questao`);
+
+--
+-- Indexes for table `qst_questao1`
+--
+ALTER TABLE `qst_questao1`
+  ADD PRIMARY KEY (`cod`);
+
+--
+-- Indexes for table `qst_questao_dependencia`
+--
+ALTER TABLE `qst_questao_dependencia`
+  ADD PRIMARY KEY (`cod_dependencia`);
+
+--
+-- Indexes for table `qst_questionario`
+--
+ALTER TABLE `qst_questionario`
+  ADD PRIMARY KEY (`cod_questionario`);
+
+--
+-- Indexes for table `qst_respostas`
+--
+ALTER TABLE `qst_respostas`
+  ADD PRIMARY KEY (`cod_resposta`);
+
+--
+-- Indexes for table `qst_tipo_pergunta`
+--
+ALTER TABLE `qst_tipo_pergunta`
+  ADD PRIMARY KEY (`cod_tipo`);
+
+--
+-- Indexes for table `qst_tipo_questionario`
+--
+ALTER TABLE `qst_tipo_questionario`
+  ADD PRIMARY KEY (`cod_tipo`);
+
+--
+-- Indexes for table `reu_atas`
+--
+ALTER TABLE `reu_atas`
+  ADD PRIMARY KEY (`cod_ata`);
+
+--
+-- Indexes for table `reu_reuniao`
+--
+ALTER TABLE `reu_reuniao`
+  ADD PRIMARY KEY (`cod_reuniao`);
+
+--
+-- Indexes for table `reu_reuniao_usuario`
+--
+ALTER TABLE `reu_reuniao_usuario`
+  ADD PRIMARY KEY (`cod`);
+
+--
+-- Indexes for table `sys_aplicacoes`
+--
+ALTER TABLE `sys_aplicacoes`
+  ADD PRIMARY KEY (`cod_aplicacao`);
+
+--
+-- Indexes for table `sys_arquivos`
+--
+ALTER TABLE `sys_arquivos`
+  ADD PRIMARY KEY (`cod`);
+
+--
+-- Indexes for table `sys_log_acesso_aplicacao`
+--
+ALTER TABLE `sys_log_acesso_aplicacao`
+  ADD PRIMARY KEY (`cod_log`);
+
+--
+-- Indexes for table `trbl_correcao_trabalho`
+--
+ALTER TABLE `trbl_correcao_trabalho`
+  ADD PRIMARY KEY (`cod`);
+
+--
+-- Indexes for table `trbl_tipo_modalidade`
+--
+ALTER TABLE `trbl_tipo_modalidade`
+  ADD PRIMARY KEY (`cod_modalidade`);
+
+--
+-- Indexes for table `us_acesso`
+--
+ALTER TABLE `us_acesso`
+  ADD PRIMARY KEY (`cod_usuario_fk`);
+
+--
+-- Indexes for table `us_foto_perfil`
+--
+ALTER TABLE `us_foto_perfil`
+  ADD PRIMARY KEY (`cod_usuario_fk`);
+
+--
+-- Indexes for table `us_pre_cadastro`
+--
+ALTER TABLE `us_pre_cadastro`
+  ADD PRIMARY KEY (`cod_usuario`);
+
+--
+-- Indexes for table `us_tipo_usuario`
+--
+ALTER TABLE `us_tipo_usuario`
+  ADD PRIMARY KEY (`cod_tipo`);
+
+--
+-- Indexes for table `us_usuario`
+--
+ALTER TABLE `us_usuario`
+  ADD PRIMARY KEY (`cod_usuario`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `atvs_plano_atividades`
+--
+ALTER TABLE `atvs_plano_atividades`
+  MODIFY `cod_atividade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `atvs_plano_atividades_status`
+--
+ALTER TABLE `atvs_plano_atividades_status`
+  MODIFY `cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `atvs_plano_atividades_tipo`
+--
+ALTER TABLE `atvs_plano_atividades_tipo`
+  MODIFY `cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `avs_avisos`
+--
+ALTER TABLE `avs_avisos`
+  MODIFY `cod_aviso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `biblioteca`
+--
+ALTER TABLE `biblioteca`
+  MODIFY `cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `biblioteca_assunto`
+--
+ALTER TABLE `biblioteca_assunto`
+  MODIFY `cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `disp_quadro_disponibilidade`
+--
+ALTER TABLE `disp_quadro_disponibilidade`
+  MODIFY `cod_disponibilidade` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `disp_quadro_disponibilidade_semanas`
+--
+ALTER TABLE `disp_quadro_disponibilidade_semanas`
+  MODIFY `cod` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `evts_eventos`
+--
+ALTER TABLE `evts_eventos`
+  MODIFY `cod_evento` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `evts_evento_usuario`
+--
+ALTER TABLE `evts_evento_usuario`
+  MODIFY `codigo` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ltr_material_leitura`
+--
+ALTER TABLE `ltr_material_leitura`
+  MODIFY `cod_material` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ltr_material_palavra_chaves`
+--
+ALTER TABLE `ltr_material_palavra_chaves`
+  MODIFY `cod` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `ltr_palavra_chave`
+--
+ALTER TABLE `ltr_palavra_chave`
+  MODIFY `cod_palavra_chave` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `material_grupo`
+--
+ALTER TABLE `material_grupo`
+  MODIFY `cod_material` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `mts_metas`
+--
+ALTER TABLE `mts_metas`
+  MODIFY `cod_meta` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `mts_plano_metas`
+--
+ALTER TABLE `mts_plano_metas`
+  MODIFY `cod_quadro` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `nivel_escolaridade`
+--
+ALTER TABLE `nivel_escolaridade`
+  MODIFY `cod_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `producao_grupo`
+--
+ALTER TABLE `producao_grupo`
+  MODIFY `cod_producao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `qst_questao`
+--
+ALTER TABLE `qst_questao`
+  MODIFY `cod_questao` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `qst_questao1`
+--
+ALTER TABLE `qst_questao1`
+  MODIFY `cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+
+--
+-- AUTO_INCREMENT for table `qst_questao_dependencia`
+--
+ALTER TABLE `qst_questao_dependencia`
+  MODIFY `cod_dependencia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+
+--
+-- AUTO_INCREMENT for table `qst_questionario`
+--
+ALTER TABLE `qst_questionario`
+  MODIFY `cod_questionario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `qst_respostas`
+--
+ALTER TABLE `qst_respostas`
+  MODIFY `cod_resposta` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `qst_tipo_pergunta`
+--
+ALTER TABLE `qst_tipo_pergunta`
+  MODIFY `cod_tipo` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `qst_tipo_questionario`
+--
+ALTER TABLE `qst_tipo_questionario`
+  MODIFY `cod_tipo` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `reu_atas`
+--
+ALTER TABLE `reu_atas`
+  MODIFY `cod_ata` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `reu_reuniao`
+--
+ALTER TABLE `reu_reuniao`
+  MODIFY `cod_reuniao` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `reu_reuniao_usuario`
+--
+ALTER TABLE `reu_reuniao_usuario`
+  MODIFY `cod` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `sys_aplicacoes`
+--
+ALTER TABLE `sys_aplicacoes`
+  MODIFY `cod_aplicacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+
+--
+-- AUTO_INCREMENT for table `sys_arquivos`
+--
+ALTER TABLE `sys_arquivos`
+  MODIFY `cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `sys_log_acesso_aplicacao`
+--
+ALTER TABLE `sys_log_acesso_aplicacao`
+  MODIFY `cod_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+
+--
+-- AUTO_INCREMENT for table `trbl_correcao_trabalho`
+--
+ALTER TABLE `trbl_correcao_trabalho`
+  MODIFY `cod` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `trbl_tipo_modalidade`
+--
+ALTER TABLE `trbl_tipo_modalidade`
+  MODIFY `cod_modalidade` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `us_pre_cadastro`
+--
+ALTER TABLE `us_pre_cadastro`
+  MODIFY `cod_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `us_tipo_usuario`
+--
+ALTER TABLE `us_tipo_usuario`
+  MODIFY `cod_tipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2019-09-27 17:14:55

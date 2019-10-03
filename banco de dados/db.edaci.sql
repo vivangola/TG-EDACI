@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 02-Out-2019 às 22:07
+-- Generation Time: 03-Out-2019 às 16:32
 -- Versão do servidor: 10.1.38-MariaDB
 -- versão do PHP: 7.3.3
 
@@ -674,7 +674,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarProducaoGrupo_sp` (IN `fil
 
 		if filtro = 1 then
 			
-            select a.cod_producao, a.origem, a.titulo, a.autor, a.modalidade, a.nome, a.qualis, a.link, a.esclarecimentos, a.status, b.nome as usuario, a.arquivo, 
+            select a.cod_producao, a.origem, a.titulo, a.autor, a.modalidade, a.nome, a.qualis, a.link, a.esclarecimentos, a.status, b.nome as usuario, a.arquivo, a.formato,
             date_format(a.data_publicacao, "%d/%m/%Y") as data_publicacao, date_format(a.data_submissao, "%d/%m/%Y") as data_submissao
             from producao_grupo a
 				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
@@ -683,7 +683,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarProducaoGrupo_sp` (IN `fil
 			
 		elseif filtro = 2 then
 			
-            select a.cod_producao, a.origem, a.titulo, a.autor, a.modalidade, a.nome, a.qualis, a.link, a.esclarecimentos, a.status, b.nome as usuario, a.arquivo,
+            select a.cod_producao, a.origem, a.titulo, a.autor, a.modalidade, a.nome, a.qualis, a.link, a.esclarecimentos, a.status, b.nome as usuario, a.arquivo, a.formato,
             date_format(a.data_publicacao, "%d/%m/%Y") as data_publicacao, date_format(a.data_submissao, "%d/%m/%Y") as data_submissao
             from producao_grupo a
 				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
@@ -692,7 +692,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarProducaoGrupo_sp` (IN `fil
             
         elseif filtro = 3 then
         
-			select a.cod_producao, a.origem, a.titulo, a.autor, a.modalidade, a.nome, a.qualis, a.link, a.esclarecimentos, a.status, b.nome as usuario,  a.arquivo,
+			select a.cod_producao, a.origem, a.titulo, a.autor, a.modalidade, a.nome, a.qualis, a.link, a.esclarecimentos, a.status, b.nome as usuario,  a.arquivo, a.formato,
             date_format(a.data_publicacao, "%d/%m/%Y") as data_publicacao, date_format(a.data_submissao, "%d/%m/%Y") as data_submissao
             from producao_grupo a
 				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
@@ -701,7 +701,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarProducaoGrupo_sp` (IN `fil
         
         elseif filtro = 4 then
         
-			select a.cod_producao, a.origem, a.titulo, a.autor, a.modalidade, a.nome, a.qualis, a.link, a.esclarecimentos, a.status, b.nome as usuario, a.arquivo,
+			select a.cod_producao, a.origem, a.titulo, a.autor, a.modalidade, a.nome, a.qualis, a.link, a.esclarecimentos, a.status, b.nome as usuario, a.arquivo, a.formato,
             date_format(a.data_publicacao, "%d/%m/%Y") as data_publicacao, date_format(a.data_submissao, "%d/%m/%Y") as data_submissao
             from producao_grupo a
 				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
@@ -709,7 +709,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarProducaoGrupo_sp` (IN `fil
             order by data_submissao desc;
         else 
         
-			select a.cod_producao, a.origem, a.titulo, a.autor, a.modalidade, a.nome, a.qualis, a.link, a.esclarecimentos, a.status, b.nome as usuario, a.arquivo,
+			select a.cod_producao, a.origem, a.titulo, a.autor, a.modalidade, a.nome, a.qualis, a.link, a.esclarecimentos, a.status, b.nome as usuario, a.arquivo, a.formato,
             date_format(a.data_publicacao, "%d/%m/%Y") as data_publicacao, date_format(a.data_submissao, "%d/%m/%Y") as data_submissao
             from producao_grupo a
 				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
@@ -719,7 +719,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarProducaoGrupo_sp` (IN `fil
 		
     else 
     
-		select a.cod_producao, a.origem, a.titulo, a.autor, a.modalidade, a.nome, a.qualis, a.link, a.esclarecimentos, a.status, b.nome as usuario, a.arquivo,
+		select a.cod_producao, a.origem, a.titulo, a.autor, a.modalidade, a.nome, a.qualis, a.link, a.esclarecimentos, a.status, b.nome as usuario, a.arquivo, date_format(a.data_publicacao, "%Y-%m-%d") as dt_pub, a.formato,
             date_format(a.data_publicacao, "%d/%m/%Y") as data_publicacao, date_format(a.data_submissao, "%d/%m/%Y") as data_submissao
             from producao_grupo  a
 				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
@@ -864,7 +864,6 @@ CREATE TABLE `atvs_plano_atividades` (
 --
 
 INSERT INTO `atvs_plano_atividades` (`cod_atividade`, `cod_usuario_fk`, `descricao`, `mes`, `ano`, `status`, `tipo_atividade_fk`, `data_criacao`) VALUES
-(1, 4, 'Ativdade de teste', 4, 2019, 1, 2, '2019-09-20 10:53:10'),
 (2, 4, '', 0, 0, 0, 0, '2019-09-20 16:59:57'),
 (3, 4, '', 0, 0, 0, 0, '2019-09-20 17:00:43');
 
@@ -975,7 +974,7 @@ CREATE TABLE `biblioteca_assunto` (
 --
 
 INSERT INTO `biblioteca_assunto` (`cod`, `cod_usuario_fk`, `assunto`, `data_inclusao`) VALUES
-(1, 4, 'teste', '2019-10-02 12:23:55');
+(2, 4, 'Carta de Consentimento', '2019-10-03 11:28:18');
 
 -- --------------------------------------------------------
 
@@ -1228,10 +1227,6 @@ CREATE TABLE `producao_grupo` (
   `data_publicacao` datetime DEFAULT NULL,
   `data_submissao` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `producao_grupo`
---
 
 -- --------------------------------------------------------
 
@@ -1695,7 +1690,77 @@ INSERT INTO `sys_log_acesso_aplicacao` (`cod_log`, `cod_usuario`, `cod_aplicacao
 (104, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:49:50', '127.0.0.1', 'local', ''),
 (105, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:52:16', '127.0.0.1', 'local', ''),
 (106, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:52:30', '127.0.0.1', 'local', ''),
-(107, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:53:38', '127.0.0.1', 'local', '');
+(107, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:53:38', '127.0.0.1', 'local', ''),
+(108, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 17:11:04', '127.0.0.1', 'local', ''),
+(109, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-10-03 08:32:22', '127.0.0.1', 'local', ''),
+(110, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 08:32:45', '127.0.0.1', 'local', ''),
+(111, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 08:32:51', '127.0.0.1', 'local', ''),
+(112, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 08:32:56', '127.0.0.1', 'local', ''),
+(113, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 08:33:20', '127.0.0.1', 'local', ''),
+(114, 4, NULL, 'Quadro/Controller/ProducaoGrupoController', 'not-found', '2019-10-03 08:33:33', '127.0.0.1', 'local', '{\"cod\":\"4\"}'),
+(115, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 08:59:23', '127.0.0.1', 'local', ''),
+(116, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 08:59:38', '127.0.0.1', 'local', ''),
+(117, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:11:41', '127.0.0.1', 'local', ''),
+(118, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:12:24', '127.0.0.1', 'local', ''),
+(119, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:12:55', '127.0.0.1', 'local', ''),
+(120, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:13:10', '127.0.0.1', 'local', ''),
+(121, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:13:47', '127.0.0.1', 'local', ''),
+(122, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:16:28', '127.0.0.1', 'local', ''),
+(123, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:26:01', '127.0.0.1', 'local', ''),
+(124, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:28:11', '127.0.0.1', 'local', ''),
+(125, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:29:30', '127.0.0.1', 'local', ''),
+(126, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:30:36', '127.0.0.1', 'local', ''),
+(127, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:30:58', '127.0.0.1', 'local', ''),
+(128, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:31:41', '127.0.0.1', 'local', ''),
+(129, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:32:32', '127.0.0.1', 'local', ''),
+(130, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:34:07', '127.0.0.1', 'local', ''),
+(131, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:34:25', '127.0.0.1', 'local', ''),
+(132, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:34:46', '127.0.0.1', 'local', ''),
+(133, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:34:51', '127.0.0.1', 'local', ''),
+(134, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:36:08', '127.0.0.1', 'local', ''),
+(135, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:36:38', '127.0.0.1', 'local', ''),
+(136, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:37:11', '127.0.0.1', 'local', ''),
+(137, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:37:27', '127.0.0.1', 'local', ''),
+(138, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:37:49', '127.0.0.1', 'local', ''),
+(139, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:38:35', '127.0.0.1', 'local', ''),
+(140, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:39:28', '127.0.0.1', 'local', ''),
+(141, 4, 11, 'Quadro/Controller/QuadroLeituraController', 'quadro-leitura', '2019-10-03 09:39:42', '127.0.0.1', 'local', '{\"pesquisa\":\"\",\"filtros\":\"-1\"}'),
+(142, 4, 11, 'Quadro/Controller/QuadroLeituraController', 'quadro-leitura', '2019-10-03 09:39:58', '127.0.0.1', 'local', '{\"pesquisa\":\"a\",\"filtros\":\"1\"}'),
+(143, 4, 11, 'Quadro/Controller/QuadroLeituraController', 'quadro-leitura', '2019-10-03 09:40:02', '127.0.0.1', 'local', '{\"pesquisa\":\"e\",\"filtros\":\"1\"}'),
+(144, 4, 11, 'Quadro/Controller/QuadroLeituraController', 'quadro-leitura', '2019-10-03 09:40:25', '127.0.0.1', 'local', '{\"pesquisa\":\"e\",\"filtros\":\"1\"}'),
+(145, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:40:30', '127.0.0.1', 'local', ''),
+(146, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:40:32', '127.0.0.1', 'local', '{\"pesquisa\":\"\",\"filtros\":\"-1\"}'),
+(147, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:40:39', '127.0.0.1', 'local', '{\"pesquisa\":\"a\",\"filtros\":\"1\"}'),
+(148, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:40:45', '127.0.0.1', 'local', '{\"pesquisa\":\"or\",\"filtros\":\"1\"}'),
+(149, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:40:52', '127.0.0.1', 'local', '{\"pesquisa\":\"or\",\"filtros\":\"3\"}'),
+(150, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:40:58', '127.0.0.1', 'local', '{\"pesquisa\":\"ors\",\"filtros\":\"3\"}'),
+(151, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:41:02', '127.0.0.1', 'local', '{\"pesquisa\":\"ors\",\"filtros\":\"5\"}'),
+(152, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:41:59', '127.0.0.1', 'local', '{\"pesquisa\":\"ors\",\"filtros\":\"5\"}'),
+(153, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:42:10', '127.0.0.1', 'local', '{\"pesquisa\":\"juju\",\"filtros\":\"5\"}'),
+(154, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:43:19', '127.0.0.1', 'local', '{\"pesquisa\":\"juju\",\"filtros\":\"5\"}'),
+(155, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:43:31', '127.0.0.1', 'local', '{\"pesquisa\":\"juju\",\"filtros\":\"4\"}'),
+(156, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:43:37', '127.0.0.1', 'local', '{\"pesquisa\":\"samd\",\"filtros\":\"4\"}'),
+(157, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:43:43', '127.0.0.1', 'local', '{\"pesquisa\":\"sand\",\"filtros\":\"4\"}'),
+(158, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-03 09:43:49', '127.0.0.1', 'local', ''),
+(159, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-03 09:44:40', '127.0.0.1', 'local', ''),
+(160, 4, 13, 'Quadro/Controller/PlanoAtividadesController', 'atividades', '2019-10-03 11:22:49', '127.0.0.1', 'local', ''),
+(161, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 11:22:49', '127.0.0.1', 'local', ''),
+(162, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 11:26:10', '127.0.0.1', 'local', ''),
+(163, 4, 30, 'Quadro/Controller/AssuntoController', 'assunto', '2019-10-03 11:27:50', '127.0.0.1', 'local', ''),
+(164, 4, 30, 'Quadro/Controller/AssuntoController', 'assunto', '2019-10-03 11:27:58', '127.0.0.1', 'local', ''),
+(165, 4, 30, 'Quadro/Controller/AssuntoController', 'assunto', '2019-10-03 11:28:20', '127.0.0.1', 'local', ''),
+(166, 4, 1, 'Quadro/Controller/AtasController', 'atas', '2019-10-03 11:28:23', '127.0.0.1', 'local', ''),
+(167, 4, 2, 'Quadro/Controller/BibliotecaController', 'biblioteca', '2019-10-03 11:28:26', '127.0.0.1', 'local', ''),
+(168, 4, 3, 'Cadastro/Controller/PreCadastroController', 'pre-cadastro', '2019-10-03 11:28:30', '127.0.0.1', 'local', ''),
+(169, 4, 12, 'Quadro/Controller/EscolaridadeController', 'escolaridade', '2019-10-03 11:28:40', '127.0.0.1', 'local', ''),
+(170, 4, 13, 'Quadro/Controller/PlanoAtividadesController', 'atividades', '2019-10-03 11:28:44', '127.0.0.1', 'local', ''),
+(171, 4, 13, 'Quadro/Controller/PlanoAtividadesController', 'atividades', '2019-10-03 11:28:59', '127.0.0.1', 'local', ''),
+(172, 4, 14, 'Quadro/Controller/PlanoMetasController', 'plano-metas', '2019-10-03 11:29:02', '127.0.0.1', 'local', ''),
+(173, 4, 8, 'Quadro/Controller/QuadroAvisoController', 'avisos', '2019-10-03 11:29:23', '127.0.0.1', 'local', ''),
+(174, 4, 9, 'Quadro/Controller/QuadroDisponibilidadeController', 'quadro-disponibilidade', '2019-10-03 11:29:28', '127.0.0.1', 'local', ''),
+(175, 4, 10, 'Quadro/Controller/EventosController', 'eventos', '2019-10-03 11:29:39', '127.0.0.1', 'local', ''),
+(176, 4, 11, 'Quadro/Controller/QuadroLeituraController', 'quadro-leitura', '2019-10-03 11:29:44', '127.0.0.1', 'local', ''),
+(177, 4, 9, 'Quadro/Controller/QuadroDisponibilidadeController', 'quadro-disponibilidade', '2019-10-03 11:29:52', '127.0.0.1', 'local', '');
 
 -- --------------------------------------------------------
 
@@ -2207,7 +2272,7 @@ ALTER TABLE `biblioteca`
 -- AUTO_INCREMENT for table `biblioteca_assunto`
 --
 ALTER TABLE `biblioteca_assunto`
-  MODIFY `cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `cod` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `disp_quadro_disponibilidade`
@@ -2285,7 +2350,7 @@ ALTER TABLE `nivel_escolaridade`
 -- AUTO_INCREMENT for table `producao_grupo`
 --
 ALTER TABLE `producao_grupo`
-  MODIFY `cod_producao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `cod_producao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `qst_questao`
@@ -2363,7 +2428,7 @@ ALTER TABLE `sys_arquivos`
 -- AUTO_INCREMENT for table `sys_log_acesso_aplicacao`
 --
 ALTER TABLE `sys_log_acesso_aplicacao`
-  MODIFY `cod_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `cod_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=178;
 
 --
 -- AUTO_INCREMENT for table `trbl_correcao_trabalho`

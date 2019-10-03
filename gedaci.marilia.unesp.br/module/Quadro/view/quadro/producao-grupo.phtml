@@ -10,7 +10,7 @@
                                     <div class="image back-primary3"><i class="fa fa-book"></i>&nbsp;<label class="title">Produção de Grupo</label></div>
                                     <div class="info" style="min-height:450px">
                                         <div class="row" style="padding-left: 10px;padding-right: 10px">
-                                            <form action="/quadro-leitura" method="post" enctype="">
+                                            <form action="/producao-grupo" method="post" enctype="">
                                                 <div class="col-md-6 col-sm-4 col-xs-8">
                                                     <input type="text" name="pesquisa" placeholder="Pesquisar" class="form-control" value="<?= $pesq != '' ? $pesq : '' ?>">
                                                 </div>  
@@ -20,7 +20,7 @@
                                                         <option value="1" <?= $filtro == '1' ? 'selected' : '' ?>>Origem</option>
                                                         <option value="2" <?= $filtro == '2' ? 'selected' : '' ?>>Título</option>
                                                         <option value="3" <?= $filtro == '3' ? 'selected' : '' ?>>Autor</option>
-                                                        <option value="5" <?= $filtro == '4' ? 'selected' : '' ?>>Usuário</option>
+                                                        <option value="4" <?= $filtro == '4' ? 'selected' : '' ?>>Usuário</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-2 col-sm-3 col-xs-6">
@@ -81,16 +81,16 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="form-group col-xs-6">
-                            <label for="add_origem" class="col-form-label">Origem da Produção:</label>
+                            <label for="add_origem" class="col-form-label">Origem da Produção: <label style="color:red">*</label></label>
                             <input type="text" class="form-control obg" id="add_origem" name="add_origem" maxlength="200" />
                         </div>
                         <div class="form-group col-xs-6">
-                            <label for="add_modalidade" class="col-form-label">Modalidade:</label>
+                            <label for="add_modalidade" class="col-form-label">Modalidade: <label style="color:red">*</label></label>
                             <input id="add_modalidade" class="obg form-control input-group-lg" maxlength="100" type="text" name="add_modalidade"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="add_titulo" class="col-form-label">Título:</label>
+                        <label for="add_titulo" class="col-form-label">Título: <label style="color:red">*</label></label>
                         <input type="text" class="form-control obg" id="add_titulo" maxlength="200" name="add_titulo" />
                     </div>
                     <div class="row">
@@ -99,7 +99,7 @@
                             <input type="text" class="form-control" id="add_formato" name="add_formato" maxlength="200" />
                         </div>
                         <div class="form-group col-xs-6">
-                            <label for="add_publicacao" class="col-form-label">Data da Publicação:</label>
+                            <label for="add_publicacao" class="col-form-label">Data da Publicação: <label style="color:red">*</label></label>
                             <input id="add_publicacao" class="obg form-control input-group-lg" type="date" name="add_publicacao"/>
                         </div>
                     </div>
@@ -131,7 +131,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="add_autor "class="col-form-label">Autor(es):</label>
+                        <label for="add_autor "class="col-form-label">Autor(es): <label style="color:red">*</label></label>
                         <input type="text"  class="form-control obg" id="add_autor" maxlength="200" name="add_autor" />
                     </div>
                     <div class="form-group">
@@ -156,78 +156,76 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Adicionar Material</h2>
+                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Editar Produção de Grupo</h2>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="form" method="post" enctype="multipart/form-data">
+            <form id="formEdit" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
-                    <input type="hidden" id="edit_cod"/>
-                    <div class="form-group">
-                        <label for="edit_artigo" class="col-form-label">Título Artigo:</label>
-                        <input type="text"  class="form-control" id="edit_artigo" name="edit_artigo" maxlength="200" title="Digite o Título do Artigo."/>
-                    </div>
-                    <div class="form-group">
-                        <label for="edit_periodico" class="col-form-label">Título Periódico:</label>
-                        <input type="text"  class="form-control" id="edit_periodico" maxlength="200" name="edit_periodico" title="Digite o Título Periódico."/>
-                    </div>
                     <div class="row">
+                        <input type="hidden" name="edit_cod" id="edit_cod"/>
                         <div class="form-group col-xs-6">
-                            <label for="edit_base" class="col-form-label">Base:</label>
-                            <input id="edit_base" class="form-control input-group-lg" maxlength="100" type="text" name="edit_base"/>
+                            <label for="edit_origem" class="col-form-label">Origem da Produção: <label style="color:red">*</label></label>
+                            <input type="text" class="form-control obg" id="edit_origem" name="edit_origem" maxlength="200" />
                         </div>
-
                         <div class="form-group col-xs-6">
-                            <label for="edit_datapesq" class="col-form-label">Data da Pesquisa:</label>
-                            <input id="edit_datapesq" class="form-control input-group-lg" type="date" name="edit_datapesq"/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-xs-6">
-                            <label for="edit_palavra_chave" class="col-form-label">Palavra-Chave:</label>
-                            <input id="edit_palavra_chave" class="form-control input-group-lg" maxlength="100" type="text" name="edit_palavra_chave"/>
-                        </div>
-
-                        <div class="form-group col-xs-6">
-                            <label for="edit_endereco" class="col-form-label">Endereço de Acesso:</label>
-                            <input id="edit_endereco" class="form-control input-group-lg" maxlength="100" type="text" name="edit_endereco"/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-xs-2">
-                            <label for="edit_pginicial" class="col-form-label">Pag Inícial:</label>
-                            <input id="edit_pginicial" class="form-control input-group-lg" type="text" name="edit_pginicial" data-mask="00000"/>
-                        </div>
-
-                        <div class="form-group col-xs-2">
-                            <label for="edit_pgfim" class="col-form-label">Pag Final:</label>
-                            <input id="edit_pgfim" class="form-control input-group-lg" type="text" name="edit_pgfim" data-mask="00000"/>
-                        </div>
-                        
-                        <div class="form-group col-xs-2">
-                            <label for="edit_volume" class="col-form-label">Volume:</label>
-                            <input id="edit_volume" class="form-control input-group-lg" type="text" name="edit_volume" data-mask="00000"/>
-                        </div>
-
-                        <div class="form-group col-xs-2">
-                            <label for="edit_numero" class="col-form-label">Numero:</label>
-                            <input id="edit_numero" class="form-control input-group-lg" type="text" name="edit_numero" data-mask="00000"/>
-                        </div>
-                        
-                        <div class="form-group col-xs-2">
-                            <label for="edit_mes" class="col-form-label">Mês:</label>
-                            <input id="edit_mes" class="form-control input-group-lg" type="text" name="edit_mes" data-mask="00" placeholder="Mês"/>
-                        </div>
-                        
-                        <div class="form-group col-xs-2">
-                            <label for="edit_ano" class="col-form-label">Ano:</label>
-                            <input id="edit_ano" class="form-control input-group-lg" type="text" name="edit_ano" data-mask="0000" placeholder="Ano"/>
+                            <label for="edit_modalidade" class="col-form-label">Modalidade: <label style="color:red">*</label></label>
+                            <input id="edit_modalidade" class="obg form-control input-group-lg" maxlength="100" type="text" name="edit_modalidade"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="edit_autor "class="col-form-label">Autor(es):</label>
-                        <input type="text"  class="form-control" id="edit_autor" maxlength="200" name="edit_autor" title="Digite o(s) Autor(s)."/>
+                        <label for="edit_titulo" class="col-form-label">Título: <label style="color:red">*</label></label>
+                        <input type="text" class="form-control obg" id="edit_titulo" maxlength="200" name="edit_titulo" />
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="edit_formato" class="col-form-label">Formato da Publicação:</label>
+                            <input type="text" class="form-control" id="edit_formato" name="edit_formato" maxlength="200" />
+                        </div>
+                        <div class="form-group col-xs-6">
+                            <label for="edit_publicacao" class="col-form-label">Data da Publicação: <label style="color:red">*</label></label>
+                            <input id="edit_publicacao" class="obg form-control input-group-lg" type="date" name="edit_publicacao"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="edit_nome" class="col-form-label">Nome:</label>
+                            <input id="edit_nome" class="form-control input-group-lg" maxlength="100" type="text" name="edit_nome"/>
+                        </div>
+
+                        <div class="form-group col-xs-6">
+                            <label for="edit_qualis" class="col-form-label"><i>Qualis</i>:</label>
+                            <input id="edit_qualis" class="form-control input-group-lg" maxlength="100" type="text" name="edit_qualis"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="edit_status" class="col-form-label">Status:</label>
+                            <select id="edit_status" name="edit_status" class="form-control" name="filtros">
+                                <option value="Em Preparação">Em Preparação</option>
+                                <option value="Submetido">Submetido</option>
+                                <option value="Aprovado">Aprovado</option>
+                                <option value="Não Aprovado">Não Aprovado</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-xs-6">
+                            <label for="edit_link" class="col-form-label"><i>Link</i>:</label>
+                            <input id="edit_link" class="form-control input-group-lg" maxlength="100" type="text" name="edit_link"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_autor "class="col-form-label">Autor(es): <label style="color:red">*</label></label>
+                        <input type="text"  class="form-control obg" id="edit_autor" maxlength="200" name="edit_autor" />
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_esclarecimento"class="col-form-label">Esclarecimentos:</label>
+                        <input type="text"  class="form-control" id="edit_esclarecimento" maxlength="200" name="edit_esclarecimento" />
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_arquivo" class="col-form-label">Arquivo: (pdf,doc,docx)</label>
+                        <input type="file" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="form-control" name="edit_arquivo" id="edit_arquivo">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -269,7 +267,7 @@
         if(!validaParametros(data)){
             Swal.fire({
                 title: 'Atenção!',
-                html: "Digite todos os campos.",
+                html: "Digite todos os campos obrigatórios (*)",
                 type: 'info'
             });
             return false;
@@ -327,25 +325,24 @@
                 retorno = JSON.parse(retorno);
                 Swal.close();
                 if(retorno.response){
-                    $('#edit_cod').val(retorno.result['cod']);
-                    $('#edit_base').val(retorno.result['base']),
-                    $('#edit_datapesq').val(retorno.result['dt_pesq']),
-                    $('#edit_periodico').val(retorno.result['titulo_periodico']),
-                    $('#edit_ano').val(retorno.result['ano']),
-                    $('#edit_mes').val(retorno.result['mes']),
-                    $('#edit_volume').val(retorno.result['volume']),
-                    $('#edit_numero').val(retorno.result['numero']),
-                    $('#edit_artigo').val(retorno.result['titulo_artigo']),
+                    $('#edit_cod').val(retorno.result['cod_producao']);
+                    $('#edit_origem').val(retorno.result['origem']);
+                    $('#edit_titulo').val(retorno.result['titulo']),
                     $('#edit_autor').val(retorno.result['autor']),
-                    $('#edit_pginicial').val(retorno.result['pagina_inicial']),
-                    $('#edit_pgfim').val(retorno.result['pagina_final']),
-                    $('#edit_palavra_chave').val(retorno.result['palavra_chave']),
-                    $('#edit_endereco').val(retorno.result['endereco_acesso']),
+                    $('#edit_modalidade').val(retorno.result['modalidade']),
+                    $('#edit_nome').val(retorno.result['nome']),
+                    $('#edit_qualis').val(retorno.result['qualis']),
+                    $('#edit_formato').val(retorno.result['formato']),
+                    $('#edit_publicacao').val(retorno.result['dt_pub']),
+                    $('#edit_link').val(retorno.result['link']),
+                    $('#edit_esclarecimento').val(retorno.result['esclarecimentos']),
+                    $('#edit_formato').val(retorno.result['formato']),
+                    $('#edit_status').val(retorno.result['status']),
                     $('#modalEdit').modal('show');
                 }else{
                     Swal.fire({
                         title: 'Atenção!',
-                        html: 'Material não encontrado.',
+                        html: 'Produção não encontrada.',
                         type: 'info'
                     });
                 }
@@ -355,35 +352,21 @@
     
     function edit(){
         
-        var data = {
-            cod                 : $('#edit_cod').val(),
-            base                : $('#edit_base').val(),
-            data_pesq           : $('#edit_datapesq').val(),
-            titulo_periodico    : $('#edit_periodico').val(),
-            ano                 : $('#edit_ano').val(),
-            mes                 : $('#edit_mes').val(),
-            volume              : $('#edit_volume').val(),
-            numero              : $('#edit_numero').val(),
-            titulo_artigo       : $('#edit_artigo').val(),
-            autor               : $('#edit_autor').val(),
-            pginicial           : $('#edit_pginicial').val(),
-            pgfim               : $('#edit_pgfim').val(),
-            palavra_chave       : $('#edit_palavra_chave').val(),
-            endereco_acesso     : $('#edit_endereco').val(),
-            interesse           : '5'
-        };
-        console.log(data);
+        var data = {};
+        $.each($("#formEdit .obg").serializeArray(), function (_, field) {
+            data[field.name] = field.value;
+        });
         
         if(!validaParametros(data)){
             Swal.fire({
                 title: 'Atenção!',
-                html: "Digite todos os campos.",
+                html: "Digite todos os campos obrigatórios (*)",
                 type: 'info'
             });
             return false;
         }
         
-        if(!validarData(data.data_pesq)){
+        if(!validarData(data.edit_publicacao)){
             Swal.fire({
                 title: 'Atenção!',
                 html: "A data de pesquisa não é válida.",
@@ -392,26 +375,34 @@
             return false;
         }
         
-        $.ajax({
-            url: '/quadro-leitura/edit',
-            data: data,
-            type: 'json',
-            method: 'POST',
-            beforeSend: function () {
-                loader();
-            },
+        var options = {
+            url: '/producao-grupo/edit',
+            type: 'POST',
+            dataType: 'json',
+            cache: false,
             success: function (retorno) {
-                retorno = JSON.parse(retorno);
-                Swal.fire({
-                    title: 'Sucesso!',
-                    html: retorno.msg,
-                    type: 'success',
-                    onClose: () => {
-                        window.location.reload();
-                    }
-                });
+                if (retorno.response) {
+                    Swal.fire({
+                        title: 'Sucesso!',
+                        html: retorno.msg,
+                        type: 'success',
+                        onClose: () => {
+                            window.location.reload();
+                        }
+                    });
+                        
+                }else{
+                    Swal.fire({
+                        title: 'Atenção!',
+                        html: retorno.msg,
+                        type: 'warning'
+                    });
+                }
             }
-        });
+        };
+
+        $('#formEdit').ajaxSubmit(options);
+        return false;
     }
     
     function showDelete(cod){

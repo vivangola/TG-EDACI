@@ -76,7 +76,12 @@ class QuadroDisponibilidadeController extends AbstractActionController
             $params['dtini'] = $params['date'];
             $params['dtfim'] = $params['date'];
             
-            $sql = "insert into disp_quadro_disponibilidade (cod_usuario_fk,data_criacao,dataini,datafim,horaini,horafim,tipo) values (:user,now(),:dtini,:dtfim,:hrini,:hrfim,:tipo)";
+            $sqlCod = "select cod_registro+1 as cod from disp_quadro_disponibilidade order by cod_registro desc limit 1";
+            $cod = $funcoes->executarSQL($sqlCod, [],'cod_registro')['cod'];
+            
+            $params['cod'] = $cod ? $cod : 1;
+            
+            $sql = "insert into disp_quadro_disponibilidade (cod_registro,cod_usuario_fk,data_criacao,dataini,datafim,horaini,horafim,tipo) values (:cod,:user,now(),:dtini,:dtfim,:hrini,:hrfim,:tipo)";
             $funcoes->executarSQL($sql,$params);
         }
         
@@ -92,9 +97,14 @@ class QuadroDisponibilidadeController extends AbstractActionController
             );
             
             $params['date'] = $params['dtini'];
+            $sqlCod = "select cod_registro+1 as cod from disp_quadro_disponibilidade order by cod_registro desc limit 1";
+            $cod = $funcoes->executarSQL($sqlCod, [],'cod_registro')['cod'];
+            
+            $params['cod'] = $cod ? $cod : 1;
+                        
             while (strtotime($params['date']) <= strtotime($params['dtfim'])) {
                 
-                $sql = "insert into disp_quadro_disponibilidade (cod_usuario_fk,data_criacao,dataini,datafim,horaini,horafim,tipo) values (:user,now(),:date,:date,:hrini,:hrfim,:tipo)";
+                $sql = "insert into disp_quadro_disponibilidade (cod_registro,cod_usuario_fk,data_criacao,dataini,datafim,horaini,horafim,tipo) values (:cod,:user,now(),:date,:date,:hrini,:hrfim,:tipo)";
                 $funcoes->executarSQL($sql,$params);
                 
                 $params['date'] = date ("Y-m-d", strtotime("+1 day", strtotime($params['date'])));
@@ -233,6 +243,100 @@ class QuadroDisponibilidadeController extends AbstractActionController
         $sql = "update disp_quadro_disponibilidade_color set color=:cor where cod_usuario =:user";
         $funcoes->executarSQL($sql,$params);
         
+        return $response->setContent(Json::encode(array('response' => true)));
+    }
+    
+    public function showEditAction() {
+        $funcoes = new Funcoes($this);
+        $sessao = new Container("usuario");
+
+        $response = $this->getResponse();
+        $request = $this->getRequest();
+
+        if ($request->isPost()) {
+            $params = array(
+                'usuario' => $sessao->cod_usuario,
+                'cod' => $this->params()->fromPost('cod', '-1'),
+            );
+
+            $sql = "select cod_registro, date_format(dataini, '%Y-%m-%d') as inicio, date_format(horaini, '%H:%i') as horaini, date_format(horafim, '%H:%i') as horafim, tipo from disp_quadro_disponibilidade where cod_registro = :cod order by dataini asc";
+            $result = $funcoes->executarSQL($sql, $params, 'fetch');
+          
+            $sql = "select date_format(datafim, '%Y-%m-%d') as fim from disp_quadro_disponibilidade where cod_registro = :cod order by dataini desc";
+            $result['fim'] = $funcoes->executarSQL($sql, $params, 'fetch')['fim'];
+            
+            return $response->setContent(Json::encode(array('response' => true, 'result' => $result)));
+        } else {
+            header('Location: /quadro-disponibilidade');
+            exit;
+        }
+    }
+    
+    public function editAction(){
+        $funcoes = new Funcoes($this);
+        $sessao = new Container("usuario");
+        
+        $response = $this->getResponse();
+        
+        $tipo = $this->params()->fromPost('tipo','-1');
+        $cod = $this->params()->fromPost('cod');
+        
+        $sqlCod = "delete from disp_quadro_disponibilidade where cod_registro = :cod";
+        $funcoes->executarSQL($sqlCod, ['cod' => $cod]);
+        
+        if($tipo == 1){
+            
+            $params = array(
+                'user'  => $sessao->cod_usuario,
+                'tipo'  => $tipo, 
+                'date'  => $this->params()->fromPost('dt'),
+                'hrini' => $this->params()->fromPost('hrini'),
+                'hrfim' => $this->params()->fromPost('hrfim'),
+            );
+            
+            $params['dtini'] = $params['date'];
+            $params['dtfim'] = $params['date'];
+                        
+            $params['cod'] = $cod;
+            
+            $sql = "insert into disp_quadro_disponibilidade (cod_registro,cod_usuario_fk,data_criacao,dataini,datafim,horaini,horafim,tipo) values (:cod,:user,now(),:dtini,:dtfim,:hrini,:hrfim,:tipo)";
+            $funcoes->executarSQL($sql, $params);
+        }
+        
+        if($tipo == 2){
+            
+            $params = array(
+                'user'  => $sessao->cod_usuario,
+                'tipo'  => $tipo, 
+                'dtini' => $this->params()->fromPost('dtini', ''),
+                'dtfim' => $this->params()->fromPost('dtfim', ''),
+                'hrini' => $this->params()->fromPost('hrini', ''),
+                'hrfim' => $this->params()->fromPost('hrfim', ''),
+            );
+            
+            $params['date'] = $params['dtini'];
+            $params['cod'] = $cod;
+                        
+            while (strtotime($params['date']) <= strtotime($params['dtfim'])) {
+                
+                $sql = "insert into disp_quadro_disponibilidade (cod_registro,cod_usuario_fk,data_criacao,dataini,datafim,horaini,horafim,tipo) values (:cod,:user,now(),:date,:date,:hrini,:hrfim,:tipo)";
+                $funcoes->executarSQL($sql,$params);
+                
+                $params['date'] = date ("Y-m-d", strtotime("+1 day", strtotime($params['date'])));
+            }
+            
+        }
+        
+        return $response->setContent(Json::encode(array('response' => true)));
+    }
+    
+    public function deleteAction(){
+        $funcoes = new Funcoes($this);
+        $response = $this->getResponse();
+        
+        $sqlCod = "delete from disp_quadro_disponibilidade where cod_registro = :cod";
+        $funcoes->executarSQL($sqlCod, ['cod' => $this->params()->fromPost('cod')]);
+                
         return $response->setContent(Json::encode(array('response' => true)));
     }
 }

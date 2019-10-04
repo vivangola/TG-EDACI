@@ -89,23 +89,22 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="escolher-tipo">Adicionar:</label>
                     <div id="escolher-tipo" class="row">
-                        <div class="col-md-4">
-                            <label class="radio-inline">
-                                <input name="tipo-disp" class='tipo-disp' id="tipo-disp" value="1" type="radio" />Em um dia especifico.
+                        <div class="col-md-6">
+                            <label class="radio-inline pull-right">
+                                <input name="tipo-disp" class='tipo-disp' id="tipo-disp" value="1" type="radio" />Por Dia
                             </label>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label class="radio-inline">
-                                <input name="tipo-disp" class='tipo-disp' id="tipo-disp" value="2" type="radio" />Em um período especifico.
+                                <input name="tipo-disp" class='tipo-disp' id="tipo-disp" value="2" type="radio" />Por Período
                             </label>
                         </div>
-                        <div class="col-md-4">
+                        <!--div class="col-md-4">
                             <label class="radio-inline">
                                 <input name="tipo-disp" class='tipo-disp' id="tipo-disp" value="3" type="radio" />Todas as Semanas.
                             </label>
-                        </div>
+                        </div-->
                     </div>
                 </div>
                 <div style="display: none;" id="tipo-disp-1" class='div-tipo-disp'>
@@ -322,6 +321,85 @@
     </div>
 </div>
 
+<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Editar Disponibilidade</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div id="escolher-tipo" class="row">
+                        <div class="col-md-6">
+                            <label class="radio-inline pull-right">
+                                <input name="tipo-disp" class='tipo-disp' id="disp-1" value="1" type="radio" />Por Dia
+                            </label>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="radio-inline">
+                                <input name="tipo-disp" class='tipo-disp' id="disp-2" value="2" type="radio" />Por Período
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: none;" id="edit_tipo-disp-1" class='div-tipo-disp'>
+                    <hr>
+                    <div class="row">
+                        <div class="form-group col-xs-4">
+                            <label for="edit_dt" class="col-form-label">Data:</label>
+                            <input id="edit_dt" required class="form-control input-group-lg" type="date" name="edit_dt" title="Digite a data da reunião."/>
+                        </div>
+
+                        <div class="form-group col-xs-2">
+                            <label for="edit_hini" class="col-form-label">De:</label>
+                            <input id="edit_hini" required class="form-control input-group-lg" type="text" name="edit_hini"  placeholder="00:00" data-mask="00:00" title="Digite o horário da reunião."/>
+                        </div>
+                        
+                        <div class="form-group col-xs-2">
+                            <label for="add_hfim" class="col-form-label">Até:</label>
+                            <input id="edit_hfim" required class="form-control input-group-lg" type="text" name="edit_hfim"  placeholder="00:00" data-mask="00:00" title="Digite o horário da reunião."/>
+                        </div>
+                    </div>
+                </div>
+                <div style="display: none;" id="edit_tipo-disp-2" class='div-tipo-disp'>
+                    <hr>
+                    <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="disp_2_diaini" class="col-form-label">Do dia:</label>
+                            <input id="edit_dini2" required class="form-control input-group-lg" type="date" name="edit_dini2"/>
+                        </div>
+
+                        <div class="form-group col-xs-6">
+                            <label for="disp_2_diafim" class="col-form-label">Até o dia:</label>
+                            <input id="edit_dfim2" required class="form-control input-group-lg" type="date" name="edit_dfim2" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="disp_2_hrini" class="col-form-label">De:</label>
+                            <input id="edit_hini2" required class="form-control input-group-lg" type="text" name="edit_hini2"  placeholder="00:00" data-mask="00:00" />
+                        </div>
+
+                        <div class="form-group col-xs-6">
+                            <label for="disp_2_hrfim" class="col-form-label">Até:</label>
+                            <input id="edit_hfim2" required class="form-control input-group-lg" type="text" name="edit_hfim2"  placeholder="00:00" data-mask="00:00" />
+                        </div>
+                    </div>
+                    <input type="hidden" id="cod_registro">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary-borded2" data-dismiss="modal">Cancelar</button>
+                <button type="submit" onclick="del()" class="btn btn-primary3">Excluir <i class="fa fa-check"></i></button>
+                <button type="submit" onclick="edit()" class="btn btn-primary3">Alterar <i class="fa fa-check"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <link rel="stylesheet" type="text/css" href="/css/calendar/fullcalendar.min.css" />
 <link rel="stylesheet" type="text/css" href="/css/calendar/agenda.css" />
 <script src="/js/calendar/lib/moment.min.js"></script>
@@ -355,7 +433,7 @@
             events: [
                 <?php foreach($disponibilidades as $dados):?>
                     {
-                        codigo:     '<?= $dados['cod'] ?>',
+                        codigo:     '<?= $dados['cod_registro'] ?>',
                         title:      '<?= $dados['usuario'] ?>',
                         start:      '<?= $dados['dataini'] ?>',
                         end:        '<?= $dados['datafim'] ?>',
@@ -368,11 +446,11 @@
                 <?php endforeach; ?>
             ],
             eventClick: function (info) {
-                console.log(info);
             },
             eventRender: function(event, element) {
                 $(element).attr('data-toggle', 'tooltip');
                 $(element).attr('title', event.title + '<br>'+event.inicio+'<br> De '+event.horaini+' até '+event.horafim);
+                $(element).attr('onclick', 'showEdit('+event.codigo+')');
             },
             eventAfterAllRender: function(event){
                 $('[data-toggle="tooltip"]').tooltip({
@@ -380,10 +458,8 @@
                 });  
             },
             viewRender: function(view, element) {
-                console.log(diasJaAdicionados);
                 
                 var b = $('#calendar').fullCalendar('getDate');
-                console.log($(element).get(0));
                 
                 ini = $('#calendar').fullCalendar("getView").start.format();
                 fim = $('#calendar').fullCalendar("getView").end.format();
@@ -397,10 +473,7 @@
                     var yyyy = dia.getFullYear();
 
                     var all = yyyy + '-' + mm + '-' + dd;
-                    
-                    console.log(all);
-                    console.log(diasJaAdicionados.includes(all));
-                    
+                                        
                     if (!diasJaAdicionados.includes(all)){
                         diasJaAdicionados.push(all);
                         var eventos = setUserSemana(all,i);
@@ -645,11 +718,45 @@
             }
         });
            
-        console.log(userSemanas);
     }
     
-    function showAdd(){
-        
+    function showEdit(cod){
+        $.ajax({
+            url: '/quadro-disponibilidade/showEdit',
+            data: {cod : cod},
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                retorno = JSON.parse(retorno);
+                Swal.close();
+                if(retorno.response){
+                    $("#cod_registro").val(retorno.result['cod_registro']);
+                    if(retorno.result['tipo'] == 1){
+                        $('#disp-1').trigger('click');
+                        $('#edit_dt').val(retorno.result['inicio']);
+                        $('#edit_hini').val(retorno.result['horaini']);
+                        $('#edit_hfim').val(retorno.result['horaini']);
+                        
+                    }else{
+                        $('#disp-2').trigger('click');
+                        $('#edit_dini2').val(retorno.result['inicio']);
+                        $('#edit_dfim2').val(retorno.result['fim']);
+                        $('#edit_hini2').val(retorno.result['horaini']);
+                        $('#edit_hfim2').val(retorno.result['horafim'])
+                    }
+                    $('#modalEdit').modal('show');
+                }else{
+                    Swal.fire({
+                        title: 'Atenção!',
+                        html: 'Material não encontrado.',
+                        type: 'info'
+                    });
+                }
+            }
+        });
     }
     
     function add(){
@@ -691,6 +798,15 @@
                 });
                 return false;
             };
+            
+            if($('#add_hini').val().split(':')[0] > $('#add_hfim').val().split(':')[0]){
+                swal.fire({
+                    title : 'Atenção!',
+                    text  : 'Hora inicial deve ser menor que a hora final ',
+                    type  : 'info'
+                });
+                return false;
+            }
             
         }
         
@@ -738,6 +854,15 @@
                 swal.fire({
                     title : 'Atenção!',
                     text  : 'As Horas não são válidas. ',
+                    type  : 'info'
+                });
+                return false;
+            }
+            
+            if($('#disp_2_hrini').val().split(':')[0] > $('#disp_2_hrfim').val().split(':')[0]){
+                swal.fire({
+                    title : 'Atenção!',
+                    text  :  'Hora inicial deve ser menor que a hora final',
                     type  : 'info'
                 });
                 return false;
@@ -857,12 +982,171 @@
         
     }
     
+    function edit(){
+        
+        var tipo = $('.tipo-disp:checked').val();
+        
+        if(tipo == 1){
+            
+            var data = {
+                cod      : $("#cod_registro").val(),
+                tipo     : tipo,
+                dt       : $('#edit_dt').val(),
+                hrini    : $('#edit_hini').val(),
+                hrfim    : $('#edit_hfim').val()
+            };
+            
+            if(!validaParametros(data)){
+                swal.fire({
+                    title : 'Atenção!',
+                    text  : 'Digite todos os campos',
+                    type  : 'info'
+                });
+                return false;
+            };
+            
+            if(!validarHoras(data.hrini)){
+                swal.fire({
+                    title : 'Atenção!',
+                    text  : 'As Horas não são válidas. ',
+                    type  : 'info'
+                });
+                return false;
+            };
+            
+            if(!validarHoras(data.hrfim)){
+                swal.fire({
+                    title : 'Atenção!',
+                    text  : 'As Horas não são válidas. ',
+                    type  : 'info'
+                });
+                return false;
+            };
+            
+            if($('#edit_hini').val().split(':')[0] > $('#edit_hfim').val().split(':')[0]){
+                swal.fire({
+                    title : 'Atenção!',
+                    text  :  'Hora inicial deve ser menor que a hora final',
+                    type  : 'info'
+                });
+                return false;
+            }
+            
+        }
+        
+        if(tipo == 2){
+            
+            var data = {
+                cod     : $("#cod_registro").val(),
+                tipo    : tipo,
+                dtini   : $('#edit_dini2').val(),
+                dtfim   : $('#edit_dfim2').val(),
+                hrini   : $('#edit_hini2').val(),
+                hrfim   : $('#edit_hfim2').val()
+            };
+            
+            if(!validaParametros(data)){
+                swal.fire({
+                    title : 'Atenção!',
+                    text  : 'Digite todos os campos.',
+                    type  : 'info'
+                });
+                return false;
+            };
+            
+            var d1 = new Date(data.dtini);
+            var d2 = new Date(data.dtfim);
+            
+            if(d2.getTime() <= d1.getTime()){
+                swal.fire({
+                    title : 'Atenção!',
+                    text  : 'Digite um período válido.',
+                    type  : 'info'
+                });
+                return false;
+            }
+            
+            if(!validarHoras(data.hrini)){
+                swal.fire({
+                    title : 'Atenção!',
+                    text  : 'As Horas não são válidas. ',
+                    type  : 'info'
+                });
+                return false;
+            }
+            
+            if(!validarHoras(data.hrfim)){
+                swal.fire({
+                    title : 'Atenção!',
+                    text  : 'As Horas não são válidas. ',
+                    type  : 'info'
+                });
+                return false;
+            }
+            
+            if($('#edit_hini2').val().split(':')[0] > $('#edit_hfim2').val().split(':')[0]){
+                swal.fire({
+                    title : 'Atenção!',
+                    text  :  'Hora inicial deve ser menor que a hora final',
+                    type  : 'info'
+                });
+                return false;
+            }
+        }        
+        
+        $.ajax({
+            url: '/quadro-disponibilidade/edit',
+            data: data,
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                Swal.fire({
+                    title: 'Sucesso!',
+                    html: 'Disponibilidade alterada!',
+                    type: 'success',
+                    onClose: () => {
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+    }
+    
+    function del(){
+        
+        $.ajax({
+            url: '/quadro-disponibilidade/delete',
+            data: {
+                cod: $("#cod_registro").val()
+            },
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                Swal.fire({
+                    title: 'Sucesso!',
+                    html: 'Disponibilidade excluída!',
+                    type: 'success',
+                    onClose: () => {
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+    }
+    
     $('.tipo-disp').on('click', function(){
        
        var n = $(this).val();
        
        $('.div-tipo-disp').hide();
        $('#tipo-disp-'+n).show();
+       $('#edit_tipo-disp-'+n).show();
        
     });
     

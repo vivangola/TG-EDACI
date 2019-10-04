@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 03-Out-2019 às 16:32
+-- Generation Time: 04-Out-2019 às 15:17
 -- Versão do servidor: 10.1.38-MariaDB
 -- versão do PHP: 7.3.3
 
@@ -516,32 +516,25 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `us_BuscarDisponibilidadesSemanas_sp
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `us_BuscarDisponibilidades_sp` (IN `cod_usuario` INT)  BEGIN
-    
-	create temporary table finalDisp (cod int, usuario varchar(100), cor varchar(20), dataini datetime, datafim datetime, tipo int, edit int, inicio varchar(50), fim varchar(50), horaini time, horafim time);
-    
-    insert into finalDisp (cod,usuario,cor,dataini,datafim,tipo,edit,inicio,fim,horaini,horafim)
-    select cod_disponibilidade, b.nome , c.color,  CONCAT(dataini,' ',horaini) as dtini, CONCAT(datafim,' ',horafim) as dtfim, '1', case when cod_usuario = cod_usuario_fk then 1 else 0 end  ,
-		date_format(dataini, "%d/%m/%Y") as inicio, CONCAT(date_format(datafim, "%d/%m/%Y"), ' ', horafim) as fim,
-        horaini,horafim
-    from disp_quadro_disponibilidade a 
-		inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
-        inner join disp_quadro_disponibilidade_color c on a.cod_usuario_fk = c.cod_usuario
-    where tipo = 1;
-    
-    
-    insert into finalDisp (cod,usuario,cor,dataini,datafim,tipo,edit,inicio,fim,horaini,horafim)
-    select cod_disponibilidade, b.nome , c.color,  CONCAT(dataini,' ',horaini) as dtini, CONCAT(datafim,' ',horafim) as dtfim, '1', case when cod_usuario = cod_usuario_fk then 1 else 0 end  ,
-		date_format(dataini, "%d/%m/%Y") as inicio, CONCAT(date_format(datafim, "%d/%m/%Y"), ' ', horafim) as fim,
-        horaini,horafim
-    from disp_quadro_disponibilidade a 
-		inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
-        inner join disp_quadro_disponibilidade_color c on a.cod_usuario_fk = c.cod_usuario
-    where tipo = 2;
-    
-    
-    select * from finalDisp;
-    
-    drop temporary table finalDisp;
+
+create temporary table finalDisp (cod int, cod_registro int, usuario varchar(100), cor varchar(20), dataini datetime, datafim datetime, tipo int, edit int, inicio varchar(50), fim varchar(50), horaini time, horafim time); 
+
+insert into finalDisp (cod,cod_registro,usuario,cor,dataini,datafim,tipo,edit,inicio,fim,horaini,horafim) 
+select a.cod_disponibilidade, a.cod_registro, b.nome , c.color, CONCAT(dataini,' ',horaini) as dtini, CONCAT(datafim,' ',horafim) as dtfim, '1', case when cod_usuario = cod_usuario_fk then 1 else 0 end , date_format(dataini, "%d/%m/%Y") as inicio, CONCAT(date_format(datafim, "%d/%m/%Y"), ' ', horafim) as fim, horaini,horafim 
+from disp_quadro_disponibilidade a 
+inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario 
+inner join disp_quadro_disponibilidade_color c on a.cod_usuario_fk = c.cod_usuario 
+where tipo = 1; 
+
+insert into finalDisp (cod,cod_registro,usuario,cor,dataini,datafim,tipo,edit,inicio,fim,horaini,horafim) 
+select a.cod_disponibilidade, a.cod_registro, b.nome , c.color, CONCAT(dataini,' ',horaini) as dtini, CONCAT(datafim,' ',horafim) as dtfim, '1', case when cod_usuario = cod_usuario_fk then 1 else 0 end , date_format(dataini, "%d/%m/%Y") as inicio, CONCAT(date_format(datafim, "%d/%m/%Y"), ' ', horafim) as fim, horaini,horafim 
+from disp_quadro_disponibilidade a 
+inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario 
+inner join disp_quadro_disponibilidade_color c on a.cod_usuario_fk = c.cod_usuario 
+where tipo = 2; 
+
+select * from finalDisp; drop temporary table finalDisp; 
+
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarEscolaridade_sp` (IN `filtro` VARCHAR(2), IN `pesquisa` VARCHAR(100), IN `cod_escolaridade` INT)  BEGIN
@@ -984,6 +977,7 @@ INSERT INTO `biblioteca_assunto` (`cod`, `cod_usuario_fk`, `assunto`, `data_incl
 
 CREATE TABLE `disp_quadro_disponibilidade` (
   `cod_disponibilidade` int(11) NOT NULL,
+  `cod_registro` int(11) NOT NULL,
   `cod_usuario_fk` int(11) DEFAULT NULL,
   `data_criacao` datetime DEFAULT NULL,
   `dataini` date DEFAULT NULL,
@@ -1584,183 +1578,8 @@ CREATE TABLE `sys_log_acesso_aplicacao` (
 --
 
 INSERT INTO `sys_log_acesso_aplicacao` (`cod_log`, `cod_usuario`, `cod_aplicacao`, `controller`, `action`, `data`, `ip`, `server`, `params`) VALUES
-(1, 0, NULL, 'Application/Controller/IndexController', 'index', '2019-09-25 12:29:24', '127.0.0.1', 'local', ''),
-(2, 0, NULL, 'Login/Controller/LoginController', 'login', '2019-09-25 12:29:24', '127.0.0.1', 'local', ''),
-(3, 0, NULL, 'Application/Controller/IndexController', 'index', '2019-09-25 12:29:36', '127.0.0.1', 'local', ''),
-(4, 0, NULL, 'Login/Controller/LoginController', 'login', '2019-09-25 12:29:37', '127.0.0.1', 'local', ''),
-(5, 0, 11, 'Quadro/Controller/QuadroLeituraController', 'quadro-leitura', '2019-09-25 12:43:14', '127.0.0.1', 'local', ''),
-(6, 0, NULL, 'Login/Controller/LoginController', 'login', '2019-09-25 12:43:15', '127.0.0.1', 'local', ''),
-(7, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-09-25 12:43:24', '127.0.0.1', 'local', ''),
-(8, 4, 11, 'Quadro/Controller/QuadroLeituraController', 'quadro-leitura', '2019-09-25 12:43:30', '127.0.0.1', 'local', ''),
-(9, 0, NULL, 'Application/Controller/IndexController', 'index', '2019-09-27 11:10:46', '127.0.0.1', 'local', ''),
-(10, 0, NULL, 'Application/Controller/IndexController', 'index', '2019-09-27 11:17:12', '127.0.0.1', 'local', ''),
-(11, 0, NULL, 'Login/Controller/LoginController', 'login', '2019-09-27 11:42:16', '127.0.0.1', 'local', ''),
-(12, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-09-27 11:42:24', '127.0.0.1', 'local', ''),
-(13, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-09-27 11:42:45', '127.0.0.1', 'local', ''),
-(14, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-09-27 11:42:59', '127.0.0.1', 'local', ''),
-(15, 4, 11, 'Quadro/Controller/QuadroLeituraController', 'quadro-leitura', '2019-09-27 11:43:54', '127.0.0.1', 'local', ''),
-(16, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-09-27 11:48:19', '127.0.0.1', 'local', ''),
-(17, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-09-27 11:59:17', '127.0.0.1', 'local', ''),
-(18, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-09-27 12:00:08', '127.0.0.1', 'local', ''),
-(19, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-09-27 12:04:32', '127.0.0.1', 'local', ''),
-(20, 0, NULL, 'Application/Controller/IndexController', 'index', '2019-10-02 08:47:52', '127.0.0.1', 'local', ''),
-(21, 0, NULL, 'Login/Controller/LoginController', 'login', '2019-10-02 08:47:53', '127.0.0.1', 'local', ''),
-(22, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-10-02 08:48:02', '127.0.0.1', 'local', ''),
-(23, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:48:34', '127.0.0.1', 'local', ''),
-(24, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:51:34', '127.0.0.1', 'local', ''),
-(25, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:52:01', '127.0.0.1', 'local', ''),
-(26, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:53:47', '127.0.0.1', 'local', ''),
-(27, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:54:12', '127.0.0.1', 'local', ''),
-(28, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:54:57', '127.0.0.1', 'local', ''),
-(29, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:55:24', '127.0.0.1', 'local', ''),
-(30, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:55:40', '127.0.0.1', 'local', ''),
-(31, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:56:02', '127.0.0.1', 'local', ''),
-(32, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:56:25', '127.0.0.1', 'local', ''),
-(33, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:57:55', '127.0.0.1', 'local', ''),
-(34, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:58:13', '127.0.0.1', 'local', ''),
-(35, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:58:23', '127.0.0.1', 'local', ''),
-(36, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:58:38', '127.0.0.1', 'local', ''),
-(37, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 08:58:51', '127.0.0.1', 'local', ''),
-(38, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:00:10', '127.0.0.1', 'local', ''),
-(39, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:01:30', '127.0.0.1', 'local', ''),
-(40, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:01:49', '127.0.0.1', 'local', ''),
-(41, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:01:58', '127.0.0.1', 'local', ''),
-(42, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:02:24', '127.0.0.1', 'local', ''),
-(43, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:02:37', '127.0.0.1', 'local', ''),
-(44, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:02:57', '127.0.0.1', 'local', ''),
-(45, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:04:02', '127.0.0.1', 'local', ''),
-(46, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:05:00', '127.0.0.1', 'local', ''),
-(47, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:07:17', '127.0.0.1', 'local', ''),
-(48, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:07:39', '127.0.0.1', 'local', ''),
-(49, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:07:48', '127.0.0.1', 'local', ''),
-(50, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:08:38', '127.0.0.1', 'local', ''),
-(51, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:14:37', '127.0.0.1', 'local', ''),
-(52, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:16:54', '127.0.0.1', 'local', ''),
-(53, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-02 09:17:16', '127.0.0.1', 'local', ''),
-(54, 0, NULL, 'Application/Controller/IndexController', 'index', '2019-10-02 11:37:44', '127.0.0.1', 'local', ''),
-(55, 0, NULL, 'Login/Controller/LoginController', 'login', '2019-10-02 11:37:45', '127.0.0.1', 'local', ''),
-(56, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-10-02 11:37:52', '127.0.0.1', 'local', ''),
-(57, 4, 2, 'Quadro/Controller/BibliotecaController', 'biblioteca', '2019-10-02 11:38:09', '127.0.0.1', 'local', ''),
-(58, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 11:38:16', '127.0.0.1', 'local', ''),
-(59, 4, 1, 'Quadro/Controller/AtasController', 'atas', '2019-10-02 11:38:38', '127.0.0.1', 'local', ''),
-(60, 4, 13, 'Quadro/Controller/PlanoAtividadesController', 'atividades', '2019-10-02 11:38:45', '127.0.0.1', 'local', ''),
-(61, 4, 13, 'Quadro/Controller/PlanoAtividadesController', 'atividades', '2019-10-02 11:39:03', '127.0.0.1', 'local', ''),
-(62, 4, 1, 'Quadro/Controller/AtasController', 'atas', '2019-10-02 11:43:02', '127.0.0.1', 'local', ''),
-(63, 4, 2, 'Quadro/Controller/BibliotecaController', 'biblioteca', '2019-10-02 11:43:13', '127.0.0.1', 'local', ''),
-(64, 4, 11, 'Quadro/Controller/QuadroLeituraController', 'quadro-leitura', '2019-10-02 11:43:45', '127.0.0.1', 'local', ''),
-(65, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-10-02 11:53:55', '127.0.0.1', 'local', ''),
-(66, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 11:55:51', '127.0.0.1', 'local', ''),
-(67, 4, 30, 'Quadro/Controller/AssuntoController', 'assunto', '2019-10-02 12:23:15', '127.0.0.1', 'local', ''),
-(68, 4, 11, 'Quadro/Controller/QuadroLeituraController', 'quadro-leitura', '2019-10-02 12:23:25', '127.0.0.1', 'local', ''),
-(69, 4, 3, 'Cadastro/Controller/PreCadastroController', 'pre-cadastro', '2019-10-02 12:23:30', '127.0.0.1', 'local', ''),
-(70, 4, 2, 'Quadro/Controller/BibliotecaController', 'biblioteca', '2019-10-02 12:23:32', '127.0.0.1', 'local', ''),
-(71, 4, 30, 'Quadro/Controller/AssuntoController', 'assunto', '2019-10-02 12:23:48', '127.0.0.1', 'local', ''),
-(72, 4, 30, 'Quadro/Controller/AssuntoController', 'assunto', '2019-10-02 12:23:57', '127.0.0.1', 'local', ''),
-(73, 4, 2, 'Quadro/Controller/BibliotecaController', 'biblioteca', '2019-10-02 12:33:09', '127.0.0.1', 'local', ''),
-(74, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-10-02 14:36:07', '127.0.0.1', 'local', ''),
-(75, 0, NULL, 'Application/Controller/IndexController', 'index', '2019-10-02 15:11:42', '127.0.0.1', 'local', ''),
-(76, 0, NULL, 'Login/Controller/LoginController', 'login', '2019-10-02 15:11:43', '127.0.0.1', 'local', ''),
-(77, 0, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 15:11:49', '127.0.0.1', 'local', ''),
-(78, 0, NULL, 'Login/Controller/LoginController', 'login', '2019-10-02 15:11:50', '127.0.0.1', 'local', ''),
-(79, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-10-02 15:12:02', '127.0.0.1', 'local', ''),
-(80, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 15:12:14', '127.0.0.1', 'local', ''),
-(81, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 15:15:49', '127.0.0.1', 'local', ''),
-(82, 4, 1, 'Quadro/Controller/AtasController', 'atas', '2019-10-02 15:15:55', '127.0.0.1', 'local', ''),
-(83, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 15:15:59', '127.0.0.1', 'local', ''),
-(84, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 15:22:35', '127.0.0.1', 'local', ''),
-(85, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 15:22:58', '127.0.0.1', 'local', ''),
-(86, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 15:28:15', '127.0.0.1', 'local', ''),
-(87, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 15:34:40', '127.0.0.1', 'local', ''),
-(88, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 15:44:25', '127.0.0.1', 'local', ''),
-(89, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 15:44:57', '127.0.0.1', 'local', ''),
-(90, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 15:45:17', '127.0.0.1', 'local', ''),
-(91, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:06:04', '127.0.0.1', 'local', ''),
-(92, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:17:56', '127.0.0.1', 'local', ''),
-(93, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:20:28', '127.0.0.1', 'local', ''),
-(94, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:22:34', '127.0.0.1', 'local', ''),
-(95, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:23:48', '127.0.0.1', 'local', ''),
-(96, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-10-02 16:39:16', '127.0.0.1', 'local', ''),
-(97, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:44:35', '127.0.0.1', 'local', ''),
-(98, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:44:47', '127.0.0.1', 'local', ''),
-(99, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:46:31', '127.0.0.1', 'local', ''),
-(100, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:47:00', '127.0.0.1', 'local', ''),
-(101, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:49:31', '127.0.0.1', 'local', ''),
-(102, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:49:36', '127.0.0.1', 'local', ''),
-(103, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:49:44', '127.0.0.1', 'local', ''),
-(104, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:49:50', '127.0.0.1', 'local', ''),
-(105, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:52:16', '127.0.0.1', 'local', ''),
-(106, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:52:30', '127.0.0.1', 'local', ''),
-(107, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 16:53:38', '127.0.0.1', 'local', ''),
-(108, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-02 17:11:04', '127.0.0.1', 'local', ''),
-(109, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-10-03 08:32:22', '127.0.0.1', 'local', ''),
-(110, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 08:32:45', '127.0.0.1', 'local', ''),
-(111, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 08:32:51', '127.0.0.1', 'local', ''),
-(112, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 08:32:56', '127.0.0.1', 'local', ''),
-(113, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 08:33:20', '127.0.0.1', 'local', ''),
-(114, 4, NULL, 'Quadro/Controller/ProducaoGrupoController', 'not-found', '2019-10-03 08:33:33', '127.0.0.1', 'local', '{\"cod\":\"4\"}'),
-(115, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 08:59:23', '127.0.0.1', 'local', ''),
-(116, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 08:59:38', '127.0.0.1', 'local', ''),
-(117, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:11:41', '127.0.0.1', 'local', ''),
-(118, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:12:24', '127.0.0.1', 'local', ''),
-(119, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:12:55', '127.0.0.1', 'local', ''),
-(120, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:13:10', '127.0.0.1', 'local', ''),
-(121, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:13:47', '127.0.0.1', 'local', ''),
-(122, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:16:28', '127.0.0.1', 'local', ''),
-(123, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:26:01', '127.0.0.1', 'local', ''),
-(124, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:28:11', '127.0.0.1', 'local', ''),
-(125, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:29:30', '127.0.0.1', 'local', ''),
-(126, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:30:36', '127.0.0.1', 'local', ''),
-(127, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:30:58', '127.0.0.1', 'local', ''),
-(128, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:31:41', '127.0.0.1', 'local', ''),
-(129, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:32:32', '127.0.0.1', 'local', ''),
-(130, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:34:07', '127.0.0.1', 'local', ''),
-(131, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:34:25', '127.0.0.1', 'local', ''),
-(132, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:34:46', '127.0.0.1', 'local', ''),
-(133, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:34:51', '127.0.0.1', 'local', ''),
-(134, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:36:08', '127.0.0.1', 'local', ''),
-(135, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:36:38', '127.0.0.1', 'local', ''),
-(136, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:37:11', '127.0.0.1', 'local', ''),
-(137, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:37:27', '127.0.0.1', 'local', ''),
-(138, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:37:49', '127.0.0.1', 'local', ''),
-(139, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:38:35', '127.0.0.1', 'local', ''),
-(140, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:39:28', '127.0.0.1', 'local', ''),
-(141, 4, 11, 'Quadro/Controller/QuadroLeituraController', 'quadro-leitura', '2019-10-03 09:39:42', '127.0.0.1', 'local', '{\"pesquisa\":\"\",\"filtros\":\"-1\"}'),
-(142, 4, 11, 'Quadro/Controller/QuadroLeituraController', 'quadro-leitura', '2019-10-03 09:39:58', '127.0.0.1', 'local', '{\"pesquisa\":\"a\",\"filtros\":\"1\"}'),
-(143, 4, 11, 'Quadro/Controller/QuadroLeituraController', 'quadro-leitura', '2019-10-03 09:40:02', '127.0.0.1', 'local', '{\"pesquisa\":\"e\",\"filtros\":\"1\"}'),
-(144, 4, 11, 'Quadro/Controller/QuadroLeituraController', 'quadro-leitura', '2019-10-03 09:40:25', '127.0.0.1', 'local', '{\"pesquisa\":\"e\",\"filtros\":\"1\"}'),
-(145, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:40:30', '127.0.0.1', 'local', ''),
-(146, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:40:32', '127.0.0.1', 'local', '{\"pesquisa\":\"\",\"filtros\":\"-1\"}'),
-(147, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:40:39', '127.0.0.1', 'local', '{\"pesquisa\":\"a\",\"filtros\":\"1\"}'),
-(148, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:40:45', '127.0.0.1', 'local', '{\"pesquisa\":\"or\",\"filtros\":\"1\"}'),
-(149, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:40:52', '127.0.0.1', 'local', '{\"pesquisa\":\"or\",\"filtros\":\"3\"}'),
-(150, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:40:58', '127.0.0.1', 'local', '{\"pesquisa\":\"ors\",\"filtros\":\"3\"}'),
-(151, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:41:02', '127.0.0.1', 'local', '{\"pesquisa\":\"ors\",\"filtros\":\"5\"}'),
-(152, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:41:59', '127.0.0.1', 'local', '{\"pesquisa\":\"ors\",\"filtros\":\"5\"}'),
-(153, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:42:10', '127.0.0.1', 'local', '{\"pesquisa\":\"juju\",\"filtros\":\"5\"}'),
-(154, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:43:19', '127.0.0.1', 'local', '{\"pesquisa\":\"juju\",\"filtros\":\"5\"}'),
-(155, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:43:31', '127.0.0.1', 'local', '{\"pesquisa\":\"juju\",\"filtros\":\"4\"}'),
-(156, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:43:37', '127.0.0.1', 'local', '{\"pesquisa\":\"samd\",\"filtros\":\"4\"}'),
-(157, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 09:43:43', '127.0.0.1', 'local', '{\"pesquisa\":\"sand\",\"filtros\":\"4\"}'),
-(158, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-03 09:43:49', '127.0.0.1', 'local', ''),
-(159, 4, 27, 'Application/Controller/PerfilController', 'perfil', '2019-10-03 09:44:40', '127.0.0.1', 'local', ''),
-(160, 4, 13, 'Quadro/Controller/PlanoAtividadesController', 'atividades', '2019-10-03 11:22:49', '127.0.0.1', 'local', ''),
-(161, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 11:22:49', '127.0.0.1', 'local', ''),
-(162, 4, 15, 'Quadro/Controller/ProducaoGrupoController', 'producao-grupo', '2019-10-03 11:26:10', '127.0.0.1', 'local', ''),
-(163, 4, 30, 'Quadro/Controller/AssuntoController', 'assunto', '2019-10-03 11:27:50', '127.0.0.1', 'local', ''),
-(164, 4, 30, 'Quadro/Controller/AssuntoController', 'assunto', '2019-10-03 11:27:58', '127.0.0.1', 'local', ''),
-(165, 4, 30, 'Quadro/Controller/AssuntoController', 'assunto', '2019-10-03 11:28:20', '127.0.0.1', 'local', ''),
-(166, 4, 1, 'Quadro/Controller/AtasController', 'atas', '2019-10-03 11:28:23', '127.0.0.1', 'local', ''),
-(167, 4, 2, 'Quadro/Controller/BibliotecaController', 'biblioteca', '2019-10-03 11:28:26', '127.0.0.1', 'local', ''),
-(168, 4, 3, 'Cadastro/Controller/PreCadastroController', 'pre-cadastro', '2019-10-03 11:28:30', '127.0.0.1', 'local', ''),
-(169, 4, 12, 'Quadro/Controller/EscolaridadeController', 'escolaridade', '2019-10-03 11:28:40', '127.0.0.1', 'local', ''),
-(170, 4, 13, 'Quadro/Controller/PlanoAtividadesController', 'atividades', '2019-10-03 11:28:44', '127.0.0.1', 'local', ''),
-(171, 4, 13, 'Quadro/Controller/PlanoAtividadesController', 'atividades', '2019-10-03 11:28:59', '127.0.0.1', 'local', ''),
-(172, 4, 14, 'Quadro/Controller/PlanoMetasController', 'plano-metas', '2019-10-03 11:29:02', '127.0.0.1', 'local', ''),
-(173, 4, 8, 'Quadro/Controller/QuadroAvisoController', 'avisos', '2019-10-03 11:29:23', '127.0.0.1', 'local', ''),
-(174, 4, 9, 'Quadro/Controller/QuadroDisponibilidadeController', 'quadro-disponibilidade', '2019-10-03 11:29:28', '127.0.0.1', 'local', ''),
-(175, 4, 10, 'Quadro/Controller/EventosController', 'eventos', '2019-10-03 11:29:39', '127.0.0.1', 'local', ''),
-(176, 4, 11, 'Quadro/Controller/QuadroLeituraController', 'quadro-leitura', '2019-10-03 11:29:44', '127.0.0.1', 'local', ''),
-(177, 4, 9, 'Quadro/Controller/QuadroDisponibilidadeController', 'quadro-disponibilidade', '2019-10-03 11:29:52', '127.0.0.1', 'local', '');
+(252, 4, NULL, 'Application/Controller/IndexController', 'index', '2019-10-04 10:17:03', '127.0.0.1', 'local', ''),
+(253, 4, 23, 'Application/Controller/UsuariosController', 'log', '2019-10-04 10:17:07', '127.0.0.1', 'local', '');
 
 -- --------------------------------------------------------
 
@@ -2278,7 +2097,7 @@ ALTER TABLE `biblioteca_assunto`
 -- AUTO_INCREMENT for table `disp_quadro_disponibilidade`
 --
 ALTER TABLE `disp_quadro_disponibilidade`
-  MODIFY `cod_disponibilidade` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cod_disponibilidade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `disp_quadro_disponibilidade_semanas`
@@ -2350,7 +2169,7 @@ ALTER TABLE `nivel_escolaridade`
 -- AUTO_INCREMENT for table `producao_grupo`
 --
 ALTER TABLE `producao_grupo`
-  MODIFY `cod_producao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `cod_producao` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `qst_questao`
@@ -2428,7 +2247,7 @@ ALTER TABLE `sys_arquivos`
 -- AUTO_INCREMENT for table `sys_log_acesso_aplicacao`
 --
 ALTER TABLE `sys_log_acesso_aplicacao`
-  MODIFY `cod_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=178;
+  MODIFY `cod_log` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=254;
 
 --
 -- AUTO_INCREMENT for table `trbl_correcao_trabalho`

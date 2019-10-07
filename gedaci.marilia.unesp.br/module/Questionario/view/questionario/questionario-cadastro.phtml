@@ -69,7 +69,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary-borded2" data-dismiss="modal">Fechar</button>
+                <button type='button' class='btn btn-primary-borded2' onclick="addQuestionario()" style='margin-bottom:2px'>Adicionar <i class="fa fa-plus"></i></button>
             </div>
         </div>
     </div>
@@ -183,6 +183,41 @@
         
     }
     
+    function addQuestionario(){
+        if($('#add_desc').val()){
+            $('#add_desc').attr('readonly',true);
+        }else{
+            Swal.fire({
+                title: 'Atenção!',
+                html: 'Digite a descrição sobre o Questionário.',
+                type: 'info'
+            });
+        }
+        
+        $.ajax({
+            url: '/questionario/cadastro/novoQuestionario',
+            data: {
+                descricao : $('#add_desc').val(),
+                tipo      : 1
+            },
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                Swal.fire({
+                    title: 'Sucesso!',
+                    html: 'Novo questinário cadastrado.',
+                    type: 'success',
+                    onClose: () => {
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+        
+    }
     
     function showEdit(cod){
         $('.edit').hide();

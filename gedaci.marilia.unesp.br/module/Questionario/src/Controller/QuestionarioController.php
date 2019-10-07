@@ -195,7 +195,7 @@ class QuestionarioController extends AbstractActionController
             'usuario'   => $sessao->cod_usuario
         );
         
-        $sql = "call us_buscarQuestionarios_sp (0)";
+        $sql = "call us_buscarQuestionariosAprendizagem_sp (0)";
         $questionarios = $funcoes->executarSQL($sql, $params);
         
         $relatorio->definirColuna('CODIGO', 'cod_questionario', '2', 'center', 't', 'n', 'n');
@@ -246,17 +246,20 @@ class QuestionarioController extends AbstractActionController
     
     public function novoQuestionarioAction(){
         $funcoes = new Funcoes($this);
+        $sessao = new Container("usuario");
         
         $response = $this->getResponse();
         
         $params = array(
-            'questionario'  => $this->params()->fromPost('questionario_desc', '')
+            'usuario'       => $sessao->cod_usuario,
+            'questionario'  => $this->params()->fromPost('descricao', ''),
+            'tipo'          => $this->params()->fromPost('tipo', 0)
         );
         
-        echo "<pre>";
-        var_dump($params);
-        echo "</pre>";
-        exit;
+        $sql = "insert into qst_questionario(descricao, status_questionario, cod_tipo_fk, cod_usuario_fk, data_criacao) values (:questionario, 0, :tipo, :usuario, now())";
+        $funcoes->executarSQL($sql, $params);
+        
+        return $response->setContent(Json::encode(array('response' => true)));
     }
     
     public function buscarQuestionarioAction(){

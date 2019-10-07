@@ -34,6 +34,16 @@ return [
                     ],
                 ],
             ],
+            'questionario-aprendizagem' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route'    => '/questionario/aprendizagem[/:cod_questao]',
+                    'defaults' => [
+                        'controller' => Controller\QuestionarioController::class,
+                        'action'     => 'aprendizagem',
+                    ],
+                ],
+            ],
             'questionario-cadastro' => [
                 'type' => Segment::class,
                 'options' => [

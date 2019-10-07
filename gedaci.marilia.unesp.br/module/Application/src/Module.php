@@ -106,11 +106,21 @@ class Module
             'Cadastro\Controller\CadastroController',
         );
         
-        $pre_cadastro_actions_permitidas = array(
-            'bem-vindo',
-            'inicial',
-            'debug'
-        );
+        if($sessao->situacao == 1){ //bloquear em questionario inicial
+            $pre_cadastro_actions_permitidas = array(
+                'bem-vindo',
+                'inicial',
+                'debug'
+            );
+        }
+        
+        if($sessao->situacao == 2){ //bloquear em meu perfil
+            $pre_cadastro_actions_permitidas = array(
+                'bem-vindo',
+                'perfil',
+                'debug'
+            );
+        }
         
         $params = $controller->params()->fromPost();
         
@@ -138,9 +148,25 @@ class Module
             if(!$funcoes->verificaSessao()){
                 return $controller->redirect()->toUrl("/login");
             }else{
-                if($sessao->tipo_usuario == 0){
+                if($sessao->tipo_usuario == 0){ //se for pré cadastro
+                    if($action != 'bem-vindo'){ // se a action acessada nao for bem vindo
+                        $permissao = $this->verificarPermissao($controller,$aplicacao['cod_aplicacao']); //ver se o novo membro possui permissao à action q está acessando
+                        if(!$permissao){
+                            return $controller->redirect()->toUrl("/bem-vindo");
+                        }
+                    }
                     if(!in_array($action, $pre_cadastro_actions_permitidas)){
                         return $controller->redirect()->toUrl("/bem-vindo");
+                    }
+                }else{// se nao for pré cadastro
+                    if($action == 'bem-vindo' && $action == 'inicial'){//actions bloqueadas para usuarios que nao são pre-cadastro
+                        return $controller->redirect()->toUrl("/");
+                    }
+                    if($nome_controller != 'Application\Controller\IndexController'){// procurar pela permissao se a pagina atual não for index
+                        $permissao = $this->verificarPermissao($controller,$aplicacao['cod_aplicacao']);
+                        if(!$permissao){
+                            return $controller->redirect()->toUrl("/");
+                        }
                     }
                 }
             }
@@ -173,17 +199,40 @@ class Module
         
         $params = array(
             'cod_usuario'   => $sessao->cod_usuario,
-            'tipo_user'     => $sessao->tipo_usuario
+            'tipo_user'     => $sessao->tipo_usuario,
+            'situacao'      => $sessao->situacao
         );
         
-        $sql = "call sys_listarMenu_sp (:cod_usuario,1,:tipo_user)";
+        $sql = "call sys_listarMenu_sp (:cod_usuario,1,:tipo_user,:situacao)";
         $menu = $funcoes->executarSQL($sql, $params);
         
-        $sql = "call sys_listarMenu_sp (:cod_usuario,2,:tipo_user)";
+        $sql = "call sys_listarMenu_sp (:cod_usuario,2,:tipo_user,:situacao)";
         $submenu = $funcoes->executarSQL($sql, $params);
         
         $aplicacoes = array_merge($menu, $submenu);
         
         $controller->layout()->aplicacoes = $aplicacoes;
+    }
+    
+    public function verificarPermissao($controller,$cod_aplicacao){
+        $funcoes = new Funcoes($controller);
+        $sessao = new Container('usuario');
+        
+        $params = array(
+            'cod_usuario'   => $sessao->cod_usuario,
+            'tipo_user'     => $sessao->tipo_usuario,
+            'situacao'      => $sessao->situacao,
+            'cod_aplicacao' => $cod_aplicacao
+        );
+        
+        $sql = "call sys_verificaPermissao_sp(:cod_usuario,:tipo_user,:situacao,:cod_aplicacao)";
+        $result = $funcoes->executarSQL($sql,$params,'');
+        
+        if($result['cod'] != 0){
+            return false;
+        }else{
+            return true;
+        }
+        
     }
 }

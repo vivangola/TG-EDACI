@@ -52,13 +52,15 @@
     </div>
 </div>
 <div class="text-right edit" id="menu-objetiva2" style='display: none;margin-top: 10px;'>
+    <button type="button" class="btn btn-danger" id="btn_deletar_questao" onClick="deletarQuestao();">Deletar Questão <i class="fa fa-times"></i></button>
     <button type="button" class="btn btn-primary3" id="btn_add_dependencia" onClick="addDependencia(1);">Adicionar Dependência <i class="fa fa-plus"></i></button>
-    <button type="button" class="btn btn-primary3" id="btn_cancelar_dependencia" style="display: none;" onClick="cancelarDependencia();">Remover Dependência <i class="fa fa-times"></i></button>
+    <button type="button" class="btn btn-primary3" id="btn_cancelar_dependencia" style="display: none;background:#477482 !important" onClick="cancelarDependencia();">Remover Dependência <i class="fa fa-times"></i></button>
     <button type="button" class="btn btn-primary3" onclick="editFinalizarMsg(1);">Finalizar Alterações <i class="fa fa-check"></i></button>
 </div>
 <div class='text-right edit' id="menu-dissertativa2" style="display:none;margin-top: 10px;">
+    <button type="button" class="btn btn-danger" id="btn_deletar_questao" onClick="deletarQuestao();">Deletar Questão <i class="fa fa-times"></i></button>
     <button type="button" class="btn btn-primary3" id="btn_add_dependencia2" onClick="addDependencia(1);">Adicionar Dependência <i class="fa fa-plus"></i></button>
-    <button type="button" class="btn btn-primary3" id="btn_cancelar_dependencia2" style="display: none;" onClick="cancelarDependencia();">Remover Dependência <i class="fa fa-times"></i></button>
+    <button type="button" class="btn btn-primary3" id="btn_cancelar_dependencia2" style="display: none;background:#477482 !important" onClick="cancelarDependencia();">Remover Dependência <i class="fa fa-times"></i></button>
     <button type="button" class="btn btn-primary3" onclick="editFinalizarMsg(2);">Finalizar Alterações <i class="fa fa-check"></i></button>
 </div>
 
@@ -145,6 +147,41 @@
         });
     }
     
+    function deletarQuestao(){
+        Swal.fire({
+            title: 'Atenção!',
+            html: 'Deseja realmente deletar essa questão?',
+            type: 'info',
+            showCancelButton: true,
+            preConfirm: () => {
+                $.ajax({
+                    url: '/questionario/cadastro/delete-questao',
+                    data: {
+                        cod_questionario: $('#cod_questionario').val(),
+                        cod_questao: $('#cod_questao').val(),
+                    },
+                    type: 'json',
+                    method: 'POST',
+                    beforeSend: function () {
+                        loader();
+                    },
+                    success: function (retorno) {
+                        retorno = JSON.parse(retorno);
+                        $('#perguntas_edit').html(retorno.html);
+                        Swal.fire({
+                            title: 'Sucesso!',
+                            html: 'Questão excluída.',
+                            type: 'success',
+                            onClose: () => {
+                                limparEdit();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+    
     function editAlternativa() {
         html = '<div class="form-group divRemoverResposta" style="text-align:right;">' +
                 '<i class="fa fa-times pointer removerResposta"></i>' +
@@ -169,30 +206,53 @@
             type: 'info',
             showCancelButton: true,
             preConfirm: () => {
+                var dependencia = editVerificaDependencia();
+        
+                if(!dependencia){
+                    return false;
+                }
+
+                if (!$('#edit_desc_resp').val()) {
+                    Swal.fire({
+                        title: 'Atenção!',
+                        html: 'Digite a questão.',
+                        type: 'info'
+                    });
+                    return false;
+                }
+                
                 if(tipo == 1){ // objetiva
+                    var qtdInputs = 0;
+                    $('#edit-respostas-objetiva input').filter(function () {
+                        return $(this).val() != "" ? qtdInputs = qtdInputs + 1 : '';
+                    });
+
+                    if (qtdInputs <= 0) {
+                        Swal.fire({
+                            title: 'Atenção!',
+                            html: 'Coloque alternativas.',
+                            type: 'info'
+                        });
+                        return false;
+                    }
                     editFinalizar();
+                    return;
                 }else{
                     editFinalizar2();
+                    return;
                 }
             }
         });
     }
 
     function editFinalizar() {
-        var qtdInputs = 0;
-        $('#edit-respostas-objetiva input').filter(function () {
-            return $(this).val() != "" ? qtdInputs = qtdInputs + 1 : '';
-        });
         
-
-        if (qtdInputs <= 0) {
-            Swal.fire({
-                title: 'Atenção!',
-                html: 'Coloque alternativas.',
-                type: 'info'
-            });
+        var dependencia = editVerificaDependencia();
+        
+        if(!dependencia){
             return false;
         }
+
 
         var alternativas = {existe : [], nexiste : []};
         
@@ -203,21 +263,6 @@
         $('#edit-respostas-objetiva .alternativa-nao-existente').filter(function () {
             return $(this).val() != "" ? alternativas.nexiste.push($(this).val()) : '';
         });
-        
-        var dependencia = editVerificaDependencia();
-        
-        if(!dependencia){
-            return false;
-        }
-        
-        if (!$('#edit_desc_resp').val()) {
-            Swal.fire({
-                title: 'Atenção!',
-                html: 'Digite a questão.',
-                type: 'info'
-            });
-            return false;
-        }
         
         $.ajax({
             url: '/questionario/cadastro/edit-questao',
@@ -300,6 +345,10 @@
                 limparEdit();
             }
         });
+    }
+    
+    function limparEdit(){
+        $('.edit').hide();
     }
     
     $('#select_questao').on('change', function(){

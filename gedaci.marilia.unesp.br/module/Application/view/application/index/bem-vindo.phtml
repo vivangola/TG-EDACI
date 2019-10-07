@@ -18,14 +18,20 @@ $sessao = new Container('usuario');
                                                 <h1 class="display-4">Olá, <?= $nome_usuario ?>!</h1>
                                                 <hr class="my-4">
                                                 <p class="lead">Bem vindo ao Grupo de Estudos EDACI.</p>
-                                                <p class="lead">Antes de continuar no sistema, precisamos que você responda um questionário criado pelo <b>administrador do grupo</b> e em seguida informe alguns dados pessoais ao sistema.</p>
-                                                <p class="lead">Este processo pode levar em torno de 5-10 minutos para ser completado.</p>
-                                                <br>
-                                                <br>
-                                                <br>
-                                                <p class="lead">
-                                                    <a class="btn btn-primary4 btn-lg" href="/questionario/inicial" role="button">Responder Questionário &nbsp;<i class='fa fa-edit'></i></a>
-                                                </p>
+                                                <?php if($sessao->situacao == 1):?>
+                                                    <p class="lead">Antes de continuar no sistema, precisamos que você responda um questionário criado pelo <b>administrador do grupo</b> e em seguida informe alguns dados pessoais ao sistema.</p>
+                                                    <p class="lead">Este processo pode levar em torno de 5-10 minutos para ser completado.</p>
+                                                    <br>
+                                                    <br>
+                                                    <br>
+                                                    <p class="lead">
+                                                        <a class="btn btn-primary4 btn-lg" href="/questionario/inicial" role="button">Responder Questionário &nbsp;<i class='fa fa-edit'></i></a>
+                                                    </p>
+                                                <?php else:?>
+                                                    <h3 style="color:black;text-shadow: none;">Agradecemos por você ter respondido o Questionário Inicial!</h3>
+                                                    <p style='margin-bottom: 20px;'>Agora que já respondeu o Questinário Inicial, pedimos que você vincule alguns dados pessoais ao seu Perfil.</p>
+                                                    <a class="btn btn-primary4 btn-lg" href="/perfil" role="button">Ir  para o Perfil &nbsp;<i class="fa fa-arrow-right"></i></a>
+                                                <?php endif;?>
                                             </div>
                                         </div>
                                     </div>                                                            	

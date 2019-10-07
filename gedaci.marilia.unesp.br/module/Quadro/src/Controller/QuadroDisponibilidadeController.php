@@ -32,9 +32,6 @@ class QuadroDisponibilidadeController extends AbstractActionController
         $sql = "call us_BuscarDisponibilidades_sp (:user)";
         $disponibilidades = $funcoes->executarSQL($sql, $params);
         
-        $sql = "call us_BuscarDisponibilidadesSemanas_sp (:user)";
-        $semanas = $funcoes->executarSQL($sql, $params);
-        
         $anos = [];
         for($i = date('Y')-5; $i < date('Y')+5; $i++){
             array_push($anos, $i);
@@ -42,7 +39,6 @@ class QuadroDisponibilidadeController extends AbstractActionController
         
         $view = new ViewModel(array(
             'disponibilidades'  => $disponibilidades,
-            'semanas'           => $semanas,
             'meses'             => $meses,
             'anos'              => $anos,
             'color'             => $color,

@@ -145,10 +145,33 @@ class PerfilController extends AbstractActionController {
             $post_data['conta'] = $post_data['conta'] == '' ? 0 : $post_data['conta'];
             $post_data['agencia'] = $post_data['agencia'] == '' ? 0 : $post_data['agencia'];
             $post_data['emp_numero'] = $post_data['emp_numero'] == '' ? 0 : $post_data['emp_numero'];
-            $sql = "UPDATE us_usuario SET nome=:nome,cpf=:cpf,idade=:idade,email=:email1,email2=:email2,nivel_escolaridade_fk=:escolaridade,endereco=:endereco,numero=:num,complemento=:complemento,cidade=:cidade,bairro=:bairro,estado=:estado,cep=:cep,fixo=:fixo,celular=:celular,curso_atual_nome=:curso_nome,curso_atual_serie=:curso_atual_serie,curso_periodo=:curso_periodo,graduacao_nome=:graduacao_nome,graduacao_ano_conclusao=:graduacao_ano_conclusao,graduacao_instituicao=:graduacao_instituicao,pos_graduacao_nome=:pos_graduacao_nome,pos_graduacao_ano=:pos_graduacao_ano,pos_graduacao_instituicao=:pos_graduacao_instituicao,mestrado_nome=:mestrado_nome,mestrado_ano=:mestrado_ano,mestrado_instituicao=:mestrado_instituicao,doutorado_nome=:doutorado_nome,doutorado_ano=:doutorado_ano,doutorado_instituicao=:doutorado_instituicao,estado_civil=:civil,genero=:sexo,data_nascimento=:nascimento, rg=:rg, orgao_emissor=:emissor, ra=:ra, skype=:skype,whatsapp=:celular,facebook=:facebook,lattes=:lattes,num_banco=:banco,num_conta=:conta,num_agencia=:agencia,emp_nome=:emp_nome,emp_endereco=:emp_endereco,emp_numero=:emp_numero,emp_complemento=:emp_complemento,emp_cidade=:emp_cidade,emp_bairro=:emp_bairro,emp_estado=:emp_estado,emp_cep=:emp_cep,emp_telefone=:emp_telefone,emp_celular=:emp_celular WHERE cod_usuario =:usuario;";
-            $funcoes->executarSQL($sql, $post_data);
+            
+            if($sessao->situacao == 2){ //novo membro
+                $sql = "insert into us_usuario(cod_usuario, nome, cpf, idade, genero, email, email2, nivel_escolaridade_fk, tipo_usuario_fk, endereco , numero, complemento , cidade , bairro , estado , cep,   fixo, celular , curso_atual_nome, curso_atual_serie , curso_periodo , graduacao_nome , graduacao_ano_conclusao , graduacao_instituicao , pos_graduacao_nome , pos_graduacao_ano ,  pos_graduacao_instituicao,  mestrado_nome,  mestrado_ano,  mestrado_instituicao,  doutorado_nome,  doutorado_ano,  doutorado_instituicao,  estado_civil,  data_nascimento,  rg,  orgao_emissor,  ra,  skype,  whatsapp,  facebook,  lattes,  foto,  num_banco,  num_conta,  num_agencia,  status,  emp_nome,  emp_endereco,  emp_numero,  emp_complemento,  emp_cidade,  emp_bairro,  emp_estado,  emp_cep,  emp_telefone,  emp_celular,  data_entrada, ativo) ".
+                                    "values (:usuario, :nome, :cpf, :idade, :sexo, :email1, :email2, :escolaridade        , 2              , :endereco, :num  , :complemento, :cidade, :bairro, :estado, :cep, :fixo, :celular, :curso_nome     , :curso_atual_serie, :curso_periodo, :graduacao_nome, :graduacao_ano_conclusao, :graduacao_instituicao, :pos_graduacao_nome, :pos_graduacao_ano, :pos_graduacao_instituicao, :mestrado_nome, :mestrado_ano, :mestrado_instituicao, :doutorado_nome, :doutorado_ano, :doutorado_instituicao, :civil, :nascimento, :rg, :emissor, :ra, :skype, '', :facebook, :lattes, null, :banco, :conta, :agencia, 1, :emp_nome, :emp_endereco, :emp_numero, :emp_complemento, :emp_cidade, :emp_bairro, :emp_estado, :emp_cep, :emp_telefone, :emp_celular, now(), 1)";                                                                                                                         
+                $funcoes->executarSQL($sql, $post_data);
+                
+                $sessao->nome_usuario = $post_data['nome'];
+                
+                $sql = "update us_pre_cadastro set situacao = 3 where cod_usuario =:usuario";
+                $funcoes->executarSQL($sql, array('usuario' => $sessao->cod_usuario));
 
-            return $response->setContent(Json::encode(array('response' => true, 'msg' => 'Perfil alterada com sucesso.')));
+                $sessao->situacao = 3;
+                
+                $sql = "update us_usuario set tipo_usuario_fk = 1 where cod_usuario =:usuario";
+                $funcoes->executarSQL($sql, array('usuario' => $sessao->cod_usuario));
+                
+                $sessao->tipo_usuario = 2;
+                $sessao->tipo_usuario_desc = 'Membro';
+            }else{//
+                
+                $sessao->nome_usuario = $post_data['nome'];
+                
+                $sql = "UPDATE us_usuario SET nome=:nome,cpf=:cpf,idade=:idade,email=:email1,email2=:email2,nivel_escolaridade_fk=:escolaridade,endereco=:endereco,numero=:num,complemento=:complemento,cidade=:cidade,bairro=:bairro,estado=:estado,cep=:cep,fixo=:fixo,celular=:celular,curso_atual_nome=:curso_nome,curso_atual_serie=:curso_atual_serie,curso_periodo=:curso_periodo,graduacao_nome=:graduacao_nome,graduacao_ano_conclusao=:graduacao_ano_conclusao,graduacao_instituicao=:graduacao_instituicao,pos_graduacao_nome=:pos_graduacao_nome,pos_graduacao_ano=:pos_graduacao_ano,pos_graduacao_instituicao=:pos_graduacao_instituicao,mestrado_nome=:mestrado_nome,mestrado_ano=:mestrado_ano,mestrado_instituicao=:mestrado_instituicao,doutorado_nome=:doutorado_nome,doutorado_ano=:doutorado_ano,doutorado_instituicao=:doutorado_instituicao,estado_civil=:civil,genero=:sexo,data_nascimento=:nascimento, rg=:rg, orgao_emissor=:emissor, ra=:ra, skype=:skype,whatsapp=:celular,facebook=:facebook,lattes=:lattes,num_banco=:banco,num_conta=:conta,num_agencia=:agencia,emp_nome=:emp_nome,emp_endereco=:emp_endereco,emp_numero=:emp_numero,emp_complemento=:emp_complemento,emp_cidade=:emp_cidade,emp_bairro=:emp_bairro,emp_estado=:emp_estado,emp_cep=:emp_cep,emp_telefone=:emp_telefone,emp_celular=:emp_celular WHERE cod_usuario =:usuario;";
+                $funcoes->executarSQL($sql, $post_data);
+                
+            }
+            return $response->setContent(Json::encode(array('response' => true, 'msg' => 'Perfil alterado com sucesso.')));
         } else {
             header('Location: /');
             exit;

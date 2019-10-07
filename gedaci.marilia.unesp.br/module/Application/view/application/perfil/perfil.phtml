@@ -157,6 +157,7 @@
                                                                                         <div class="row">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
                                                                                                 <select class="form-control user-success obg" id="sexo" name="sexo">
+                                                                                                    <option value="" <?= $usuario['genero'] == '' ? 'selected' : '' ?>>Selecionar</option>
                                                                                                     <option value="M" <?= $usuario['genero'] == 'M' ? 'selected' : '' ?>>Masculino</option>
                                                                                                     <option value="F" <?= $usuario['genero'] == 'F' ? 'selected' : '' ?>>Feminino</option>
                                                                                                 </select>
@@ -190,6 +191,7 @@
                                                                                         <div class="row">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
                                                                                                 <select class="form-control user-success obg" id="civil" name="civil">
+                                                                                                    <option value="" <?= $usuario['estado_civil'] == '' ? 'selected' : '' ?>>Selecionar</option>
                                                                                                     <option value="SOLTEIRO" <?= $usuario['estado_civil'] == 'SOLTEIRO' ? 'selected' : '' ?>>SOLTEIRO</option>
                                                                                                     <option value="CASADO" <?= $usuario['estado_civil'] == 'CASADO' ? 'selected' : '' ?>>CASADO</option>
                                                                                                     <option value="SEPARADO" <?= $usuario['estado_civil'] == 'SEPARADO' ? 'selected' : '' ?>>SEPARADO</option>
@@ -299,6 +301,7 @@
                                                                                         <div class="row">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
                                                                                                 <select class="form-control user-success" id="estado" name="estado">
+                                                                                                    <option value="" <?= $usuario['estado'] == '' ? 'selected' : '' ?>>Selecionar</option>
                                                                                                     <option value="AC" <?= $usuario['estado'] == 'AC' ? 'selected' : '' ?>>Acre</option>
                                                                                                     <option value="AL" <?= $usuario['estado'] == 'AL' ? 'selected' : '' ?>>Alagoas</option>
                                                                                                     <option value="AP" <?= $usuario['estado'] == 'AP' ? 'selected' : '' ?>>Amapá</option>
@@ -360,6 +363,7 @@
                                                                                         <div class="row">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
                                                                                                 <select class="form-control user-success" id="banco" name="banco">
+                                                                                                    <option value="" <?= $usuario['num_banco'] == '' ? 'selected' : '' ?>>Selecionar</option>
                                                                                                     <option value="1" <?= $usuario['num_banco'] == '1' ? 'selected' : '' ?>>Banco do Brasil</option>
                                                                                                     <option value="2" <?= $usuario['num_banco'] == '2' ? 'selected' : '' ?>>Bradesco</option>
                                                                                                     <option value="3" <?= $usuario['num_banco'] == '3' ? 'selected' : '' ?>>Caixa Econômica Federal</option>
@@ -398,7 +402,7 @@
                                                                                     <div class="col-md-5">
                                                                                         <div class="row">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                                <input type="text" maxlength="60" class="form-control user-success" id="conta" name="conta" value="<?= $usuario['num_conta'] ?>">
+                                                                                                <input type="text" maxlength="60" class="form-control user-success" id="conta" maxlength="80" name="conta" value="<?= $usuario['num_conta'] ?>">
                                                                                             </div> 
 
                                                                                         </div>
@@ -556,6 +560,7 @@
                                                                                         <div class="row">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
                                                                                                 <select class="form-control user-success" id="escolaridade" name="escolaridade">
+                                                                                                    <option value="" <?= $usuario['nivel_escolaridade_fk'] == 0 ? 'selected' : '' ?>>Selecionar</option>
                                                                                                     <?php foreach ($escolaridades as $dados): ?>
                                                                                                         <option value="<?= $dados['cod_nivel'] ?> <?= $usuario['nivel_escolaridade_fk'] == $dados['cod_nivel'] ? 'selected' : '' ?>" ><?= $dados['descricao'] ?></option>
                                                                                                     <?php endforeach; ?>
@@ -917,6 +922,7 @@
                                                                                         <div class="row">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
                                                                                                 <select class="form-control user-success" id="emp_estado" name="emp_estado">
+                                                                                                    <option value="" <?= $usuario['estado'] == '' ? 'selected' : '' ?>>Selecionar</option>
                                                                                                     <option value="AC" <?= $usuario['estado'] == 'AC' ? 'selected' : '' ?>>Acre</option>
                                                                                                     <option value="AL" <?= $usuario['estado'] == 'AL' ? 'selected' : '' ?>>Alagoas</option>
                                                                                                     <option value="AP" <?= $usuario['estado'] == 'AP' ? 'selected' : '' ?>>Amapá</option>

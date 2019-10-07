@@ -55,6 +55,7 @@ class LoginController extends AbstractActionController
                 $sessao->cod_usuario = $result['cod_usuario'];
                 $sessao->nome_usuario = $result2['nome'];
                 $sessao->tipo_usuario = $result2['tipo_usuario'];
+                $sessao->situacao = $result2['situacao'];
                 $sessao->tipo_usuario_desc = $result2['tipo_usuario_desc'];
                 $sessao->foto_perfil = $result2['nome_foto'];
 

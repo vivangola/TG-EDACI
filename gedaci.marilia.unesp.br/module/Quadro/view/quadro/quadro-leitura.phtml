@@ -81,21 +81,21 @@
             <form id="formAdd" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="add_artigo" class="col-form-label">Título Artigo:</label>
+                        <label for="add_artigo" class="col-form-label">Título Artigo:</label><label style="color:red">*</label>
                         <input type="text"  class="form-control" id="add_artigo" name="add_artigo" maxlength="200" title="Digite o Título do Artigo."/>
                     </div>
                     <div class="form-group">
-                        <label for="add_periodico" class="col-form-label">Título Periódico:</label>
+                        <label for="add_periodico" class="col-form-label">Título Periódico:</label><label style="color:red">*</label>
                         <input type="text"  class="form-control" id="add_periodico" maxlength="200" name="add_periodico" title="Digite o Título Periódico."/>
                     </div>
                     <div class="row">
                         <div class="form-group col-xs-6">
-                            <label for="add_base" class="col-form-label">Base:</label>
+                            <label for="add_base" class="col-form-label">Base:</label><label style="color:red">*</label>
                             <input id="add_base" class="form-control input-group-lg" maxlength="100" type="text" name="add_base"/>
                         </div>
 
                         <div class="form-group col-xs-6">
-                            <label for="add_datapesq" class="col-form-label">Data da Pesquisa:</label>
+                            <label for="add_datapesq" class="col-form-label">Data da Pesquisa:</label><label style="color:red">*</label>
                             <input id="add_datapesq" class="form-control input-group-lg" type="date" name="add_datapesq"/>
                         </div>
                     </div>
@@ -137,17 +137,17 @@
                         </div>
                         
                         <div class="form-group col-xs-2">
-                            <label for="add_ano" class="col-form-label">Ano:</label>
+                            <label for="add_ano" class="col-form-label">Ano:</label><label style="color:red">*</label>
                             <input id="add_ano" class="form-control input-group-lg" type="text" name="add_ano" data-mask="0000" placeholder="Ano"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="add_autor "class="col-form-label">Autor(es):</label>
+                        <label for="add_autor "class="col-form-label">Autor(es):</label><label style="color:red">*</label>
                         <input type="text"  class="form-control" id="add_autor" maxlength="200" name="add_autor" title="Digite o(s) Autor(es)."/>
                     </div>
                     <div class="form-group">
-                        <label for="add_arquivo" class="col-form-label">Arquivo: (pdf,doc,docx)</label>
-                        <input type="file" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="form-control" name="add_arquivo" id="add_arquivo">
+                        <label for="add_arquivo" class="col-form-label">Arquivo: (pdf)</label>
+                        <input type="file" accept=".pdf" class="form-control" name="add_arquivo" id="add_arquivo">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -172,21 +172,21 @@
                 <div class="modal-body">
                     <input type="hidden" id="edit_cod"/>
                     <div class="form-group">
-                        <label for="edit_artigo" class="col-form-label">Título Artigo:</label>
+                        <label for="edit_artigo" class="col-form-label">Título Artigo:</label><label style="color:red">*</label>
                         <input type="text"  class="form-control" id="edit_artigo" name="edit_artigo" maxlength="200" title="Digite o Título do Artigo."/>
                     </div>
                     <div class="form-group">
-                        <label for="edit_periodico" class="col-form-label">Título Periódico:</label>
+                        <label for="edit_periodico" class="col-form-label">Título Periódico:</label><label style="color:red">*</label>
                         <input type="text"  class="form-control" id="edit_periodico" maxlength="200" name="edit_periodico" title="Digite o Título Periódico."/>
                     </div>
                     <div class="row">
                         <div class="form-group col-xs-6">
-                            <label for="edit_base" class="col-form-label">Base:</label>
+                            <label for="edit_base" class="col-form-label">Base:</label><label style="color:red">*</label>
                             <input id="edit_base" class="form-control input-group-lg" maxlength="100" type="text" name="edit_base"/>
                         </div>
 
                         <div class="form-group col-xs-6">
-                            <label for="edit_datapesq" class="col-form-label">Data da Pesquisa:</label>
+                            <label for="edit_datapesq" class="col-form-label">Data da Pesquisa:</label><label style="color:red">*</label>
                             <input id="edit_datapesq" class="form-control input-group-lg" type="date" name="edit_datapesq"/>
                         </div>
                     </div>
@@ -228,12 +228,12 @@
                         </div>
                         
                         <div class="form-group col-xs-2">
-                            <label for="edit_ano" class="col-form-label">Ano:</label>
+                            <label for="edit_ano" class="col-form-label">Ano:</label><label style="color:red">*</label>
                             <input id="edit_ano" class="form-control input-group-lg" type="text" name="edit_ano" data-mask="0000" placeholder="Ano"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="edit_autor "class="col-form-label">Autor(es):</label>
+                        <label for="edit_autor "class="col-form-label">Autor(es):</label><label style="color:red">*</label>
                         <input type="text"  class="form-control" id="edit_autor" maxlength="200" name="edit_autor" title="Digite o(s) Autor(s)."/>
                     </div>
                 </div>
@@ -273,22 +273,14 @@
             data_pesquisa       : $('#add_datapesq').val(),
             titulo_periodico    : $('#add_periodico').val(),
             ano                 : $('#add_ano').val(),
-            mes                 : $('#add_mes').val(),
-            volume              : $('#add_volume').val(),
-            numero              : $('#add_numero').val(),
             titulo_artigo       : $('#add_artigo').val(),
-            autor               : $('#add_autor').val(),
-            pagina_inicial      : $('#add_pginicial').val(),
-            pagina_final        : $('#add_pgfim').val(),
-            palavra_chave       : $('#add_palavra_chave').val(),
-            endereco_acesso     : $('#add_endereco').val(),
-            interesse           : '5'
+            autor               : $('#add_autor').val()
         };
         
         if(!validaParametros(data)){
             Swal.fire({
                 title: 'Atenção!',
-                html: "Digite todos os campos.",
+                html: "Digite todos os campos obrigatórios (*)",
                 type: 'info'
             });
             return false;
@@ -297,7 +289,7 @@
         if(!validarData(data.data_pesquisa)){
             Swal.fire({
                 title: 'Atenção!',
-                html: "A data de pesquisa não é válida.",
+                html: "A data de pesquisa não é válida",
                 type: 'info'
             });
             return false;
@@ -389,14 +381,21 @@
             pgfim               : $('#edit_pgfim').val(),
             palavra_chave       : $('#edit_palavra_chave').val(),
             endereco_acesso     : $('#edit_endereco').val(),
-            interesse           : '5'
         };
-        console.log(data);
         
-        if(!validaParametros(data)){
+        var dataObg = {
+            base                : $('#edit_base').val(),
+            data_pesq           : $('#edit_datapesq').val(),
+            titulo_periodico    : $('#edit_periodico').val(),
+            ano                 : $('#edit_ano').val(),
+            titulo_artigo       : $('#edit_artigo').val(),
+            autor               : $('#edit_autor').val(),
+        };
+        
+        if(!validaParametros(dataObg)){
             Swal.fire({
                 title: 'Atenção!',
-                html: "Digite todos os campos.",
+                html: "Digite todos os campos obrigatórios (*)",
                 type: 'info'
             });
             return false;

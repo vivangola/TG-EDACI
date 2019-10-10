@@ -148,7 +148,7 @@ class IndexController extends AbstractActionController {
                     exit;
                 }
             } else {
-                $msg = $this->validaArquivo($arquivo['error']);
+                $msg = $funcoes->validaArquivo($arquivo['error']);
                 $funcoes->alertBasic($msg, false, '/', 'info', 'Ops...');
                 exit;
             }
@@ -188,7 +188,7 @@ class IndexController extends AbstractActionController {
                     exit;
                 }
             } else {
-                $msg = $this->validaArquivo($arquivo['error']);
+                $msg = $funcoes->validaArquivo($arquivo['error']);
                 $funcoes->alertBasic($msg, false, '/', 'info', 'Ops...');
                 exit;
             }
@@ -198,32 +198,6 @@ class IndexController extends AbstractActionController {
         }
     }
 
-    private function validaArquivo($code) {
-
-        switch ($code) {
-            case 1:
-            case 2:
-            case 3:
-                $message = "Arquivo muito grande, por favor selecione outro!";
-                break;
-            case 4:
-                $message = "Por favor selecione um arquivo!";
-                break;
-            case 6:
-                $message = "Diretorio nao encontrado, por favor tente novamente!";
-                break;
-            case 7:
-                $message = "Erro ao salvar arquivo no servidor, por favor selecione outro!";
-                break;
-            case 8:
-                $message = "Extensão inválida, por favor selecione outro arquivo!";
-                break;
-
-            default:
-                $message = "Erro, por favor selecione outro!";
-                break;
-        }
-        return $message;
-    }
+    
 
 }

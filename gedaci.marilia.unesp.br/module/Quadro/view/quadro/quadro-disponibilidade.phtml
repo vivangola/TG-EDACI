@@ -57,7 +57,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2 col-xs-12 col-md-offset-2">
-                                                    <button class="btn btn-primary-borded2 form-control" onclick="$('#modalAdd').modal('show');">
+                                                    <button class="btn btn-primary-borded2 form-control" onclick="$('#modalAdd').modal('show');$('#tipo-disp-1').hide();$('#tipo-disp-2').hide();">
                                                         Novo&nbsp;
                                                         <i class="fa fa-plus"></i>
                                                     </button>
@@ -111,17 +111,17 @@
                     <hr>
                     <div class="row">
                         <div class="form-group col-xs-4">
-                            <label for="add_dt" class="col-form-label">Data:</label>
+                            <label for="add_dt" class="col-form-label">Data:</label><label style="color:red">*</label>
                             <input id="add_dt" required class="form-control input-group-lg" type="date" name="add_dt" title="Digite a data da reunião."/>
                         </div>
 
                         <div class="form-group col-xs-2">
-                            <label for="add_hini" class="col-form-label">De:</label>
+                            <label for="add_hini" class="col-form-label">De:</label><label style="color:red">*</label>
                             <input id="add_hini" required class="form-control input-group-lg" type="text" name="add_hini"  placeholder="00:00" data-mask="00:00" title="Digite o horário da reunião."/>
                         </div>
                         
                         <div class="form-group col-xs-2">
-                            <label for="add_hfim" class="col-form-label">Até:</label>
+                            <label for="add_hfim" class="col-form-label">Até:</label><label style="color:red">*</label>
                             <input id="add_hfim" required class="form-control input-group-lg" type="text" name="add_hfim"  placeholder="00:00" data-mask="00:00" title="Digite o horário da reunião."/>
                         </div>
                     </div>
@@ -130,23 +130,23 @@
                     <hr>
                     <div class="row">
                         <div class="form-group col-xs-6">
-                            <label for="disp_2_diaini" class="col-form-label">Do dia:</label>
+                            <label for="disp_2_diaini" class="col-form-label">Do dia:</label><label style="color:red">*</label>
                             <input id="disp_2_diaini" required class="form-control input-group-lg" type="date" name="disp_2_diaini"/>
                         </div>
 
                         <div class="form-group col-xs-6">
-                            <label for="disp_2_diafim" class="col-form-label">Até o dia:</label>
+                            <label for="disp_2_diafim" class="col-form-label">Até o dia:</label><label style="color:red">*</label>
                             <input id="disp_2_diafim" required class="form-control input-group-lg" type="date" name="disp_2_diafim" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-xs-6">
-                            <label for="disp_2_hrini" class="col-form-label">De:</label>
+                            <label for="disp_2_hrini" class="col-form-label">De:</label><label style="color:red">*</label>
                             <input id="disp_2_hrini" required class="form-control input-group-lg" type="text" name="disp_2_hrini"  placeholder="00:00" data-mask="00:00" />
                         </div>
 
                         <div class="form-group col-xs-6">
-                            <label for="disp_2_hrfim" class="col-form-label">Até:</label>
+                            <label for="disp_2_hrfim" class="col-form-label">Até:</label><label style="color:red">*</label>
                             <input id="disp_2_hrfim" required class="form-control input-group-lg" type="text" name="disp_2_hrfim"  placeholder="00:00" data-mask="00:00" />
                         </div>
                     </div>
@@ -349,17 +349,17 @@
                     <hr>
                     <div class="row">
                         <div class="form-group col-xs-4">
-                            <label for="edit_dt" class="col-form-label">Data:</label>
+                            <label for="edit_dt" class="col-form-label">Data:</label><label style="color:red">*</label>
                             <input id="edit_dt" required class="form-control input-group-lg" type="date" name="edit_dt" title="Digite a data da reunião."/>
                         </div>
 
                         <div class="form-group col-xs-2">
-                            <label for="edit_hini" class="col-form-label">De:</label>
+                            <label for="edit_hini" class="col-form-label">De:</label><label style="color:red">*</label>
                             <input id="edit_hini" required class="form-control input-group-lg" type="text" name="edit_hini"  placeholder="00:00" data-mask="00:00" title="Digite o horário da reunião."/>
                         </div>
                         
                         <div class="form-group col-xs-2">
-                            <label for="add_hfim" class="col-form-label">Até:</label>
+                            <label for="add_hfim" class="col-form-label">Até:</label><label style="color:red">*</label>
                             <input id="edit_hfim" required class="form-control input-group-lg" type="text" name="edit_hfim"  placeholder="00:00" data-mask="00:00" title="Digite o horário da reunião."/>
                         </div>
                     </div>
@@ -368,23 +368,23 @@
                     <hr>
                     <div class="row">
                         <div class="form-group col-xs-6">
-                            <label for="disp_2_diaini" class="col-form-label">Do dia:</label>
+                            <label for="disp_2_diaini" class="col-form-label">Do dia:</label><label style="color:red">*</label>
                             <input id="edit_dini2" required class="form-control input-group-lg" type="date" name="edit_dini2"/>
                         </div>
 
                         <div class="form-group col-xs-6">
-                            <label for="disp_2_diafim" class="col-form-label">Até o dia:</label>
+                            <label for="disp_2_diafim" class="col-form-label">Até o dia:</label><label style="color:red">*</label>
                             <input id="edit_dfim2" required class="form-control input-group-lg" type="date" name="edit_dfim2" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-xs-6">
-                            <label for="disp_2_hrini" class="col-form-label">De:</label>
+                            <label for="disp_2_hrini" class="col-form-label">De:</label><label style="color:red">*</label>
                             <input id="edit_hini2" required class="form-control input-group-lg" type="text" name="edit_hini2"  placeholder="00:00" data-mask="00:00" />
                         </div>
 
                         <div class="form-group col-xs-6">
-                            <label for="disp_2_hrfim" class="col-form-label">Até:</label>
+                            <label for="disp_2_hrfim" class="col-form-label">Até:</label><label style="color:red">*</label>
                             <input id="edit_hfim2" required class="form-control input-group-lg" type="text" name="edit_hfim2"  placeholder="00:00" data-mask="00:00" />
                         </div>
                     </div>
@@ -523,7 +523,7 @@
             if(!validaParametros(data)){
                 swal.fire({
                     title : 'Atenção!',
-                    text  : 'Digite todos os campos',
+                    text  : 'Digite todos os campos obrigatórios (*)',
                     type  : 'info'
                 });
                 return false;
@@ -571,7 +571,7 @@
             if(!validaParametros(data)){
                 swal.fire({
                     title : 'Atenção!',
-                    text  : 'Digite todos os campos.',
+                    text  : 'Digite todos os campos obrigatórios (*)',
                     type  : 'info'
                 });
                 return false;
@@ -747,7 +747,7 @@
             if(!validaParametros(data)){
                 swal.fire({
                     title : 'Atenção!',
-                    text  : 'Digite todos os campos',
+                    text  : 'Digite todos os campos obrigatórios (*)',
                     type  : 'info'
                 });
                 return false;
@@ -796,7 +796,7 @@
             if(!validaParametros(data)){
                 swal.fire({
                     title : 'Atenção!',
-                    text  : 'Digite todos os campos.',
+                    text  : 'Digite todos os campos obrigatórios (*)',
                     type  : 'info'
                 });
                 return false;

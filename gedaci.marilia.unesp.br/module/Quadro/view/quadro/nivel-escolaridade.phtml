@@ -67,7 +67,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Adicionar novo Nível de Escolaridade</h2>
+                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Adicionar Nível de Escolaridade</h2>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -75,7 +75,7 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="add_escolaridade" class="col-form-label">Nível Escolaridade:</label>
+                        <label for="add_escolaridade" class="col-form-label">Nível Escolaridade:</label><label style="color:red">*</label>
                         <input type="text" class="form-control" id="add_escolaridade">
                     </div>
                 </form>
@@ -101,7 +101,7 @@
                 <form>
                     <input type="hidden" class="form-control" id="edit_cod_escolaridade">
                     <div class="form-group">
-                        <label for="edit_escolaridade" class="col-form-label">Nível Escolaridade:</label>
+                        <label for="edit_escolaridade" class="col-form-label">Nível Escolaridade:</label><label style="color:red">*</label>
                         <input type="text" class="form-control" id="edit_escolaridade">
                     </div>
                 </form>
@@ -141,7 +141,7 @@
         if(!validaParametros(data)){
             Swal.fire({
                 title: 'Atenção!',
-                html: "Digite todos os campos.",
+                html: "Digite todos os campos obrigatórios (*)",
                 type: 'info'
             });
             return false;
@@ -227,7 +227,7 @@
         }else{
             Swal.fire({
                 title: 'Atenção!',
-                html: "Digite todos os campos.",
+                html: "Digite todos os campos obrigatórios (*)",
                 type: 'info'
             });        
         }

@@ -75,23 +75,23 @@
             <form id="form" action="/atas/add" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="add_conteudo" class="col-form-label">Conteúdo Sintético:</label>
+                        <label for="add_conteudo" class="col-form-label">Conteúdo Sintético:</label><label style="color:red">*</label>
                         <input type="text"  class="form-control" id="add_conteudo" name="add_conteudo" title="Digite o Conteúdo Sintético."/>
                     </div>
                     <div class="row">
                         <div class="form-group col-xs-6">
-                            <label for="add_dt" class="col-form-label">Data da Reunião:</label>
+                            <label for="add_dt" class="col-form-label">Data da Reunião:</label><label style="color:red">*</label>
                             <input id="add_dt"  class="form-control input-group-lg" type="date" name="add_dt" title="Digite a data da reunião."/>
                         </div>
 
                         <div class="form-group col-xs-6">
-                            <label for="add_h" class="col-form-label">Horário da Reunião:</label>
+                            <label for="add_h" class="col-form-label">Horário da Reunião:</label><label style="color:red">*</label>
                             <input id="add_h"  class="form-control input-group-lg" type="text" name="add_h"  placeholder="00:00" data-mask="00:00" title="Digite o horário da reunião."/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="add_arquivo" class="col-form-label">Arquivo: (pdf,doc,docx)</label>
-                        <input type="file" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="form-control" name="add_arquivo" id="add_arquivo">
+                        <label for="add_arquivo" class="col-form-label">Arquivo (pdf,doc,docx):</label><label style="color:red">*</label>
+                        <input type="file" accept=".doc,.docx,.pdf" class="form-control" name="add_arquivo" id="add_arquivo">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -116,22 +116,22 @@
                 <div class="modal-body">
                     <input type="hidden" id="edit_cod">
                     <div class="form-group">
-                        <label for="edit_conteudo" class="col-form-label">Conteúdo Sintético:</label>
+                        <label for="edit_conteudo" class="col-form-label">Conteúdo Sintético:</label><label style="color:red">*</label>
                         <input type="text"  class="form-control" id="edit_conteudo" name="edit_conteudo" title="Digite o Conteúdo Sintético."/>
                     </div>
                     <div class="row">
                         <div class="form-group col-xs-6">
-                            <label for="edit_dt" class="col-form-label">Data da Reunião:</label>
+                            <label for="edit_dt" class="col-form-label">Data da Reunião:</label><label style="color:red">*</label>
                             <input id="edit_dt"  class="form-control input-group-lg" type="date" name="edit_dt" title="Digite a data da reunião."/>
                         </div>
 
                         <div class="form-group col-xs-6">
-                            <label for="edit_h" class="col-form-label">Horário da Reunião:</label>
+                            <label for="edit_h" class="col-form-label">Horário da Reunião:</label><label style="color:red">*</label>
                             <input id="edit_h"  class="form-control input-group-lg" type="text" name="edit_h"  placeholder="00:00" data-mask="00:00" title="Digite o horário da reunião."/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="edit_arquivo" class="col-form-label">Arquivo: (pdf,doc,docx)</label>
+                        <label for="edit_arquivo" class="col-form-label">Arquivo (pdf,doc,docx):</label><label style="color:red">*</label>
                         <label class="form-control" name="edit_arquivo" id="edit_arquivo">Arquivo:</label>
                     </div>
                 </div>
@@ -175,7 +175,7 @@
         if(!validaParametros(data)){
             Swal.fire({
                 title: 'Atenção!',
-                html: "Digite todos os campos.",
+                html: "Digite todos os campos obrigatórios (*)",
                 type: 'info'
             });
             return false;
@@ -267,7 +267,7 @@
         if(!validaParametros(data)){
             Swal.fire({
                 title: 'Atenção!',
-                html: "Digite todos os campos.",
+                html: "Digite todos os campos obrigatórios (*)",
                 type: 'info'
             });
             return false;

@@ -76,15 +76,15 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="add_assunto" class="col-form-label">Assunto:</label>
+                        <label for="add_assunto" class="col-form-label">Assunto:</label><label style="color:red">*</label>
                         <input type="text" class="form-control" id="add_assunto">
                     </div>
                     <div class="form-group">
-                        <label for="add_desc" class="col-form-label">Descrição:</label>
+                        <label for="add_desc" class="col-form-label">Descrição:</label><label style="color:red">*</label>
                         <input type="text" class="form-control" id="add_desc">
                     </div>
                     <div class="form-group">
-                        <label for="add_escolaridade" class="col-form-label">Nível Escolaridade:</label>
+                        <label for="add_escolaridade" class="col-form-label">Nível Escolaridade:</label><label style="color:red">*</label>
                         <select class="form-control" id="add_escolaridade">
                             <option value="0">Todos</option>
                             <?php foreach($escolaridades as $dados):?>
@@ -94,23 +94,23 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-xs-6">
-                            <label for="add_dtini" class="col-form-label">Início de Exibição:</label>
+                            <label for="add_dtini" class="col-form-label">Início de Exibição:</label><label style="color:red">*</label>
                             <input id="add_dtini" class="form-control input-group-lg" type="date" name="add_dtini" title="Digite o Início da Exibição."/>
                         </div>
 
                         <div class="form-group col-xs-6">
-                            <label for="add_hini" class="col-form-label">Horário:</label>
+                            <label for="add_hini" class="col-form-label">Horário:</label><label style="color:red">*</label>
                             <input id="add_hini" class="form-control input-group-lg" type="text" name="add-hini"  placeholder="00:00" data-mask="00:00" title="Digite o Horário de Início da Exibição."/>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-xs-6">
-                            <label for="add_dtfim" class="col-form-label">Fim de Exibição:</label>
+                            <label for="add_dtfim" class="col-form-label">Fim de Exibição:</label><label style="color:red">*</label>
                             <input id="add_dtfim" class="form-control input-group-lg" type="date" name="add-dtfim" placeholder="" title="Digite o Fim da Exibição."/>
                         </div>
 
                         <div class="form-group col-xs-6">
-                            <label for="add_hfim" class="col-form-label">Horário:</label>
+                            <label for="add_hfim" class="col-form-label">Horário:</label><label style="color:red">*</label>
                             <input id="add_hfim" class="form-control input-group-lg" type="text" name="add-hfim" placeholder="00:00" data-mask="00:00" title="Digite o Horário de Fim da Exibição."/>
                         </div>
                     </div>
@@ -136,15 +136,15 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="edit_assunto" class="col-form-label">Assunto:</label>
+                        <label for="edit_assunto" class="col-form-label">Assunto:</label><label style="color:red">*</label>
                         <input type="text" class="form-control" id="edit_assunto">
                     </div>
                     <div class="form-group">
-                        <label for="edit_desc" class="col-form-label">Descrição:</label>
+                        <label for="edit_desc" class="col-form-label">Descrição:</label><label style="color:red">*</label>
                         <input type="text" class="form-control" id="edit_desc">
                     </div>
                     <div class="form-group">
-                        <label for="edit_escolaridade" class="col-form-label">Nível Escolaridade:</label>
+                        <label for="edit_escolaridade" class="col-form-label">Nível Escolaridade:</label><label style="color:red">*</label>
                         <select class="form-control" id="edit_escolaridade">
                             <option value="0">Todos</option>
                             <?php foreach($escolaridades as $dados):?>
@@ -154,23 +154,23 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-xs-6">
-                            <label for="edit_dtini" class="col-form-label">Início de Exibição:</label>
+                            <label for="edit_dtini" class="col-form-label">Início de Exibição:</label><label style="color:red">*</label>
                             <input id="edit_dtini" class="form-control input-group-lg" type="date" name="add_dtini" title="Digite o Início da Exibição."/>
                         </div>
 
                         <div class="form-group col-xs-6">
-                            <label for="edit_hini" class="col-form-label">Horário:</label>
+                            <label for="edit_hini" class="col-form-label">Horário:</label><label style="color:red">*</label>
                             <input id="edit_hini" class="form-control input-group-lg" type="text" name="add-hini"  placeholder="00:00" data-mask="00:00" title="Digite o Horário de In�cio da Exibição."/>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-xs-6">
-                            <label for="edit_dtfim" class="col-form-label">Fim de Exibição:</label>
+                            <label for="edit_dtfim" class="col-form-label">Fim de Exibição:</label><label style="color:red">*</label>
                             <input id="edit_dtfim" class="form-control input-group-lg" type="date" name="add-dtfim" placeholder="" title="Digite o Fim da Exibição."/>
                         </div>
 
                         <div class="form-group col-xs-6">
-                            <label for="edit_hfim" class="col-form-label">Horário:</label>
+                            <label for="edit_hfim" class="col-form-label">Horário:</label><label style="color:red">*</label>
                             <input id="edit_hfim" class="form-control input-group-lg" type="text" name="add-hfim" placeholder="00:00" data-mask="00:00" title="Digite o Horário de Fim da Exibição."/>
                         </div>
                     </div>
@@ -218,7 +218,7 @@
         if(!validaParametros(data)){
             Swal.fire({
                 title: 'Atenção!',
-                html: "Digite todos os campos.",
+                html: "Digite todos os campos obrigatórios (*)",
                 type: 'info'
             });
             return false;
@@ -334,7 +334,7 @@
         }else{
             Swal.fire({
                 title: 'Atenção!',
-                html: "Digite todos os campos.",
+                html: "Digite todos os campos obrigatórios (*)",
                 type: 'info'
             });
         }

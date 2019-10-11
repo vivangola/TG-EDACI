@@ -66,7 +66,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Adicionar novo Assunto</h2>
+                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Adicionar Assunto</h2>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -74,7 +74,7 @@
             <form id="form" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="add_assunto" class="col-form-label">Assunto:</label>
+                        <label for="add_assunto" class="col-form-label">Assunto:</label><label style="color:red">*</label>
                         <input type="text"  class="form-control" id="add_assunto" name="add_assunto" title="Digite o Assunto."/>
                     </div>
                 </div>
@@ -91,7 +91,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title color-primary2"><i class="fa fa-edit"></i>&nbsp;Editar Ata</h2>
+                <h2 class="modal-title color-primary2"><i class="fa fa-edit"></i>&nbsp;Editar Assunto</h2>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -100,7 +100,7 @@
                 <div class="modal-body">
                     <input type="hidden" id="edit_cod">
                     <div class="form-group">
-                        <label for="edit_assunto" class="col-form-label">Conteúdo Sintético:</label>
+                        <label for="edit_assunto" class="col-form-label">Assunto:</label><label style="color:red">*</label>
                         <input type="text"  class="form-control" id="edit_assunto" name="edit_assunto" title="Digite o Assunto."/>
                     </div>
                 </div>
@@ -141,7 +141,7 @@
         if(!validaParametros(data)){
             Swal.fire({
                 title: 'Atenção!',
-                html: "Digite todos os campos.",
+                html: "Digite todos os campos obrigatórios (*)",
                 type: 'info'
             });
             return false;
@@ -247,7 +247,7 @@
         if(!validaParametros(data)){
             Swal.fire({
                 title: 'Atenção!',
-                html: "Digite todos os campos.",
+                html: "Digite todos os campos obrigatórios (*)",
                 type: 'info'
             });
             return false;

@@ -1,19 +1,18 @@
-    <?php
+<?php
+/**
+ * @copyright Copyright (c) 2019 FATEC OURINHOS
+ * @author Gabriel da Silva pereira & Denilson Perez Junior
+ * @since 26/07/2018
+ */
 
-    /**
-     * @copyright Copyright (c) 2019 FATEC OURINHOS
-     * @author Gabriel da Silva pereira & Denilson Perez Junior
-     * @since 26/07/2018
-     */
+namespace Quadro\Controller;
 
-    namespace Quadro\Controller;
-
-    use Application\Classes\Funcoes;
-    use Application\Classes\Relatorio;
-    use Zend\Json\Json;
-    use Zend\Mvc\Controller\AbstractActionController;
-    use Zend\Session\Container;
-    use Zend\View\Model\ViewModel;
+use Application\Classes\Funcoes;
+use Application\Classes\Relatorio;
+use Zend\Json\Json;
+use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Session\Container;
+use Zend\View\Model\ViewModel;
 
     class QuadroLeituraController extends AbstractActionController {
 
@@ -21,7 +20,7 @@
             $funcoes = new Funcoes($this);
             $sessao = new Container("usuario");
             $relatorio = new Relatorio();
-
+            
             $params = array(
                 'cod_usuario' => $sessao->cod_usuario,
                 'filtro' => $this->params()->fromPost('filtros', '-1'),
@@ -39,6 +38,7 @@
             $relatorio->definirColuna('TÍTULO DO PERIÓDICO', 'titulo_periodico', '4', 'center', 't', 'n', 'n');
             $relatorio->definirColuna('AUTOR(es)', 'autor', '4', 'center', 't', 'n', 'n');
             $relatorio->definirColuna('VOLUME', 'volume', '2', 'center', 't', 'n', 'n');
+            $relatorio->definirColuna('NÚMERO', 'numero', '2', 'center', 't', 'n', 'n');
             $relatorio->definirColuna('MÊS/ANO', 'mes_ano', '2', 'center', 't', 'n', 'n');
             $relatorio->definirColuna('PÁGINA', 'pagina', '2', 'center', 't', 'n', 'n');
             $relatorio->definirColuna('ENDEREÇO', 'endereco_acesso', '2', 'center', 't', 'n', 'n');

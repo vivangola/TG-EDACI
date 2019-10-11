@@ -75,12 +75,12 @@
             <form id="form" action="/biblioteca/add" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="add_conteudo" class="col-form-label">Conteúdo Sintético:</label>
+                        <label for="add_conteudo" class="col-form-label">Conteúdo Sintético:</label><label style="color:red">*</label>
                         <input type="text"  class="form-control" id="add_conteudo" name="add_conteudo" title="Digite o Conteúdo Sintético."/>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-6">
-                            <label for="add_assunto" class="col-form-label">Assunto:</label>
+                        <div class="form-group col-xs-12">
+                            <label for="add_assunto" class="col-form-label">Assunto:</label><label style="color:red">*</label>
                             <select id="add_assunto" class="form-control input-group-lg" name="add_assunto" title="Selecione o Assunto.">
                                 <?php foreach($assuntos as $dados): ?>
                                         <option value="<?= $dados['cod'] ?>"> <?= $dados['assunto'] ?></option>
@@ -89,8 +89,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="add_arquivo" class="col-form-label">Arquivo: (pdf,doc,docx)</label>
-                        <input type="file" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="form-control" name="add_arquivo" id="add_arquivo">
+                        <label for="add_arquivo" class="col-form-label">Arquivo (pdf,doc,docx):</label><label style="color:red">*</label>
+                        <input type="file" accept=".doc,.docx,.pdf" class="form-control" name="add_arquivo" id="add_arquivo">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -115,12 +115,12 @@
                 <div class="modal-body">
                     <input type="hidden" id="edit_cod" name="edit_cod" />
                     <div class="form-group">
-                        <label for="edit_conteudo" class="col-form-label">Conteúdo Sintético:</label>
+                        <label for="edit_conteudo" class="col-form-label">Conteúdo Sintético:</label><label style="color:red">*</label>
                         <input type="text"  class="form-control" id="edit_conteudo" name="edit_conteudo" title="Digite o Conteúdo Sintético."/>
                     </div>
                     <div class="row">
                         <div class="form-group col-xs-6">
-                            <label for="edit_assunto" class="col-form-label">Assunto:</label>
+                            <label for="edit_assunto" class="col-form-label">Assunto:</label><label style="color:red">*</label>
                             <select id="edit_assunto" class="form-control input-group-lg" name="edit_assunto" title="Selecione o Assunto.">
                                 <?php foreach($assuntos as $dados): ?>
                                         <option value="<?= $dados['cod'] ?>"> <?= $dados['assunto'] ?></option>
@@ -129,7 +129,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="edit_arquivo" class="col-form-label">Arquivo: (pdf,doc,docx)</label>
+                        <label for="edit_arquivo" class="col-form-label">Arquivo (pdf,doc,docx):</label><label style="color:red">*</label>
                         <label class="form-control" name="edit_arquivo" id="edit_arquivo">Arquivo:</label>
                     </div>
                 </div>
@@ -171,7 +171,7 @@
         if(!validaParametros(data)){
             Swal.fire({
                 title: 'Atenção!',
-                html: "Digite todos os campos.",
+                html: "Digite todos os campos obrigatórios (*)",
                 type: 'info'
             });
             return false;
@@ -249,14 +249,11 @@
             edit_assunto         : $('#edit_assunto').val(),
             //edit_h               : $('#edit_h').val()
         };
-        
-        console.log(data);
-        
-        
+                
         if(!validaParametros(data)){
             Swal.fire({
                 title: 'Atenção!',
-                html: "Digite todos os campos.",
+                html: "Digite todos os campos obrigatórios (*)",
                 type: 'info'
             });
             return false;

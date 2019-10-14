@@ -37,10 +37,30 @@ return [
             'questionario-aprendizagem' => [
                 'type' => Segment::class,
                 'options' => [
-                    'route'    => '/questionario/aprendizagem[/:cod_questao]',
+                    'route'    => '/questionario/aprendizagem',
                     'defaults' => [
                         'controller' => Controller\QuestionarioController::class,
                         'action'     => 'aprendizagem',
+                    ],
+                ],
+            ],
+            'responder-questionario-aprendizagem' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route'    => '/questionario/aprendizagem/:cod_questionario',
+                    'defaults' => [
+                        'controller' => Controller\QuestionarioController::class,
+                        'action'     => 'responderAprendizagem',
+                    ],
+                ],
+            ],
+            'questionario-resultado' => [
+                'type' => Segment::class,
+                'options' => [
+                    'route'    => '/questionario/resultado/:cod_questionario',
+                    'defaults' => [
+                        'controller' => Controller\QuestionarioController::class,
+                        'action'     => 'resultado',
                     ],
                 ],
             ],

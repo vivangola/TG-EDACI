@@ -7,7 +7,7 @@
                         <div class="col-md-12 ">
                             <div class="box">                           
                                 <div class="icon">
-                                    <div class="image back-primary3"><i class="fa fa-book"></i>&nbsp;<label class="title">QUESTIONÁRIO INICIAL</label></div>
+                                    <div class="image back-primary3"><i class="fa fa-book"></i>&nbsp;<label class="title">QUESTIONÁRIOS DE APRENDIZAGEM</label></div>
                                     <div class="info" style="min-height:450px">
                                         <div class="row" style="padding-left: 10px;padding-right: 10px;margin-top: 10px;margin-bottom: 20px;">
                                             <form action="/usuarios/membros" method="post" enctype="">
@@ -24,13 +24,26 @@
                                             $relatorio->gerarCabecalho(12);
                                             if ($questionarios) {
                                                 foreach ($questionarios as $dados) {
-                                                    if($dados['status_questionario'] == "0"){
-                                                        $relatorio->definirVariavel('1', '<div class="switch_box box_1"><input type="checkbox" class="switch_1" id="alterar_status" onchange=ativar("'.$dados['cod_questionario'].'",this) name="alterar_status"></div>');
+                                                    
+                                                    $relatorio->definirVariavel('1', "<a href='/questionario/aprendizagem/".$dados['cod_questionario']."' target='_blank' class='btn btn-primary4' style='width:100%;margin-bottom:2px'><i class='pointer fa fa-sign-in'></i></a>");
+                                                    
+                                                    if($dados['is_my'] == "1"){
+                                                        
+                                                        if($dados['status_questionario'] == "0"){
+                                                            $relatorio->definirVariavel('0', '<div class="switch_box box_1"><input type="checkbox" class="switch_1 ativar-chbox" id="alterar_status" questionario="'.$dados['cod_questionario'].'" name="alterar_status"></div>');
+                                                        }else{
+                                                            $relatorio->definirVariavel('0', '<div class="switch_box box_1"><input type="checkbox" class="switch_1 ativar-chbox" id="alterar_status" questionario="'.$dados['cod_questionario'].'" name="alterar_status" checked></div>');    
+                                                        }
+                                                        
+                                                        $relatorio->definirVariavel('2', "<a type='button' class='btn btn-primary4' style='width:100%;margin-bottom:2px' onClick=showEdit('".$dados['cod_questionario']."','1')><i class='pointer fa fa-pencil'></i></button>");
+                                                        $relatorio->definirVariavel('3', "<a type='button' class='btn btn-primary4' style='width:100%;margin-bottom:2px' onClick=showDelete('".$dados['cod_questionario']."','1')><i class='pointer fa fa-times'></i></button>");
                                                     }else{
-                                                        $relatorio->definirVariavel('1', '<div class="switch_box box_1"><input type="checkbox" class="switch_1" id="alterar_status" onchange=ativar("'.$dados['cod_questionario'].'",this) name="alterar_status" checked></div>');
+                                                        $relatorio->definirVariavel('0', "");
+                                                        $relatorio->definirVariavel('2', "");
+                                                        $relatorio->definirVariavel('3', "");
                                                     }
-                                                    $relatorio->definirVariavel('2', "<button type='button' class='btn btn-primary4' style='width:100%;margin-bottom:2px' onClick=showEdit('".$dados['cod_questionario']."','1')><i class='pointer fa fa-pencil'></i></button>");
-                                                    $relatorio->definirVariavel('3', "<button type='button' class='btn btn-primary4' style='width:100%;margin-bottom:2px' onClick=excluir('".$dados['cod_questionario']."','1')><i class='pointer fa fa-times'></i></button>");
+                                                    
+                                                    $relatorio->definirVariavel('4', "<a href='/questionario/resultado/".$dados['cod_questionario']."' target='_blank' class='btn btn-primary4' style='width:100%;margin-bottom:2px'><i class='pointer fa fa-file-text'></i></a>");
                                                     
                                                     $relatorio->gerarRelatorio($dados);
                                                 }
@@ -62,7 +75,7 @@
                 <div id="info_quest">
                     <form>
                         <div class="form-group">
-                            <label for="add_desc" class="col-form-label">Descrição sobre o Questionário:</label>
+                            <label for="add_desc" class="col-form-label">Descrição sobre o Questionário: <label style="color:red">*</label></label>
                             <input type="text" class="form-control" id="add_desc">
                         </div>
                     </form>
@@ -79,7 +92,7 @@
     <div class="modal-dialog modal-lg" role="document" style="max-width: 1300px !important;">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Editar Questionário</h2>
+                <h2 class="modal-title color-primary2"><i class="fa fa-pencil"></i>&nbsp;Editar Questionário</h2>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -88,9 +101,13 @@
                 <div id="info_quest">
                     <form>
                         <div class="form-group">
-                            <label for="edit_desc" class="col-form-label">Descrição sobre o Questionário:</label>
+                            <label for="edit_desc" class="col-form-label">Descrição sobre o Questionário: <label style="color:red">*</label></label>
                             <input type="text" class="form-control" id="edit_desc">
                             <input type="hidden" class="form-control" id="cod_questionario">
+                            <input type="hidden" class="form-control" id="tipo_questionario">
+                        </div>
+                        <div class="text-right">
+                            <button type="button" disabled="true" class="btn btn-primary3" id="edit_questionario_desc" onclick="editQuestionar();">Salvar descrição&nbsp;<i class="fa fa-save"></i></button>
                         </div>
                     </form>
                 </div>
@@ -107,7 +124,7 @@
                                             </h4>
                                         </div>
                                         <div id="collapseFour" class="panel panel-collapse">
-                                            <a href="#" onclick="addQuestao();" class="list-group-item text-center pointer">
+                                            <a href="#" onclick="addQuestao(2);" class="list-group-item text-center pointer">
                                                 <i class="fa fa-plus"></i>&nbsp;Adicionar Questão
                                             </a>
                                             <div id="perguntas_edit">
@@ -125,7 +142,6 @@
                 </div>
             </div>
             <div class="modal-footer">
-                
             </div>
         </div>
     </div>
@@ -138,11 +154,12 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-        $('#tabela').DataTable({
+        $('#relatorio').DataTable({
             "language": {
-                "url": "js/datatable/pt-br.json"
+                "url": "/js/datatable/pt-br.json"
             },
-            "columnDefs": [ { "orderable": false, "targets": [5,6] }],
+            "ordering": false,
+            "columnDefs": [ {"orderable": false} ],
             "lengthChange": false,
             "searching": false
         });
@@ -162,14 +179,24 @@
         }
     }
     
-    function ativar(usuario,element){
-        var ativo = $(element).is(':checked') ? 1 : 0;
+    $('#edit_desc').on('keydown', function(){
+        $('#edit_questionario_desc').attr('disabled', false);
+    });
+    
+    $('.ativar-chbox').on('change', function(){
+        
+        var element = $(this);
+        
+        var ativar = $(this).is(':checked') ? 1 : 0;
+        
+        var questionario = $(this).attr('questionario');
         
         $.ajax({
-            url: '/usuarios/ativar',
+            url: '/questionario/cadastro/ativarQuestionario',
             data: {
-                cod_usuario : usuario,
-                ativar      : ativo
+                questionario      : questionario,
+                tipo              : 2,
+                ativar            : ativar
             },
             type: 'json',
             method: 'POST',
@@ -177,11 +204,28 @@
                 loader();
             },
             success: function (retorno) {
+                retorno = JSON.parse(retorno);
                 Swal.close();
+                if(!retorno.response){
+                    Swal.fire({
+                        title: 'Atenção!',
+                        html: retorno.msg,
+                        type: 'info',
+                        onClose: () => {
+                            $(element).prop('checked',false);
+                        }
+                    });
+                }
             }
         });
-        
-    }
+        /*
+        if(ativar == 1){
+            $(this).attr('checked', true);
+        }else{
+            $(this).attr('checked', false);
+        }
+        */
+    });
     
     function addQuestionario(){
         if($('#add_desc').val()){
@@ -198,7 +242,7 @@
             url: '/questionario/cadastro/novoQuestionario',
             data: {
                 descricao : $('#add_desc').val(),
-                tipo      : 1
+                tipo      : 2
             },
             type: 'json',
             method: 'POST',
@@ -237,10 +281,13 @@
                     $('#edit_panel_respostas').hide();
                     $('#edit_desc').val(retorno.titulo);
                     $('#cod_questionario').val(retorno.cod_questionario);
+                    $('#tipo_questionario').val(retorno.tipo_questionario);
                     $('#perguntas_edit').html(retorno.html);
                     $('#edit-menu-objetiva').hide();
                     $('#menu-objetiva2').hide();
                     $('#menu-dissertativa2').hide();
+                    $('#btn_add_dependencia').hide();
+                    $('#edit_questionario_desc').attr('disabled', true);
                     $('#modalEdit').modal('show');
                 }else{
                     Swal.fire({
@@ -254,6 +301,7 @@
     }
     
     function showDelete(cod){
+        
         Swal.fire({
             title: 'Atenção!',
             html: 'Deseja realmente excluir?',
@@ -261,8 +309,8 @@
             showCancelButton: true,
             preConfirm: () => {
                 $.ajax({
-                    url: '/avisos/delete',
-                    data: {cod_aviso : cod},
+                    url: '/questionario/cadastro/deleteQuestionario',
+                    data: {questionario : cod},
                     type: 'json',
                     method: 'POST',
                     beforeSend: function () {
@@ -271,7 +319,7 @@
                     success: function (retorno) {
                         Swal.fire({
                             title: 'Sucesso!',
-                            html: 'Aviso deletado.',
+                            html: 'Questionário deletado.',
                             type: 'success',
                             onClose: () => {
                                 window.location.reload();
@@ -279,6 +327,40 @@
                         });
                     }
                 });
+            }
+        });
+    }
+    
+    function editQuestionar(){
+        
+        if(!$('#edit_desc').val()){
+            Swal.fire({
+                title: 'Atenção!',
+                html: 'Digite a descrição sobre o Questionário.',
+                type: 'info'
+            });
+            return false;
+        }
+            
+        $.ajax({
+            url: '/questionario/cadastro/editQuestionario',
+            data: 
+                {
+                    questionario    : $('#cod_questionario').val(),
+                    descricao       : $('#edit_desc').val()
+                },
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                Swal.fire({
+                    title: 'Sucesso!',
+                    html: 'Descrição do Questionário alterada.',
+                    type: 'success'
+                });
+                $('#edit_questionario_desc').attr('disabled', true);
             }
         });
     }

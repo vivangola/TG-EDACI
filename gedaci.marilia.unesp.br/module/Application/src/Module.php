@@ -142,7 +142,6 @@ class Module
             )
         );
         
-        
         //nao verificar sessao
         if(!in_array($nome_controller, $nao_verifica_sessao)){
             if(!$funcoes->verificaSessao()){
@@ -156,13 +155,17 @@ class Module
                         }
                     }
                     if(!in_array($action, $pre_cadastro_actions_permitidas)){
+                        echo "<pre>";
+                        var_dump($action);
+                        echo "</pre>";
+                        exit;
                         return $controller->redirect()->toUrl("/bem-vindo");
                     }
                 }else{// se nao for pré cadastro
                     if($action == 'bem-vindo' && $action == 'inicial'){//actions bloqueadas para usuarios que nao são pre-cadastro
                         return $controller->redirect()->toUrl("/");
                     }
-                    if($nome_controller != 'Application\Controller\IndexController'){// procurar pela permissao se a pagina atual não for index
+                    if($nome_controller != 'Application\Controller\IndexController' && $action != 'responderAprendizagem' && $action != 'resultado'){// procurar pela permissao se a pagina atual não for index
                         $permissao = $this->verificarPermissao($controller,$aplicacao['cod_aplicacao']);
                         if(!$permissao){
                             return $controller->redirect()->toUrl("/");

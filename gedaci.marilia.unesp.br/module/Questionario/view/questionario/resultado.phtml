@@ -1,0 +1,92 @@
+<div class="row box-home" align="center" style="height:100%">
+    <div class="col-md-12 col-xs-12">  
+        <div class="main-box clearfix print min-branco">
+            <div class="main-box-body clearfix mt" style="margin-top: 2px !important;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <div class="box">                           
+                                <div class="icon">
+                                    <div class="image back-primary3"><i class="fa fa-book"></i>&nbsp;<label class="title"><?= $questionario['descricao'] ?></label></div>
+                                    <div class="info" style="min-height:450px">
+                                        <div class="table-responsive" style="margin-top: 10px;">
+                                            <?php
+                                            $relatorio->gerarCabecalho(12);
+                                            if ($result) {
+                                                foreach ($result as $dados) {
+                                                    $relatorio->definirVariavel('1', "<a type='button' class='btn btn-primary4' style='width:100%;margin-bottom:2px' onClick=show('".$questionario['cod_questionario']."','".$dados['cod_usuario']."')><i class='pointer fa fa-pencil-square-o'></i></button>");
+                                                    $relatorio->gerarRelatorio($dados);
+                                                }
+                                            }
+                                            $relatorio->gerarRodape();
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document" style="max-width: 1300px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title color-primary2"><i class="fa fa-file-text-o"></i>&nbsp;Respostas</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="overflow-auto" id="div_final" style="height: 375px;overflow: auto!important;padding: 0px 10px">
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#relatorio').DataTable({
+            "language": {
+                "url": "/js/datatable/pt-br.json"
+            },
+            "ordering": false,
+            "columnDefs": [ {"orderable": false} ],
+            "lengthChange": false,
+            "searching": false
+        });
+        
+    });
+    
+    function show(questionario, usuario){
+        $.ajax({
+            url: '/questionario/cadastro/getResultado',
+            data: {
+                questionario    : questionario,
+                usuario         : usuario
+            },
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                retorno = JSON.parse(retorno);
+                $('#div_final').html(retorno.html);
+                $('#modal').modal('show');
+                Swal.close();
+            }
+        });
+    }
+    
+</script>

@@ -8374,6 +8374,48 @@ p.cinza-padrao{
   background-color: #d9534f;
 }
 
+.respostas-correta input[type="radio"] ~ label:before{
+    content: '\2714' !important;
+    text-indent: .9em !important;
+}
+
+.respostas-correta label{
+    text-align: left;
+    border: 1px solid #40c15c !important;
+}
+
+.respostas-correta input[type="radio"] ~ label:before{
+    background-color: #40c15c !important;
+}
+
+.respostas-errada input[type="radio"] ~ label:before{
+    content: '\2715' !important;
+    text-indent: .9em !important;
+}
+
+.respostas-errada label{
+    text-align: left;
+    border: 1px solid #d94f4f !important;
+}
+
+.respostas-errada input[type="radio"] ~ label:before{
+    background-color: #d94f4f !important;
+}
+
+.respostas-normal input[type="radio"] ~ label:before{
+    
+}
+
+.respostas-normal label{
+    text-align: left;
+    border: 1px solid #D1D3D4;
+}
+
+.respostas-normal input[type="radio"] ~ label:before{
+    background-color: #D1D3D4 !important;
+}
+
+
 .timeline {
     list-style: none;
     padding: 20px 0 20px;
@@ -8988,4 +9030,11 @@ input[type="checkbox"].switch_1:after {
 }
 .bd-left{
     border-left: 5px solid #629bad !important;
+}
+
+.card-questao{
+    background: #f0f0f0;
+    border: 3px solid whitesmoke;
+    border-radius: 33px;
+    margin-bottom: 10px;
 }

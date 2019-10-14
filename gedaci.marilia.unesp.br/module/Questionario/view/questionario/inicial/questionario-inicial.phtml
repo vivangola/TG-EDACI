@@ -1,0 +1,126 @@
+<div class="row box-home" align="center" style="height:100%">
+    <div class="col-md-12 col-xs-12">  
+        <div class="main-box clearfix print min-branco rodapeindex">
+            <div class="main-box-body clearfix">  
+                <div class="row panels">
+                    <div class="col-md-12 pd-0" style="clear: both;">
+                        <div class="box">                           
+                            <div class="icon">
+                                <div class="image back-primary3"><i class="fa fa-book"></i>&nbsp;<label class="title"><?= mb_strtoupper($questionario['descricao']) ?></label></div>
+                                <div class="info" style="height: 500px">
+                                    <div class="col-md-offset-2 col-xs-12 col-md-8 div-questao" id='div-questao' style="margin-top: 10px; <?= $finalizado == 0 ? '' : 'display: none;' ?>">
+                                        <h2 class="pergunta"><?= $questionario['qtd_resp'] ?>) <?= $questionario['questao_atual']['name'] ?></h2>
+                                        <?php if($questionario['questao_atual']['tipo_pergunta'] == 1):?>
+                                                <div class="respostas">
+                                                    <?php foreach($questionario['questao_atual']['children'] as $dados):?>
+                                                            <div class="respostas-primary">
+                                                                <input type="radio" name="resposta" id="radio-<?= $dados['id']?>" value="<?= $dados['id']?>"/>
+                                                                <label for="radio-<?= $dados['id']?>"><?= $dados['name'] ?></label>
+                                                            </div>    
+                                                    <?php endforeach;?>
+                                                </div>
+                                        <?php else: ?>
+                                                <br><br>
+                                                <textarea class="form-control" id="questao_resposta_obj" maxlength="500"></textarea>
+                                                <br><br>
+                                        <?php endif;?>
+                                        <input type='hidden' id='cod_questao' value='<?= $questionario['questao_atual']['id'] ?>'>
+                                        <input type='hidden' id='tipo_pergunta' value='<?= $questionario['questao_atual']['tipo_pergunta'] ?>'>
+                                    </div>
+                                    <div class='col-md-12 div-questao' style="margin-top:100px;margin-top: 10px; <?= $finalizado == 0 ? '' : 'display: none;' ?>">
+                                        <button type='button' class='btn btn-primary3' onclick="proximo()"> Proxima Questão <i class="fa fa-arrow-right"></i></button>
+                                        <hr>
+                                    </div>
+                                    <div class='col-md-12' style='margin-top:80px; <?= $finalizado == 1 ? '' : 'display: none;' ?>' id='div-finalizado'>
+                                        <h1 style="font-size: 60px">Questinário Finalizado.</h1>
+                                        <div class="erro-icon" style="font-size: 50px">
+                                            <i class="fa fa-smile-o"></i>
+                                        </div>
+                                        <h3 style="color:black;text-shadow: none;">Agradecemos por você ter respondido o Questionário Inicial!</h3>
+                                        <p style='margin-bottom: 20px;'>Agora que já respondeu o questinário inicial, pedimos que você vincule alguns dados pessoais ao seu Perfil.</p>
+                                        <button type='button' class='btn btn-primary3' onclick="irPerfil()">Ir  para o Perfil <i class="fa fa-arrow-right"></i></button>
+                                    </div>
+                                    <div class='col-md-12' style='margin-top:80px; <?= $finalizado == 2 ? '' : 'display: none;' ?>'>
+                                        <h1 style="font-size: 50px">Questinário Inicial não está ativo.</h1>
+                                        <div class="erro-icon" style="font-size: 50px">
+                                            <i class="fa fa-clock-o"></i>
+                                        </div>
+                                        <h3 style="color:black;text-shadow: none;">Solicitamos que você aguarde até que o <b>Administrador do grupo</b> ative o Questinário Inicial.</h3>
+                                        <p style='margin-bottom: 20px;'></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(".img-check").click(function () {
+        $(this).toggleClass("resposta-imagem-check");
+    });
+    
+    function irPerfil(){
+        window.location.href = '/perfil';
+    }
+    
+    function proximo(){
+        
+        if($('#tipo_pergunta').val() == '1'){
+            var resposta = $('input[name="resposta"]:checked').val();
+            
+            if(!resposta){
+                Swal.fire({
+                    title: 'Atenção!',
+                    html: 'Selecione uma alternativa.',
+                    type: 'info'
+                });
+                return false;
+            }
+            
+        }else{
+            var resposta = $('#questao_resposta_obj').val();
+            
+            if(!resposta){
+                Swal.fire({
+                    title: 'Atenção!',
+                    html: 'Responda a questão.',
+                    type: 'info'
+                });
+                return false;
+            }
+        }
+        
+        $.ajax({
+            url: '/questionario/cadastro/proxima-questao',
+            data: {
+                questao     : $('#cod_questao').val(),
+                resposta    : resposta
+            },
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                retorno = JSON.parse(retorno);
+                if(retorno.questionario_finalizado == 1){
+                    $('#div-finalizado').show();
+                    $('.div-questao').hide();
+                }else{
+                    $('#div-questao').html(retorno.html);
+                    $('#div-finalizado').hide();
+                    $('.div-questao').show();
+                }
+                Swal.close();
+            }
+        });
+    }
+    
+    function voltar(questao){
+        
+    }
+</script>

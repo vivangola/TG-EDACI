@@ -5,12 +5,12 @@
     <div class="panel-body" id="add_nova_pergunta">
         <div id="escolher_tipo_resp text-center" style="text-align: center;">
             <div class="form-group" style="text-align: left">
-                <label for="add_desc_resp" class="col-form-label">Digite a pergunta abaixo:</label>
+                <label for="add_desc_resp" class="col-form-label">Digite a pergunta abaixo: <label style="color:red">*</label></label>
                 <br>
                 <input type="text" class="form-control" id="add_desc_resp" value="">
             </div>
             <button type="button" class="btn btn-primary3" id="btn_objetiva" onclick="escolher_tipo_resp(1);">Objetiva</button>
-            ou
+            <label id="lblou">ou</label>
             <button type="button" class="btn btn-primary3" id="btn_dissertativa" onclick="escolher_tipo_resp(2);">Dissertativa</button>
             <hr>
         </div>
@@ -21,7 +21,7 @@
         Alternativas
     </div>
     <div class="panel-body">
-        <label class="col-form-label">Adicione abaixo as alternativas para esta questão:</label>
+        <label class="col-form-label">Adicione abaixo as alternativas para esta questão: <label style="color:red">*</label></label>
         <div class="respostas">
             <div id="add-respostas-objetiva">
             </div>
@@ -41,12 +41,12 @@
     </div>
     <div class="panel-body">
         <div class="form-group" style="text-align: left">
-            <label for="select_questao_add" class="col-form-label">Selecione a Questão:</label>
+            <label for="select_questao_add" class="col-form-label">Selecione a Questão: <label style="color:red">*</label></label>
             <br>
             <select class="form-control" id="select_questao_add">
             </select>
             <br>
-            <label for="select_alternativa_add" class="col-form-label">Selecione a Alternativa:</label>
+            <label for="select_alternativa_add" class="col-form-label">Selecione a Alternativa: <label style="color:red">*</label></label>
             <br>
             <select class="form-control" id="select_alternativa_add">
             </select>
@@ -69,19 +69,37 @@
  
 <script type="text/javascript">
 
-    function addQuestao(dependencia) {
+    function addQuestao(tipo_qst) {
         $('.edit').hide();
         limparAdd();
         $('#add_panel_respostas').fadeIn('slow');
         $('#edit_panel_respostas').hide();
+        
+        if(tipo_qst == 2){
+            $('#btn_dissertativa').remove();
+            $('#lblou').remove();
+        }
     }
 
     function addAlternativa() {
-        html = '<div class="form-group divRemoverResposta" style="text-align:right;">' +
+        if($('#tipo_questionario').val() == 2){
+            
+            html = '<div class="form-group divRemoverResposta" style="text-align:right;">'+
+                    '<i class="fa fa-times pointer removerResposta" style="display:block"></i>' +
+                    '<input type="radio" style="display: inline;" name="resposta-correta">'+
+                    '&nbsp;'+
+                    '&nbsp;'+
+                    '<input type="text" maxlength="500" class="form-control" id="add_desc" style="display:inline;width:95%">'+
+                    '</div>';
+        
+        }else{
+            html = '<div class="form-group divRemoverResposta" style="text-align:right;">' +
                 '<i class="fa fa-times pointer removerResposta"></i>' +
-                '<input type="text" class="form-control" id="add_desc" value="">' +
+                '<input type="text" maxlength="500" class="form-control" id="add_desc" value="">' +
                 '</div>';
+        }
         $('#add-respostas-objetiva').append(html);
+        
     }
 
     $('#add-respostas-objetiva').on('click', '.removerResposta', function (e) {
@@ -94,7 +112,7 @@
 
     function addFinalizar() {
         var qtdInputs = 0;
-        $('#add-respostas-objetiva input').filter(function () {
+        $('#add-respostas-objetiva input[type="text"]').filter(function () {
             return $(this).val() != "" ? qtdInputs = qtdInputs + 1 : '';
         });
         if (qtdInputs <= 0) {
@@ -107,8 +125,21 @@
         }
 
         var alternativas = [];
-        $('#add-respostas-objetiva input').filter(function () {
-            return $(this).val() != "" ? alternativas.push($(this).val()) : '';
+        $('#add-respostas-objetiva input[type="text"]').filter(function () {
+            
+            if($(this).val() != ""){
+                push = $(this).val();
+                
+                if($('#tipo_questionario').val() == 2){
+                    if($(this).prev().is(':checked')){
+                        push = push + '|' + '1';
+                    }else{
+                        push = push + '|' + '0';
+                    }
+                }
+                return alternativas.push(push);
+            }
+            
         });
         
         var dependencia = addVerificaDependencia();
@@ -121,6 +152,31 @@
             });
             return false;
         }
+        
+        if($('#tipo_questionario').val() == 2){
+            var qtdInputs = 0;
+            $('#add-respostas-objetiva input[type="radio"]').filter(function () {
+                return $(this).is(':checked') != "" ? qtdInputs = qtdInputs + 1 : '';
+            });
+
+            if (qtdInputs <= 0) {
+                Swal.fire({
+                    title: 'Atenção!',
+                    html: 'Selecione a alternativa correta.',
+                    type: 'info'
+                });
+                return false;
+            }
+
+            if(qtdInputs > 1){
+                Swal.fire({
+                    title: 'Atenção!',
+                    html: 'Selecione apenas uma alternativa correta.',
+                    type: 'info'
+                });
+                return false;
+            }
+        }
 
         $.ajax({
             url: '/questionario/cadastro/add-questao',
@@ -131,7 +187,9 @@
                 alternativas: alternativas,
                 tipo_questao: '1',
                 dependencia_questao : dependencia.cod_questao,
-                dependencia_alternativa : dependencia.cod_alternativa
+                dependencia_alternativa : dependencia.cod_alternativa,
+                tipo : 1,
+                tipo_qst : $('#tipo_questionario').val()
             },
             type: 'json',
             method: 'POST',
@@ -179,7 +237,8 @@
                 alternativas: [],
                 tipo_questao: '2',
                 dependencia_questao : dependencia.cod_questao,
-                dependencia_alternativa : dependencia.cod_alternativa
+                dependencia_alternativa : dependencia.cod_alternativa,
+                tipo : 1
             },
             type: 'json',
             method: 'POST',

@@ -6,7 +6,7 @@
         <input type="hidden" id="cod_questao">
         <div id="escolher_tipo_resp text-center" style="text-align: center;">
             <div class="form-group" style="text-align: left">
-                <label for="edit_desc_resp" class="col-form-label">Digite a questão abaixo:</label>
+                <label for="edit_desc_resp" class="col-form-label">Digite a questão abaixo: <label style="color:red">*</label></label>
                 <br>
                 <input type="text" class="form-control" id="edit_desc_resp" value="" maxlength="500">
                 <hr>
@@ -19,7 +19,7 @@
         Alternativas
     </div>
     <div class="panel-body" id="edit_nova_pergunta">
-        <label class="col-form-label">Adicione abaixo as alternativas para esta questão:</label>
+        <label class="col-form-label">Adicione abaixo as alternativas para esta questão: <label style="color:red">*</label></label>
         <div class="respostas">
             <div id="edit-respostas-objetiva">
             </div>
@@ -38,12 +38,12 @@
     </div>
     <div class="panel-body" id="edit_nova_pergunta">
         <div class="form-group" style="text-align: left">
-            <label for="select_questao" class="col-form-label">Selecione a Questão:</label>
+            <label for="select_questao" class="col-form-label">Selecione a Questão: <label style="color:red">*</label></label>
             <br>
             <select class="form-control" id="select_questao">
             </select>
             <br>
-            <label for="select_alternativa" class="col-form-label">Selecione a Alternativa:</label>
+            <label for="select_alternativa" class="col-form-label">Selecione a Alternativa: <label style="color:red">*</label></label>
             <br>
             <select class="form-control" id="select_alternativa">
             </select>
@@ -96,10 +96,27 @@
                         $('#edit_btn_objetiva').fadeIn('slow');
                         $('#menu-objetiva2').fadeIn('slow');
                         for(var i = 0; i < retorno.alternativas.length; i++){
-                            html = '<div class="form-group divRemoverResposta" style="text-align:right;">' +
-                                    '<i class="fa fa-times pointer removerResposta"></i>' +
-                                    '<input type="text" maxlength="500" class="form-control alternativa-existente" data-codigo="'+retorno.alternativas[i].cod+'" id="edit_desc" value="'+retorno.alternativas[i].desc_pergunta+'">' +
-                                    '</div>';
+                            
+                            if(retorno.tipo_questionario == 1){
+                                html = '<div class="form-group divRemoverResposta" style="text-align:right;">' +
+                                        '<i class="fa fa-times pointer removerResposta"></i>' +
+                                        '<input type="text" maxlength="500" class="form-control alternativa-existente" data-codigo="'+retorno.alternativas[i].cod+'" id="edit_desc" value="'+retorno.alternativas[i].desc_pergunta+'">' +
+                                        '</div>';
+                            }else{
+                                html = '<div class="form-group divRemoverResposta" style="text-align:right;">'+
+                                        '<i class="fa fa-times pointer removerResposta" style="display:block"></i>';
+                                
+                                if(retorno.alternativas[i].is_correta == 1){
+                                    html += '<input type="radio" style="display: inline;" name="resposta-correta" checked>';
+                                }else{
+                                    html += '<input type="radio" style="display: inline;" name="resposta-correta">';
+                                }
+                                
+                                html += '&nbsp;'+
+                                        '&nbsp;'+
+                                        '<input type="text" maxlength="500" class="form-control alternativa-existente" data-codigo="'+retorno.alternativas[i].cod+'" id="edit_desc" value="'+retorno.alternativas[i].desc_pergunta+'" style="display: inline;width: 95%">'+
+                                        '</div>';
+                            }
                             $('#edit-respostas-objetiva').append(html);
                         }
                         
@@ -133,6 +150,10 @@
                         cancelarDependencia();
                     }
                     
+                    if(retorno.tipo_questionario == 2){
+                        $('#btn_add_dependencia').remove();
+                    }
+                    
                     $('#edit_panel_respostas').fadeIn('slow');
                     $('#add_panel_respostas').hide();
                     
@@ -159,6 +180,7 @@
                     data: {
                         cod_questionario: $('#cod_questionario').val(),
                         cod_questao: $('#cod_questao').val(),
+                        tipo: 1
                     },
                     type: 'json',
                     method: 'POST',
@@ -183,10 +205,23 @@
     }
     
     function editAlternativa() {
-        html = '<div class="form-group divRemoverResposta" style="text-align:right;">' +
+        
+        if($('#tipo_questionario').val() == 2){
+            
+            html = '<div class="form-group divRemoverResposta" style="text-align:right;">'+
+                    '<i class="fa fa-times pointer removerResposta" style="display:block"></i>' +
+                    '<input type="radio" style="display: inline;" name="resposta-correta">'+
+                    '&nbsp;'+
+                    '&nbsp;'+
+                    '<input type="text" maxlength="500" class="form-control alternativa-nao-existente" id="edit_desc" value="" style="display:inline;width:95%">'+
+                    '</div>';
+        
+        }else{
+            html = '<div class="form-group divRemoverResposta" style="text-align:right;">' +
                 '<i class="fa fa-times pointer removerResposta"></i>' +
-                '<input type="text" class="form-control alternativa-nao-existente" id="edit_desc" value="">' +
+                '<input type="text" maxlength="500" class="form-control alternativa-nao-existente" id="edit_desc" value="">' +
                 '</div>';
+        }
         $('#edit-respostas-objetiva').append(html);
     }
 
@@ -223,7 +258,7 @@
                 
                 if(tipo == 1){ // objetiva
                     var qtdInputs = 0;
-                    $('#edit-respostas-objetiva input').filter(function () {
+                    $('#edit-respostas-objetiva input[type="text"]').filter(function () {
                         return $(this).val() != "" ? qtdInputs = qtdInputs + 1 : '';
                     });
 
@@ -235,6 +270,32 @@
                         });
                         return false;
                     }
+                    
+                    if($('#tipo_questionario').val() == 2){
+                        var qtdInputs = 0;
+                        $('#edit-respostas-objetiva input[type="radio"]').filter(function () {
+                            return $(this).is(':checked') != "" ? qtdInputs = qtdInputs + 1 : '';
+                        });
+                        
+                        if (qtdInputs <= 0) {
+                            Swal.fire({
+                                title: 'Atenção!',
+                                html: 'Selecione a alternativa correta.',
+                                type: 'info'
+                            });
+                            return false;
+                        }
+                        
+                        if(qtdInputs > 1){
+                            Swal.fire({
+                                title: 'Atenção!',
+                                html: 'Selecione apenas uma alternativa correta.',
+                                type: 'info'
+                            });
+                            return false;
+                        }
+                    }
+                    
                     editFinalizar();
                     return;
                 }else{
@@ -257,11 +318,37 @@
         var alternativas = {existe : [], nexiste : []};
         
         $('#edit-respostas-objetiva .alternativa-existente').filter(function () {
-            return $(this).val() != "" ? alternativas.existe.push($(this).val()+'|'+$(this).attr('data-codigo')) : '';
+            
+            if($(this).val() != ""){
+                push = $(this).val()+'|'+$(this).attr('data-codigo');
+                
+                if($('#tipo_questionario').val() == 2){
+                    if($(this).prev().is(':checked')){
+                        push = push + '|' + '1';
+                    }else{
+                        push = push + '|' + '0';
+                    }
+                }
+                return alternativas.existe.push(push);
+            }
+            
         });
         
         $('#edit-respostas-objetiva .alternativa-nao-existente').filter(function () {
-            return $(this).val() != "" ? alternativas.nexiste.push($(this).val()) : '';
+            
+            if($(this).val() != ""){
+                push = $(this).val();
+                
+                if($('#tipo_questionario').val() == 2){
+                    if($(this).prev().is(':checked')){
+                        push = push + '|' + '1';
+                    }else{
+                        push = push + '|' + '0';
+                    }
+                }
+                return alternativas.nexiste.push(push);
+            }
+            
         });
         
         $.ajax({
@@ -273,7 +360,9 @@
                 alternativas: alternativas,
                 tipo_questao: '1',
                 dependencia_questao : dependencia.cod_questao,
-                dependencia_alternativa : dependencia.cod_alternativa
+                dependencia_alternativa : dependencia.cod_alternativa,
+                tipo: 1,
+                tipo_questionario : $('#tipo_questionario').val()
             },
             type: 'json',
             method: 'POST',
@@ -324,7 +413,8 @@
                 alternativas: alternativas,
                 tipo_questao: '2',
                 dependencia_questao : dependencia.cod_questao,
-                dependencia_alternativa : dependencia.cod_alternativa
+                dependencia_alternativa : dependencia.cod_alternativa,
+                tipo: 1
             },
             type: 'json',
             method: 'POST',

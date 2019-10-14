@@ -1,0 +1,148 @@
+<div class="row box-home" align="center" style="height:100%">
+    <div class="col-md-12 col-xs-12">  
+        <div class="main-box clearfix print min-branco rodapeindex">
+            <div class="main-box-body clearfix">  
+                <div class="row panels">
+                    <div class="col-md-12 pd-0" style="clear: both;">
+                        <div class="box">                           
+                            <div class="icon">
+                                <div class="image back-primary3"><i class="fa fa-book"></i>&nbsp;<label class="title"><?= mb_strtoupper($questionario['descricao']) ?></label></div>
+                                <div class="info" style="height: 800px">
+                                    <div class="col-md-offset-2 col-xs-12 col-md-8 div-questao" id='div-questao' style="margin-top: 10px; <?= $finalizado == 0 ? '' : 'display: none;' ?>">
+                                        <h2 class="pergunta"><?= $questionario['qtd_resp'] ?>) <?= $questionario['questao_atual']['name'] ?></h2>
+                                        <div class="respostas">
+                                            <?php foreach($questionario['questao_atual']['children'] as $dados):?>
+                                                    <div class="respostas-primary">
+                                                        <input type="radio" name="resposta" id="radio-<?= $dados['id']?>" value="<?= $dados['id']?>"/>
+                                                        <label for="radio-<?= $dados['id']?>"><?= $dados['name'] ?></label>
+                                                    </div>    
+                                            <?php endforeach;?>
+                                        </div>
+                                        <input type='hidden' id='cod_questao' value='<?= $questionario['questao_atual']['id'] ?>'>
+                                        <input type='hidden' id='cod_questionario' value='<?= $questionario['cod_questionario'] ?>'>
+                                    </div>
+                                    <div class='col-md-12 div-questao' style="margin-top:100px;margin-top: 10px; <?= $finalizado == 0 ? '' : 'display: none;' ?>">
+                                        <button type='button' class='btn btn-primary3' onclick="proximo()"> Proxima Questão <i class="fa fa-arrow-right"></i></button>
+                                        <hr>
+                                    </div>
+                                    <div class='col-md-12' style='margin-top:80px; <?= $finalizado == 1 ? '' : 'display: none;' ?>' id='div-finalizado'>
+                                        <h1 style="font-size: 60px">Questinário Finalizado.</h1>
+                                        <div class="erro-icon" style="font-size: 50px">
+                                            <i class="fa fa-smile-o"></i>
+                                        </div>
+                                        <h2 style="color:black;text-shadow: none;">Confira o resultado:</h2>
+                                        <hr>
+                                        <div class="overflow-auto" id="div_final" style="height: 375px;overflow: auto!important;padding: 0px 10px">
+                                            <?php foreach($finalizado_questoes as $key => $questao):?>
+                                                <div class="col-md-12 card-questao" id="card_questao">
+                                                        <div class="respostas">
+                                                            <h4 class="pergunta" style="margin-top: 20px"><?= $key + 1 ?>) <?= $questao['name'] ?> </h4>
+                                                            <?php foreach($questao['children'] as $alternativa):?>
+                                                                <?php if($alternativa['correta'] == '1' && $alternativa['resposta'] == '1'):?>
+                                                                        <div class="respostas-correta">
+                                                                            <input type="radio" disabled/>
+                                                                            <label for="radio-1"><?= $alternativa['name'] ?></label>
+                                                                        </div>
+                                                                <?php elseif($alternativa['correta'] == '1' && $alternativa['resposta'] == '0'):?>        
+                                                                        <div class="respostas-correta">
+                                                                            <input type="radio" disabled/>
+                                                                            <label for="radio-1"><?= $alternativa['name'] ?></label>
+                                                                        </div>
+                                                                <?php elseif($alternativa['correta'] == '0' && $alternativa['resposta'] == '1'):?>        
+                                                                        <div class="respostas-errada">
+                                                                            <input type="radio" disabled/>
+                                                                            <label for="radio-1"><?= $alternativa['name'] ?></label>
+                                                                        </div>
+                                                                <?php else:?>
+                                                                        <div class="respostas-normal">
+                                                                            <input type="radio" disabled/>
+                                                                            <label for="radio-1"><?= $alternativa['name'] ?></label>
+                                                                        </div>
+                                                                <?php endif;?>
+                                                            <?php endforeach;?>
+                                                            <hr>
+                                                        </div>
+                                                    <hr>
+                                                </div>
+                                            <?php endforeach; ?>
+                                        </div>
+                                        <br>
+                                        <button type='button' class='btn btn-primary3' onclick="refazer()">Refazer este Questionário <i class="fa fa fa-retweet"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(".img-check").click(function () {
+        $(this).toggleClass("resposta-imagem-check");
+    });
+    
+    function irPerfil(){
+        window.location.href = '/perfil';
+    }
+    
+    function proximo(){
+        var resposta = $('input[name="resposta"]:checked').val();
+        
+        $.ajax({
+            url: '/questionario/cadastro/proxima-questao',
+            data: {
+                questionario    : $('#cod_questionario').val(),
+                questao         : $('#cod_questao').val(),
+                resposta        : resposta,
+                tipo_qst        : 2
+            },
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                retorno = JSON.parse(retorno);
+                if(retorno.questionario_finalizado == 1){
+                    $('#div-finalizado').show();
+                    $('.div-questao').hide();
+                    $('#div_final').html(retorno.html);
+                }else{
+                    $('#div-questao').html(retorno.html);
+                    $('#div-finalizado').hide();
+                    $('.div-questao').show();
+                }
+                Swal.close();
+            }
+        });
+    }
+    
+    function refazer(){
+        Swal.fire({
+            title: 'Atenção!',
+            html: 'Deseja realmente refazer esse questionário?',
+            type: 'info',
+            showCancelButton: true,
+            preConfirm: () => {
+                $.ajax({
+                    url: '/questionario/cadastro/refazerQuestionario',
+                    data: {
+                        questionario    : $('#cod_questionario').val(),
+                    },
+                    type: 'json',
+                    method: 'POST',
+                    beforeSend: function () {
+                        loader();
+                    },
+                    success: function (retorno) {
+                        retorno = JSON.parse(retorno);
+                        location.reload();
+                    }
+                });
+            }
+        });
+    }
+</script>

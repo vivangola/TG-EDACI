@@ -1029,13 +1029,13 @@ DROP TABLE IF EXISTS `trbl_correcao_trabalho`;
 CREATE TABLE `trbl_correcao_trabalho` (
   `cod` int(11) NOT NULL AUTO_INCREMENT,
   `destinatario_fk` int(11) DEFAULT NULL,
-  `reemetente_fk` int(11) DEFAULT NULL,
+  `remetente_fk` int(11) DEFAULT NULL,
   `arquivo` varchar(50) DEFAULT NULL,
-  `observacao` varchar(500) DEFAULT NULL,
+  `observacao` varchar(100) DEFAULT NULL,
   `data_enviado` datetime DEFAULT NULL,
   `data_correcao` datetime DEFAULT NULL,
-  `corrigido` int(11) DEFAULT NULL,
-  `modalidade_fk` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL,
+  `modalidade` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`cod`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;

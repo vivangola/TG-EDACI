@@ -124,6 +124,16 @@ return [
                     ],
                 ],
             ],
+            'trabalho-correcao' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/trabalho-correcao[/:action]',
+                    'defaults' => [
+                        'controller' => Controller\TrabalhoCorrecaoController::class,
+                        'action'     => 'trabalho-correcao',
+                    ],
+                ],
+            ],
             'assunto' => [
                 'type'    => Segment::class,
                 'options' => [
@@ -150,6 +160,7 @@ return [
             Controller\EscolaridadeController::class => InvokableFactory::class,
             Controller\AssuntoController::class => InvokableFactory::class,
             Controller\ProducaoGrupoController::class => InvokableFactory::class,
+            Controller\TrabalhoCorrecaoController::class => InvokableFactory::class,
             Controller\PlanoAtividadesController::class => InvokableFactory::class,
         ],
     ],

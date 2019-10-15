@@ -98,14 +98,19 @@
                             <label for="add_formato" class="col-form-label">Formato da Publicação:</label>
                             <input type="text" class="form-control" id="add_formato" name="add_formato" maxlength="200" />
                         </div>
-                        <div class="form-group col-xs-6">
-                            <label for="add_publicacao" class="col-form-label">Data da Publicação: <label style="color:red">*</label></label>
-                            <input id="add_publicacao" class="obg form-control input-group-lg" type="date" name="add_publicacao"/>
+                         <div class="form-group col-xs-3">
+                            <label for="add_mes" class="col-form-label">Mês Publicação:</label><label style="color:red">*</label>
+                            <input id="add_mes" class="obg form-control input-group-lg" type="text" name="add_mes" data-mask="00" />
+                        </div>
+                        
+                        <div class="form-group col-xs-3">
+                            <label for="add_ano" class="col-form-label">Ano Publicação:</label><label style="color:red">*</label>
+                            <input id="add_ano" class="obg form-control input-group-lg" type="text" name="add_ano" data-mask="0000"/>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-xs-6">
-                            <label for="add_nome" class="col-form-label">Nome do Evento:</label>
+                            <label for="add_nome" class="col-form-label">Nome do evento/periódico:</label>
                             <input id="add_nome" class="form-control input-group-lg" maxlength="100" type="text" name="add_nome"/>
                         </div>
 
@@ -183,14 +188,19 @@
                             <label for="edit_formato" class="col-form-label">Formato da Publicação:</label>
                             <input type="text" class="form-control" id="edit_formato" name="edit_formato" maxlength="200" />
                         </div>
-                        <div class="form-group col-xs-6">
-                            <label for="edit_publicacao" class="col-form-label">Data da Publicação: <label style="color:red">*</label></label>
-                            <input id="edit_publicacao" class="obg form-control input-group-lg" type="date" name="edit_publicacao"/>
+                        <div class="form-group col-xs-3">
+                            <label for="edit_mes" class="col-form-label">Mês:</label><label style="color:red">*</label>
+                            <input id="edit_mes" class="obg form-control input-group-lg" type="text" name="edit_mes" data-mask="00" placeholder="Mês"/>
+                        </div>
+                        
+                        <div class="form-group col-xs-2">
+                            <label for="edit_ano" class="col-form-label">Ano:</label><label style="color:red">*</label>
+                            <input id="edit_ano" class="obg form-control input-group-lg" type="text" name="edit_ano" data-mask="0000" placeholder="Ano"/>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-xs-6">
-                            <label for="edit_nome" class="col-form-label">Nome do Evento:</label>
+                            <label for="edit_nome" class="col-form-label">Nome do evento/periódico:</label>
                             <input id="edit_nome" class="form-control input-group-lg" maxlength="100" type="text" name="edit_nome"/>
                         </div>
 
@@ -272,16 +282,7 @@
             });
             return false;
         }
-        
-        if(!validarData(data.add_publicacao)){
-            Swal.fire({
-                title: 'Atenção!',
-                html: "A data de pesquisa não é válida.",
-                type: 'info'
-            });
-            return false;
-        }
-        
+                
         var options = {
             url: '/producao-grupo/add',
             type: 'POST',
@@ -333,7 +334,8 @@
                     $('#edit_nome').val(retorno.result['nome']),
                     $('#edit_qualis').val(retorno.result['qualis']),
                     $('#edit_formato').val(retorno.result['formato']),
-                    $('#edit_publicacao').val(retorno.result['dt_pub']),
+                    $('#edit_ano').val(retorno.result['dt_pub_ano']),
+                    $('#edit_mes').val(retorno.result['dt_pub_mes']),
                     $('#edit_link').val(retorno.result['link']),
                     $('#edit_esclarecimento').val(retorno.result['esclarecimentos']),
                     $('#edit_formato').val(retorno.result['formato']),
@@ -365,16 +367,7 @@
             });
             return false;
         }
-        
-        if(!validarData(data.edit_publicacao)){
-            Swal.fire({
-                title: 'Atenção!',
-                html: "A data de pesquisa não é válida.",
-                type: 'info'
-            });
-            return false;
-        }
-        
+                
         var options = {
             url: '/producao-grupo/edit',
             type: 'POST',

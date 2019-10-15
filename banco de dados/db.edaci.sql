@@ -2450,7 +2450,7 @@ BEGIN
 		if filtro = 1 then		
 					
             select a.cod_producao, a.origem, a.titulo, a.autor, a.modalidade, a.nome, a.qualis, a.link, a.esclarecimentos, a.status, b.nome as usuario, a.arquivo, a.formato,		
-            date_format(a.data_publicacao, "%d/%m/%Y") as data_publicacao, date_format(a.data_submissao, "%d/%m/%Y") as data_submissao		
+            date_format(a.data_publicacao, "%m/%Y") as data_publicacao, date_format(a.data_submissao, "%d/%m/%Y") as data_submissao		
             from producao_grupo a		
 				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario		
 			where a.origem like pesquisa		
@@ -2459,7 +2459,7 @@ BEGIN
 		elseif filtro = 2 then		
 					
             select a.cod_producao, a.origem, a.titulo, a.autor, a.modalidade, a.nome, a.qualis, a.link, a.esclarecimentos, a.status, b.nome as usuario, a.arquivo, a.formato,		
-            date_format(a.data_publicacao, "%d/%m/%Y") as data_publicacao, date_format(a.data_submissao, "%d/%m/%Y") as data_submissao		
+            date_format(a.data_publicacao, "%m/%Y") as data_publicacao, date_format(a.data_submissao, "%d/%m/%Y") as data_submissao		
             from producao_grupo a		
 				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario		
 			where a.titulo like pesquisa		
@@ -2468,7 +2468,7 @@ BEGIN
         elseif filtro = 3 then		
         		
 			select a.cod_producao, a.origem, a.titulo, a.autor, a.modalidade, a.nome, a.qualis, a.link, a.esclarecimentos, a.status, b.nome as usuario,  a.arquivo, a.formato,		
-            date_format(a.data_publicacao, "%d/%m/%Y") as data_publicacao, date_format(a.data_submissao, "%d/%m/%Y") as data_submissao		
+            date_format(a.data_publicacao, "%m/%Y") as data_publicacao, date_format(a.data_submissao, "%d/%m/%Y") as data_submissao		
             from producao_grupo a		
 				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario		
 			where a.autor like pesquisa		
@@ -2485,7 +2485,7 @@ BEGIN
         else 		
         		
 			select a.cod_producao, a.origem, a.titulo, a.autor, a.modalidade, a.nome, a.qualis, a.link, a.esclarecimentos, a.status, b.nome as usuario, a.arquivo, a.formato,		
-            date_format(a.data_publicacao, "%d/%m/%Y") as data_publicacao, date_format(a.data_submissao, "%d/%m/%Y") as data_submissao		
+            date_format(a.data_publicacao, "%m/%Y") as data_publicacao, date_format(a.data_submissao, "%d/%m/%Y") as data_submissao		
             from producao_grupo a		
 				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario		
             order by data_submissao desc;		
@@ -2495,7 +2495,7 @@ BEGIN
     else 		
     		
 		select a.cod_producao, a.origem, a.titulo, a.autor, a.modalidade, a.nome, a.qualis, a.link, a.esclarecimentos, a.status, b.nome as usuario, a.arquivo, date_format(a.data_publicacao, "%Y-%m-%d") as dt_pub, a.formato,		
-            date_format(a.data_publicacao, "%d/%m/%Y") as data_publicacao, date_format(a.data_submissao, "%d/%m/%Y") as data_submissao		
+            date_format(a.data_publicacao, "%m/%Y") as data_publicacao, date_format(a.data_submissao, "%d/%m/%Y") as data_submissao		
             from producao_grupo  a		
 				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario		
 			where a.cod_producao = cod_producao		

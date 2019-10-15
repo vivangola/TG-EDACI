@@ -1774,26 +1774,26 @@ BEGIN
 
 		if filtro = 1 then
 			
-			select a.cod_atividade as cod, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade, d.descricao as status, b.nome as usuario
+			select a.cod_atividade as cod, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade, d.descricao as status, b.nome as usuario, a.cod_usuario_fk as cod_usuario
 			from atvs_plano_atividades a
 				inner join us_usuario b on b.cod_usuario = a.cod_usuario_fk
 				inner join atvs_plano_atividades_tipo c on a.tipo_atividade_fk = c.cod
                 inner join atvs_plano_atividades_status d on a.status = d.cod
 			where 
-				(dt_ini is null and dt_fim is null) or ((dt_ini is not null and dt_fim is not null) and (cast(concat(a.ano,'-',a.mes,'-','01') as date) between dt_ini and dt_fim))
+				((dt_ini is null and dt_fim is null) or ((dt_ini is not null and dt_fim is not null) and (cast(concat(a.ano,'-',a.mes,'-','01') as date) between dt_ini and dt_fim)))
 				and
 				c.descricao like pesquisa
 			order by data_criacao desc;
 			
 		elseif filtro = 2 then
 			
-			select a.cod_atividade as cod, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade, d.descricao as status, b.nome as usuario
+			select a.cod_atividade as cod, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade, d.descricao as status, b.nome as usuario, a.cod_usuario_fk as cod_usuario
 			from atvs_plano_atividades a
 				inner join us_usuario b on b.cod_usuario = a.cod_usuario_fk
 				inner join atvs_plano_atividades_tipo c on a.tipo_atividade_fk = c.cod
                 inner join atvs_plano_atividades_status d on a.status = d.cod
 			where 
-				(dt_ini is null and dt_fim is null) or ((dt_ini is not null and dt_fim is not null) and (cast(concat(a.ano,'-',a.mes,'-','01') as date) between dt_ini and dt_fim))
+				((dt_ini is null and dt_fim is null) or ((dt_ini is not null and dt_fim is not null) and (cast(concat(a.ano,'-',a.mes,'-','01') as date) between dt_ini and dt_fim)))
 				and
 				d.descricao like pesquisa
 			order by data_criacao desc;
@@ -1801,13 +1801,13 @@ BEGIN
         elseif filtro = 3 then
         
 			
-			select a.cod_atividade as cod, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade, d.descricao as status, b.nome as usuario
+			select a.cod_atividade as cod, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade, d.descricao as status, b.nome as usuario, a.cod_usuario_fk as cod_usuario
 			from atvs_plano_atividades a
 				inner join us_usuario b on b.cod_usuario = a.cod_usuario_fk
 				inner join atvs_plano_atividades_tipo c on a.tipo_atividade_fk = c.cod
                 inner join atvs_plano_atividades_status d on a.status = d.cod
 			where 
-				(dt_ini is null and dt_fim is null) or ((dt_ini is not null and dt_fim is not null) and (cast(concat(a.ano,'-',a.mes,'-','01') as date) between dt_ini and dt_fim))
+				((dt_ini is null and dt_fim is null) or ((dt_ini is not null and dt_fim is not null) and (cast(concat(a.ano,'-',a.mes,'-','01') as date) between dt_ini and dt_fim)))
 				and
 				a.mes like pesquisa
 			order by data_criacao desc;
@@ -1815,13 +1815,13 @@ BEGIN
         elseif filtro = 4 then
         
 			
-			select a.cod_atividade as cod, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade, d.descricao as status, b.nome as usuario
+			select a.cod_atividade as cod, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade, d.descricao as status, b.nome as usuario, a.cod_usuario_fk as cod_usuario
 			from atvs_plano_atividades a
 				inner join us_usuario b on b.cod_usuario = a.cod_usuario_fk
 				inner join atvs_plano_atividades_tipo c on a.tipo_atividade_fk = c.cod
                 inner join atvs_plano_atividades_status d on a.status = d.cod
 			where 
-				(dt_ini is null and dt_fim is null) or ((dt_ini is not null and dt_fim is not null) and (cast(concat(a.ano,'-',a.mes,'-','01') as date) between dt_ini and dt_fim))
+				((dt_ini is null and dt_fim is null) or ((dt_ini is not null and dt_fim is not null) and (cast(concat(a.ano,'-',a.mes,'-','01') as date) between dt_ini and dt_fim)))
 				and
 				a.ano like pesquisa
 			order by data_criacao desc;
@@ -1829,31 +1829,34 @@ BEGIN
 		elseif filtro = 5 then
         
 			
-			select a.cod_atividade as cod, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade, d.descricao as status, b.nome as usuario
+			select a.cod_atividade as cod, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade, d.descricao as status, b.nome as usuario, a.cod_usuario_fk as cod_usuario
 			from atvs_plano_atividades a
 				inner join us_usuario b on b.cod_usuario = a.cod_usuario_fk
 				inner join atvs_plano_atividades_tipo c on a.tipo_atividade_fk = c.cod
                 inner join atvs_plano_atividades_status d on a.status = d.cod
 			where 
-				(dt_ini is null and dt_fim is null) or ((dt_ini is not null and dt_fim is not null) and (cast(concat(a.ano,'-',a.mes,'-','01') as date) between dt_ini and dt_fim))
+				((dt_ini is null and dt_fim is null) or ((dt_ini is not null and dt_fim is not null) and (cast(concat(a.ano,'-',a.mes,'-','01') as date) between dt_ini and dt_fim)))
 				and
 				b.nome like pesquisa
 			order by data_criacao desc;
         
         else 
 			
-			select a.cod_atividade as cod, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade, d.descricao as status, b.nome as usuario
+			select a.cod_atividade as cod, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade, d.descricao as status, b.nome as usuario, a.cod_usuario_fk as cod_usuario
 			from atvs_plano_atividades a
 				inner join us_usuario b on b.cod_usuario = a.cod_usuario_fk
 				inner join atvs_plano_atividades_tipo c on a.tipo_atividade_fk = c.cod
                 inner join atvs_plano_atividades_status d on a.status = d.cod
+			where 
+				((dt_ini is null and dt_fim is null) or ((dt_ini is not null and dt_fim is not null) and (cast(concat(a.ano,'-',a.mes,'-','01') as date) between dt_ini and dt_fim)))
 			order by data_criacao desc;
 			
 		end if;
 		
     else 
     
-		select a.cod_atividade as cod, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade, d.descricao as status, b.nome as usuario
+		select a.cod_atividade as cod, a.descricao, CONCAT(mes,'-',ano) as mes_ano, c.descricao as tipo_atividade, d.descricao as status, b.nome as usuario, a.cod_usuario_fk as cod_usuario, tipo_atividade_fk,
+			mes,ano,d.cod as status_fk
 		from atvs_plano_atividades a
 			inner join us_usuario b on b.cod_usuario = a.cod_usuario_fk
 			inner join atvs_plano_atividades_tipo c on a.tipo_atividade_fk = c.cod

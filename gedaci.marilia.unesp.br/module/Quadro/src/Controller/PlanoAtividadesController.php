@@ -25,14 +25,28 @@ class PlanoAtividadesController extends AbstractActionController
             'cod_usuario'   => $sessao->cod_usuario,
             'filtro'        => $this->params()->fromPost('filtros', '-1'),
             'pesquisa'      => $this->params()->fromPost('pesquisa', ''),
-            'is_adm'        => $sessao->tipo_usuario == 1 ? 1 : 0
+            'is_adm'        => $sessao->tipo_usuario == 1 ? 1 : 0,
+            'dt_ini'        => $this->params()->fromPost('dt_ini', ''),
+            'dt_fim'        => $this->params()->fromPost('dt_fim', ''),
         );
         
         if($params['filtro'] == '-1'){
             $params['pesquisa'] = '';
         }
         
-        $sql = "call us_buscarAtividades_sp(:filtro,:pesquisa,'0',null,null,:is_adm)";
+        if($params['dt_ini'] == '' || $params['dt_fim'] == ''){
+            $params['dt_ini'] = '';
+            $params['dt_fim'] = '';
+        }
+        
+        if($params['dt_ini'] != '' && $params['dt_fim'] != ''){
+            $sql = "call us_buscarAtividades_sp(:filtro,:pesquisa,'0',:dt_ini,:dt_fim,:is_adm)";
+        }else{
+            $sql = "call us_buscarAtividades_sp(:filtro,:pesquisa,'0',null,null,:is_adm)";
+        }
+        echo "<pre>";
+        var_dump($funcoes->getSQLBinded($sql,$params));
+        echo "</pre>";
         $result = $funcoes->executarSQL($sql,$params);
         
         $sql = "select * from atvs_plano_atividades_tipo";
@@ -55,9 +69,12 @@ class PlanoAtividadesController extends AbstractActionController
             'relatorio' => $relatorio,
             'filtro'    => $params['filtro'],
             'pesq'      => $params['pesquisa'],
+            'usuario'   => $sessao->cod_usuario,
             'is_adm'    => $sessao->tipo_usuario == 1 ? 1 : 0,
             'tipos'     => $tipos,
-            'status'    => $status
+            'status'    => $status,
+            'dt_ini'    => $params['dt_ini'],
+            'dt_fim'    => $params['dt_fim'],
         ));
         
         $view->setTemplate('quadro/quadro-atividades');
@@ -82,7 +99,7 @@ class PlanoAtividadesController extends AbstractActionController
             ); 
             
             $sql = "insert into atvs_plano_atividades(cod_usuario_fk, descricao, mes, ano, status, tipo_atividade_fk, data_criacao) " .
-                                "values(:usuario,:descricao,:tipo,:status,:ano,:mes,now());";
+                                "values(:usuario,:descricao,:mes,:ano,:status,:tipo,now());";
             $funcoes->executarSQL($sql,$params);
 
             return $response->setContent(Json::encode(array('response' => true, 'msg' => 'Atividade Adicionada.')));
@@ -104,7 +121,7 @@ class PlanoAtividadesController extends AbstractActionController
                 'cod'       => $this->params()->fromPost('cod', '-1'),
             );
 
-            $sql = "call us_buscarLeitura_sp('','',:cod)";
+            $sql = "call us_buscarAtividades_sp('0','0',:cod,null,null,'')";
             $result = $funcoes->executarSQL($sql,$params,'');
 
             return $response->setContent(Json::encode(array('response' => true, 'result' => $result)));
@@ -124,20 +141,12 @@ class PlanoAtividadesController extends AbstractActionController
         if($request->isPost()){
             $params = array(
                 'usuario'           => $sessao->cod_usuario,
-                'cod'               => $this->params()->fromPost('cod'),
-                'base'              => $this->params()->fromPost('base', ''), 
-                'data_pesquisa'     => $this->params()->fromPost('data_pesq', ''), 
-                'titulo_periodico'  => $this->params()->fromPost('titulo_periodico', ''), 
+                'descricao'         => $this->params()->fromPost('descricao', ''), 
+                'tipo'              => $this->params()->fromPost('tipo', ''), 
+                'status'            => $this->params()->fromPost('status', ''), 
                 'ano'               => $this->params()->fromPost('ano', ''), 
                 'mes'               => $this->params()->fromPost('mes', ''), 
-                'volume'            => $this->params()->fromPost('volume', ''), 
-                'numero'            => $this->params()->fromPost('numero', ''), 
-                'titulo_artigo'     => $this->params()->fromPost('titulo_artigo', ''), 
-                'autor'             => $this->params()->fromPost('autor', ''), 
-                'pagina_inicial'    => $this->params()->fromPost('pginicial', ''), 
-                'pagina_final'      => $this->params()->fromPost('pgfim', ''), 
-                'interesse'         => $this->params()->fromPost('interesse', ''), 
-                //'arquivo'           => $this->params()->fromPost('arquivo', ''), 
+                'cod'               => $this->params()->fromPost('cod', ''), 
             ); 
             
             /*
@@ -154,7 +163,7 @@ class PlanoAtividadesController extends AbstractActionController
             move_uploaded_file($arquivo['tmp_name'], $destino);
             */
             
-            $sql = "update ltr_material_leitura set base = :base, data_pesquisa =:data_pesquisa, titulo_periodico =:titulo_periodico, ano=:ano, mes=:mes, volume=:volume, numero=:numero, titulo_artigo=:titulo_artigo, autor=:autor, pagina_inicial =:pagina_inicial, pagina_final =:pagina_final, interesse=:interesse where cod_material =:cod";
+            $sql = "update atvs_plano_atividades set descricao =:descricao, mes=:mes, ano=:ano, status=:status, tipo_atividade_fk=:tipo where cod_atividade =:cod";
             $funcoes->executarSQL($sql,$params);
             
             return $response->setContent(Json::encode(array('response' => true, 'msg' => 'Alterado com sucesso.')));

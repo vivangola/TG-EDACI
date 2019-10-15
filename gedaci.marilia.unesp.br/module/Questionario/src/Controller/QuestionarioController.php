@@ -908,11 +908,6 @@ class QuestionarioController extends AbstractActionController
         
         $questoes = $this->gerarQuestionario2($questoes, 0);
         
-        echo "<pre>";
-        var_dump($q);
-        echo "</pre>";
-        exit;
-        
         $html = "";
         foreach($questoes as $key => $questao){
             $html .= '<div class="col-md-12 card-questao" id="card_questao">';

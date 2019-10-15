@@ -1228,7 +1228,7 @@ CREATE TABLE `us_usuario` (
   `facebook` varchar(100) DEFAULT NULL,
   `lattes` varchar(100) DEFAULT NULL,
   `foto` varchar(50) DEFAULT NULL,
-  `num_banco` int(11) DEFAULT NULL,
+  `num_banco` varchar(60) DEFAULT NULL,
   `num_conta` int(11) DEFAULT NULL,
   `num_agencia` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
@@ -1258,57 +1258,7 @@ INSERT INTO `us_usuario` VALUES (4,'Sandra Regina Gimeniz','410.431.028-09',22,'
 /*!40000 ALTER TABLE `us_usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Dumping routines for database 'edaci'
---
-/*!50003 DROP FUNCTION IF EXISTS `sys_gerarSenha` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `sys_gerarSenha`() RETURNS varchar(500) CHARSET utf8mb4
-begin
-	declare v_codigo bigint; 
-    declare v_complemento bigint;
-    declare v_c1 varchar(500);
-    declare v_x1 int;
-    declare v_x2 int;
-	declare v_r1 double; 
-    declare v_l1 varchar(5);
-    declare v_l2 varchar(5);  declare v_l3 varchar(5);
 
-	select rand() as rand into v_r1;
-    
-    set v_x1= cast(v_r1*20 as UNSIGNED) + 1, v_x2= cast(v_r1*400 as UNSIGNED) + 1;
-    
-	set v_codigo=datepart(second,now())*datepart(minute,timestampadd(minute,v_x1,now()));
-    
-	set v_codigo=datepart(minute,now())+v_codigo;
-    
-	if (datepart(second,now())<30) then
-		set v_complemento = datepart(minute,timestampadd(minute,v_x2,now()))*v_x1;
-	else
-		set v_complemento = datepart(minute,now())*v_x2;
-	end if;
-    
-	set v_l1=substring(datename(month,timestampadd(month,v_x1*3,now())),3,1);
-    
-	set v_l2=substring(datename(weekday,timestampadd(month,v_x1*1,now())),2,1);
-    
-	set v_l3=substring(datename(month,timestampadd(month,v_x1*1,now())),1,1);
-    
-	set v_c1=left(convert(v_x2, char(100)),1) + v_l1 + left(concat(convert(v_codigo, char(100))
-		,date_format(v_complemento,0)),1)+v_l2 + convert(v_x1, char(100)) + v_l3;
-	set v_c1=upper(dbo.shuffle(replace(replace(v_c1,'o','B'),'I','g')));
-
-	return v_c1;
-end ;;
-DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;

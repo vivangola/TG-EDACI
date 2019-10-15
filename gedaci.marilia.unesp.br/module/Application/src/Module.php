@@ -155,10 +155,6 @@ class Module
                         }
                     }
                     if(!in_array($action, $pre_cadastro_actions_permitidas)){
-                        echo "<pre>";
-                        var_dump($action);
-                        echo "</pre>";
-                        exit;
                         return $controller->redirect()->toUrl("/bem-vindo");
                     }
                 }else{// se nao for pré cadastro

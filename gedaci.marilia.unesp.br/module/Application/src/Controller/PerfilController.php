@@ -145,6 +145,7 @@ class PerfilController extends AbstractActionController {
             $post_data['conta'] = $post_data['conta'] == '' ? 0 : $post_data['conta'];
             $post_data['agencia'] = $post_data['agencia'] == '' ? 0 : $post_data['agencia'];
             $post_data['emp_numero'] = $post_data['emp_numero'] == '' ? 0 : $post_data['emp_numero'];
+            $post_data['escolaridade'] = $post_data['escolaridade'] == '' ? 0 : $post_data['escolaridade'];
             
             if($sessao->situacao == 2){ //novo membro
                 $sql = "insert into us_usuario(cod_usuario, nome, cpf, idade, genero, email, email2, nivel_escolaridade_fk, tipo_usuario_fk, endereco , numero, complemento , cidade , bairro , estado , cep,   fixo, celular , curso_atual_nome, curso_atual_serie , curso_periodo , graduacao_nome , graduacao_ano_conclusao , graduacao_instituicao , pos_graduacao_nome , pos_graduacao_ano ,  pos_graduacao_instituicao,  mestrado_nome,  mestrado_ano,  mestrado_instituicao,  doutorado_nome,  doutorado_ano,  doutorado_instituicao,  estado_civil,  data_nascimento,  rg,  orgao_emissor,  ra,  skype,  whatsapp,  facebook,  lattes,  foto,  num_banco,  num_conta,  num_agencia,  status,  emp_nome,  emp_endereco,  emp_numero,  emp_complemento,  emp_cidade,  emp_bairro,  emp_estado,  emp_cep,  emp_telefone,  emp_celular,  data_entrada, ativo) ".

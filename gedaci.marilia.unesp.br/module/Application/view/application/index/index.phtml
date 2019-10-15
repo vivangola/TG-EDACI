@@ -186,10 +186,12 @@ $sessao = new Container('usuario');
         $("#div-doc").css('height', $("#div-video").css('height'));
 
         $("#upVideo").click(function () {
+            loader();
             $("#frmVideo").submit();
         });
 
         $("#upDoc").click(function () {
+            loader();
             $("#frmDoc").submit();
         });
 

@@ -125,31 +125,35 @@ class IndexController extends AbstractActionController {
         if ($request->isPost()) {
 
             $arquivo = $this->params()->fromFiles('add_arquivo', '');
-            //$arquivo['name'] = str_replace(" ", "_", preg_replace('/[`^~\'"]/', null, iconv('UTF-8', 'ASCII//TRANSLIT', $arquivo['name'])));
+            
+            if($arquivo){
+                if ($arquivo['error'] == 0) {
+                    $ext = pathinfo($arquivo['name'], PATHINFO_EXTENSION);
 
-            if ($arquivo['error'] == 0) {
-                $ext = pathinfo($arquivo['name'], PATHINFO_EXTENSION);
+                    if ($ext == 'pdf') {
+                        $dir = $request->getServer()->DOCUMENT_ROOT . '/arquivos/principal/';
 
-                if ($ext == 'pdf') {
-                    $dir = $request->getServer()->DOCUMENT_ROOT . '/arquivos/principal/';
+                        if (!file_exists($dir)) {
+                            mkdir($dir, 0777);
+                        }
 
-                    if (!file_exists($dir)) {
-                        mkdir($dir, 0777);
+                        $destino = $dir . 'arquivo_principal.pdf';
+
+                        move_uploaded_file($arquivo['tmp_name'], $destino);
+
+                        $funcoes->alertBasic('Arquivo alterado com sucesso.', false, '/', 'success', 'Sucesso!');
+                        exit;
+                    } else {
+                        $funcoes->alertBasic('Por favor selecione um arquivo .pdf', false, '/', 'info', 'Ops...');
+                        exit;
                     }
-
-                    $destino = $dir . 'arquivo_principal.pdf';
-
-                    move_uploaded_file($arquivo['tmp_name'], $destino);
-
-                    $funcoes->alertBasic('Arquivo alterado com sucesso.', false, '/', 'success', 'Sucesso!');
-                    exit;
                 } else {
-                    $funcoes->alertBasic('Por favor selecione um arquivo .pdf', false, '/', 'info', 'Ops...');
+                    $msg = $funcoes->validaArquivo($arquivo['error']);
+                    $funcoes->alertBasic($msg, false, '/', 'info', 'Ops...');
                     exit;
                 }
-            } else {
-                $msg = $funcoes->validaArquivo($arquivo['error']);
-                $funcoes->alertBasic($msg, false, '/', 'info', 'Ops...');
+            }else{
+                $funcoes->alertBasic('Por favor selecione um arquivo válido', false, '/', 'info', 'Ops...');
                 exit;
             }
         } else {
@@ -165,31 +169,35 @@ class IndexController extends AbstractActionController {
         if ($request->isPost()) {
 
             $arquivo = $this->params()->fromFiles('add_video', '');
-            //$arquivo['name'] = str_replace(" ", "_", preg_replace('/[`^~\'"]/', null, iconv('UTF-8', 'ASCII//TRANSLIT', $arquivo['name'])));
+            
+            if($arquivo){
+                if ($arquivo['error'] == 0) {
+                    $ext = pathinfo($arquivo['name'], PATHINFO_EXTENSION);
 
-            if ($arquivo['error'] == 0) {
-                $ext = pathinfo($arquivo['name'], PATHINFO_EXTENSION);
+                    if ($ext == 'mp4') {
+                        $dir = $request->getServer()->DOCUMENT_ROOT . '/arquivos/principal/';
 
-                if ($ext == 'mp4') {
-                    $dir = $request->getServer()->DOCUMENT_ROOT . '/arquivos/principal/';
+                        if (!file_exists($dir)) {
+                            mkdir($dir, 0777);
+                        }
 
-                    if (!file_exists($dir)) {
-                        mkdir($dir, 0777);
+                        $destino = $dir . 'video_principal.mp4';
+
+                        move_uploaded_file($arquivo['tmp_name'], $destino);
+
+                        $funcoes->alertBasic('Video alterado com sucesso.', false, '/', 'success', 'Sucesso!');
+                        exit;
+                    } else {
+                        $funcoes->alertBasic('Por favor selecione um video .mp4', false, '/', 'info', 'Ops...');
+                        exit;
                     }
-
-                    $destino = $dir . 'video_principal.mp4';
-
-                    move_uploaded_file($arquivo['tmp_name'], $destino);
-
-                    $funcoes->alertBasic('Video alterado com sucesso.', false, '/', 'success', 'Sucesso!');
-                    exit;
                 } else {
-                    $funcoes->alertBasic('Por favor selecione um video .mp4', false, '/', 'info', 'Ops...');
+                    $msg = $funcoes->validaArquivo($arquivo['error']);
+                    $funcoes->alertBasic($msg, false, '/', 'info', 'Ops...');
                     exit;
                 }
-            } else {
-                $msg = $funcoes->validaArquivo($arquivo['error']);
-                $funcoes->alertBasic($msg, false, '/', 'info', 'Ops...');
+            }else{
+                $funcoes->alertBasic('Por favor selecione um video válido', false, '/', 'info', 'Ops...');
                 exit;
             }
         } else {

@@ -362,17 +362,8 @@
                                                                                     <div class="col-md-2">
                                                                                         <div class="row">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
-                                                                                                <select class="form-control user-success" id="banco" name="banco">
-                                                                                                    <option value="" <?= $usuario['num_banco'] == '' ? 'selected' : '' ?>>Selecionar</option>
-                                                                                                    <option value="1" <?= $usuario['num_banco'] == '1' ? 'selected' : '' ?>>Banco do Brasil</option>
-                                                                                                    <option value="2" <?= $usuario['num_banco'] == '2' ? 'selected' : '' ?>>Bradesco</option>
-                                                                                                    <option value="3" <?= $usuario['num_banco'] == '3' ? 'selected' : '' ?>>Caixa Econômica Federal</option>
-                                                                                                    <option value="4" <?= $usuario['num_banco'] == '4' ? 'selected' : '' ?>>Itaú</option>
-                                                                                                    <option value="5" <?= $usuario['num_banco'] == '5' ? 'selected' : '' ?>>Santander</option>
-                                                                                                    <option value="6" <?= $usuario['num_banco'] == '6' ? 'selected' : '' ?>>Sicred</option>
-                                                                                                </select>
+                                                                                                <input type="text" maxlength="60" class="form-control user-success" id="banco" name="banco" value="<?= $usuario['num_banco'] ?>">
                                                                                             </div> 
-
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="col-md-1">
@@ -552,7 +543,7 @@
                                                                                     <div class="col-md-2">
                                                                                         <div class="row text-right">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12 ">
-                                                                                                <b>Escolaridade:</b>
+                                                                                                <b>Escolaridade:</b><label style="color:red">*</label>
                                                                                             </div> 
                                                                                         </div>
                                                                                     </div>
@@ -560,9 +551,9 @@
                                                                                         <div class="row">     
                                                                                             <div class="form-group col-xs-12 col-sm-12 col-md-12">
                                                                                                 <select class="form-control user-success" id="escolaridade" name="escolaridade">
-                                                                                                    <option value="" <?= $usuario['nivel_escolaridade_fk'] == 0 ? 'selected' : '' ?>>Selecionar</option>
+                                                                                                    <option value="0" <?= $usuario['nivel_escolaridade_fk'] == 0 ? 'selected' : '' ?>>Selecionar</option>
                                                                                                     <?php foreach ($escolaridades as $dados): ?>
-                                                                                                        <option value="<?= $dados['cod_nivel'] ?> <?= $usuario['nivel_escolaridade_fk'] == $dados['cod_nivel'] ? 'selected' : '' ?>" ><?= $dados['descricao'] ?></option>
+                                                                                                        <option value="<?= $dados['cod_nivel'] ?>" <?= $usuario['nivel_escolaridade_fk'] == $dados['cod_nivel'] ? 'selected' : '' ?> ><?= $dados['descricao'] ?></option>
                                                                                                     <?php endforeach; ?>
                                                                                                 </select>
                                                                                             </div> 
@@ -1049,6 +1040,15 @@
             });
             
             if (!validaParametros(data)) {
+                Swal.fire({
+                    title: 'Atenção!',
+                    html: "Digite todos os campos obrigatórios (*)",
+                    type: 'info'
+                });
+                return false;
+            }
+            
+            if ($("#escolaridade option:selected").val() == 0) {
                 Swal.fire({
                     title: 'Atenção!',
                     html: "Digite todos os campos obrigatórios (*)",

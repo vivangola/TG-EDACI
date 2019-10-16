@@ -89,7 +89,7 @@ CREATE TABLE `atvs_plano_atividades_tipo` (
 
 LOCK TABLES `atvs_plano_atividades_tipo` WRITE;
 /*!40000 ALTER TABLE `atvs_plano_atividades_tipo` DISABLE KEYS */;
-INSERT INTO `atvs_plano_atividades_tipo` VALUES (1,'Projeto Pessoal'),(2,'Projeto do Grupo'),(3,'Tutorial'),(4,'Outros');
+INSERT INTO `atvs_plano_atividades_tipo` VALUES (1,'Projeto Pessoal'),(2,'Projeto do Grupo'),(3,'Tutoria'),(4,'Outros');
 /*!40000 ALTER TABLE `atvs_plano_atividades_tipo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -185,7 +185,7 @@ DROP TABLE IF EXISTS `disp_quadro_disponibilidade`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `disp_quadro_disponibilidade` (
-  `cod_disponibilidade` int(11) NOT NULL,
+  `cod_disponibilidade` int(11) NOT NULL AUTO_INCREMENT,
   `cod_registro` int(11) NOT NULL,
   `cod_usuario_fk` int(11) DEFAULT NULL,
   `data_criacao` datetime DEFAULT NULL,
@@ -193,7 +193,8 @@ CREATE TABLE `disp_quadro_disponibilidade` (
   `datafim` date DEFAULT NULL,
   `horaini` time DEFAULT NULL,
   `horafim` time DEFAULT NULL,
-  `tipo` int(11) DEFAULT NULL
+  `tipo` int(11) DEFAULT NULL,
+  PRIMARY KEY (`cod_disponibilidade`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

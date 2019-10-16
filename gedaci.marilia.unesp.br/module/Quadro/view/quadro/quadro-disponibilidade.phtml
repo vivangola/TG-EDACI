@@ -26,7 +26,7 @@
                                             <div class="col-md-12">
                                                 <div class="col-md-2 col-xs-12">
                                                     <div class="form-inline">
-                                                        <label for="mes">Més:</label>
+                                                        <label for="mes">Mês:</label>
                                                         <div class="col-md-6">
                                                             <select class="form-control" id="mes" name="mes">
                                                                 <?php foreach($meses as $dados):?>
@@ -393,8 +393,8 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary-borded2" data-dismiss="modal">Cancelar</button>
-                <button type="submit" onclick="del()" class="btn btn-primary3">Excluir <i class="fa fa-check"></i></button>
-                <button type="submit" onclick="edit()" class="btn btn-primary3">Alterar <i class="fa fa-check"></i></button>
+                <button type="submit" id="btnDel" onclick="del()" class="btn btn-primary3">Excluir <i class="fa fa-check"></i></button>
+                <button type="submit" id="btnAlt" onclick="edit()" class="btn btn-primary3">Alterar <i class="fa fa-check"></i></button>
             </div>
         </div>
     </div>
@@ -495,6 +495,14 @@
                         $('#edit_hini2').val(retorno.result['horaini']);
                         $('#edit_hfim2').val(retorno.result['horafim'])
                     }
+                    if(retorno.result['edit'] == 1){
+                        $("#btnAlt").show();
+                        $("#btnDel").show();
+                    }else{
+                        $("#btnAlt").hide();
+                        $("#btnDel").hide();
+                    }
+                    
                     $('#modalEdit').modal('show');
                 }else{
                     Swal.fire({

@@ -245,7 +245,7 @@ class QuadroDisponibilidadeController extends AbstractActionController
     public function showEditAction() {
         $funcoes = new Funcoes($this);
         $sessao = new Container("usuario");
-
+        
         $response = $this->getResponse();
         $request = $this->getRequest();
 
@@ -255,7 +255,8 @@ class QuadroDisponibilidadeController extends AbstractActionController
                 'cod' => $this->params()->fromPost('cod', '-1'),
             );
 
-            $sql = "select cod_registro, date_format(dataini, '%Y-%m-%d') as inicio, date_format(horaini, '%H:%i') as horaini, date_format(horafim, '%H:%i') as horafim, tipo from disp_quadro_disponibilidade where cod_registro = :cod order by dataini asc";
+            $sql = "select cod_registro, date_format(dataini, '%Y-%m-%d') as inicio, date_format(horaini, '%H:%i') as horaini, date_format(horafim, '%H:%i') as horafim, tipo, case cod_usuario_fk when :usuario then 1 else 0 end as edit"
+                    . "from disp_quadro_disponibilidade where cod_registro = :cod order by dataini asc";
             $result = $funcoes->executarSQL($sql, $params, 'fetch');
           
             $sql = "select date_format(datafim, '%Y-%m-%d') as fim from disp_quadro_disponibilidade where cod_registro = :cod order by dataini desc";

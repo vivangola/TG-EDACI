@@ -23,11 +23,11 @@
                     <div class="clearfix"></div>
                 </div>
                 <div id="login">
-                    <form action="/" method="get">
+                    <form action="/recuperar-senha" method="post">
                         <fieldset class="clearfix">
                             <h3 style="color:white;">RECUPERAR SENHA</h3>
                             <div style="margin-top:20px">
-                            <p ><span class="fa fa-user"></span><input type="text"  Placeholder="E-mail" required></p> <!-- JS because of IE support; better: placeholder="Username" -->
+                            <p ><span class="fa fa-user"></span><input type="text" name="email" Placeholder="E-mail" required></p> <!-- JS because of IE support; better: placeholder="Username" -->
                             </div>
                             <div style="margin-top:20px">
                                 <span class="pull-center" style="display: inline-block;"><a href="/login"><input type="button" style="width:100px" value="Voltar"></a>&nbsp;&nbsp;&nbsp;<input type="submit" style="width:100px" value="Enviar"></span>

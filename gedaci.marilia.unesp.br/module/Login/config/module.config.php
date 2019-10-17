@@ -34,6 +34,16 @@ return [
                     ],
                 ],
             ],
+            'recuperar-senha' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/recuperar-senha',
+                    'defaults' => [
+                        'controller' => Controller\LoginController::class,
+                        'action'     => 'recuperar-senha',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [

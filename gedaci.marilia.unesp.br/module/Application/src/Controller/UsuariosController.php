@@ -95,7 +95,7 @@ class UsuariosController extends AbstractActionController {
             }
         }
 
-            $sql = "call us_aceitarPreCadastro_sp (:adm,:usuario,:aceitar)";
+        $sql = "call us_aceitarPreCadastro_sp (:adm,:usuario,:aceitar)";
         $result = $funcoes->executarSQL($sql, $params, '');
 
 

@@ -32,7 +32,7 @@
                                                     $relatorio->definirVariavel('2', "<button type='button' class='btn btn-primary4' style='width:100%;margin-bottom:2px' onClick=showEdit('".$dados['cod_questionario']."','1')><i class='pointer fa fa-pencil'></i></button>");
                                                     $relatorio->definirVariavel('3', "<button type='button' class='btn btn-primary4' style='width:100%;margin-bottom:2px' onClick=showDelete('".$dados['cod_questionario']."','1')><i class='pointer fa fa-times'></i></button>");
                                                     
-                                                    $relatorio->definirVariavel('4', "<a href='/questionario/resultado/".$dados['cod_questionario']."' target='_blank' class='btn btn-primary4' style='width:100%;margin-bottom:2px'><i class='pointer fa fa-file-text'></i></a>");
+                                                    $relatorio->definirVariavel('4', "<a href='/questionario/resultado/".$dados['cod_questionario']."' class='btn btn-primary4' style='width:100%;margin-bottom:2px'><i class='pointer fa fa-file-text'></i></a>");
                                                     
                                                     $relatorio->gerarRelatorio($dados);
                                                 }

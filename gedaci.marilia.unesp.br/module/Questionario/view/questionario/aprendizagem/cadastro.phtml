@@ -25,7 +25,7 @@
                                             if ($questionarios) {
                                                 foreach ($questionarios as $dados) {
                                                     
-                                                    $relatorio->definirVariavel('1', "<a href='/questionario/aprendizagem/".$dados['cod_questionario']."' target='_blank' class='btn btn-primary4' style='width:100%;margin-bottom:2px'><i class='pointer fa fa-sign-in'></i></a>");
+                                                    $relatorio->definirVariavel('1', "<a href='/questionario/aprendizagem/".$dados['cod_questionario']."' class='btn btn-primary4' style='width:100%;margin-bottom:2px'><i class='pointer fa fa-sign-in'></i></a>");
                                                     
                                                     if($dados['is_my'] == "1"){
                                                         
@@ -43,7 +43,7 @@
                                                         $relatorio->definirVariavel('3', "");
                                                     }
                                                     
-                                                    $relatorio->definirVariavel('4', "<a href='/questionario/resultado/".$dados['cod_questionario']."' target='_blank' class='btn btn-primary4' style='width:100%;margin-bottom:2px'><i class='pointer fa fa-file-text'></i></a>");
+                                                    $relatorio->definirVariavel('4', "<a href='/questionario/resultado/".$dados['cod_questionario']."' class='btn btn-primary4' style='width:100%;margin-bottom:2px'><i class='pointer fa fa-file-text'></i></a>");
                                                     
                                                     $relatorio->gerarRelatorio($dados);
                                                 }

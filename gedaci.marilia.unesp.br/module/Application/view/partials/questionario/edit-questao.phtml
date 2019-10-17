@@ -73,7 +73,8 @@
             url: '/questionario/cadastro/buscar-questao',
             data: {
                 questionario    : questionario,
-                questao         : questao
+                questao         : questao,
+                edit            : 1
             },
             type: 'json',
             method: 'POST',
@@ -472,7 +473,8 @@
             data: {
                 questionario: $('#cod_questionario').val(),
                 questao: tipo == 1 ? $('#cod_questao').val() : $('#select_questao').val(),
-                tipo: tipo
+                tipo: tipo,
+                edit: 1
             },
             type: 'json',
             method: 'POST',
@@ -480,6 +482,7 @@
                 loader();
             },
             success: function (retorno) {
+                console.log(retorno);
                 retorno = JSON.parse(retorno);
                 Swal.close();
                 if(tipo == 1){

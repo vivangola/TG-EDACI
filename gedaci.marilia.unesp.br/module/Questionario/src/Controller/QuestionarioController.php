@@ -61,7 +61,7 @@ class QuestionarioController extends AbstractActionController
         
         // pega as informações do questionario
         $sql = 'select a.cod_questionario, a.descricao, a.status_questionario,date_format(a.data_criacao, "%d/%m/%Y %H:%i:%s") as data_criacao '.
-                'from qst_questionario a where status_questionario = 1';
+                'from qst_questionario a where status_questionario = 1 and cod_tipo_fk = 1';
         $questionario = $funcoes->executarSQL($sql, $params, '');
         
         if(!$questionario){
@@ -86,11 +86,11 @@ class QuestionarioController extends AbstractActionController
         $questionario['questoes'] = $this->gerarQuestionario2($questoes, 0);
         
         //pegar o codigo de qual foi a ultima questao respondida
-        $sql = "select d.resposta as cod
+        $sql = "select case when tipo_pergunta = 1 then d.resposta else b.cod end as cod
                 from qst_questionario a
                         inner join qst_questao1 b on a.cod_questionario = b.cod_questionario
-                        inner join qst_questao_dependencia c on c.cod_questao_dependente = b.cod
-                        left  join qst_questionario_respostas d on d.cod_questao_fk = b.cod and d.cod_usuario_fk = :usuario
+                        left join qst_questao_dependencia c on c.cod_questao_dependente = b.cod
+                        left join qst_questionario_respostas d on d.cod_questao_fk = b.cod and d.cod_usuario_fk = :usuario
                 where a.cod_questionario = :questionario and d.cod is not null
                 order by d.data desc;";
         $questionario['ultima_questao_resp'] = $funcoes->executarSQL($sql, $params, '')['cod']; 
@@ -362,7 +362,11 @@ class QuestionarioController extends AbstractActionController
         $relatorio->definirColuna('CRIADO POR', 'nome', '4', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('DATA', 'data_criacao', '4', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('INATIVAR / ATIVAR', '0', '2', 'center', 't', 'n', 'n');
-        $relatorio->definirColuna('RESPONDER', '1', '2', 'center', 't', 'n', 'n');
+        
+        if($sessao->tipo_usuario != 1){
+            $relatorio->definirColuna('RESPONDER', '1', '2', 'center', 't', 'n', 'n');
+        }
+        
         $relatorio->definirColuna('EDITAR', '2', '2', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('EXCLUIR', '3', '2', 'center', 't', 'n', 'n');
         
@@ -545,6 +549,7 @@ class QuestionarioController extends AbstractActionController
             'questionario'  => $this->params()->fromPost('questionario', 1),
             'qstao'         => $this->params()->fromPost('questao', 1),
             'tipo'          => $this->params()->fromPost('tipo', 0),
+            'edit'          => $this->params()->fromPost('edit', 0),
         );
         
         if($params['tipo'] == '0'){
@@ -571,12 +576,34 @@ class QuestionarioController extends AbstractActionController
             $questao = $funcoes->executarSQL($sql, $params);
             return $response->setContent(Json::encode(array('response' => true, 'questao' => $questao)));
         }else{
-            $sql = "select b.cod, b.desc_pergunta
+            $sql = "select b.cod, b.desc_pergunta, tipo_pergunta, b.dependencia_questao, b.dependencia_alternativa, a.cod_tipo_fk as tipo_questionario
                     from qst_questionario a
                         inner join qst_questao1 b on a.cod_questionario = b.cod_questionario
-                        inner join qst_questao_dependencia c on c.cod_questao_dependente = b.cod
-                    where a.cod_questionario = :questionario and c.cod_questao = :qstao order by b.cod asc;";
+                    where a.cod_questionario =:questionario and b.cod = :qstao order by b.cod asc;";
+            $questao = $funcoes->executarSQL($sql, $params, '');
+            
+            if($params['edit'] == 1){
+                $sql = "select b.cod, b.desc_pergunta
+                        from qst_questionario a
+                            inner join qst_questao1 b on a.cod_questionario = b.cod_questionario
+                            inner join qst_questao_dependencia c on c.cod_questao_dependente = b.cod
+                        where a.cod_questionario = :questionario and c.cod_questao = :qstao
+                        order by b.cod asc;";
+            }else{
+                $sql = "select b.cod, b.desc_pergunta
+                        from qst_questionario a
+                            inner join qst_questao1 b on a.cod_questionario = b.cod_questionario
+                            inner join qst_questao_dependencia c on c.cod_questao_dependente = b.cod
+                        where a.cod_questionario = :questionario and c.cod_questao = :qstao
+                        and b.cod not in (select distinct dependencia_alternativa from qst_questao1 where cod_questionario = 8 and dependencia_questao > 0)
+                        order by b.cod asc;";
+            }
             $alternativas = $funcoes->executarSQL($sql, $params);
+            
+            if($questao['tipo_pergunta'] == '1' && empty($alternativas)){
+                return $response->setContent(Json::encode(array('response' => false, 'alternativas' => $alternativas)));
+            }
+            
             return $response->setContent(Json::encode(array('response' => true, 'alternativas' => $alternativas)));
         }
     }

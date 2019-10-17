@@ -91,6 +91,15 @@
     function proximo(){
         var resposta = $('input[name="resposta"]:checked').val();
         
+        if(!resposta){
+            Swal.fire({
+                title: 'Atenção!',
+                html: 'Selecione uma alternativa.',
+                type: 'info',
+            });
+            return false;
+        }
+        
         $.ajax({
             url: '/questionario/cadastro/proxima-questao',
             data: {

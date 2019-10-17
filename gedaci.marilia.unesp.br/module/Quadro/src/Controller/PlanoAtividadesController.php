@@ -44,9 +44,6 @@ class PlanoAtividadesController extends AbstractActionController
         }else{
             $sql = "call us_buscarAtividades_sp(:filtro,:pesquisa,'0',null,null,:is_adm)";
         }
-        echo "<pre>";
-        var_dump($funcoes->getSQLBinded($sql,$params));
-        echo "</pre>";
         $result = $funcoes->executarSQL($sql,$params);
         
         $sql = "select * from atvs_plano_atividades_tipo";

@@ -11,13 +11,7 @@ use Application\Classes\Funcoes;
 use Exception;
 use Application\Classes\PHPMailer;
 use Zend\Json\Json;
-use Zend\Mail\Message as Message2;
-use Zend\Mail\Transport\Smtp;
-use Zend\Mail\Transport\SmtpOptions;
-use Zend\Mime\Message;
-use Zend\Mime\Part;
 use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 
 class PreCadastroController extends AbstractActionController
@@ -55,8 +49,6 @@ class PreCadastroController extends AbstractActionController
             
             $envio = $this->enviarEmail($params);
             
-            $envio = true;
-            
             if(!$envio){
                 return $response->setContent(Json::encode(array('response' => false, 'msg' => 'Erro ao enviar o email. Contate o(s) Desenvolvedor(es).')));
             }
@@ -93,9 +85,7 @@ class PreCadastroController extends AbstractActionController
     }
     
     private function enviarEmail($params){
-        $funcao = new Funcoes($this);
-        
-        $tabela = 
+         $tabela = 
                 '<body>'.
                     '<table align="center" border="0" cellpadding="0">'.
                         '<tbody>'.
@@ -105,7 +95,7 @@ class PreCadastroController extends AbstractActionController
                                         '<tbody>'.
                                             '<tr>'.
                                                 '<td align="center" style="font-family:arial;font-size:16px;color:#fff;">'.
-                                                    'PRÉ-CADASTRO REALIZADO'.
+                                                    'PR&Eacute;-CADASTRO REALIZADO'.
                                                 '</td>'.
                                             '</tr>'.
                                         '</tbody>'.
@@ -119,9 +109,9 @@ class PreCadastroController extends AbstractActionController
                                             '<tr>'.
                                                 '<td style="font:13px Arial;" width="350">'.
                                                     '<p> '.
-                                                        'Olá <b>'.strtoupper($params['nome']).'</b>, seu pré-cadastro foi realizado pelo admistrador do <b>Grupo Edaci</b>. Utilize os dados abaixo para ter acesso ao sistema.'.
+                                                        'Ol&aacute; <b>'.strtoupper($params['nome']).'</b>, seu pr&eacute;-cadastro foi realizado pelo admistrador do <b>Grupo Edaci</b>. Utilize os dados abaixo para ter acesso ao sistema.'.
                                                         '<br><br><br>'.
-                                                        "<a style href='http://gedaci.marilia.unesp.br/login'>Clique aqui</a> para ir até o sistema.".
+                                                        "<a style href='http://gedaci.marilia.unesp.br/login'>Clique aqui</a> para ir at&eacute; o sistema.".
                                                     '</p>'.
                                                     '<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:650px;border:1px solid #629bad">'.
                                                         '<thead>'.
@@ -137,7 +127,7 @@ class PreCadastroController extends AbstractActionController
                                                         '<tbody style="font-size:15px">'.
                                                                 '<tr style="background:#ffffff">'.
                                                                     '<td style="padding:5px 10px;text-align:left;">'.
-                                                                        'Seu Email'.
+                                                                        $params['email'].
                                                                     '</td>'.
                                                                     '<td style="padding:5px 10px;text-align:left;">'.
                                                                         $params['senha'].
@@ -146,7 +136,7 @@ class PreCadastroController extends AbstractActionController
                                                         '</tbody>'.
                                                     '</table>'.
                                                     '<p> '.
-                                                        '<i>Obs: Você poderá alterar sua senha.</i>'.
+                                                        '<i>Obs: Voc&ecirc; poder&aacute; alterar sua senha.</i>'.
                                                         '<br><br><br>'.
                                                     '</p>'.
                                                 '</td>'.
@@ -166,7 +156,7 @@ class PreCadastroController extends AbstractActionController
                                                             'Atenciosamente,'.
                                                         '</span> '.
                                                         '<br> '.
-                                                        'teste@teste.com.br'.
+                                                        'gedaci.marilia@unesp.br'.
                                                     '</p>'.
                                                 '</td>'.
                                                 '<td width="130">'.
@@ -196,10 +186,10 @@ class PreCadastroController extends AbstractActionController
                 )
             );
             $mail->setFrom('gedaci.marilia@unesp.br', 'GEDACI');
-            $mail->addAddress('silvio.candido@unesp.br', 'Silvio');
+            $mail->addAddress($params['email'], $params['nome']);
             $mail->isHTML(true);
-            $mail->Subject = 'TITULO';
-            $mail->Body = 'CONTEUDO';
+            $mail->Subject = 'CADASTRO GRUPO EDACI';
+            $mail->Body = $tabela;
             $mail->send();
             return true;
         } catch (Exception $e) {

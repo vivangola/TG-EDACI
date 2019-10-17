@@ -43,7 +43,7 @@
                                             $relatorio->gerarCabecalho(12);
                                             if (!empty($result)) {
                                                 foreach ($result as $dados) {
-                                                    $relatorio->definirVariavel('1', "<button type='button' class='btn btn-primary4' style='width:100%' onClick= window.open('/trabalho-correcao/historico?c=".$dados['cod_correcao']."&r=1','_blank');('".$dados['cod_correcao']."')><i class='pointer fa fa-external-link'></i></button>");
+                                                    $relatorio->definirVariavel('1', "<button type='button' class='btn btn-primary4' style='width:100%' onClick= window.open('/trabalho-correcao/historico?c=".$dados['cod_correcao']."&r=1','_self');('".$dados['cod_correcao']."')><i class='pointer fa fa-external-link'></i></button>");
                                                     $relatorio->gerarRelatorio($dados);
                                                 }
                                             }

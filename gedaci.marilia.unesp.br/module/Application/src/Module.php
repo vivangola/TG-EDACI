@@ -163,7 +163,7 @@ class Module
                     }
                     if($nome_controller != 'Application\Controller\IndexController' && $action != 'responderAprendizagem' && $action != 'resultado'){// procurar pela permissao se a pagina atual não for index
                         $permissao = $this->verificarPermissao($controller,$aplicacao['cod_aplicacao']);
-                        if(!$permissao){
+                        if(!$permissao && $action != 'historico'){
                             return $controller->redirect()->toUrl("/");
                         }
                     }

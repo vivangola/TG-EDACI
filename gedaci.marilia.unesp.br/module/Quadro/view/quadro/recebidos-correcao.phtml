@@ -7,7 +7,7 @@
                         <div class="col-md-12 ">
                             <div class="box">                           
                                 <div class="icon">
-                                    <div class="image back-primary3"><i class="fa fa-book"></i>&nbsp;<label class="title">Meus Trabalhos</label></div>
+                                    <div class="image back-primary3"><i class="fa fa-book"></i>&nbsp;<label class="title">Trabalhos Recebidos</label></div>
                                     <div class="info" style="min-height:450px">
                                         <div class="row" style="padding-left: 10px;padding-right: 10px">
                                             <form action="/trabalho-correcao" method="post" enctype="">
@@ -44,13 +44,6 @@
                                             if (!empty($result)) {
                                                 foreach ($result as $dados) {
                                                     $relatorio->definirVariavel('1', "<button type='button' class='btn btn-primary4' style='width:100%' onClick= window.open('/trabalho-correcao/historico?c=".$dados['cod_correcao']."','_blank');('".$dados['cod_correcao']."')><i class='pointer fa fa-external-link'></i></button>");
-                                                    if(!$dados['status']){
-                                                        $relatorio->definirVariavel('2', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showEdit('".$dados['cod_correcao']."')><i class='pointer fa fa-edit'></i></button>");
-                                                        $relatorio->definirVariavel('3', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showDelete('".$dados['cod_correcao']."')><i class='pointer fa fa-times'></i></button>");
-                                                    }else{
-                                                        $relatorio->definirVariavel('2', "");
-                                                        $relatorio->definirVariavel('3', "");
-                                                    }
                                                     $relatorio->gerarRelatorio($dados);
                                                 }
                                             }
@@ -83,7 +76,7 @@
                         <div class="form-group col-xs-6">
                             <label for="add_membro" class="col-form-label">Membro:</label><label style="color:red">*</label>
                             <select class="form-control" name="add_membro" id="add_membro">
-                                <option value="-1">Selecione</option>
+                                <option value="-1">Todos</option>
                                 <?php foreach($membros as $dados):?>
                                         <option value="<?= $dados['cod_usuario']?>"><?= $dados['nome'] ?></option>
                                 <?php endforeach; ?>
@@ -128,7 +121,7 @@
                         <div class="form-group col-xs-6">
                             <label for="edit_membro" class="col-form-label">Membro:</label><label style="color:red">*</label>
                             <select class="form-control" name="edit_membro" id="edit_membro">
-                                <option value="-1">Selecione</option>
+                                <option value="-1">Todos</option>
                                 <?php foreach($membros as $dados):?>
                                         <option value="<?= $dados['cod_usuario']?>"><?= $dados['nome'] ?></option>
                                 <?php endforeach; ?>
@@ -188,15 +181,6 @@
             Swal.fire({
                 title: 'Atenção!',
                 html: "Digite todos os campos obrigatórios (*)",
-                type: 'info'
-            });
-            return false;
-        }
-
-        if($("#add_membro").val() == '-1'){
-            Swal.fire({
-                title: 'Atenção!',
-                html: "Por favor, selecione um membro",
                 type: 'info'
             });
             return false;
@@ -272,15 +256,6 @@
             Swal.fire({
                 title: 'Atenção!',
                 html: "Digite todos os campos obrigatórios (*)",
-                type: 'info'
-            });
-            return false;
-        }
-
-       if($("#edit_membro").val() == '-1'){
-            Swal.fire({
-                title: 'Atenção!',
-                html: "Por favor, selecione um membro",
                 type: 'info'
             });
             return false;

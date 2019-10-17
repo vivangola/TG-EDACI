@@ -1,0 +1,187 @@
+<div class="row box-home" align="center" style="height:100%">
+    <div class="col-md-12 col-xs-12">  
+        <div class="main-box clearfix print min-branco">
+            <div class="main-box-body clearfix mt">            
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <div class="box">                           
+                                <div class="icon">
+                                    <div class="image back-primary3"><i class="fa fa-book"></i>&nbsp;<label class="title">Histórico de Correções</label></div>
+                                    <div class="info" style="min-height:450px">
+                                        <div class="row" style="padding-left: 10px;padding-right: 10px">
+                                            <form action="/trabalho-correcao" method="post" enctype="">
+                                                <div class="col-md-6 col-sm-4 col-xs-8">
+                                                </div>  
+                                                <div class="col-md-2 col-sm-2 col-xs-4">
+                                                </div>
+                                                <div class="col-md-2 col-sm-3 col-xs-6">
+                                                </div>
+                                                <div class="col-md-2 col-sm-3 col-xs-6">
+                                                    <?php if($exibeBtn): ?>
+                                                        <button class="btn btn-primary-borded2 form-control" type="button" onClick="showAdd()">
+                                                            Nova Interação&nbsp;
+                                                            <i class="fa fa-plus"></i>
+                                                        </button>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        
+                                        <div class="table-responsive" style="margin-top: 10px;">
+                                            <?php
+                                            $relatorio->gerarCabecalho(12);
+                                            if (!empty($result)) {
+                                                $cont = 1;
+                                                foreach ($result as $dados) {
+                                                    $relatorio->definirVariavel('1', $cont);
+                                                    $relatorio->definirVariavel('2', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showFile('".$dados['arquivo']."')><i class='pointer fa fa-download'></i></button>");
+                                                    $relatorio->gerarRelatorio($dados);
+                                                    $cont++;
+                                                }
+                                            }
+                                            $relatorio->gerarRodape();
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Adicionar Trabalho para Correção</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="formAdd" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="hidden" name="add_cod" id="add_cod" value="<?= $cod_correcao ?>">
+                        <label for="add_observacao" class="col-form-label">Observação:</label><label style="color:red">*</label>
+                        <input type="text" class="form-control obg" id="add_observacao" maxlength="200" name="add_observacao" />
+                    </div>
+                    <div class="form-group">
+                        <label for="add_arquivo" class="obg col-form-label">Arquivo (pdf,doc,docx):</label><label style="color:red">*</label>
+                        <input type="file" accept=".doc,.docx,.pdf" class="form-control" name="add_arquivo" id="add_arquivo">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary-borded2" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary3" onclick="add()">Finalizar <i class="fa fa-check"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#relatorio').DataTable({
+            "language": {
+                "url": "js/datatable/pt-br.json"
+            },
+            "pageLength": 10, 
+            "ordering": false,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": false,
+        });
+    });
+    
+    function showAdd(){
+        $('#modalAdd').modal('show');
+    }
+    
+    function add(){
+        
+        var data = {};
+        $.each($("#formAdd .obg").serializeArray(), function (_, field) {
+            data[field.name] = field.value;
+        });
+        
+        if(!validaParametros(data)){
+            Swal.fire({
+                title: 'Atenção!',
+                html: "Digite todos os campos obrigatórios (*)",
+                type: 'info'
+            });
+            return false;
+        }
+        
+        var options = {
+            url: '/trabalho-correcao/add-historico',
+            type: 'POST',
+            dataType: 'json',
+            cache: false,
+            success: function (retorno) {
+                if (retorno.response) {
+                    Swal.fire({
+                        title: 'Sucesso!',
+                        html: retorno.msg,
+                        type: 'success',
+                        onClose: () => {
+                            window.location.reload();
+                        }
+                    });
+                        
+                }else{
+                    Swal.fire({
+                        title: 'Atenção!',
+                        html: retorno.msg,
+                        type: 'warning'
+                    });
+                }
+            }
+        };
+
+        $('#formAdd').ajaxSubmit(options);
+        return false;
+    }
+        
+    function showDelete(cod){
+        Swal.fire({
+            title: 'Atenção!',
+            html: 'Deseja realmente excluir?',
+            type: 'info',
+            showCancelButton: true,
+            preConfirm: () => {
+                $.ajax({
+                    url: '/trabalho-correcao/delete-historico',
+                    data: {cod : cod},
+                    type: 'json',
+                    method: 'POST',
+                    beforeSend: function () {
+                        loader();
+                    },
+                    success: function (retorno) {
+                        retorno = JSON.parse(retorno);
+                        Swal.fire({
+                            title: 'Sucesso!',
+                            html: retorno.msg,
+                            type: 'success',
+                            onClose: () => {
+                                window.location.reload();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+    
+    function showFile(arquivo){
+        window.open('/arquivos/trabalho-correcao/'+arquivo,'_blank');
+    }
+
+</script>

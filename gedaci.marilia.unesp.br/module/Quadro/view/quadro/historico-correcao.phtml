@@ -11,14 +11,15 @@
                                     <div class="info" style="min-height:450px">
                                         <div class="row" style="padding-left: 10px;padding-right: 10px">
                                             <form action="/trabalho-correcao" method="post" enctype="">
-                                                <div class="col-md-6 col-sm-4 col-xs-8">
+                                                 <div class="col-md-2 col-sm-4 col-xs-8">
+                                                    <button class="btn btn-primary-borded2 form-control" type="button" onClick="<?= $recebidos ? "window.open('/trabalho-correcao/recebidos','_self');" : "window.open('/trabalho-correcao','_self');" ?>" >
+                                                        <i class="fa fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;Voltar
+                                                    </button>
                                                 </div>  
-                                                <div class="col-md-2 col-sm-2 col-xs-4">
+                                                <div class="col-md-8 col-sm-2 col-xs-4">
                                                 </div>
                                                 <div class="col-md-2 col-sm-3 col-xs-6">
-                                                </div>
-                                                <div class="col-md-2 col-sm-3 col-xs-6">
-                                                    <?php if($exibeBtn): ?>
+                                                    <?php if ($exibeBtn): ?>
                                                         <button class="btn btn-primary-borded2 form-control" type="button" onClick="showAdd()">
                                                             Nova Interação&nbsp;
                                                             <i class="fa fa-plus"></i>

@@ -41,7 +41,7 @@ class TrabalhoCorrecaoController extends AbstractActionController {
         $relatorio->definirColuna('MEMBRO', 'nome', '4', 'left', 't', 'n', 'n');
         $relatorio->definirColuna('DATA ENVIO', 'data', '4', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('MODALIDADE', 'modalidade', '2', 'center', 't', 'n', 'n');
-        $relatorio->definirColuna('STATUS', 'status_desc', '2', 'center', 't', 'n', 'n');
+        $relatorio->definirColuna('STATUS', 'status_desc', '2', 'center', 't', 'n', 'n', '[cor]');
 
         $relatorio->definirColuna('Correções', '1', '2', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('ALTERAR', '2', '2', 'center', 't', 'n', 'n');
@@ -223,6 +223,7 @@ class TrabalhoCorrecaoController extends AbstractActionController {
         $relatorio = new Relatorio();
 
         $cod_correcao = $this->params()->fromQuery('c');
+        $recebidos = $this->params()->fromQuery('r');
         
         $sql = "select b.nome, date_format(c.data_envio, '%d/%m/%Y') as data, c.observacao, 
                 c.arquivo, a.remetente_fk, a.destinatario_fk, a.status
@@ -250,6 +251,7 @@ class TrabalhoCorrecaoController extends AbstractActionController {
             'result' => $result,
             'exibeBtn' => $exibeBtn,
             'cod_correcao' => $cod_correcao,
+            'recebidos' => $recebidos,
             'relatorio' => $relatorio,
         ));
         $view->setTemplate('quadro/historico-correcao');
@@ -358,7 +360,7 @@ class TrabalhoCorrecaoController extends AbstractActionController {
         $relatorio->definirColuna('MEMBRO', 'nome', '4', 'left', 't', 'n', 'n');
         $relatorio->definirColuna('DATA ENVIO', 'data', '4', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('MODALIDADE', 'modalidade', '2', 'center', 't', 'n', 'n');
-        $relatorio->definirColuna('STATUS', 'status_desc', '2', 'center', 't', 'n', 'n');
+        $relatorio->definirColuna('STATUS', 'status_desc', '2', 'center', 't', 'n', 'n', '[cor]');
 
         $relatorio->definirColuna('Correções', '1', '2', 'center', 't', 'n', 'n');
   

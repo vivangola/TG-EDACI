@@ -43,12 +43,15 @@
                                             $relatorio->gerarCabecalho(12);
                                             if (!empty($result)) {
                                                 foreach ($result as $dados) {
-                                                    $relatorio->definirVariavel('1', "<button type='button' class='btn btn-primary4' style='width:100%' onClick= window.open('/trabalho-correcao/historico?c=".$dados['cod_correcao']."','_blank');('".$dados['cod_correcao']."')><i class='pointer fa fa-external-link'></i></button>");
+                                                    $relatorio->definirVariavel('1', "<button type='button' class='btn btn-primary4' style='width:100%' onClick= window.open('/trabalho-correcao/historico?c=".$dados['cod_correcao']."&r=0','_self');('".$dados['cod_correcao']."')><i class='pointer fa fa-external-link'></i></button>");
                                                     if(!$dados['status']){
                                                         $relatorio->definirVariavel('2', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showEdit('".$dados['cod_correcao']."')><i class='pointer fa fa-edit'></i></button>");
-                                                        $relatorio->definirVariavel('3', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showDelete('".$dados['cod_correcao']."')><i class='pointer fa fa-times'></i></button>");
                                                     }else{
                                                         $relatorio->definirVariavel('2', "");
+                                                    }
+                                                    if($dados['qtd'] <= 1){
+                                                        $relatorio->definirVariavel('3', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showDelete('".$dados['cod_correcao']."')><i class='pointer fa fa-times'></i></button>");
+                                                    }else{
                                                         $relatorio->definirVariavel('3', "");
                                                     }
                                                     $relatorio->gerarRelatorio($dados);

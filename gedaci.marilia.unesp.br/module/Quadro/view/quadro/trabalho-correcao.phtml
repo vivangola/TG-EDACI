@@ -44,11 +44,11 @@
                                             if (!empty($result)) {
                                                 foreach ($result as $dados) {
                                                     $relatorio->definirVariavel('1', "<button type='button' class='btn btn-primary4' style='width:100%' onClick= window.open('/trabalho-correcao/historico?c=".$dados['cod_correcao']."&r=0','_self');('".$dados['cod_correcao']."')><i class='pointer fa fa-external-link'></i></button>");
-                                                    if(!$dados['status']){
+                                                    /*if(!$dados['status']){
                                                         $relatorio->definirVariavel('2', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showEdit('".$dados['cod_correcao']."')><i class='pointer fa fa-edit'></i></button>");
                                                     }else{
                                                         $relatorio->definirVariavel('2', "");
-                                                    }
+                                                    }*/
                                                     if($dados['qtd'] <= 1){
                                                         $relatorio->definirVariavel('3', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showDelete('".$dados['cod_correcao']."')><i class='pointer fa fa-times'></i></button>");
                                                     }else{
@@ -84,11 +84,11 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="form-group col-xs-6">
-                            <label for="add_membro" class="col-form-label">Membro:</label><label style="color:red">*</label>
-                            <select class="form-control" name="add_membro" id="add_membro">
-                                <option value="-1">Selecione</option>
-                                <?php foreach($membros as $dados):?>
-                                        <option value="<?= $dados['cod_usuario']?>"><?= $dados['nome'] ?></option>
+                            <label for="add_escolaridade" class="col-form-label">Nivel escolaridade:</label><label style="color:red">*</label>
+                            <select class="form-control" name="add_escolaridade" id="add_escolaridade">
+                                <option value="0">Todos</option>
+                                <?php foreach($escolaridade as $dados):?>
+                                        <option value="<?= $dados['cod_nivel']?>"><?= $dados['descricao'] ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>
@@ -195,16 +195,7 @@
             });
             return false;
         }
-
-        if($("#add_membro").val() == '-1'){
-            Swal.fire({
-                title: 'Atenção!',
-                html: "Por favor, selecione um membro",
-                type: 'info'
-            });
-            return false;
-        }
-        
+      
         var options = {
             url: '/trabalho-correcao/add',
             type: 'POST',
@@ -230,7 +221,7 @@
                 }
             }
         };
-
+        loader()
         $('#formAdd').ajaxSubmit(options);
         return false;
     }
@@ -280,15 +271,6 @@
             return false;
         }
 
-       if($("#edit_membro").val() == '-1'){
-            Swal.fire({
-                title: 'Atenção!',
-                html: "Por favor, selecione um membro",
-                type: 'info'
-            });
-            return false;
-        }
-                
         var options = {
             url: '/trabalho-correcao/edit',
             type: 'POST',

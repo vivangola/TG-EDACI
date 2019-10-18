@@ -55,10 +55,10 @@ class Relatorio {
     }
 
     /**
-     * Método para setar o alterar cor de fundo.
-     * @param string $exibir Se a será alternada a cor [true|false]
-     * @param string $primeira_cor Primeira cor das cores alternadas, padrão [#FFFFFF]
-     * @param string $segunda_cor Segunda cor das cores alternadas, padrão [#F2F2F2]
+     * Mï¿½todo para setar o alterar cor de fundo.
+     * @param string $exibir Se a serï¿½ alternada a cor [true|false]
+     * @param string $primeira_cor Primeira cor das cores alternadas, padrï¿½o [#FFFFFF]
+     * @param string $segunda_cor Segunda cor das cores alternadas, padrï¿½o [#F2F2F2]
      */
     public function definirCorFundo($exibir, $primeira_cor = '#FFFFFF', $segunda_cor = '#F2F2F2') {
         $this->alterna_cor = array($exibir, $primeira_cor, $segunda_cor);
@@ -86,11 +86,11 @@ class Relatorio {
     }
 
     /**
-     * Método para definir link para uma coluna
-     * @param string $coluna Para qual coluna o link está sendo definido [$db_campo] de definirColuna()
-     * @param string $link O link [href] para onde será redirecionado (obs: pode ser uma função javascript)
+     * Mï¿½todo para definir link para uma coluna
+     * @param string $coluna Para qual coluna o link estï¿½ sendo definido [$db_campo] de definirColuna()
+     * @param string $link O link [href] para onde serï¿½ redirecionado (obs: pode ser uma funï¿½ï¿½o javascript)
      * @param integer $target [opcional valor default: 0]<p>
-     * 0: para abrir o link na mesma página</p><p>
+     * 0: para abrir o link na mesma pï¿½gina</p><p>
      * 1: para abrir o link em nova guia</p>
      */
     public function definirLink($coluna, $link, $target = 0, $onclick = false) {
@@ -98,16 +98,16 @@ class Relatorio {
     }
 
     /**
-     * Método para definir as configurações de cada coluna a ser exibida no relatório 
-     * @param string $descricao Descrição da exibição da coluna 
+     * Mï¿½todo para definir as configuraï¿½ï¿½es de cada coluna a ser exibida no relatï¿½rio 
+     * @param string $descricao Descriï¿½ï¿½o da exibiï¿½ï¿½o da coluna 
      * @param string $db_campo <p>
      *  Nome do campo que vem do resultado do banco de dados ou
      *  nome de variavel a ser utilizada </p>
-     * @param string $tam_coluna Tamanho da coluna para exibição
-     * @param string $alinhamento Tipo de alinhamento do conteúdo
-     * @param string $tipo_coluna Tipo de conteúdo que será exibido ['t'] ou ['0-9'] para quantidade de casas decimais
-     * @param string $calc_total Se a coluna será calculado a somatória para exibir total
-     * @param string $repete_valor Se a coluna exibirá valores repetidos
+     * @param string $tam_coluna Tamanho da coluna para exibiï¿½ï¿½o
+     * @param string $alinhamento Tipo de alinhamento do conteï¿½do
+     * @param string $tipo_coluna Tipo de conteï¿½do que serï¿½ exibido ['t'] ou ['0-9'] para quantidade de casas decimais
+     * @param string $calc_total Se a coluna serï¿½ calculado a somatï¿½ria para exibir total
+     * @param string $repete_valor Se a coluna exibirï¿½ valores repetidos
      * @param string $cor_fundo A cor de fundo da coluna
      * @param string $classe_fundo Classe a ser adicionada na tag <font>.
      * 
@@ -136,13 +136,13 @@ class Relatorio {
     }
 
     /**
-     * Método para definir as configurações de cada quebra a ser exibida no relatório 
-     * @param string $descricao Descrição da exibição da coluna 
+     * Mï¿½todo para definir as configuraï¿½ï¿½es de cada quebra a ser exibida no relatï¿½rio 
+     * @param string $descricao Descriï¿½ï¿½o da exibiï¿½ï¿½o da coluna 
      * @param string $db_campo <p>
      *  Nome do campo que vem do resultado do banco de dados ou
      *  nome de variavel a ser utilizada para realizar a quebra</p>
      * @param string $quebra_anterior O nome do campo da quebra anterior caso tenha uma quebra anterior definida,
-     * @param string $cabecalho Nome do campo que vira do banco de dados para ser concatenado com a descrição da quebra
+     * @param string $cabecalho Nome do campo que vira do banco de dados para ser concatenado com a descriï¿½ï¿½o da quebra
      * @param string $cor_quebra Cor de fundo da Quebra
      * 
      * */
@@ -156,8 +156,8 @@ class Relatorio {
     }
 
     /**
-     * Gera o cabeçalho do relatório criando a tabela com a descrição de cada coluna definida em definirColuna()
-     * @param integer $tamanho Tamanho da tabela do relatório<p>
+     * Gera o cabeï¿½alho do relatï¿½rio criando a tabela com a descriï¿½ï¿½o de cada coluna definida em definirColuna()
+     * @param integer $tamanho Tamanho da tabela do relatï¿½rio<p>
      * Pode ser de [1-12] que usa a classe de tamanho do bootstrap col-md-[1-12]</p>
      */
     public function gerarCabecalho($tamanho, $cabecalho_superior = array()) {                     
@@ -192,8 +192,8 @@ class Relatorio {
     }
 
     /**
-     * Método responsável por receber uma linha do resultSet por vez e montar o corpo do relatorio 
-     * @param resultSet $linha Recebe uma linha por vez para montar o relatório
+     * Mï¿½todo responsï¿½vel por receber uma linha do resultSet por vez e montar o corpo do relatorio 
+     * @param resultSet $linha Recebe uma linha por vez para montar o relatï¿½rio
      */
     public function gerarRelatorio($linha) {
         $cor = $this->alternarCorFundo();
@@ -221,7 +221,7 @@ class Relatorio {
             }    
             
             $align = $this->alinhamento_coluna[$campo];
-            //verifica se o valor do conteúdo é um numero para calcular o sub_total e total 
+            //verifica se o valor do conteï¿½do ï¿½ um numero para calcular o sub_total e total 
             if (is_numeric($this->tipo_campo[$campo]) === true) {
                 if (is_numeric($campo) === true) {
                     $valor_imprimir = $this->variavel_campo[$campo];
@@ -261,7 +261,7 @@ class Relatorio {
     }
 
     /**
-     * Método privado para alternar as cores de fundo do relatório 
+     * Mï¿½todo privado para alternar as cores de fundo do relatï¿½rio 
      */
     private function alternarCorFundo() {
         if ($this->alterna_cor[0] === true) {
@@ -275,11 +275,11 @@ class Relatorio {
     }
 
     /**
-     * Verifica se a coluna possui um link e o cria caso tenha. O resultado de retorno será apenas um echo
+     * Verifica se a coluna possui um link e o cria caso tenha. O resultado de retorno serï¿½ apenas um echo
      * com o valor da coluna formatado e com link caso algum tenha sido definido.
      * @param string $linha A linha com os campos do resultSet
-     * @param string $campo O nome do campo(da coluna) que está sempre impresso no tabela
-     * @param string $valor_imprimir O valor já formatado que será impresso na tabela
+     * @param string $campo O nome do campo(da coluna) que estï¿½ sempre impresso no tabela
+     * @param string $valor_imprimir O valor jï¿½ formatado que serï¿½ impresso na tabela
      * 
      */
     private function imprimirValor($linha, $campo, $valor_imprimir) {
@@ -323,8 +323,8 @@ class Relatorio {
     }
 
     /**
-     * Gera o rodapé do relatorio exibindo o total geral caso tenha alguma coluna de somatória e 
-     * fecha a tabela do relatório
+     * Gera o rodapï¿½ do relatorio exibindo o total geral caso tenha alguma coluna de somatï¿½ria e 
+     * fecha a tabela do relatï¿½rio
      */
     public function gerarRodape() {
         if ($this->exibirTotal > 0) {
@@ -347,7 +347,7 @@ class Relatorio {
     }
 
     /**
-     * Exibe o a última linha do relatorio com a somatória de cada coluna definida como somatoria 
+     * Exibe o a ï¿½ltima linha do relatorio com a somatï¿½ria de cada coluna definida como somatoria 
      */
     private function exibirTotalGeral() {
         if (count($this->quebra_campo) > 0) {
@@ -373,9 +373,10 @@ class Relatorio {
     }
 
     /**
-     * Exibe o uma linha com a somatória dos valores de cada coluna definida como somatoria contidos dentro de uma quebra
+     * Exibe o uma linha com a somatï¿½ria dos valores de cada coluna definida como somatoria contidos dentro de uma quebra
      */
     private function exibirSubTotal() {
+        return;
         if ($this->exibirSubTotal){
             $align = "text-right";
             $cor = "#69b2f5";
@@ -401,7 +402,7 @@ class Relatorio {
     }
 
     /**
-     * Exibe todas as quebras de páginas definidas por definirQuebra()
+     * Exibe todas as quebras de pï¿½ginas definidas por definirQuebra()
      * @param array $linha Uma linha do resultSet que vem do BD 
      */
     private function exibirQuebra($linha) {
@@ -409,7 +410,7 @@ class Relatorio {
             foreach ($this->quebra_campo as $quebra) {
 //                se a quebra atual for diferente da quebra anterior exibir a quebra
                 if ($linha[$quebra] !== $this->quebra_anterior[$quebra]) {
-//                  codição para não exibir o sub-total como a primeira linha do relatorio
+//                  codiï¿½ï¿½o para nï¿½o exibir o sub-total como a primeira linha do relatorio
                     if (count($this->sub_total) > 0 && $this->sub_total_exibir === 1) {
                         $this->exibirSubTotal();
                         $this->zerar_sub_total = 1;
@@ -425,18 +426,18 @@ class Relatorio {
                     $this->quebra_anterior[$quebra] = $linha[$quebra];
                 }
             }
-//            após gerar as primeiras quebras permite exibir o subtotal            
+//            apï¿½s gerar as primeiras quebras permite exibir o subtotal            
             $this->sub_total_exibir = 1;
         }
     }
 
     /**
-     * Método que recebe um valor string e traduz para uma classe de alinhamento do bootstrap
-     * ou dispara uma exceção 
+     * Mï¿½todo que recebe um valor string e traduz para uma classe de alinhamento do bootstrap
+     * ou dispara uma exceï¿½ï¿½o 
      * @param string $tipo Tipo de alinhamentro do texto da coluna<p>
      * Valores permitidos [center|left|right]</p>
      * @return string Retorna a classe do bootstrap referente ao alinhamento de texto
-     * @throws \Exception Dispara uma exceção caso o valor do parâmetro seja invalido
+     * @throws \Exception Dispara uma exceï¿½ï¿½o caso o valor do parï¿½metro seja invalido
      */
     private function setAlinhamento($tipo = '') {
         switch ($tipo) {
@@ -450,7 +451,7 @@ class Relatorio {
                 return 'text-right';
                 break;
             default:
-                throw new \Exception("O parâmetro '$tipo' em setAlinhamento('$tipo') deve ser [center|left|right]");
+                throw new \Exception("O parï¿½metro '$tipo' em setAlinhamento('$tipo') deve ser [center|left|right]");
                 return "erro";
         }
     }

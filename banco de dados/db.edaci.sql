@@ -2692,40 +2692,48 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`edaci`@`localhost` PROCEDURE `us_buscarMeusTrabalhos_sp`(IN `filtro` INT, IN `pesquisa` VARCHAR(100), IN `cod_correcao` INT, IN `usuario` INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarMeusTrabalhos_sp`(IN `filtro` INT, IN `pesquisa` VARCHAR(100), IN `cod_correcao` INT, IN `usuario` INT)
 BEGIN		
 	set pesquisa = CONCAT('%',pesquisa,'%');		
     		
     if cod_correcao = 0 then		
 		if filtro = 1 then		
 					
-            select a.cod_correcao, b.nome, date_format(a.data, "%d/%m/%Y") as data, a.modalidade, case a.status when 1 then 'Corrigido' else 'Pendente' end as status_desc, a.status, case a.status when 1 then 'green' else 'yellow' end as cor
+            select a.cod_correcao, b.nome, c.descricao, date_format(a.data, "%d/%m/%Y") as data, a.modalidade, case a.status when 1 then 'Corrigido' else 'Pendente' end as status_desc, 
+            a.status, case a.status when 1 then 'green' else 'yellow' end as cor, (select count(0) from trbl_correcao_historico where cod_correcao_fk = a.cod_correcao) as qtd
             from trbl_correcao_trabalho a		
-				inner join us_usuario b on a.destinatario_fk = b.cod_usuario		
+				inner join us_usuario b on a.destinatario_fk = b.cod_usuario
+                inner join nivel_escolaridade c on c.cod_nivel = nivel_escolaridade_fk
 			where b.nome like pesquisa and a.remetente_fk = usuario	
             order by data desc;		
 					
 		elseif filtro = 2 then		
 					
-            select a.cod_correcao, b.nome, date_format(a.data, "%d/%m/%Y") as data, a.modalidade, case a.status when 1 then 'Corrigido' else 'Pendente' end as status_desc, a.status, case a.status when 1 then 'green' else 'yellow' end as cor
+            select a.cod_correcao, b.nome, c.descricao, date_format(a.data, "%d/%m/%Y") as data, a.modalidade, case a.status when 1 then 'Corrigido' else 'Pendente' end as status_desc, 
+            a.status, case a.status when 1 then 'green' else 'yellow' end as cor, (select count(0) from trbl_correcao_historico where cod_correcao_fk = a.cod_correcao) as qtd
             from trbl_correcao_trabalho a		
-				inner join us_usuario b on a.destinatario_fk = b.cod_usuario			
+				inner join us_usuario b on a.destinatario_fk = b.cod_usuario
+                inner join nivel_escolaridade c on c.cod_nivel = nivel_escolaridade_fk		
 			where a.modalidade like pesquisa and a.remetente_fk = usuario
             order by data desc;		
             		
         elseif filtro = 3 then		
         		
-			select a.cod_correcao, b.nome, date_format(a.data, "%d/%m/%Y") as data, a.modalidade, case a.status when 1 then 'Corrigido' else 'Pendente' end as status_desc, a.status, case a.status when 1 then 'green' else 'yellow' end as cor
+			select a.cod_correcao, b.nome, c.descricao, date_format(a.data, "%d/%m/%Y") as data, a.modalidade, case a.status when 1 then 'Corrigido' else 'Pendente' end as status_desc, 
+            a.status, case a.status when 1 then 'green' else 'yellow' end as cor, (select count(0) from trbl_correcao_historico where cod_correcao_fk = a.cod_correcao) as qtd
             from trbl_correcao_trabalho a		
-				inner join us_usuario b on a.destinatario_fk = b.cod_usuario		
+				inner join us_usuario b on a.destinatario_fk = b.cod_usuario
+                inner join nivel_escolaridade c on c.cod_nivel = nivel_escolaridade_fk	
 			where case a.status when 1 then 'Corrigido' else 'Pendente' end like pesquisa and a.remetente_fk = usuario		
             order by data desc;			
         		
         else 		
         		
-			select a.cod_correcao, b.nome, date_format(a.data, "%d/%m/%Y") as data, a.modalidade, case a.status when 1 then 'Corrigido' else 'Pendente' end as status_desc, a.status, case a.status when 1 then 'green' else 'yellow' end as cor
+			select a.cod_correcao, b.nome, c.descricao, date_format(a.data, "%d/%m/%Y") as data, a.modalidade, case a.status when 1 then 'Corrigido' else 'Pendente' end as status_desc, 
+            a.status, case a.status when 1 then 'green' else 'yellow' end as cor, (select count(0) from trbl_correcao_historico where cod_correcao_fk = a.cod_correcao) as qtd
             from trbl_correcao_trabalho a		
-				inner join us_usuario b on a.destinatario_fk = b.cod_usuario	
+				inner join us_usuario b on a.destinatario_fk = b.cod_usuario
+                inner join nivel_escolaridade c on c.cod_nivel = nivel_escolaridade_fk
             where a.remetente_fk = usuario    
             order by data desc;			
 					
@@ -2733,7 +2741,8 @@ BEGIN
 				
     else 		
     		
-		select a.cod_correcao, a.destinatario_fk, b.nome, date_format(a.data, "%d/%m/%Y") as data, a.modalidade, case a.status when 1 then 'Corrigido' else 'Pendente' end as status_desc, a.status, c.observacao, case a.status when 1 then 'green' else 'yellow' end as cor
+		select a.cod_correcao, a.destinatario_fk, b.nivel_escolaridade_fk,  b.nome, date_format(a.data, "%d/%m/%Y") as data, a.modalidade, case a.status when 1 then 'Corrigido' else 'Pendente' end as status_desc, 
+        a.status, c.observacao, case a.status when 1 then 'green' else 'yellow' end as cor, (select count(0) from trbl_correcao_historico where cod_correcao_fk = a.cod_correcao) as qtd
 		from trbl_correcao_trabalho a		
 			inner join us_usuario b on a.destinatario_fk = b.cod_usuario	
             inner join trbl_correcao_historico c on c.cod_correcao_fk = a.cod_correcao

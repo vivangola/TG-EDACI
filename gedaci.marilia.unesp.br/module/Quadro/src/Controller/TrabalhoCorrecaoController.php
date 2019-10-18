@@ -32,24 +32,27 @@ class TrabalhoCorrecaoController extends AbstractActionController {
             $params['pesquisa'] = '';
         }
 
-        $sql = "select cod_usuario, nome from us_usuario where tipo_usuario_fk = 2 and ativo = 1";
-        $membros = $funcoes->executarSQL($sql, $params);
+        $sql = "select cod_nivel,descricao from nivel_escolaridade order by descricao";
+        $escolaridades = $funcoes->executarSQL($sql, []);
 
         $sql = "call us_buscarMeusTrabalhos_sp(:filtro,:pesquisa,'0',:cod_usuario)";
         $result = $funcoes->executarSQL($sql, $params);
 
         $relatorio->definirColuna('MEMBRO', 'nome', '4', 'left', 't', 'n', 'n');
+       // $relatorio->definirColuna('ESCOLARIDADE', 'descricao', '4', 'left', 't', 'n', 'n');
         $relatorio->definirColuna('DATA ENVIO', 'data', '4', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('MODALIDADE', 'modalidade', '2', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('STATUS', 'status_desc', '2', 'center', 't', 'n', 'n', '[cor]');
-
+        
         $relatorio->definirColuna('Correções', '1', '2', 'center', 't', 'n', 'n');
-        $relatorio->definirColuna('ALTERAR', '2', '2', 'center', 't', 'n', 'n');
+        //$relatorio->definirColuna('ALTERAR', '2', '2', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('EXCLUIR', '3', '2', 'center', 't', 'n', 'n');
-
+        
+        $relatorio->definirQuebra('','descricao','','descricao');
+        
         $view = new ViewModel(array(
             'result' => $result,
-            'membros' => $membros,
+            'escolaridade' => $escolaridades,
             'relatorio' => $relatorio,
             'filtro' => $params['filtro'],
             'pesq' => $params['pesquisa']
@@ -91,17 +94,27 @@ class TrabalhoCorrecaoController extends AbstractActionController {
 
                     if (file_exists($destino)) {
 
-                        $sql = "insert into trbl_correcao_trabalho (remetente_fk, destinatario_fk, data, modalidade, status) " .
-                                "values (:usuario, :add_membro, now(), :add_modalidade, 0);";
-                        $funcoes->executarSQL($sql, $post_data);
+                        if($post_data['add_escolaridade'] == '0'){
+                            $sql = "select cod_usuario from us_usuario where nivel_escolaridade_fk > 0 and ativo = 1 and cod_usuario <> :usuario";
+                        }else{
+                            $sql = "select cod_usuario from us_usuario where nivel_escolaridade_fk = :add_escolaridade and ativo = 1 and cod_usuario <> :usuario";
+                        }
+                        $membros = $funcoes->executarSQL($sql, $post_data);
 
-                        $sqlCod = "select cod_correcao as cod from trbl_correcao_trabalho order by cod_correcao desc limit 1";
-                        $post_data['cod'] = $funcoes->executarSQL($sqlCod, [], 'cod_correcao')['cod'];
+                        foreach ($membros as $dados) {
 
-                        $sql = "insert into trbl_correcao_historico (cod_correcao_fk, usuario_fk, observacao, data_envio, arquivo) " .
-                                "values (:cod, :usuario, :add_observacao, now(), :arquivo_nome);";
-                        $funcoes->executarSQL($sql, $post_data);
+                            $post_data['add_membro'] = $dados['cod_usuario'];
+                            $sql = "insert into trbl_correcao_trabalho (remetente_fk, destinatario_fk, data, modalidade, status) " .
+                                    "values (:usuario, :add_membro, now(), :add_modalidade, 0);";
+                            $funcoes->executarSQL($sql, $post_data);
 
+                            $sqlCod = "select cod_correcao from trbl_correcao_trabalho order by cod_correcao desc limit 1";
+                            $post_data['cod'] = $funcoes->executarSQL($sqlCod, [], '')['cod_correcao'];
+
+                            $sql = "insert into trbl_correcao_historico (cod_correcao_fk, usuario_fk, observacao, data_envio, arquivo) " .
+                                    "values (:cod, :usuario, :add_observacao, now(), :arquivo_nome);";
+                            $funcoes->executarSQL($sql, $post_data);
+                        }
                         return $response->setContent(Json::encode(array('response' => true, 'msg' => 'Trabalho Enviado para Correção!')));
                     } else {
                         return $response->setContent(Json::encode(array('response' => false, 'msg' => 'Erro ao enviar!')));

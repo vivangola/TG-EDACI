@@ -595,7 +595,7 @@ class QuestionarioController extends AbstractActionController
                             inner join qst_questao1 b on a.cod_questionario = b.cod_questionario
                             inner join qst_questao_dependencia c on c.cod_questao_dependente = b.cod
                         where a.cod_questionario = :questionario and c.cod_questao = :qstao
-                        and b.cod not in (select distinct dependencia_alternativa from qst_questao1 where cod_questionario = 8 and dependencia_questao > 0)
+                        and b.cod not in (select distinct dependencia_alternativa from qst_questao1 where cod_questionario = :questionario and dependencia_questao > 0)
                         order by b.cod asc;";
             }
             $alternativas = $funcoes->executarSQL($sql, $params);
@@ -624,6 +624,22 @@ class QuestionarioController extends AbstractActionController
             'tipo_qst'                  => $this->params()->fromPost('tipo_qst', '0'),
         );
         
+        if($params['dep_questao'] != 0){
+            $sql = 'select * from qst_questao1 where dependencia_questao =:dep_questao and dependencia_alternativa =:dep_alternativa';
+            $result = $funcoes->executarSQL($sql,$params,'');
+            
+            
+            if($params['dep_questao'] != 0 && $params['dep_alternativa'] == 0){
+                $msgtipo = 'Questão';
+            }else{
+                $msgtipo = 'Alternativa';
+            }
+            
+            if($result){
+                return $response->setContent(Json::encode(array('response' => false, 'msg' => 'Já existe dependencia para essa '.$msgtipo.'. Por favor escolha outra questão ou alternativa.')));
+            }
+        }
+        
         //inserir questao
         $sql = "insert into qst_questao1 (cod_questionario, desc_pergunta, tipo_pergunta, is_sub,dependencia_questao, dependencia_alternativa, data_criacao)"
                                . " values(:questionario, :desc_questao, :tipo_questao, 0, :dep_questao, :dep_alternativa, now())";
@@ -633,6 +649,7 @@ class QuestionarioController extends AbstractActionController
         $params['dependencia'] = $funcoes->executarSQL($sql, [], '')['cod_questao'];
         
         if($params['dep_questao'] != 0){
+            
             $sql = "insert into qst_questao_dependencia(cod_questao_dependente,cod_questao) values(:dependencia,:cod_questao)";
             $funcoes->executarSQL($sql, array(
                 'dependencia'   => $params['dependencia'],
@@ -702,6 +719,22 @@ class QuestionarioController extends AbstractActionController
             'tipo'                      => $this->params()->fromPost('tipo', '0'),
             'tipo_questionario'         => $this->params()->fromPost('tipo_questionario', '0'),
         );
+        
+        if($params['dep_questao'] != 0){
+            $sql = 'select * from qst_questao1 where dependencia_questao =:dep_questao and dependencia_alternativa =:dep_alternativa and cod !=:cod_questao';
+            $result = $funcoes->executarSQL($sql,$params,'');
+            
+            
+            if($params['dep_questao'] != 0 && $params['dep_alternativa'] == 0){
+                $msgtipo = 'Questão';
+            }else{
+                $msgtipo = 'Alternativa';
+            }
+            
+            if($result){
+                return $response->setContent(Json::encode(array('response' => false, 'msg' => 'Já existe dependencia para essa '.$msgtipo.'. Por favor escolha outra questão ou alternativa.')));
+            }
+        }
         
         //update questao
         $sql = "update qst_questao1 set desc_pergunta =:desc_questao, dependencia_questao =:dep_questao, dependencia_alternativa =:dep_alternativa where cod =:cod_questao";

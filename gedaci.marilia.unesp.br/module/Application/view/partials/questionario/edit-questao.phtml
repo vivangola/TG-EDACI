@@ -134,6 +134,8 @@
                         $('#edit_btn_dissertativa').hide();
                     }
                     
+                    console.log(retorno.questao.dependencia_questao);
+                    
                     if(retorno.questao.dependencia_questao != 0){
                         loader();
                         addDependencia(1);
@@ -227,7 +229,6 @@
     }
 
     $('#edit-respostas-objetiva').on('click', '.removerResposta', function (e) {
-        console.log($(this).get(0));
         $(this).parent('.divRemoverResposta').remove();
     });
 
@@ -482,8 +483,17 @@
                 loader();
             },
             success: function (retorno) {
-                console.log(retorno);
                 retorno = JSON.parse(retorno);
+                
+                if(!retorno.response){
+                    Swal.fire({
+                        title: 'Atenção!',
+                        html: 'Essa questão não possui alternativas sem dependencia. Por favor selecione outra questão.',
+                        type: 'info'
+                    });
+                    return false;
+                }
+                
                 Swal.close();
                 if(tipo == 1){
                     $('#select_questao').html('');
@@ -514,11 +524,9 @@
         
         var has_dependencia = ($('#btn_cancelar_dependencia').is(':visible') || $('#btn_cancelar_dependencia2').is(':visible'));
         
-        console.log(has_dependencia);
         
         if(has_dependencia){
             var cod_dependencia = $('#select_questao').val();
-            console.log(cod_dependencia,1);
             if(!cod_dependencia || cod_dependencia == 0){
                 Swal.fire({
                     title: 'Atenção!',
@@ -529,8 +537,7 @@
             }else{
                 dependencia.cod_questao = cod_dependencia;
                 cod_dependencia = $('#select_alternativa').val();
-                console.log(cod_dependencia,2);
-                if(!cod_dependencia || cod_dependencia == 0){
+                if((!cod_dependencia || cod_dependencia == 0) && $('#select_alternativa').is(':visible')){
                     Swal.fire({
                         title: 'Atenção!',
                         html: 'Selecione a alternativa da questão pendente.',
@@ -538,7 +545,11 @@
                     });
                     return false;
                 }else{
-                    dependencia.cod_alternativa = cod_dependencia;
+                    if(!$('#select_alternativa').is(':visible')){
+                        dependencia.cod_alternativa = 0;
+                    }else{
+                        dependencia.cod_alternativa = cod_dependencia;
+                    }
                     return dependencia;
                 }
             }

@@ -199,15 +199,24 @@
             },
             success: function (retorno) {
                 retorno = JSON.parse(retorno);
-                $('#perguntas_edit').html(retorno.html);
-                Swal.fire({
-                    title: 'Sucesso!',
-                    html: 'Questão adicionada.',
-                    type: 'success'
-                });
+                
+                if(!retorno.response){
+                    Swal.fire({
+                        title: 'Atenção!',
+                        html: retorno.msg,
+                        type: 'info'
+                    });
+                    return false;
+                }else{
+                    $('#perguntas_edit').html(retorno.html);
+                    Swal.fire({
+                        title: 'Sucesso!',
+                        html: 'Questão adicionada.',
+                        type: 'success'
+                    });
 
-                limparAdd();
-
+                    limparAdd();
+                }
             }
         });
     }
@@ -248,13 +257,24 @@
             },
             success: function (retorno) {
                 retorno = JSON.parse(retorno);
-                $('#perguntas_edit').html(retorno.html);
-                Swal.fire({
-                    title: 'Sucesso!',
-                    html: 'Questão adicionada.',
-                    type: 'success'
-                });
-                limparAdd();
+                
+                if(!retorno.response){
+                    Swal.fire({
+                        title: 'Atenção!',
+                        html: retorno.msg,
+                        type: 'info'
+                    });
+                    return false;
+                }else{
+                    $('#perguntas_edit').html(retorno.html);
+                    Swal.fire({
+                        title: 'Sucesso!',
+                        html: 'Questão adicionada.',
+                        type: 'success'
+                    });
+
+                    limparAdd();
+                }
             }
         });
     }
@@ -276,7 +296,7 @@
             }else{
                 dependencia.cod_questao = cod_dependencia;
                 cod_dependencia = $('#select_alternativa_add').val();
-                if(!cod_dependencia || cod_dependencia == 0){
+                if((!cod_dependencia || cod_dependencia == 0) && $('#select_alternativa_add').is(':visible')){
                     Swal.fire({
                         title: 'Atenção!',
                         html: 'Selecione a alternativa da questão pendente.',
@@ -284,7 +304,11 @@
                     });
                     return false;
                 }else{
-                    dependencia.cod_alternativa = cod_dependencia;
+                    if(!$('#select_alternativa_add').is(':visible')){
+                        dependencia.cod_alternativa = 0;
+                    }else{
+                        dependencia.cod_alternativa = cod_dependencia;
+                    }
                     return dependencia;
                 }
             }

@@ -40,7 +40,6 @@ class PortfolioController extends AbstractActionController {
 
         $relatorio->definirColuna('CONTEUDO SINTÉTICO', 'conteudo', '8', 'left', 't', 'n', 'n');
         $relatorio->definirColuna('ASSUNTO', 'assunto', '4', 'center', 't', 'n', 'n');
-        $relatorio->definirColuna('USUÁRIO', 'usuario', '4', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('DATA UPLOAD', 'data_upload', '4', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('DOWNLOAD', '1', '2', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('ALTERAR', '2', '2', 'center', 't', 'n', 'n');

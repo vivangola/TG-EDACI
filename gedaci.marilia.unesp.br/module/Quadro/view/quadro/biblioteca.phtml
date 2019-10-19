@@ -7,7 +7,7 @@
                         <div class="col-md-12 ">
                             <div class="box">                           
                                 <div class="icon">
-                                    <div class="image back-primary3"><i class="fa fa-book"></i>&nbsp;<label class="title">Biblioteca</label></div>
+                                        <div class="image back-primary3"><i class="fa fa-book"></i>&nbsp;<label class="title">Biblioteca</label></div>
                                     <div class="info" style="min-height:450px">
                                         <div class="row" style="padding-left: 10px;padding-right: 10px;margin-top: 10px;margin-bottom: 20px;">
                                             <form action="/biblioteca" method="post" enctype="">
@@ -72,7 +72,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="form" action="/biblioteca/add" method="post" enctype="multipart/form-data">
+            <form id="formAdd" action="/biblioteca/add" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="add_conteudo" class="col-form-label">Conteúdo Sintético:</label><label style="color:red">*</label>
@@ -111,7 +111,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="form" method="post" enctype="multipart/form-data">
+            <form id="formEdit" action="/biblioteca/edit" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     <input type="hidden" id="edit_cod" name="edit_cod" />
                     <div class="form-group">
@@ -130,7 +130,7 @@
                     </div>
                     <div class="form-group">
                         <label for="edit_arquivo" class="col-form-label">Arquivo (pdf,doc,docx):</label><label style="color:red">*</label>
-                        <label class="form-control" name="edit_arquivo" id="edit_arquivo">Arquivo:</label>
+                        <input type="file" accept=".doc,.docx,.pdf" class="form-control" name="edit_arquivo" id="edit_arquivo">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -177,7 +177,33 @@
             return false;
         }
         
-        $('#form').submit();
+        var options = {
+            url: '/biblioteca/add',
+            type: 'POST',
+            dataType: 'json',
+            cache: false,
+            success: function (retorno) {
+                if (retorno.response) {
+                    Swal.fire({
+                        title: 'Sucesso!',
+                        html: retorno.msg,
+                        type: 'success',
+                        onClose: () => {
+                            window.location.reload();
+                        }
+                    });
+                        
+                }else{
+                    Swal.fire({
+                        title: 'Atenção!',
+                        html: retorno.msg,
+                        type: 'warning'
+                    });
+                }
+            }
+        };
+        
+        $('#formAdd').ajaxSubmit(options);
     }
     
     function showDelete(cod){
@@ -246,8 +272,7 @@
         var data = {
             cod                  : $('#edit_cod').val(),
             edit_conteudo        : $('#edit_conteudo').val(),
-            edit_assunto         : $('#edit_assunto').val(),
-            //edit_h               : $('#edit_h').val()
+            edit_assunto         : $('#edit_assunto').val()
         };
                 
         if(!validaParametros(data)){
@@ -259,25 +284,33 @@
             return false;
         }
         
-        $.ajax({
+        var options = {
             url: '/biblioteca/edit',
-            data: data,
-            type: 'json',
-            method: 'POST',
-            beforeSend: function () {
-                loader();
-            },
+            type: 'POST',
+            dataType: 'json',
+            cache: false,
             success: function (retorno) {
-                Swal.fire({
-                    title: 'Sucesso!',
-                    html: 'Material editado.',
-                    type: 'success',
-                    onClose: () => {
-                        window.location.reload();
-                    }
-                });
+                if (retorno.response) {
+                    Swal.fire({
+                        title: 'Sucesso!',
+                        html: retorno.msg,
+                        type: 'success',
+                        onClose: () => {
+                            window.location.reload();
+                        }
+                    });
+                        
+                }else{
+                    Swal.fire({
+                        title: 'Atenção!',
+                        html: retorno.msg,
+                        type: 'warning'
+                    });
+                }
             }
-        });
+        };
+        
+        $('#formEdit').ajaxSubmit(options);
         
     }
     

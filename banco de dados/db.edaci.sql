@@ -152,6 +152,33 @@ INSERT INTO `biblioteca` VALUES (7,4,'',0,'material-2019-09-04-16-09-15.','2019-
 UNLOCK TABLES;
 
 --
+-- Table structure for table `portfolio`
+--
+
+DROP TABLE IF EXISTS `portfolio`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `portfolio` (
+  `cod` int(11) NOT NULL AUTO_INCREMENT,
+  `cod_usuario_fk` int(11) DEFAULT NULL,
+  `conteudo` varchar(200) DEFAULT NULL,
+  `assunto_fk` int(11) DEFAULT NULL,
+  `arquivo` varchar(200) DEFAULT NULL,
+  `data_upload` datetime DEFAULT NULL,
+  PRIMARY KEY (`cod`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `biblioteca`
+--
+
+LOCK TABLES `portfolio` WRITE;
+/*!40000 ALTER TABLE `portfolio` DISABLE KEYS */;
+/*!40000 ALTER TABLE `portfolio` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `biblioteca_assunto`
 --
 
@@ -2006,6 +2033,84 @@ BEGIN
 	
 	END IF;
 
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `us_buscarPortfolio_sp` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarPortfolio_sp`(
+	In filtro int,
+    in pesquisa varchar(100),
+    in cod_material int,
+    in usuario int
+)
+BEGIN
+
+	set pesquisa = CONCAT('%',pesquisa,'%');
+    
+    
+    if cod_material = 0 then
+
+		if filtro = 1 then
+		
+			select a.cod, a.conteudo, c.cod as cod_assunto, c.assunto, b.nome as usuario, a.arquivo, date_format(a.data_upload, "%d/%m/%Y %H:%i:%s") as data_upload
+            from portfolio a
+				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
+                inner join biblioteca_assunto c on c.cod = a.assunto_fk
+			where a.conteudo like pesquisa and a.cod_usuario_fk = usuario
+			order by data_upload desc;
+			
+		elseif filtro = 2 then
+			
+            select a.cod, a.conteudo, c.cod as cod_assunto, c.assunto, b.nome as usuario, a.arquivo, date_format(a.data_upload, "%d/%m/%Y %H:%i:%s") as data_upload
+            from portfolio a
+				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
+                inner join biblioteca_assunto c on c.cod = a.assunto_fk
+			where b.nome like pesquisa and a.cod_usuario_fk = usuario
+			order by data_upload desc;
+        
+        elseif filtro = 3 then
+        
+			select a.cod, a.conteudo, c.cod as cod_assunto, c.assunto, b.nome as usuario, a.arquivo, date_format(a.data_upload, "%d/%m/%Y %H:%i:%s") as data_upload
+            from portfolio a
+				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
+                inner join biblioteca_assunto c on c.cod = a.assunto_fk
+			where c.assunto like pesquisa and a.cod_usuario_fk = usuario
+			order by data_upload desc;
+        
+        else 
+        
+			select a.cod, a.conteudo, c.cod as cod_assunto, c.assunto, b.nome as usuario, a.arquivo, date_format(a.data_upload, "%d/%m/%Y %H:%i:%s") as data_upload
+            from portfolio a
+				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
+                inner join biblioteca_assunto c on c.cod = a.assunto_fk
+			where a.cod_usuario_fk = usuario
+			order by data_upload desc;
+			
+		end if;
+		
+    else 
+    
+		select a.cod, a.conteudo, c.cod as cod_assunto, c.assunto, b.nome as usuario, a.arquivo, date_format(a.data_upload, "%d/%m/%Y %H:%i:%s") as data_upload
+		from portfolio a
+			inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
+			inner join biblioteca_assunto c on c.cod = a.assunto_fk
+		where a.cod = cod_material and a.cod_usuario_fk = usuario
+		order by data_upload desc;
+    
+    end if;
+    
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;

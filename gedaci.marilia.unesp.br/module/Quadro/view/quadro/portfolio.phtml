@@ -1,0 +1,321 @@
+<div class="row box-home" align="center" style="height:100%">
+    <div class="col-md-12 col-xs-12">  
+        <div class="main-box clearfix print min-branco">
+            <div class="main-box-body clearfix mt">            
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <div class="box">                           
+                                <div class="icon">
+                                    <div class="image back-primary3"><i class="fa fa-book"></i>&nbsp;<label class="title">Portfólio</label></div>
+                                    <div class="info" style="min-height:450px">
+                                        <div class="row" style="padding-left: 10px;padding-right: 10px;margin-top: 10px;margin-bottom: 20px;">
+                                            <form action="/portfolio" method="post" enctype="">
+                                                <div class="col-md-6 col-sm-4 col-xs-8">
+                                                    <input type="text" name="pesquisa" placeholder="Pesquisar" class="form-control" value="<?= $pesq != '' ? $pesq : '' ?>">
+                                                </div>  
+                                                <div class="col-md-2 col-sm-2 col-xs-4">
+                                                    <select class="form-control" name="filtros">
+                                                        <option value="-1">Todos</option>
+                                                        <option value="1" <?= $filtro == '1' ? 'selected' : '' ?>>Conteúdo</option>
+                                                        <option value="2" <?= $filtro == '2' ? 'selected' : '' ?>>Usuário</option>
+                                                        <option value="3" <?= $filtro == '3' ? 'selected' : '' ?>>Assunto</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-2 col-sm-3 col-xs-6">
+                                                    <button class="btn btn-primary-borded2 form-control" type="submit">
+                                                        Pesquisar&nbsp;
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-2 col-sm-3 col-xs-6">
+                                                    <button class="btn btn-primary-borded2 form-control" type="button" onClick="showAdd()">
+                                                        Novo&nbsp;
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="table-responsive" style="margin-top: 10px;">
+                                            <?php
+                                            $relatorio->gerarCabecalho(12);
+                                            if (!empty($result)) {
+                                                foreach ($result as $dados) {
+                                                    
+                                                    $relatorio->definirVariavel('1', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showFile('".$dados['arquivo']."')><i class='pointer fa fa-download'></i></button>");
+                                                    $relatorio->definirVariavel('2', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showEdit('".$dados['cod']."')><i class='pointer fa fa-edit'></i></button>");
+                                                    $relatorio->definirVariavel('3', "<button type='button' class='btn btn-primary4' style='width:100%' onClick=showDelete('".$dados['cod']."')><i class='pointer fa fa-times'></i></button>");
+                                                    
+                                                    $relatorio->gerarRelatorio($dados);
+                                                }
+                                            }
+                                            $relatorio->gerarRodape();
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Adicionar Material</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="formAdd" action="/portfolio/add" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="add_conteudo" class="col-form-label">Conteúdo Sintético:</label><label style="color:red">*</label>
+                        <input type="text"  class="form-control" id="add_conteudo" name="add_conteudo" title="Digite o Conteúdo Sintético."/>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-12">
+                            <label for="add_assunto" class="col-form-label">Assunto:</label><label style="color:red">*</label>
+                            <select id="add_assunto" class="form-control input-group-lg" name="add_assunto" title="Selecione o Assunto.">
+                                <?php foreach($assuntos as $dados): ?>
+                                        <option value="<?= $dados['cod'] ?>"> <?= $dados['assunto'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="add_arquivo" class="col-form-label">Arquivo (pdf,doc,docx):</label><label style="color:red">*</label>
+                        <input type="file" accept=".doc,.docx,.pdf" class="form-control" name="add_arquivo" id="add_arquivo">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary-borded2" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary3" onclick="add()">Finalizar <i class="fa fa-check"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title color-primary2"><i class="fa fa-edit"></i>&nbsp;Editar Material</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="formEdit" action="/portfolio/edit" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <input type="hidden" id="edit_cod" name="edit_cod" />
+                    <div class="form-group">
+                        <label for="edit_conteudo" class="col-form-label">Conteúdo Sintético:</label><label style="color:red">*</label>
+                        <input type="text"  class="form-control" id="edit_conteudo" name="edit_conteudo" title="Digite o Conteúdo Sintético."/>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="edit_assunto" class="col-form-label">Assunto:</label><label style="color:red">*</label>
+                            <select id="edit_assunto" class="form-control input-group-lg" name="edit_assunto" title="Selecione o Assunto.">
+                                <?php foreach($assuntos as $dados): ?>
+                                        <option value="<?= $dados['cod'] ?>"> <?= $dados['assunto'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_arquivo" class="col-form-label">Arquivo (pdf,doc,docx):</label><label style="color:red">*</label>
+                        <input type="file" accept=".doc,.docx,.pdf" class="form-control" name="edit_arquivo" id="edit_arquivo">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary-borded2" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary3" onclick="edit()">Finalizar <i class="fa fa-check"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#relatorio').DataTable({
+            "language": {
+                "url": "js/datatable/pt-br.json"
+            },
+            "pageLength": 10, 
+            "ordering": false,
+            "lengthChange": false,
+            "searching": false,
+        });
+    });
+    
+    function showAdd(){
+        $('#modalAdd').modal('show');
+    }
+    
+    function add(){
+        
+        var data = {
+            add_conteudo        : $('#add_conteudo').val(),
+            add_assunto         : $('#add_assunto').val(),
+            add_arquivo         : $('#add_arquivo').val()
+        };
+        
+        if(!validaParametros(data)){
+            Swal.fire({
+                title: 'Atenção!',
+                html: "Digite todos os campos obrigatórios (*)",
+                type: 'info'
+            });
+            return false;
+        }
+        
+        var options = {
+            url: '/portfolio/add',
+            type: 'POST',
+            dataType: 'json',
+            cache: false,
+            success: function (retorno) {
+                if (retorno.response) {
+                    Swal.fire({
+                        title: 'Sucesso!',
+                        html: retorno.msg,
+                        type: 'success',
+                        onClose: () => {
+                            window.location.reload();
+                        }
+                    });
+                        
+                }else{
+                    Swal.fire({
+                        title: 'Atenção!',
+                        html: retorno.msg,
+                        type: 'warning'
+                    });
+                }
+            }
+        };
+        
+        $('#formAdd').ajaxSubmit(options);
+    }
+    
+    function showDelete(cod){
+        Swal.fire({
+            title: 'Atenção!',
+            html: 'Deseja realmente excluir?',
+            type: 'info',
+            showCancelButton: true,
+            preConfirm: () => {
+                $.ajax({
+                    url: '/portfolio/delete',
+                    data: {cod : cod},
+                    type: 'json',
+                    method: 'POST',
+                    beforeSend: function () {
+                        loader();
+                    },
+                    success: function (retorno) {
+                        Swal.fire({
+                            title: 'Sucesso!',
+                            html: 'Material deletado.',
+                            type: 'success',
+                            onClose: () => {
+                                window.location.reload();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+    
+    function showEdit(cod){
+        $.ajax({
+            url: '/portfolio/showEdit',
+            data: {cod : cod},
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                retorno = JSON.parse(retorno);
+                Swal.close();
+                if(retorno.response){
+                    
+                    $('#edit_cod').val(retorno.result['cod']);
+                    $('#edit_conteudo').val(retorno.result['conteudo']);
+                    $('#edit_assunto option[value="'+retorno.result['cod_assunto']+'"]').attr('selected','true');
+                    $('#edit_arquivo').html('Arquivo: <a href="/arquivos/portfolio/'+retorno.result['arquivo']+'"> '+retorno.result['arquivo']+' </a>');
+                    
+                    $('#modalEdit').modal('show');
+                }else{
+                    Swal.fire({
+                        title: 'Atenção!',
+                        html: 'Material não encontrado.',
+                        type: 'info'
+                    });
+                }
+            }
+        });
+    }
+    
+    function edit(){
+        
+        var data = {
+            cod                  : $('#edit_cod').val(),
+            edit_conteudo        : $('#edit_conteudo').val(),
+            edit_assunto         : $('#edit_assunto').val()
+        };
+                
+        if(!validaParametros(data)){
+            Swal.fire({
+                title: 'Atenção!',
+                html: "Digite todos os campos obrigatórios (*)",
+                type: 'info'
+            });
+            return false;
+        }
+        
+        var options = {
+            url: '/portfolio/edit',
+            type: 'POST',
+            dataType: 'json',
+            cache: false,
+            success: function (retorno) {
+                if (retorno.response) {
+                    Swal.fire({
+                        title: 'Sucesso!',
+                        html: retorno.msg,
+                        type: 'success',
+                        onClose: () => {
+                            window.location.reload();
+                        }
+                    });
+                        
+                }else{
+                    Swal.fire({
+                        title: 'Atenção!',
+                        html: retorno.msg,
+                        type: 'warning'
+                    });
+                }
+            }
+        };
+        
+        $('#formEdit').ajaxSubmit(options);
+        
+    }
+    
+    function showFile(arquivo){
+        window.open('/arquivos/portfolio/'+arquivo,'_blank');
+    }
+
+</script>

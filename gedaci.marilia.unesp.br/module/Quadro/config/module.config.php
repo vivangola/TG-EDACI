@@ -144,6 +144,16 @@ return [
                     ],
                 ],
             ],
+            'portfolio' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/portfolio[/:action]',
+                    'defaults' => [
+                        'controller' => Controller\PortfolioController::class,
+                        'action'     => 'portfolio',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
@@ -162,6 +172,7 @@ return [
             Controller\ProducaoGrupoController::class => InvokableFactory::class,
             Controller\TrabalhoCorrecaoController::class => InvokableFactory::class,
             Controller\PlanoAtividadesController::class => InvokableFactory::class,
+            Controller\PortfolioController::class => InvokableFactory::class
         ],
     ],
     'view_manager' => [

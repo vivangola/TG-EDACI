@@ -145,7 +145,7 @@ class BibliotecaController extends AbstractActionController {
             'usuario' => $sessao->cod_usuario
         );
 
-        $sql = "call us_buscarBiblioteca_sp('','',:cod)";
+        $sql = "call us_buscarBiblioteca_sp(0,'',:cod)";
         $result = $funcoes->executarSQL($sql, $params, '');
 
         if (!$result) {

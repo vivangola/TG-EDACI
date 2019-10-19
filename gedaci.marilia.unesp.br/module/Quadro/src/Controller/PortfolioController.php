@@ -144,7 +144,7 @@ class PortfolioController extends AbstractActionController {
             'usuario' => $sessao->cod_usuario
         );
 
-        $sql = "call us_buscarPortfolio_sp('','',:cod,:usuario)";
+        $sql = "call us_buscarPortfolio_sp(0,'',:cod,:usuario)";
         $result = $funcoes->executarSQL($sql, $params, '');
 
         if (!$result) {

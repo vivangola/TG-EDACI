@@ -345,6 +345,7 @@ DROP TABLE IF EXISTS `evts_eventos`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `evts_eventos` (
   `cod_evento` int(11) NOT NULL AUTO_INCREMENT,
+  `cod_usuario_fk` int(11) NOT NULL,
   `nome` varchar(100) DEFAULT NULL,
   `data_ini` datetime DEFAULT NULL,
   `data_fim` datetime DEFAULT NULL,

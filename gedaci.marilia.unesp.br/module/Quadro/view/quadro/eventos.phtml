@@ -11,34 +11,35 @@
                                     <div class="info" style="min-height:450px">
                                         <div class="row" style="padding-left: 10px;padding-right: 10px">
                                             <div class="col-md-12">
-                                                <div class="col-md-2 col-sm-3 col-xs-4">
+                                                <div class="col-md-2 col-xs-12">
                                                     <div class="form-inline">
-                                                        <label for="mes">M�s:</label>
-                                                        <div class="col-md-2 col-sm-2 col-xs-8" id="mes" name="mes">
-                                                            <select class="form-control">
-                                                                <option value="">Janeiro</option>
-                                                                <option value="">Fevereiro</option>
-                                                                <option value="">Mar�o</option>
-                                                                <option value="">Abril</option>
-                                                                <option value="" selected>Maio</option>
+                                                        <label for="mes">Mês:</label>
+                                                        <div class="col-md-6">
+                                                            <select class="form-control" id="mes" name="mes">
+                                                                <?php foreach ($meses as $dados): ?>
+                                                                    <option <?= $dados['mes'] == $mes ? 'selected' : '' ?> value="<?= $dados['mes'] ?>"><?= $dados['descricao'] ?></option>
+                                                                <?php endforeach; ?>
                                                             </select>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-4">
+                                                <div class="col-md-2 col-xs-12">
                                                     <div class="form-inline">
                                                         <label for="ano">Ano:</label>
-                                                        <div class="col-md-2 col-sm-2 col-xs-8" id="ano" name="ano">
-                                                            <select class="form-control">
-                                                                <option value="">2017</option>
-                                                                <option value="">2018</option>
-                                                                <option value="" selected>2019</option>
+                                                        <div class="col-md-6">
+                                                            <select class="form-control" id="ano" name="ano">
+                                                                <?php foreach ($anos as $dados): ?>
+                                                                    <option <?= $dados == $ano ? 'selected' : '' ?> value="<?= $dados ?>"><?= $dados ?></option>
+                                                                <?php endforeach; ?>
                                                             </select>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-2 col-md-offset-5 col-sm-2 col-sm-offset-4 col-xs-4">
-                                                    <button class="btn btn-primary2 form-control">
+                                                <div class="col-md-4 col-xs-12">
+
+                                                </div>
+                                                <div class="col-md-2 col-xs-12 col-md-offset-2">
+                                                    <button class="btn btn-primary-borded2 form-control" onclick="$('#modalAdd').modal('show');">
                                                         Novo&nbsp;
                                                         <i class="fa fa-plus"></i>
                                                     </button>
@@ -58,9 +59,129 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Novo Evento</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="formAdd" method="post">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="add_nome" class="col-form-label">Nome:</label><label style="color:red">*</label>
+                            <input id="add_nome"  class="form-control input-group-lg obg" type="text" name="add_nome" />
+                        </div>
+                        <div class="form-group col-xs-6">
+                            <label for="add_local" class="col-form-label">Local:</label><label style="color:red">*</label>
+                            <input id="add_local"  class="form-control input-group-lg obg" type="text" name="add_local" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="add_ini" class="col-form-label">Data inicial:</label><label style="color:red">*</label>
+                            <input id="add_ini"  class="form-control input-group-lg obg" type="date" name="add_ini"/>
+                        </div>
 
+                        <div class="form-group col-xs-6">
+                            <label for="add_fim" class="col-form-label">Data final:</label><label style="color:red">*</label>
+                            <input id="add_fim"  class="form-control input-group-lg obg" type="date" name="add_fim" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="add_inscricao" class="col-form-label">Valor Inscrição:</label><label style="color:red">*</label>
+                            <input id="add_inscricao"  class="form-control input-group-lg obg" type="text" name="add_inscricao" />
+                        </div>
+
+                        <div class="form-group col-xs-6">
+                            <label for="add_site" class="col-form-label">Site:</label>
+                            <input id="add_site" class="form-control input-group-lg" type="text" name="add_site" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary-borded2" data-dismiss="modal">Cancelar</button>
+                        <button type="button" onclick="add()" class="btn btn-primary3">Finalizar <i class="fa fa-check"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Visualizar Evento</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="formEdit" method="post">
+                <input type="hidden" id="edit_cod" name="edit_cod">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="edit_nome" class="col-form-label">Nome:</label><label style="color:red">*</label>
+                            <input id="edit_nome"  class="form-control input-group-lg obg" type="text" name="edit_nome" />
+                        </div>
+                        <div class="form-group col-xs-6">
+                            <label for="edit_local" class="col-form-label">Local:</label><label style="color:red">*</label>
+                            <input id="edit_local"  class="form-control input-group-lg obg" type="text" name="edit_local" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="edit_ini" class="col-form-label">Data inicial:</label><label style="color:red">*</label>
+                            <input id="edit_ini"  class="form-control input-group-lg obg" type="date" name="edit_ini"/>
+                        </div>
+
+                        <div class="form-group col-xs-6">
+                            <label for="edit_fim" class="col-form-label">Data final:</label><label style="color:red">*</label>
+                            <input id="edit_fim"  class="form-control input-group-lg obg" type="date" name="edit_fim" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="edit_inscricao" class="col-form-label">Valor Inscrição:</label><label style="color:red">*</label>
+                            <input id="edit_inscricao"  class="form-control input-group-lg obg" type="text" name="edit_inscricao" />
+                        </div>
+
+                        <div class="form-group col-xs-6">
+                            <label for="edit_site" class="col-form-label">Site:</label>
+                            <input id="edit_site" class="form-control input-group-lg" type="text" name="edit_site" />
+                        </div>
+                    </div>
+                    <div class="row" style="overflow: auto; max-height: 200px; padding:0px 7px 0px 7px;">
+                        <table class="table table-hover table-bordered dataTable no-footer" style="font-size: 12px;" role="grid" aria-describedby="relatorio_info">
+                            <thead>
+                                <tr role="row">
+                                    <th class="text-center sorting_disabled" style="vertical-align: middle; width: 277.576px;" width="8%">NOME</th>
+                                    <th class="text-center  sorting_disabled" style="vertical-align: middle; width: 175.354px;" width="4%">ESCOLARIDADE</th>
+                                </tr>
+                            </thead>
+                            <tbody id="presentes">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary-borded2" data-dismiss="modal">Cancelar</button>
+                        <button type="button" id="btnDel" onclick="del()" class="btn btn-primary3">Excluir <i class="fa fa-check"></i></button>
+                        <button type="button" id="btnAlt" onclick="edit()" class="btn btn-primary3">Alterar <i class="fa fa-check"></i></button>
+                        <button type="button" id="btnPresent" onclick="present(1)" class="btn btn-primary3">Marcar Presença&nbsp;<i class="fa fa-check"></i></button>
+                        <button type="button" id="btnAbsent" onclick="present(0)" class="btn btn-primary3">Desmarcar Presença&nbsp;<i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <link rel="stylesheet" type="text/css" href="/css/calendar/fullcalendar.min.css" />
 <link rel="stylesheet" type="text/css" href="/css/calendar/agenda.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
 <script src="/js/calendar/lib/moment.min.js"></script>
 <script src="/js/calendar/fullcalendar.min.js"></script>
 <script src="/js/calendar/locale/pt-br.js"></script>
@@ -68,55 +189,299 @@
 
 <script type="text/javascript">
 
-    $(document).ready(function () {
-        $('#calendar').fullCalendar({
-            defaultDate: new Date(),
-            editable: true,
-            eventLimit: true,
-            themeSystem: 'bootstrap4',
-            businessHours: false,
-            defaultView: 'month',
-            header: {
-                center: 'title',
-                left: 'addEvento', //agendaDay,agendaWeek,month
-                right: 'prev,next' //today
-            },
-            events: [
-                {
-                    codigo: '1',
-                    title: 'Palestra sobre I.A',
-                    start: '2019-06-17 13:00:00',
-                    end: '2019-06-18 15:00:00',
-                },
-                {
-                    codigo: '2',
-                    title: 'Evento de Games',
-                    start: '2019-05-31 14:00:00',
-                    end: '2019-05-31 18:00:00',
-                },
-                {
-                    codigo: '3',
-                    title: 'Viagem para IBM',
-                    start: '2019-06-24 11:00:00',
-                    end: '2019-06-26 18:00:00'
-                },
-                {
-                    codigo: '4',
-                    title: 'Semana de Cursos',
-                    start: '2019-06-03 08:00:00',
-                    end: '2019-06-07 08:00:00'
-                },
-                {
-                    codigo: '5',
-                    title: 'Palestra sobre SCRUM',
-                    start: '2019-06-12 18:00:00',
-                    end: '2019-06-12 20:00:00',
-                },
-            ],
-            eventClick: function (info) {
-                console.log(info);
-            }
-        });
-    });
+                    $(document).ready(function () {
+                        
+                        $(".fc-time").hide();
+                        
+                        $('#mes, #ano').on('change', function(){
+                            mes = $('#mes').val();
+                            ano = $('#ano').val();
 
+                            $('#calendar').fullCalendar('gotoDate', ano+'-'+mes+'-'+01);
+                         });
+
+                        $("#add_inscricao").maskMoney({
+                            allowNegative: false,
+                            thousands: '.',
+                            decimal: ',',
+                            affixesStay: false
+                        });
+                        
+                        $("#edit_inscricao").maskMoney({
+                            allowNegative: false,
+                            thousands: '.',
+                            decimal: ',',
+                            affixesStay: false
+                        });
+
+                        $('#calendar').fullCalendar({
+                            defaultDate: new Date(),
+                            editable: true,
+                            eventLimit: true,
+                            themeSystem: 'bootstrap4',
+                            businessHours: false,
+                            defaultView: 'month',
+                            header: {
+                                center: 'title',
+                                left: 'addEvento', //agendaDay,agendaWeek,month
+                                right: 'prev,next' //today
+                            },
+                            eventOverlap: function(stillEvent, movingEvent) {
+                                return stillEvent.allDay && movingEvent.allDay;
+                            },
+                            events: [
+                                <?php foreach($eventos as $dados):?>
+                                    {
+                                        codigo:     '<?= $dados['cod_evento'] ?>',
+                                        title:      '<?= $dados['nome'] ?>',
+                                        color:      '#6CB4C4',    
+                                        start:      '<?= $dados['data_ini'] ?>',
+                                        end:        '<?= $dados['data_fim'] ?>',
+                                        inicio:     '<?= $dados['inicio']?>',
+                                        fim:        '<?= $dados['fim']?>'
+                                    },
+                                <?php endforeach; ?>
+                            ], 
+                            eventClick: function (info) {
+                            },
+                            eventRender: function(event, element) {
+                                $(element).attr('data-toggle', 'tooltip');
+                                $(element).attr('title', event.title + '<br> De '+event.inicio+' até '+event.fim);
+                                $(element).attr('onclick', 'showEdit('+event.codigo+')');
+                            },
+                            eventAfterAllRender: function(event){
+                                $('[data-toggle="tooltip"]').tooltip({
+                                    html : true
+                                });  
+                            },
+                            viewRender: function(view, element) {
+
+                                var b = $('#calendar').fullCalendar('getDate');
+
+                                ini = $('#calendar').fullCalendar("getView").start.format();
+                                fim = $('#calendar').fullCalendar("getView").end.format();
+
+                            },
+                        });
+                    });
+                    
+                    function add(){
+                        
+                        var data = {};
+                        $.each($("#formAdd .obg").serializeArray(), function (_, field) {
+                            data[field.name] = field.value;
+                        });
+
+                        if(!validaParametros(data)){
+                            Swal.fire({
+                                title: 'Atenção!',
+                                html: "Digite todos os campos obrigatórios (*)",
+                                type: 'info'
+                            });
+                            return false;
+                        }
+                        
+                        var d1 = new Date(data.add_ini);
+                        var d2 = new Date(data.add_fim);
+
+                        if(d2.getTime() < d1.getTime()){
+                            swal.fire({
+                                title : 'Atenção!',
+                                text  : 'Digite um período válido.',
+                                type  : 'info'
+                            });
+                            return false;
+                        }
+
+                        var options = {
+                            url: '/eventos/add',
+                            type: 'POST',
+                            dataType: 'json',
+                            cache: false,
+                            success: function (retorno) {
+                                if (retorno.response) {
+                                    Swal.fire({
+                                        title: 'Sucesso!',
+                                        html: retorno.msg,
+                                        type: 'success',
+                                        onClose: () => {
+                                            window.location.reload();
+                                        }
+                                    });
+                                }else{
+                                    Swal.fire({
+                                        title: 'Atenção!',
+                                        html: retorno.msg,
+                                        type: 'warning'
+                                    });
+                                }
+                            }
+                        };
+
+                        $('#formAdd').ajaxSubmit(options);
+                        return false;
+                    }
+                    
+                    function showEdit(cod){
+                        $.ajax({
+                            url: '/eventos/showEdit',
+                            data: {cod : cod},
+                            type: 'json',
+                            method: 'POST',
+                            beforeSend: function () {
+                                loader();
+                            },
+                            success: function (retorno) {
+                                retorno = JSON.parse(retorno);
+                                Swal.close();
+                                if(retorno.response){
+                                    $("#edit_cod").val(retorno.result['cod_evento']);
+                                    $('#edit_nome').val(retorno.result['nome']);
+                                    $('#edit_local').val(retorno.result['local']);
+                                    $('#edit_ini').val(retorno.result['inicio']);
+                                    $('#edit_fim').val(retorno.result['fim']);
+                                    $('#edit_site').val(retorno.result['site']);
+                                    $('#edit_inscricao').val(retorno.result['valor']);
+                                    
+                                    if(retorno.result['edit'] == 1){
+                                        $("#btnAlt").show();
+                                        $("#btnDel").show();
+                                    }else{
+                                        $("#btnAlt").hide();
+                                        $("#btnDel").hide();
+                                    }
+                                    
+                                    if(retorno.result['present']){
+                                        $("#btnAbsent").show();
+                                        $("#btnPresent").hide();
+                                    }else{
+                                        $("#btnAbsent").hide();
+                                        $("#btnPresent").show();
+                                    }
+                                    
+                                    $("#presentes").html(retorno['html']);
+                                    $('#modalEdit').modal('show');
+                                }else{
+                                    Swal.fire({
+                                        title: 'Atenção!',
+                                        html: 'Material não encontrado.',
+                                        type: 'info'
+                                    });
+                                }
+                            }
+                        });
+                    }
+                    
+                    function edit(){
+                        
+                        var data = {};
+                        $.each($("#formEdit .obg").serializeArray(), function (_, field) {
+                            data[field.name] = field.value;
+                        });
+
+                        if(!validaParametros(data)){
+                            Swal.fire({
+                                title: 'Atenção!',
+                                html: "Digite todos os campos obrigatórios (*)",
+                                type: 'info'
+                            });
+                            return false;
+                        }
+                        
+                        var d1 = new Date(data.add_ini);
+                        var d2 = new Date(data.add_fim);
+
+                        if(d2.getTime() < d1.getTime()){
+                            swal.fire({
+                                title : 'Atenção!',
+                                text  : 'Digite um período válido.',
+                                type  : 'info'
+                            });
+                            return false;
+                        }
+
+                        var options = {
+                            url: '/eventos/edit',
+                            type: 'POST',
+                            dataType: 'json',
+                            cache: false,
+                            success: function (retorno) {
+                                if (retorno.response) {
+                                    Swal.fire({
+                                        title: 'Sucesso!',
+                                        html: retorno.msg,
+                                        type: 'success',
+                                        onClose: () => {
+                                            window.location.reload();
+                                        }
+                                    });
+                                }else{
+                                    Swal.fire({
+                                        title: 'Atenção!',
+                                        html: retorno.msg,
+                                        type: 'warning'
+                                    });
+                                }
+                            }
+                        };
+
+                        $('#formEdit').ajaxSubmit(options);
+                        return false;
+                    }
+                    
+                    function del(){
+        
+                        $.ajax({
+                            url: '/eventos/delete',
+                            data: {
+                                cod: $("#edit_cod").val()
+                            },
+                            type: 'json',
+                            method: 'POST',
+                            beforeSend: function () {
+                                loader();
+                            },
+                            success: function (retorno) {
+                                Swal.fire({
+                                    title: 'Sucesso!',
+                                    html: 'Evento excluído!',
+                                    type: 'success',
+                                    onClose: () => {
+                                        window.location.reload();
+                                    }
+                                });
+                            }
+                        });
+                    }
+                    
+                    function present(aux){
+        
+                        $.ajax({
+                            url: '/eventos/present',
+                            data: {
+                                cod: $("#edit_cod").val(),
+                                aux : aux
+                            },
+                            type: 'json',
+                            method: 'POST',
+                            beforeSend: function () {
+                                loader();
+                            },
+                            success: function (retorno) {
+                                if(aux){
+                                    msg = 'Presença Confirmada!';
+                                }else{
+                                    msg = 'Presença Desmarcada!';
+                                }
+                                Swal.fire({
+                                    title: 'Sucesso!',
+                                    html: msg,
+                                    type: 'success',
+                                    onClose: () => {
+                                        window.location.reload();
+                                    }
+                                });
+                            }
+                        });
+                    }
 </script>

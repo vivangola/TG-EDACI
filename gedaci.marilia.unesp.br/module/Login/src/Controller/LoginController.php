@@ -260,6 +260,10 @@ class LoginController extends AbstractActionController
         
         $sessao = new Container('usuario');
         
+        echo "<h1>print_r >> var_dump</h1>";
+        echo "<pre>";
+        print_r($sessao->getArrayCopy());
+        echo "</pre>";
         echo "<pre>";
         var_dump($sessao->getArrayCopy());
         echo "</pre>";

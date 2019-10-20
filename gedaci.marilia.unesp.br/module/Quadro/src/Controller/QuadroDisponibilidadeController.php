@@ -33,7 +33,7 @@ class QuadroDisponibilidadeController extends AbstractActionController
         $disponibilidades = $funcoes->executarSQL($sql, $params);
         
         $anos = [];
-        for($i = date('Y')-5; $i < date('Y')+5; $i++){
+        for($i = date('Y'); $i < date('Y')+5; $i++){
             array_push($anos, $i);
         }
         

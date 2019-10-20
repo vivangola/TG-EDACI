@@ -57,7 +57,7 @@ return [
             'eventos' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/eventos',
+                    'route'    => '/eventos[/:action]',
                     'defaults' => [
                         'controller' => Controller\EventosController::class,
                         'action'     => 'eventos',

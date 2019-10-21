@@ -24,17 +24,13 @@
                                                 <div class="col-md-2 col-xs-12">
                                                     <div class="form-inline">
                                                         <label for="ano">Ano:</label>&nbsp;
-                                                        <select style="width:80%" class="form-control" id="ano" name="ano">
-                                                            <?php foreach ($anos as $dados): ?>
-                                                                <option <?= $dados == $ano ? 'selected' : '' ?> value="<?= $dados ?>"><?= $dados ?></option>
-                                                            <?php endforeach; ?>
-                                                        </select>
+                                                        <input style="width:80%" value="<?= $ano; ?>" type="text" class="form-control" id="ano" name="ano">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4 col-xs-12">
+                                                <div class="col-md-<?= $admin ? '2' : '4'; ?> col-xs-12">
                                                     <div class="form-inline">
                                                         <label for="ano">Categoria:</label>&nbsp;
-                                                        <select style="width:80%" class="form-control" id="categoria" name="categoria">
+                                                        <select style="width:<?= $admin ? '70%' : '80%'; ?>" class="form-control" id="categoria" name="categoria">
                                                             <option value="0">Todos<option>
                                                             <?php foreach ($categorias as $dados): ?>
                                                                 <option <?= $dados == $categoria ? 'selected' : '' ?> value="<?= $dados['cod_categoria'] ?>"><?= $dados['descricao'] ?></option>
@@ -42,6 +38,18 @@
                                                         </select>
                                                     </div>
                                                 </div>
+                                                <?php if($admin): ?>
+                                                <div class="col-md-2 col-xs-12">
+                                                    <div class="form-inline">
+                                                        <label for="ano">Usuário:</label>&nbsp;
+                                                        <select style="width:70%" class="form-control" id="usuario" name="usuario">
+                                                            <?php foreach ($membros as $dados): ?>
+                                                                <option <?= $dados['cod_usuario'] == $usuario ? 'selected' : '' ?> value="<?= $dados['cod_usuario'] ?>"><?= $dados['nome'] ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <?php endif; ?>
                                                 <div class="col-md-2 col-sm-3 col-xs-6">
                                                     <button class="btn btn-primary-borded2 form-control" type="submit">
                                                         Pesquisar&nbsp;

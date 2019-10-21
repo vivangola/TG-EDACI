@@ -21,11 +21,14 @@ class PlanoMetasController extends AbstractActionController
         $sessao = new Container("usuario");
         
         $params = array(
-            'usuario' => $sessao->cod_usuario,
             'mes' => $this->params()->fromPost('mes', date('m')),
             'ano' => $this->params()->fromPost('ano', date('Y')),
             'categoria' => $this->params()->fromPost('categoria', 0),
+            'usuario' => $this->params()->fromPost('usuario', $sessao->cod_usuario)
         );
+        
+        $admin = $sessao->tipo_usuario == 1 ? 1 : 0;
+        $params['usuario'] = $admin ? $params['usuario'] : $sessao->cod_usuario;
         
         $sql = "select * from sys_meses order by mes asc";
         $meses = $funcoes->executarSQL($sql, []);
@@ -34,6 +37,9 @@ class PlanoMetasController extends AbstractActionController
         for ($i = date('Y')-5 ; $i < date('Y') + 5; $i++) {
             array_push($anos, $i);
         }
+        
+        $sql = "select * from us_usuario where ativo = 1 order by nome";
+        $membros = $funcoes->executarSQL($sql, $params);
         
         $sql = "select * from mts_categoria order by descricao";
         $categorias = $funcoes->executarSQL($sql, []);
@@ -51,7 +57,10 @@ class PlanoMetasController extends AbstractActionController
             'mes' => $params['mes'],
             'ano' => $params['ano'],
             'categoria' => $params['categoria'],
+            'usuario' => $params['usuario'],
+            'admin' => $admin,
             'categorias' => $categorias,
+            'membros' => $membros,
             'result' => $result
         ));
 

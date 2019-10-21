@@ -2098,7 +2098,16 @@ BEGIN
 			order by data_upload desc;
 			
 		elseif filtro = 2 then
-			        
+			
+            select a.cod, a.conteudo, c.cod as cod_assunto, c.assunto, b.nome as usuario, a.arquivo, date_format(a.data_upload, "%d/%m/%Y %H:%i:%s") as data_upload
+            from portfolio a
+				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
+                inner join biblioteca_assunto c on c.cod = a.assunto_fk
+			where b.nome like pesquisa and a.cod_usuario_fk = usuario
+			order by data_upload desc;
+        
+        elseif filtro = 3 then
+        
 			select a.cod, a.conteudo, c.cod as cod_assunto, c.assunto, b.nome as usuario, a.arquivo, date_format(a.data_upload, "%d/%m/%Y %H:%i:%s") as data_upload
             from portfolio a
 				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario

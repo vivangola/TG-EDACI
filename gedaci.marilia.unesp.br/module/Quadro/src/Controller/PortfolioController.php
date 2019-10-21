@@ -31,6 +31,8 @@ class PortfolioController extends AbstractActionController {
         if ($params['filtro'] == '-1') {
             $params['pesquisa'] = '';
         }
+        
+        $admin = $sessao->tipo_usuario == 1 ? 1 : 0;
 
         $sql = "call us_buscarPortfolio_sp(:filtro,:pesquisa,'0',:cod_usuario)";
         $result = $funcoes->executarSQL($sql, $params);
@@ -40,6 +42,9 @@ class PortfolioController extends AbstractActionController {
 
         $relatorio->definirColuna('CONTEUDO SINTÉTICO', 'conteudo', '8', 'left', 't', 'n', 'n');
         $relatorio->definirColuna('ASSUNTO', 'assunto', '4', 'center', 't', 'n', 'n');
+        if($admin){
+            $relatorio->definirColuna('Usuário', 'usuario', '4', 'center', 't', 'n', 'n');
+        }
         $relatorio->definirColuna('DATA UPLOAD', 'data_upload', '4', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('DOWNLOAD', '1', '2', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('ALTERAR', '2', '2', 'center', 't', 'n', 'n');
@@ -49,6 +54,7 @@ class PortfolioController extends AbstractActionController {
             'result' => $result,
             'relatorio' => $relatorio,
             'assuntos' => $assuntos,
+            'admin' => $admin,
             'filtro' => $params['filtro'],
             'pesq' => $params['pesquisa']
         ));

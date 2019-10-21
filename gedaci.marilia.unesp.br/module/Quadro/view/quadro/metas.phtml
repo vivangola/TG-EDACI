@@ -10,78 +10,96 @@
                                     <div class="image back-primary3"><i class="fa fa-book"></i>&nbsp;<label class="title">Plano de Metas</label></div>
                                     <div class="info" style="min-height:450px">
                                         <div class="row" style="padding-left: 10px;padding-right: 10px">
-                                            <div class="col-md-6 col-sm-4 col-xs-8">
-                                                <input type="text" placeholder="Pesquisar" class="form-control">
-                                            </div>  
-                                            <div class="col-md-2 col-sm-2 col-xs-4">
-                                                <select class="form-control">
-                                                    <option value="">Todos</option>
-                                                    <option value="">Conte˙do</option>
-                                                    <option value="">Tipo</option>
-                                                    <option value="">Usu·rio</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-2 col-sm-3 col-xs-6">
-                                                <button class="btn btn-primary2 form-control">
-                                                    Pesquisar&nbsp;
-                                                    <i class="fa fa-search"></i>
-                                                </button>
-                                            </div>
-                                            <div class="col-md-2 col-sm-3 col-xs-6">
-                                                <button class="btn btn-primary2 form-control">
-                                                    Novo&nbsp;
-                                                    <i class="fa fa-plus"></i>
-                                                </button>
-                                            </div>
+                                            <form action="/plano-metas" method="post" enctype="">
+                                                <div class="col-md-2 col-xs-12">
+                                                    <div class="form-inline">
+                                                        <label for="mes">M√™s:</label>&nbsp;
+                                                        <select style="width:80%" class="form-control" id="mes" name="mes">
+                                                            <?php foreach ($meses as $dados): ?>
+                                                                <option <?= $dados['mes'] == $mes ? 'selected' : '' ?> value="<?= $dados['mes'] ?>"><?= $dados['descricao'] ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 col-xs-12">
+                                                    <div class="form-inline">
+                                                        <label for="ano">Ano:</label>&nbsp;
+                                                        <select style="width:80%" class="form-control" id="ano" name="ano">
+                                                            <?php foreach ($anos as $dados): ?>
+                                                                <option <?= $dados == $ano ? 'selected' : '' ?> value="<?= $dados ?>"><?= $dados ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 col-xs-12">
+                                                    <div class="form-inline">
+                                                        <label for="ano">Categoria:</label>&nbsp;
+                                                        <select style="width:80%" class="form-control" id="categoria" name="categoria">
+                                                            <option value="0">Todos<option>
+                                                            <?php foreach ($categorias as $dados): ?>
+                                                                <option <?= $dados == $categoria ? 'selected' : '' ?> value="<?= $dados['cod_categoria'] ?>"><?= $dados['descricao'] ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 col-sm-3 col-xs-6">
+                                                    <button class="btn btn-primary-borded2 form-control" type="submit">
+                                                        Pesquisar&nbsp;
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-2 col-sm-3 col-xs-6">
+                                                    <button class="btn btn-primary-borded2 form-control" type="button" onClick="$('#modalAdd').modal('show');">
+                                                        Novo&nbsp;
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </form>
                                         </div>
-                                        <div style="padding: 50px 10px">
-                                            <ul class="timeline">
-                                                <li>
-                                                    <div class="timeline-badge success"><i class="fa fa-check"></i></div>
+                                        <div style="margin-top:20px; padding: 10px 10px">
+                                            <table id="relatorio" class=" table table-bordered no-footer" style="font-size: 16px; color:black" role="grid" aria-describedby="relatorio_info">
+                                            <thead>
+                                                <tr role="row">
+                                                    <th class="text-center sorting_disabled" style="vertical-align: middle;" width="50%">N√ÉO CONCLU√çDA</th>
+                                                    <th class="text-center  sorting_disabled" style="vertical-align: middle;" width="50%">CONCLU√çDA</th>
+                                                </tr>
+                                            </thead>    
+                                            <tbody>
+                                                <tr><td colspan="2">
+                                            <?php 
+                                                $cont = 0;
+                                                foreach($result as $dados): 
+                                            ?>
+                                            <ul class="timeline" style="padding: 0px 10px">
+                                                <li class="timeline<?= $dados['status'] ? '-inverted' : '' ?>">
+                                                    <?php if($dados['status']): ?>
+                                                        <div class="timeline-badge success pointer" title="Concluir Meta" onclick="concluir(<?= $dados['cod_meta'] ?>, 0)"><i class="fa fa-check"></i></div>
+                                                    <?php else: ?>
+                                                        <div class="timeline-badge pointer" title="Cancelar Meta Concluda" onclick="concluir(<?= $dados['cod_meta'] ?>, 1)"><i class="fa fa-clock-o"></i></div>
+                                                    <?php endif; ?>
                                                     <div class="timeline-panel">
                                                         <div class="timeline-heading">
-                                                            <p><i class="fa fa-calendar-o"></i> Definida em 01/01/2019, por <b>Gabriel Grimes.</b><p>
+                                                            <i style="color:transparent" class="pull-left fa fa-edit">&nbsp;</i>
+                                                            <label class="timeline-title"><?= $dados['categoria'] ?></label>
+                                                            <i class="pull-right fa fa-edit pointer" onclick="showEdit(<?= $dados['cod_meta'] ?>)">&nbsp;</i>
+                                                        </div>
+                                                        <hr>
+                                                        <div class="timeline-body">
+                                                            <h4 class="timeline-title"><p><?= $dados['descricao'] ?></p></h4>
+                                                            <?php if($dados['status']): ?>
+                                                                <p><small class="text-success bold"><i class="fa fa-check"></i> Meta conclu√≠da <?= $dados['data'] ?></small></p>
+                                                            <?php else: ?>
+                                                                <p><small class="text-muted"><i class="fa fa-clock-o"></i> Meta n√£o conclu√≠da <?= $dados['data'] ?></small>
+                                                            <?php endif; ?>
                                                             <hr>
-                                                            <h4 class="timeline-title">Levantar os Requisitos</h4>
-                                                            <p><small class="text-muted">Atividades paralelas</small>
-                                                        </div>
-                                                        <div class="timeline-body">
-                                                            <p>A tarefa de desenvolvimento de software engloba uma sÈrie de fases e atividades que independentemente da metodologia escolhida, ocorrem para a realizaÁ„o do seu objetivo maior: entregar software funcionando corretamente dentro do orÁamento e prazos previstos para o seu desenvolvimento.</p>
-                                                            <p><small class="text-success bold"><i class="fa fa-check"></i> Meta concluÌda em 01/02/2019</small></p>
+                                                            <label class="timeline-title"><i class="fa fa-calendar-o"></i> Definida em <?= $dados['data'] ?></label>
                                                         </div>
                                                     </div>
-                                                </li>
-                                                <li class="timeline-inverted">
-                                                    <div class="timeline-badge"><i class="fa fa-clock-o"></i></div>
-                                                    <div class="timeline-panel">
-                                                        <div class="timeline-heading">
-                                                            <p><i class="fa fa-calendar-o"></i> Definida em 01/01/2019, por <b>Gabriel Grimes.</b><p>
-                                                            <hr>
-                                                            <h4 class="timeline-title">Desenvolver o sistema</h4>
-                                                            <p><small class="text-muted">Atividades paralelas</small>
-                                                        </div>
-                                                        <div class="timeline-body">
-                                                            <p>A tarefa de desenvolvimento de software engloba uma sÈrie de fases e atividades que independentemente da metodologia escolhida, ocorrem para a realizaÁ„o do seu objetivo maior: entregar software funcionando corretamente dentro do orÁamento e prazos previstos para o seu desenvolvimento.</p>
-                                                            <p><small class="text-muted bold"><i class="fa fa-clock-o"></i> Meta n„o concluÌda</small></p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="timeline-badge"><i class="fa fa-clock-o"></i></div>
-                                                    <div class="timeline-panel">
-                                                        <div class="timeline-heading">
-                                                            <h4 class="timeline-title">Levantar os Requisitos</h4>
-                                                            <p><small class="text-muted">Atividades paralelas</small>
-                                                        </div>
-                                                        <div class="timeline-body">
-                                                            <p>A tarefa de desenvolvimento de software engloba uma sÈrie de fases e atividades que independentemente da metodologia escolhida, ocorrem para a realizaÁ„o do seu objetivo maior: entregar software funcionando corretamente dentro do orÁamento e prazos previstos para o seu desenvolvimento.</p>
-                                                            <p><small class="text-muted"><i class="fa fa-calendar-o"></i> Meta definida em 01/01/2019</small></p>
-                                                            <p><small class="text-muted"><i class="fa fa-clock-o"></i> Meta n„o concluÌda</small></p>
-                                                        </div>
-                                                    </div>
-                                                    
                                                 </li>
                                             </ul>
+                                            <?php $cont++; endforeach; ?>
+                                                    </td></tr></body>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -94,17 +112,292 @@
     </div>
 </div>
 
+<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Adicionar Meta</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="formAdd" method="post">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-xs-12">
+                            <label for="add_descricao" class="col-form-label">Descricao:</label><label style="color:red">*</label>
+                            <input type="text" class="form-control " id="add_descricao" name="add_descricao" maxlength="200" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="add_categoria" class="col-form-label">Categoria:</label><label style="color:red">*</label>
+                            <select class="form-control" name="add_categoria" id="add_categoria">
+                                <option value="0">Selecione</option>
+                                <?php foreach ($categorias as $dados): ?>
+                                    <option value="<?= $dados['cod_categoria'] ?>"><?= $dados['descricao'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group col-xs-3">
+                            <label for="add_mes" class="col-form-label">M√™s:</label><label style="color:red">*</label>
+                            <input id="add_mes" class=" form-control input-group-lg" type="text" name="add_mes" data-mask="00" />
+                        </div>                        
+                        <div class="form-group col-xs-3">
+                            <label for="add_ano" class="col-form-label">Ano:</label><label style="color:red">*</label>
+                            <input id="add_ano" class=" form-control input-group-lg" type="text" name="add_ano" data-mask="0000"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary-borded2" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary3" onclick="add()">Finalizar <i class="fa fa-check"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Editar Meta</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="formEdit" method="post">
+                <input type="hidden" id="edit_cod" name="edit_cod">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-xs-12">
+                            <label for="edit_descricao" class="col-form-label">Descricao:</label><label style="color:red">*</label>
+                            <input type="text" class="form-control " id="edit_descricao" name="edit_descricao" maxlength="200" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="edit_categoria" class="col-form-label">Categoria:</label><label style="color:red">*</label>
+                            <select class="form-control" name="edit_categoria" id="edit_categoria">
+                                <?php foreach ($categorias as $dados): ?>
+                                    <option value="<?= $dados['cod_categoria'] ?>"><?= $dados['descricao'] ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="form-group col-xs-3">
+                            <label for="edit_mes" class="col-form-label">M√™s:</label><label style="color:red">*</label>
+                            <input id="edit_mes" class=" form-control input-group-lg" type="text" name="edit_mes" data-mask="00" />
+                        </div>                        
+                        <div class="form-group col-xs-3">
+                            <label for="edit_ano" class="col-form-label">Ano:</label><label style="color:red">*</label>
+                            <input id="edit_ano" class=" form-control input-group-lg" type="text" name="edit_ano" data-mask="0000"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary-borded2" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary3" onclick="del()">Excluir <i class="fa fa-check"></i></button>
+                    <button type="button" class="btn btn-primary3" onclick="edit()">Finalizar <i class="fa fa-check"></i></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
 
-    $(document).ready(function () {
-        $('#tabela').DataTable({
-            "language": {
-                "url": "js/datatable/pt-br.json"
-            },
-            "columnDefs": [{"orderable": false, "targets": [5, 6]}],
-            "lengthChange": false,
-            "searching": false
-        });
-    });
+            $(document).ready(function () {
+
+
+            });
+            
+            function add(){
+
+                    var data = {};
+                    $.each($("#formAdd").serializeArray(), function (_, field) {
+                        data[field.name] = field.value;
+                    });
+                    
+                    if (!validaParametros(data)){
+                        Swal.fire({
+                            title: 'Aten√ß√£o!',
+                                    html: "Digite todos os campos obrigat√≥rios (*)",
+                                    type: 'info'
+                            });
+                            return false;
+                    }
+
+                    if (data.add_categoria == "0"){
+                        Swal.fire({
+                            title: 'Aten√ß√£o!',
+                            html: "Selecione uma categoria!",
+                            type: 'info'
+                        });
+                        return false;
+                    }
+
+                    var options = {
+                        url: '/plano-metas/add',
+                        type: 'POST',
+                        dataType: 'json',
+                        cache: false,
+                        success: function (retorno) {
+                            if (retorno.response) {
+                                Swal.fire({
+                                    title: 'Sucesso!',
+                                    html: retorno.msg,
+                                    type: 'success',
+                                    onClose: () => {
+                                        window.location.reload();
+                                    }
+                                });
+                            } else{
+                                Swal.fire({
+                                    title: 'Aten√ß√£o!',
+                                    html: retorno.msg,
+                                    type: 'warning'
+                                });
+                            }
+                        }
+                    };
+                    
+                    $('#formAdd').ajaxSubmit(options);
+                        return false;
+                    }
+                    
+                    function concluir(meta, status){
+        
+                        $.ajax({
+                            url: '/plano-metas/concluir',
+                            data: {
+                                cod: meta,
+                                status: status
+                            },
+                            type: 'json',
+                            method: 'POST',
+                            beforeSend: function () {
+                                loader();
+                            },
+                            success: function (retorno) {
+                                Swal.fire({
+                                    title: 'Sucesso!',
+                                    html: 'Meta alterada com sucesso!',
+                                    type: 'success',
+                                    onClose: () => {
+                                        window.location.reload();
+                                    }
+                                });
+                            }
+                        });
+                    }
+                    
+                    function showEdit(cod){
+                        $.ajax({
+                            url: '/plano-metas/showEdit',
+                            data: {cod : cod},
+                            type: 'json',
+                            method: 'POST',
+                            beforeSend: function () {
+                                loader();
+                            },
+                            success: function (retorno) {
+                                retorno = JSON.parse(retorno);
+                                Swal.close();
+                                if(retorno.response){
+                                    $("#edit_cod").val(retorno.result['cod_meta']);
+                                    $('#edit_descricao').val(retorno.result['descricao']);
+                                    $('#edit_categoria').val(retorno.result['categoria_fk']);
+                                    $('#edit_mes').val(retorno.result['mes']);
+                                    $('#edit_ano').val(retorno.result['ano']);
+                                    
+                                    $('#modalEdit').modal('show');
+                                }else{
+                                    Swal.fire({
+                                        title: 'Aten√ß√£o!',
+                                        html: 'Material n√£o encontrado.',
+                                        type: 'info'
+                                    });
+                                }
+                            }
+                        });
+                    }
+                    
+                     function edit(){
+                        
+                        var data = {};
+                        $.each($("#formEdit").serializeArray(), function (_, field) {
+                            data[field.name] = field.value;
+                        });
+
+                        if(!validaParametros(data)){
+                            Swal.fire({
+                                title: 'Aten√ß√£o!',
+                                html: "Digite todos os campos obrigat√≥rios (*)",
+                                type: 'info'
+                            });
+                            return false;
+                        }
+                        
+                        var options = {
+                            url: '/plano-metas/edit',
+                            type: 'POST',
+                            dataType: 'json',
+                            cache: false,
+                            success: function (retorno) {
+                                if (retorno.response) {
+                                    Swal.fire({
+                                        title: 'Sucesso!',
+                                        html: retorno.msg,
+                                        type: 'success',
+                                        onClose: () => {
+                                            window.location.reload();
+                                        }
+                                    });
+                                }else{
+                                    Swal.fire({
+                                        title: 'Aten√ß√£o!',
+                                        html: retorno.msg,
+                                        type: 'warning'
+                                    });
+                                }
+                            }
+                        };
+
+                        $('#formEdit').ajaxSubmit(options);
+                        return false;
+                    }
+                    
+                    function del(){
+                        
+                        Swal.fire({
+                            title: 'Aten√ß√£o!',
+                            html: 'Deseja realmente excluir?',
+                            type: 'info',
+                            showCancelButton: true,
+                            preConfirm: () => {
+                                $.ajax({
+                                    url: '/plano-metas/delete',
+                                    data: {cod : $("#edit_cod").val()},
+                                    type: 'json',
+                                    method: 'POST',
+                                    beforeSend: function () {
+                                        loader();
+                                    },
+                                    success: function (retorno) {
+                                        retorno = JSON.parse(retorno);
+                                        Swal.fire({
+                                            title: 'Sucesso!',
+                                            html: retorno.msg,
+                                            type: 'success',
+                                            onClose: () => {
+                                                window.location.reload();
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
 
 </script>

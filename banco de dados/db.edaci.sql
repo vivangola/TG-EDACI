@@ -514,7 +514,8 @@ CREATE TABLE `mts_metas` (
   `mes` int(11) DEFAULT NULL,
   `ano` int(11) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
-  `tipo_atividade_fk` int(11) DEFAULT NULL,
+  `categoria_fk` int(11) DEFAULT NULL,
+  `cod_usuario_fk` int(11) DEFAULT NULL,
   `data_criacao` datetime DEFAULT NULL,
   PRIMARY KEY (`cod_meta`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -527,6 +528,30 @@ CREATE TABLE `mts_metas` (
 LOCK TABLES `mts_metas` WRITE;
 /*!40000 ALTER TABLE `mts_metas` DISABLE KEYS */;
 /*!40000 ALTER TABLE `mts_metas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `mts_categoria`
+--
+
+DROP TABLE IF EXISTS `mts_categoria`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `mts_categoria` (
+  `cod_categoria` int(11) NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(60) DEFAULT NULL,
+  PRIMARY KEY (`cod_categoria`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `mts_categoria`
+--
+
+LOCK TABLES `mts_categoria` WRITE;
+/*!40000 ALTER TABLE `mts_categoria` DISABLE KEYS */;
+INSERT INTO `mts_categoria` VALUES (1,'Atividades Paralelas'),(2,'Atividades de Docência'),(3,'Atividades do Grupo'),(4,'Atividades da Pesquisa Individual'),(5,'Outros');
+/*!40000 ALTER TABLE `mts_categoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

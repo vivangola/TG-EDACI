@@ -77,7 +77,7 @@ return [
             'plano-atividades' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/plano-atividades',
+                    'route'    => '/plano-atividades[/:action]',
                     'defaults' => [
                         'controller' => Controller\PlanoAtividadesController::class,
                         'action'     => 'plano-atividades',
@@ -87,7 +87,7 @@ return [
             'plano-metas' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/plano-metas',
+                    'route'    => '/plano-metas[/:action]',
                     'defaults' => [
                         'controller' => Controller\PlanoMetasController::class,
                         'action'     => 'plano-metas',

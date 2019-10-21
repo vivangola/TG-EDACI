@@ -430,28 +430,36 @@
                     }
                     
                     function del(){
-        
-                        $.ajax({
-                            url: '/eventos/delete',
-                            data: {
-                                cod: $("#edit_cod").val()
-                            },
-                            type: 'json',
-                            method: 'POST',
-                            beforeSend: function () {
-                                loader();
-                            },
-                            success: function (retorno) {
-                                Swal.fire({
-                                    title: 'Sucesso!',
-                                    html: 'Evento excluído!',
-                                    type: 'success',
-                                    onClose: () => {
-                                        window.location.reload();
+                        Swal.fire({
+                            title: 'Atenção!',
+                            html: 'Deseja realmente excluir?',
+                            type: 'info',
+                            showCancelButton: true,
+                            preConfirm: () => {
+                                $.ajax({
+                                    url: '/eventos/delete',
+                                    data: {
+                                        cod: $("#edit_cod").val()
+                                    },
+                                    type: 'json',
+                                    method: 'POST',
+                                    beforeSend: function () {
+                                        loader();
+                                    },
+                                    success: function (retorno) {
+                                        Swal.fire({
+                                            title: 'Sucesso!',
+                                            html: 'Evento excluído!',
+                                            type: 'success',
+                                            onClose: () => {
+                                                window.location.reload();
+                                            }
+                                        });
                                     }
                                 });
                             }
                         });
+                        
                     }
                     
                     function present(aux){

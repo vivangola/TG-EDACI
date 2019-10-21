@@ -8458,6 +8458,7 @@ p.cinza-padrao{
     border-radius: 2px;
     border-bottom: 3px solid #273043;
     padding: 20px;
+    background-color: #fff;
     position: relative;
 }
 .timeline > li > .timeline-panel:before {

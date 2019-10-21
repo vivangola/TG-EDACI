@@ -27,11 +27,7 @@
                                                     <div class="form-inline">
                                                         <label for="ano">Ano:</label>
                                                         <div class="col-md-6">
-                                                            <select class="form-control" id="ano" name="ano">
-                                                                <?php foreach ($anos as $dados): ?>
-                                                                    <option <?= $dados == $ano ? 'selected' : '' ?> value="<?= $dados ?>"><?= $dados ?></option>
-                                                                <?php endforeach; ?>
-                                                            </select>
+                                                            <input value="<?= $ano; ?>" type="text" class="form-control" id="ano" name="ano" data-mask="0000">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -191,14 +187,25 @@
 
                     $(document).ready(function () {
                         
-                        $(".fc-time").hide();
+                        setTimeout(function(){
+                            $(".fc-time").hide();
+                        }, 500);
                         
                         $('#mes, #ano').on('change', function(){
                             mes = $('#mes').val();
                             ano = $('#ano').val();
 
                             $('#calendar').fullCalendar('gotoDate', ano+'-'+mes+'-'+01);
-                         });
+                        });
+                         
+                        $('#mes, #ano').on('keyup', function(){
+                            if($("#ano").val().length == 4){
+                                mes = $('#mes').val();
+                                ano = $('#ano').val();
+
+                                $('#calendar').fullCalendar('gotoDate', ano+'-'+mes+'-'+01);
+                            }
+                        });
 
                         $("#add_inscricao").maskMoney({
                             allowNegative: false,

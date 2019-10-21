@@ -200,7 +200,7 @@ $sessao = new Container('usuario');
             method: 'HEAD',
             async: false,
             success: function () {
-                $("#divFrame").html('<iframe src="/arquivos/principal/video_principal.mp4" width="100%" height="330" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>');                
+                $("#divFrame").html('<video src="/arquivos/principal/video_principal.mp4" width="100%" height="330" controls>');
             },
             error: function () {
                 $("#divFrame").html('<img src="/arquivos/principal/not_found.png" width="100%" height="330" src="/arquivos/principal/not_found.png">');                

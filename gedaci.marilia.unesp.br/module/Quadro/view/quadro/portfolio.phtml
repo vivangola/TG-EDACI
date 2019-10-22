@@ -121,7 +121,7 @@
                         <input type="text"  class="form-control" id="edit_conteudo" name="edit_conteudo" title="Digite o Conteúdo Sintético."/>
                     </div>
                     <div class="row">
-                        <div class="form-group col-xs-6">
+                        <div class="form-group col-xs-12">
                             <label for="edit_assunto" class="col-form-label">Assunto:</label><label style="color:red">*</label>
                             <select id="edit_assunto" class="form-control input-group-lg" name="edit_assunto" title="Selecione o Assunto.">
                                 <?php foreach($assuntos as $dados): ?>
@@ -255,7 +255,6 @@
                     $('#edit_cod').val(retorno.result['cod']);
                     $('#edit_conteudo').val(retorno.result['conteudo']);
                     $('#edit_assunto option[value="'+retorno.result['cod_assunto']+'"]').attr('selected','true');
-                    $('#edit_arquivo').html('Arquivo: <a href="/arquivos/portfolio/'+retorno.result['arquivo']+'"> '+retorno.result['arquivo']+' </a>');
                     
                     $('#modalEdit').modal('show');
                 }else{

@@ -104,6 +104,16 @@ return [
                     ],
                 ],
             ],
+            'email' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/email[/:action]',
+                    'defaults' => [
+                        'controller' => Controller\EmailsController::class,
+                        'action'     => 'email',
+                    ],
+                ],
+            ],
         ],
     ],
     'controllers' => [
@@ -111,6 +121,7 @@ return [
             Controller\IndexController::class => InvokableFactory::class,
             Controller\PerfilController::class => InvokableFactory::class,
             Controller\UsuariosController::class => InvokableFactory::class,
+            Controller\EmailsController::class => InvokableFactory::class
         ],
     ],
     'view_manager' => [

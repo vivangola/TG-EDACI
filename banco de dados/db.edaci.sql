@@ -1254,6 +1254,34 @@ INSERT INTO `us_tipo_usuario` VALUES (0,'Pré-Cadastro'),(1,'Administrador'),(2,
 UNLOCK TABLES;
 
 --
+-- Table structure for table `emails_enviados`
+--
+
+DROP TABLE IF EXISTS `emails_enviados`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `emails_enviados` (
+  `cod_email` int(11) NOT NULL AUTO_INCREMENT,
+  `email_destinatario` varchar(500) DEFAULT NULL,
+  `assunto` varchar(100) DEFAULT NULL,
+  `texto` varchar(1000) DEFAULT NULL,
+  `cod_usuario_fk` int(11) DEFAULT NULL,
+  `data_envio` datetime DEFAULT NULL,
+  PRIMARY KEY (`cod_email`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `emails_enviados`
+--
+
+LOCK TABLES `emails_enviados` WRITE;
+/*!40000 ALTER TABLE `emails_enviados` DISABLE KEYS */;
+/*!40000 ALTER TABLE `emails_enviados` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+--
 -- Table structure for table `us_usuario`
 --
 
@@ -2103,7 +2131,7 @@ BEGIN
             from portfolio a
 				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
                 inner join biblioteca_assunto c on c.cod = a.assunto_fk
-			where b.nome like pesquisa and a.cod_usuario_fk = usuario
+			where b.nome like pesquisa
 			order by data_upload desc;
         
         elseif filtro = 3 then
@@ -2134,6 +2162,70 @@ BEGIN
 			inner join biblioteca_assunto c on c.cod = a.assunto_fk
 		where a.cod = cod_material and a.cod_usuario_fk = usuario
 		order by data_upload desc;
+    
+    end if;
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ 
+50003 DROP PROCEDURE IF EXISTS `us_buscarEmails_sp` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarEmails_sp`(
+	In filtro int,
+    in pesquisa varchar(100),
+    in cod_email int,
+    in usuario int
+)
+BEGIN
+
+	set pesquisa = CONCAT('%',pesquisa,'%');
+    
+    if cod_email = 0 then
+
+		if filtro = 1 then
+		
+			select *, date_format(a.data_envio, "%d/%m/%Y %H:%i:%s") as data
+            from emails_enviados a
+				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
+			where a.assunto like pesquisa and a.cod_usuario_fk = usuario
+			order by data_envio desc;
+			
+		elseif filtro = 2 then
+			
+            select *, date_format(a.data_envio, "%d/%m/%Y %H:%i:%s") as data
+            from emails_enviados a
+				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
+			where a.email_destinatario like pesquisa and a.cod_usuario_fk = usuario
+			order by data_envio desc;
+        
+        else 
+        
+			select *, date_format(a.data_envio, "%d/%m/%Y %H:%i:%s") as data
+            from emails_enviados a
+				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
+			where a.cod_usuario_fk = usuario
+			order by data_envio desc;
+			
+		end if;
+		
+    else 
+    
+		select *, date_format(a.data_envio, "%d/%m/%Y %H:%i:%s") as data
+		from emails_enviados a
+				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
+		where a.cod_email = cod_email and a.cod_usuario_fk = usuario
+		order by data_envio desc;
     
     end if;
     

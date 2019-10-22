@@ -58,6 +58,7 @@ class LoginController extends AbstractActionController
                 $sessao->situacao = $result2['situacao'];
                 $sessao->tipo_usuario_desc = $result2['tipo_usuario_desc'];
                 $sessao->foto_perfil = $result2['nome_foto'];
+                $sessao->termo = $result2['termo'];
 
                 return $response->setContent(Json::encode(array('response' => true)));
             }else{

@@ -10,6 +10,7 @@ namespace Application\Controller;
 
 use Application\Classes\Funcoes;
 use Application\Classes\Relatorio;
+use Zend\Json\Json;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\Container;
 use Zend\View\Model\ViewModel;
@@ -55,6 +56,93 @@ class IndexController extends AbstractActionController {
         ));
 
         $view->setTemplate('application/index/bem-vindo');
+        return $view;
+    }
+    
+    public function termoInicialAction() {
+        $sessao = new Container("usuario");
+        $funcoes = new Funcoes($this);
+        
+        $sql = "select termo from us_termo";
+        $result = $funcoes->executarSQL($sql,[],'');
+        
+        $view = new ViewModel(array(
+            'termo' => preg_replace("/\r\n|\r|\n/",'<br/>', $result['termo'])
+        ));
+        
+        $view->setTemplate('application/termo/termo-inicial');
+        return $view;
+    }
+    
+    public function manterTermoAction(){
+        $sessao = new Container("usuario");
+        $funcoes = new Funcoes($this);
+        
+        $sql = "select termo from us_termo";
+        $result = $funcoes->executarSQL($sql,[],'');
+
+        $view = new ViewModel(array(
+            'nome_usuario'  => $sessao->nome_usuario,
+            'termo'         => $result['termo']
+        ));
+
+        $view->setTemplate('application/termo/manter-termo');
+        return $view;
+    }
+    
+    public function salvarTermoAction(){
+        $sessao = new Container("usuario");
+        $funcoes = new Funcoes($this);
+        
+        $response = $this->getResponse();
+        
+        $params = array(
+            'termo' => $this->params()->fromPost('termo', '')
+        );
+        
+        $sql = "update us_termo set termo =:termo";
+        $funcoes->executarSQL($sql,$params,'');
+
+        return $response->setContent(Json::encode(array('response' => true)));
+    }
+    
+    public function relatorioTermoAction(){
+        $funcoes = new Funcoes($this);
+        $sessao = new Container("usuario");
+        $relatorio = new Relatorio();
+
+        $params = array(
+            'cod_usuario'   => $sessao->cod_usuario,
+            'filtro'        => $this->params()->fromPost('filtros', '-1')
+        );
+        
+        if($params['filtro'] == 1){
+            $where = " where aceite = 1 ";
+        }elseif($params['filtro'] == 2){
+            $where = " where aceite = 2 ";
+        }else{
+            $where = " ";
+        }
+
+        $sql = 'select nome, aceite, date_format(data, "%d/%m/%Y %H:%i:%s") as data 
+                from us_termo_aceite a
+                        inner join us_pre_cadastro b on a.cod_usuario_fk = b.cod_usuario'
+                . $where . 
+                'order by data desc;';
+        $result = $funcoes->executarSQL($sql, $params);
+        
+        $relatorio->definirColuna('NOME', 'nome', '10', 'left', 't', 'n', 'n');
+        $relatorio->definirColuna('ACEITE', '1', '10', 'center', 't', 'n', 'n');
+        $relatorio->definirColuna('DATA', 'data', '8', 'center', 't', 'n', 'n');
+
+        $view = new ViewModel(array(
+            'result'        => $result,
+            'relatorio'     => $relatorio,
+            'nome_usuario'  => $sessao->nome_usuario,
+            'filtro'        => $params['filtro']
+        ));
+
+        $view->setTemplate('application/termo/relatorio-termo');
         return $view;
     }
 

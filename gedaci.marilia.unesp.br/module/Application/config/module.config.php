@@ -27,7 +27,7 @@ return [
             'application' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/application[/:action]',
+                    'route'    => '/sistema[/:action]',
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action'     => 'index',
@@ -41,6 +41,16 @@ return [
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action'     => 'bem-vindo',
+                    ],
+                ],
+            ],
+            'termo-inicial' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route'    => '/termo-inicial',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action'     => 'termo-inicial',
                     ],
                 ],
             ],

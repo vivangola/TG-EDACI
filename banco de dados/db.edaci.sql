@@ -947,7 +947,7 @@ CREATE TABLE `sys_aplicacoes` (
 
 LOCK TABLES `sys_aplicacoes` WRITE;
 /*!40000 ALTER TABLE `sys_aplicacoes` DISABLE KEYS */;
-INSERT INTO `sys_aplicacoes` VALUES (1,'Atas de Reuniões','atas','/atas',0,1),(2,'Biblioteca','biblioteca','/biblioteca',0,1),(3,'Cadastrar','pre-cadastro','/pre-cadastro',0,1),(4,'Chat','chat','/chat',0,0),(5,'E-mail','email','/email',0,1),(6,'Enviar E-mail','email','/email/enviar',5,0),(7,'Meus E-mail','email','/email',5,0),(8,'Quadro de Avisos','avisos','/avisos',0,1),(9,'Quadro de Disponibilidade','quadro-disponibilidade','/quadro-disponibilidade',0,1),(10,'Quadro de Eventos','eventos','/eventos',0,1),(11,'Quadro de Literatura','quadro-leitura','/quadro-leitura',0,1),(12,'Níveis de Escolaridade','escolaridade','/escolaridade',0,1),(13,'Plano de Atividades','plano-atividades','/plano-atividades',0,1),(14,'Plano de Metas','plano-metas','/plano-metas',0,1),(15,'Produção de Grupo','producao-grupo','/producao-grupo',0,1),(16,'Questionários','questionario','',0,1),(17,'Aprendizagem','questionario','/questionario/aprendizagem',16,1),(18,'Cadastro','cadastro','/questionario/cadastro',16,1),(19,'Trabalhos de Correção','trabalho-correcao','',0,1),(20,'Meus Trabalhos','trabalho-correcao','/trabalho-correcao',19,1),(21,'Trabalhos Recebidos','trabalho-correcao','/trabalho-correcao/recebidos',19,1),(22,'Usuários','usuarios','',0,1),(23,'Log de Acessos','log','/usuarios/log',22,1),(24,'Membros','membros','/usuarios/membros',22,1),(25,'Portfolio','portfolio','/portfolio',0,1),(26,'Configurações','configuracao','',0,1),(27,'Meu Perfil','perfil','/perfil',26,1),(28,'Alterar Senha','alterar-senha','/perfil/alterar-senha',26,1),(29,'Questionário Inicial','inicial','/questionario/inicial',0,1),(30,'Assuntos','assunto','/assunto',0,1),(31,'Meu Perfil','perfil','/perfil',0,1);
+INSERT INTO `sys_aplicacoes` VALUES (1,'Atas de Reuniões','atas','/atas',0,1),(2,'Biblioteca','biblioteca','/biblioteca',0,1),(3,'Cadastrar','pre-cadastro','/pre-cadastro',0,1),(4,'Chat','chat','/chat',0,0),(5,'E-mail','email','/email',0,1),(6,'Enviar E-mail','email','/email/enviar',5,0),(7,'Meus E-mail','email','/email',5,0),(8,'Quadro de Avisos','avisos','/avisos',0,1),(9,'Quadro de Disponibilidade','quadro-disponibilidade','/quadro-disponibilidade',0,1),(10,'Quadro de Eventos','eventos','/eventos',0,1),(11,'Quadro de Literatura','quadro-leitura','/quadro-leitura',0,1),(12,'Níveis de Escolaridade','escolaridade','/escolaridade',0,1),(13,'Plano de Atividades','plano-atividades','/plano-atividades',0,1),(14,'Plano de Metas','plano-metas','/plano-metas',0,1),(15,'Produção de Grupo','producao-grupo','/producao-grupo',0,1),(16,'Questionários','questionario','',0,1),(17,'Aprendizagem','questionario','/questionario/aprendizagem',16,1),(18,'Cadastro','cadastro','/questionario/cadastro',16,1),(19,'Trabalhos de Correção','trabalho-correcao','',0,1),(20,'Meus Trabalhos','trabalho-correcao','/trabalho-correcao',19,1),(21,'Trabalhos Recebidos','trabalho-correcao','/trabalho-correcao/recebidos',19,1),(22,'Usuários','usuarios','',0,1),(23,'Log de Acessos','log','/usuarios/log',22,1),(24,'Membros','membros','/usuarios/membros',22,1),(25,'Portfolio','portfolio','/portfolio',0,1),(26,'Configurações','configuracao','',0,1),(27,'Meu Perfil','perfil','/perfil',26,1),(28,'Alterar Senha','alterar-senha','/perfil/alterar-senha',26,1),(29,'Questionário Inicial','inicial','/questionario/inicial',0,1),(30,'Assuntos','assunto','/assunto',0,1),(31,'Meu Perfil','perfil','/perfil',0,1),(32,'Termo Inicial','termo','',0,1),(33,'Manter Termo Inicial','termo','/sistema/manter-termo',32,1),(34,'Relatório de aceite','termo','/sistema/relatorio-termo',32,1);
 /*!40000 ALTER TABLE `sys_aplicacoes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -970,8 +970,56 @@ CREATE TABLE `sys_aplicacoes_permissao` (
 
 LOCK TABLES `sys_aplicacoes_permissao` WRITE;
 /*!40000 ALTER TABLE `sys_aplicacoes_permissao` DISABLE KEYS */;
-INSERT INTO `sys_aplicacoes_permissao` VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,10),(1,11),(1,12),(1,13),(1,14),(1,15),(1,16),(1,17),(1,18),(1,19),(1,20),(1,21),(1,22),(1,23),(1,24),(1,25),(1,26),(1,27),(1,28),(1,30),(1,9),(2,1),(2,2),(2,5),(2,9),(2,10),(2,11),(2,13),(2,14),(2,15),(2,16),(2,19),(2,25),(2,26),(2,6),(2,7),(2,17),(2,20),(2,21),(2,27),(2,28);
+INSERT INTO `sys_aplicacoes_permissao` VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,10),(1,11),(1,12),(1,13),(1,14),(1,15),(1,16),(1,17),(1,18),(1,19),(1,20),(1,21),(1,22),(1,23),(1,24),(1,25),(1,26),(1,27),(1,28),(1,30),(1,9),(2,1),(2,2),(2,5),(2,9),(2,10),(2,11),(2,13),(2,14),(2,15),(2,16),(2,19),(2,25),(2,26),(2,6),(2,7),(2,17),(2,20),(2,21),(2,27),(2,28),(1,34),(1,33),(1,32);
 /*!40000 ALTER TABLE `sys_aplicacoes_permissao` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `us_termo`
+--
+
+DROP TABLE IF EXISTS `us_termo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `us_termo` (
+  `termo` varchar(8000) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `us_termo`
+--
+
+LOCK TABLES `us_termo` WRITE;
+/*!40000 ALTER TABLE `us_termo` DISABLE KEYS */;
+INSERT INTO `us_termo` VALUES ('Prezado(a).\n\nEste Questionário tem como principal objetivo obter informações com os interessados em participar de projetos no Grupo de Pesquisa Educação e Acidentes (EDACI), as quais têm se mostrado importantes para o ingresso e trajetória no Grupo, a partir das experiências nele acumuladas em mais de uma década. Assim, solicitamos sua colaboração em anotar suas respostas de modo franco e sem preocupação com qualquer conotação de correto ou incorreto, as quais ficarão sob minha guarda e zelo ético. Também peço a sua guarda e zelo ético com este Questionário, pois é de uso exclusivo do EDACI\nUm segundo objetivo deste Questionário é solicitar sua colaboração para permitir que algumas das informações possam ser aproveitadas anonimamente e, se necessário, divulgadas em atividade de ensino, pesquisa e/ou extensão. Se não quiser divulgar alguma resposta deixa-a em branco. Qualquer dúvida que tiver a este respeito pode ser esclarecida neste momento e em qualquer outro que sentir necessidade, bastando entrar em contato com a coordenadora do Grupo. Sua colaboração deverá ser espontânea e será sempre anônima, não lhe acarretando desconfortos, prejuízos ou custos de qualquer natureza, bem como pode desistir de colaborar quando desejar e receber informações quando manifestar interesse fazendo contato com a coordenadora. A não colaboração também não acarreta qualquer consequência, sendo sempre priorizado o respeito ao que preferir. Assim, anote sua resposta em relação a este segundo objetivo do Questionário:');
+/*!40000 ALTER TABLE `us_termo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `us_termo_aceite`
+--
+
+DROP TABLE IF EXISTS `us_termo_aceite`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `us_termo_aceite` (
+  `cod` int(11) NOT NULL AUTO_INCREMENT,
+  `cod_usuario_fk` int(11) DEFAULT NULL,
+  `aceite` int(11) DEFAULT NULL,
+  `data` datetime DEFAULT NULL,
+  PRIMARY KEY (`cod`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `us_termo_aceite`
+--
+
+LOCK TABLES `us_termo_aceite` WRITE;
+/*!40000 ALTER TABLE `us_termo_aceite` DISABLE KEYS */;
+INSERT INTO `us_termo_aceite` VALUES (5,7,1,'2019-10-21 16:26:17');
+/*!40000 ALTER TABLE `us_termo_aceite` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -2328,17 +2376,19 @@ BEGIN
 
 	if(select count(0) from us_pre_cadastro a where a.cod_usuario = cod_usuario and situacao = 3) = 1
     then
-			select cod_usuario as cod, nome, b.cod_tipo as tipo_usuario, b.descricao as tipo_usuario_desc, c.cod_nivel as escolaridade, c.descricao as escolaridade_desc, d.nome_foto, 4 as situacao
+			select cod_usuario as cod, nome, b.cod_tipo as tipo_usuario, b.descricao as tipo_usuario_desc, c.cod_nivel as escolaridade, c.descricao as escolaridade_desc, d.nome_foto, 4 as situacao, case when e.cod_usuario_fk is null then 0 else e.aceite end as termo
 			from us_usuario a
 				inner join us_tipo_usuario b on a.tipo_usuario_fk = b.cod_tipo
 				left join nivel_escolaridade c on c.cod_nivel = a.nivel_escolaridade_fk
                 inner join us_foto_perfil d on d.cod_usuario_fk = a.cod_usuario
+                left join us_termo_aceite e on e.cod_usuario_fk = a.cod_usuario
 			where a.cod_usuario = cod_usuario;
 	else 
     
-			select cod_usuario as cod, nome, 0 as tipo_usuario, 'Pré-Cadastro' as tipo_usuario_desc, case when d.nome_foto is null then '' else d.nome_foto end as nome_foto, a.situacao
+			select cod_usuario as cod, nome, 0 as tipo_usuario, 'Pré-Cadastro' as tipo_usuario_desc, case when d.nome_foto is null then '' else d.nome_foto end as nome_foto, a.situacao, case when e.cod_usuario_fk is null then 0 else e.aceite end as termo
             from us_pre_cadastro a 
 				 left join us_foto_perfil d on d.cod_usuario_fk = a.cod_usuario
+                 left join us_termo_aceite e on e.cod_usuario_fk = a.cod_usuario
             where a.cod_usuario = cod_usuario; 
     
     end if;
@@ -2821,12 +2871,14 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarQuestoesRespondidas_sp`(
 proc_name:
 BEGIN
 	
-    create temporary table final (id int, is_sub int, parent int, name varchar(800), correta int, resposta int, tipo_pergunta int);
+    create temporary table final (id int, is_sub int, parent int, name varchar(800), correta int, resposta varchar(8000), tipo_pergunta int);
+    
+    create temporary table deleteFinal (id int, qtd int);
     
     if(select cod_tipo_fk from qst_questionario where cod_questionario = questionario) = 2 
     then
 		insert into final(id, is_sub, parent, name, correta, resposta, tipo_pergunta)
-		select b.cod, is_sub, case when b.dependencia_alternativa is null then c.cod_questao else b.dependencia_alternativa end,
+		select b.cod, is_sub, case when is_sub = 0 then 0 else case when b.dependencia_alternativa is null then c.cod_questao else b.dependencia_alternativa end end,
 			b.desc_pergunta, is_correta, 0, tipo_pergunta
 		from qst_questionario a
 			inner join qst_questao1 b on a.cod_questionario = b.cod_questionario
@@ -2835,7 +2887,7 @@ BEGIN
 		order by b.cod asc;
 	else
 		insert into final(id, is_sub, parent, name, correta, resposta, tipo_pergunta)
-        select b.cod, is_sub, case when b.dependencia_alternativa is null then c.cod_questao else b.dependencia_alternativa end,
+        select b.cod, is_sub, case when is_sub = 0 then 0 else case when b.dependencia_alternativa is null then c.cod_questao else b.dependencia_alternativa end end,
 			b.desc_pergunta, is_correta, 0, tipo_pergunta
 		from qst_questionario a
 			inner join qst_questao1 b on a.cod_questionario = b.cod_questionario
@@ -2847,17 +2899,33 @@ BEGIN
         update final set correta = 2 where correta is null;
     end if;
 
-	
-
 	update final a set a.resposta = 1
     where a.id in (select resposta 
             from qst_questionario_respostas a
 				inner join qst_questao1 b on b.cod = a.cod_questao_fk
-			where cod_questionario = questionario and cod_usuario_fk = cod_user);
-		
+			where cod_questionario = questionario and cod_usuario_fk = cod_user)
+	and a.tipo_pergunta = 0;
+    
+    update final a, qst_questionario_respostas b
+    set a.resposta = b.resposta
+    where cod_user = b.cod_usuario_fk and a.id = b.cod_questao_fk and tipo_pergunta = 2;
+    
+    insert into deleteFinal
+    select parent,count(0) 
+    from final
+    where resposta = 0 and tipo_pergunta = 0 
+    group by parent;
+    
+    delete a from final a
+    where exists(select id from deleteFinal where a.id = id and qtd > 1);
+    
+    delete a from final a
+    where exists(select id from deleteFinal where a.parent = id and qtd > 1);
+    
+    select * from final;
         
-	select * from final;
     drop table final;
+    drop table deleteFinal;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;

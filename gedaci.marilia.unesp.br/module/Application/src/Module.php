@@ -148,14 +148,21 @@ class Module
                 return $controller->redirect()->toUrl("/login");
             }else{
                 if($sessao->tipo_usuario == 0){ //se for pré cadastro
-                    if($action != 'bem-vindo'){ // se a action acessada nao for bem vindo
-                        $permissao = $this->verificarPermissao($controller,$aplicacao['cod_aplicacao']); //ver se o novo membro possui permissao à action q está acessando
-                        if(!$permissao){
+                    
+                    if($sessao->termo == 0){
+                        if($action != 'termo-inicial'){
+                            return $controller->redirect()->toUrl("/termo-inicial");
+                        }
+                    }else{
+                        if($action != 'bem-vindo'){ // se a action acessada nao for bem vindo
+                            $permissao = $this->verificarPermissao($controller,$aplicacao['cod_aplicacao']); //ver se o novo membro possui permissao à action q está acessando
+                            if(!$permissao){
+                                return $controller->redirect()->toUrl("/bem-vindo");
+                            }
+                        }
+                        if(!in_array($action, $pre_cadastro_actions_permitidas)){
                             return $controller->redirect()->toUrl("/bem-vindo");
                         }
-                    }
-                    if(!in_array($action, $pre_cadastro_actions_permitidas)){
-                        return $controller->redirect()->toUrl("/bem-vindo");
                     }
                 }else{// se nao for pré cadastro
                     if($action == 'bem-vindo' && $action == 'inicial'){//actions bloqueadas para usuarios que nao são pre-cadastro

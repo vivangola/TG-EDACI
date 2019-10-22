@@ -99,16 +99,24 @@ class QuestionarioController extends AbstractActionController
             $questionario['ultima_questao_resp'] = 0;
         }
         
-        $sql = "select count(0)+1 as qtd_resp
-                    from qst_questionario a
-                            inner join qst_questao1 b on a.cod_questionario = b.cod_questionario
-                            inner join qst_questao_dependencia c on c.cod_questao_dependente = b.cod
-                            inner join qst_questionario_respostas d on d.cod_questao_fk = b.cod and d.cod_usuario_fk = :usuario
-                    where a.cod_questionario = :questionario
-                    order by b.cod asc;";
+        $sql = "select count(0) as qtd_resp
+                from qst_questionario a
+                        inner join qst_questao1 b on a.cod_questionario = b.cod_questionario
+                        inner join qst_questao_dependencia c on c.cod_questao_dependente = b.cod
+                        inner join qst_questionario_respostas d on d.cod_questao_fk = b.cod and d.cod_usuario_fk = :usuario
+                where a.cod_questionario = :questionario and b.tipo_pergunta = 1
+                order by b.cod asc;";
         $result = $funcoes->executarSQL($sql, array('questionario' => $questionario['cod_questionario'], 'usuario' => $sessao->cod_usuario), '');
+        
+        $sql = "select count(0) as qtd_resp
+                from qst_questionario a
+                                inner join qst_questao1 b on a.cod_questionario = b.cod_questionario
+                                inner join qst_questionario_respostas d on d.cod_questao_fk = b.cod and d.cod_usuario_fk = 7
+                where a.cod_questionario = :questionario and b.tipo_pergunta = 2
+                order by b.cod asc;";
+        $result2 = $funcoes->executarSQL($sql, array('questionario' => $questionario['cod_questionario'], 'usuario' => $sessao->cod_usuario), '');
 
-        $questionario['qtd_resp'] = $result['qtd_resp'];
+        $questionario['qtd_resp'] = $result['qtd_resp'] + $result2['qtd_resp'] + 1;
         
         $questao_atual = $this->gerarQuestionario2($questoes, $questionario['ultima_questao_resp']);
         
@@ -969,48 +977,72 @@ class QuestionarioController extends AbstractActionController
         $questoes = $this->gerarQuestionario2($questoes, 0);
         
         $html = "";
+        
         foreach($questoes as $key => $questao){
-            $html .= '<div class="col-md-12 card-questao" id="card_questao">';
-            $html .=    '<div class="respostas">';
-            $html .=        '<h4 class="pergunta" style="margin-top: 20px">';
-            $html .=            $key + 1 . ') '. $questao['name'];
-            $html .=        '</h4>';
+            
+            if($questao['tipo_pergunta'] == 1){
+                
+                $html .= '<div class="col-md-12 card-questao" id="card_questao">';
+                $html .=    '<div class="respostas">';
+                $html .=        '<h4 class="pergunta" style="margin-top: 20px">';
+                $html .=            $key + 1 . ') '. $questao['name'];
+                $html .=        '</h4>';
 
-                            foreach($questao['children'] as $alternativa){
-                                if($alternativa['correta'] == '1' && $alternativa['resposta'] == '1'):
-                                    $html .= '<div class="respostas-correta">'.
-                                                '<input type="radio" disabled/>'.
-                                                '<label for="radio-1">' . $alternativa['name'] . '</label>'.
-                                            '</div>';
-                                elseif($alternativa['correta'] == '1' && $alternativa['resposta'] == '0'):
-                                    $html .= '<div class="respostas-correta">'.
-                                                '<input type="radio" disabled/>'.
-                                                '<label for="radio-1">' . $alternativa['name'] . '</label>'.
-                                             '</div>';
-                                elseif($alternativa['correta'] == '0' && $alternativa['resposta'] == '1'):
-                                    $html .= '<div class="respostas-errada">'.
-                                                '<input type="radio" disabled/>'.
-                                                '<label for="radio-1">' . $alternativa['name'] . '</label>'.
-                                            '</div>';
-                                elseif($alternativa['correta'] == '2' && $alternativa['resposta'] == '1'):
-                                    $html .= '<div class="respostas-correta">'.
-                                                '<input type="radio" disabled/>'.
-                                                '<label for="radio-1">' . $alternativa['name'] . '</label>'.
-                                            '</div>';
-                                else:
-                                    $html .= '<div class="respostas-normal">'.
-                                                '<input type="radio" disabled/>'.
-                                                '<label for="radio-1">' . $alternativa['name'] . '</label>'.
-                                            '</div>';
-                                endif;
-                            }
-            $html .=        '<hr>';
-            $html .=    '</div>';
-            $html .=    '<hr>';
-            $html .= '</div>';
+                                foreach($questao['children'] as $alternativa){
+                                    if($alternativa['correta'] == '1' && $alternativa['resposta'] == '1'):
+                                        $html .= '<div class="respostas-correta">'.
+                                                    '<input type="radio" disabled/>'.
+                                                    '<label for="radio-1">' . $alternativa['name'] . '</label>'.
+                                                '</div>';
+                                    elseif($alternativa['correta'] == '1' && $alternativa['resposta'] == '0'):
+                                        $html .= '<div class="respostas-correta">'.
+                                                    '<input type="radio" disabled/>'.
+                                                    '<label for="radio-1">' . $alternativa['name'] . '</label>'.
+                                                 '</div>';
+                                    elseif($alternativa['correta'] == '0' && $alternativa['resposta'] == '1'):
+                                        $html .= '<div class="respostas-errada">'.
+                                                    '<input type="radio" disabled/>'.
+                                                    '<label for="radio-1">' . $alternativa['name'] . '</label>'.
+                                                '</div>';
+                                    elseif($alternativa['correta'] == '2' && $alternativa['resposta'] == '1'):
+                                        $html .= '<div class="respostas-correta">'.
+                                                    '<input type="radio" disabled/>'.
+                                                    '<label for="radio-1">' . $alternativa['name'] . '</label>'.
+                                                '</div>';
+                                    else:
+                                        $html .= '<div class="respostas-normal">'.
+                                                    '<input type="radio" disabled/>'.
+                                                    '<label for="radio-1">' . $alternativa['name'] . '</label>'.
+                                                '</div>';
+                                    endif;
+                                }
+                $html .=        '<hr>';
+                $html .=    '</div>';
+                $html .=    '<hr>';
+                $html .= '</div>';
+            }else{
+                $html .= '<div class="col-md-12 card-questao" id="card_questao">';
+                $html .=    '<div class="respostas">';
+                $html .=        '<h4 class="pergunta" style="margin-top: 20px">';
+                $html .=            $key + 1 . ') '. $questao['name'];
+                $html .=        '</h4>';
+                $html .=        '<br>';
+                $html .=        '<input type="text" class="form-control" value="'.$questao['resposta'].'">';
+                $html .=        '<br>';
+                $html .=        '<br>';
+                $html .=    '</div>';
+                $html .= '</div>';
+            }
 
         }
+        
         return $response->setContent(Json::encode(array('response' => true, 'html' => $html)));
+    }
+    
+    public function gerarResultado($questoes,$html){
+        
+        
+        
     }
 
 

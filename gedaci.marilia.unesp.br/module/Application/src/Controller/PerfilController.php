@@ -179,6 +179,26 @@ class PerfilController extends AbstractActionController {
         }
     }
     
+    public function termoAction(){
+        $funcoes = new Funcoes($this);
+        $sessao = new Container("usuario");
+        
+        $response = $this->getResponse();
+        $request = $this->getRequest();
+        
+        $params = array(
+            'user'      => $sessao->cod_usuario,
+            'aceite'    => $this->params()->fromPost('aceite', '')
+        );
+        
+        $sql = 'insert into us_termo_aceite(cod_usuario_fk, aceite, data) values (:user,:aceite,now())';
+        $funcoes->executarSQL($sql,$params);
+        
+        $sessao->termo = $params['aceite'];
+        
+        return $response->setContent(Json::encode(array('response' => true, 'msg' => '')));
+    }
+    
     public function calcularIdade($data){
         
         list($ano, $mes, $dia) = explode('-', $data);

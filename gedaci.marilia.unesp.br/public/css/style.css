@@ -1308,7 +1308,7 @@ a:focus {
     border-bottom: 1px solid #ecf0f1
 }
 .main-box .main-box-body {
-    padding: 0 0px 20px
+    padding: 0 5px 20px
 }
 
 .box-body {
@@ -8175,11 +8175,11 @@ p.cinza-padrao{
 }
 
 .main-box .main-box-body {
-    padding: 0 0px 40px !Important;
+    padding: 0 5px 40px !Important;
 }
 
 .pd-arruma.pd-0 {
-    padding: 0px 0px 40px 0 !important;
+    padding: 0px 5px 40px 0 !important;
 }
 
 .img-slider {

@@ -1,4 +1,4 @@
-<script type="text/javascript" src="/js/ckeditor.js"></script>
+<script src="//cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
 <div class="row box-home" align="center" style="height:100%">
     <div class="col-md-12 col-xs-12">  
         <div class="main-box clearfix print min-branco">
@@ -107,15 +107,15 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="edit_emails" class="col-form-label">Para:</label><label style="color:red">*</label>&nbsp;<label style="color:gray"></label>
-                        <input type="text"  class="form-control" id="edit_emails" name="edit_emails" placeholder="ex: email@hotmail.com, email2@gmail.com">
+                        <input type="text" readonly  class="form-control" id="edit_emails" name="edit_emails" placeholder="ex: email@hotmail.com, email2@gmail.com">
                     </div>
                     <div class="form-group">
                         <label for="edit_assunto" class="col-form-label">Assunto:</label><label style="color:red">*</label>
-                        <input type="text"  class="form-control" id="edit_assunto" name="edit_assunto">
+                        <input type="text" readonly  class="form-control" id="edit_assunto" name="edit_assunto">
                     </div>
                     <div class="form-group">
                         <label for="edit_texto" class="col-form-label">Texto:</label><label style="color:red">*</label>
-                        <textarea id="edit_texto" name="edit_texto" style="width: 100%; height: 100px;"></textarea>
+                        <textarea id="edit_texto" readonly name="edit_texto" style="width: 100%; height: 100px;"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -214,7 +214,7 @@
                 if(retorno.response){
                     $('#edit_emails').val(retorno.result['email_destinatario']);
                     $('#edit_assunto').val(retorno.result['assunto']);
-                    $('#edit_texto').val(retorno.result['texto']);
+                    CKEDITOR.instances['edit_texto'].setData(retorno.result['texto']); 
                     $('#modalEdit').modal('show');
                 }else{
                     Swal.fire({

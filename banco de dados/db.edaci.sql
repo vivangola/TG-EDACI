@@ -2195,7 +2195,7 @@ BEGIN
 
 		if filtro = 1 then
 		
-			select *, date_format(a.data_envio, "%d/%m/%Y %H:%i:%s") as data
+			select a.*,b.nome, date_format(a.data_envio, "%d/%m/%Y %H:%i:%s") as data
             from emails_enviados a
 				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
 			where a.assunto like pesquisa and a.cod_usuario_fk = usuario
@@ -2203,7 +2203,7 @@ BEGIN
 			
 		elseif filtro = 2 then
 			
-            select *, date_format(a.data_envio, "%d/%m/%Y %H:%i:%s") as data
+            select a.*,b.nome, date_format(a.data_envio, "%d/%m/%Y %H:%i:%s") as data
             from emails_enviados a
 				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
 			where a.email_destinatario like pesquisa and a.cod_usuario_fk = usuario
@@ -2211,7 +2211,7 @@ BEGIN
         
         else 
         
-			select *, date_format(a.data_envio, "%d/%m/%Y %H:%i:%s") as data
+			select a.*,b.nome, date_format(a.data_envio, "%d/%m/%Y %H:%i:%s") as data
             from emails_enviados a
 				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
 			where a.cod_usuario_fk = usuario
@@ -2221,7 +2221,7 @@ BEGIN
 		
     else 
     
-		select *, date_format(a.data_envio, "%d/%m/%Y %H:%i:%s") as data
+		select a.*,b.nome, date_format(a.data_envio, "%d/%m/%Y %H:%i:%s") as data
 		from emails_enviados a
 				inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
 		where a.cod_email = cod_email and a.cod_usuario_fk = usuario

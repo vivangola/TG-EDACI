@@ -158,10 +158,6 @@ class PerfilController extends AbstractActionController {
                 $funcoes->executarSQL($sql, array('usuario' => $sessao->cod_usuario));
 
                 $sessao->situacao = 3;
-                
-                $sql = "update us_usuario set tipo_usuario_fk = 1 where cod_usuario =:usuario";
-                $funcoes->executarSQL($sql, array('usuario' => $sessao->cod_usuario));
-                
                 $sessao->tipo_usuario = 2;
                 $sessao->tipo_usuario_desc = 'Membro';
             }else{//

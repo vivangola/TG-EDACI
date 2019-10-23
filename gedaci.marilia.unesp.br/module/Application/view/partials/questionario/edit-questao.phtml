@@ -373,16 +373,25 @@
             },
             success: function (retorno) {
                 retorno = JSON.parse(retorno);
-                $('#perguntas_edit').html(retorno.html);
-                Swal.fire({
-                    title: 'Sucesso!',
-                    html: 'Alterações concluídas.',
-                    type: 'success',
-                    onClose: () => {
-                        editQuestao($('#cod_questao').val(), $('#cod_questionario').val());
-                    }
-                });
-                limparEdit();
+                if(!retorno.response){
+                    Swal.fire({
+                        title: 'Opss...',
+                        html: retorno.msg,
+                        type: 'success'
+                    });
+                    return false;
+                }else{
+                    $('#perguntas_edit').html(retorno.html);
+                    Swal.fire({
+                        title: 'Sucesso!',
+                        html: 'Alterações concluídas.',
+                        type: 'success',
+                        onClose: () => {
+                            editQuestao($('#cod_questao').val(), $('#cod_questionario').val());
+                        }
+                    });
+                    limparEdit();
+                }
             }
         });
     }
@@ -425,16 +434,26 @@
             },
             success: function (retorno) {
                 retorno = JSON.parse(retorno);
-                $('#perguntas_edit').html(retorno.html);
-                Swal.fire({
-                    title: 'Sucesso!',
-                    html: 'Alterações concluídas.',
-                    type: 'success',
-                    onClose: () => {
-                        editQuestao($('#cod_questao').val(),$('#cod_questionario').val());
-                    }
-                });
-                limparEdit();
+                
+                if(!retorno.response){
+                    Swal.fire({
+                        title: 'Opss...',
+                        html: retorno.msg,
+                        type: 'success'
+                    });
+                    return false;
+                }else{
+                    $('#perguntas_edit').html(retorno.html);
+                    Swal.fire({
+                        title: 'Sucesso!',
+                        html: 'Alterações concluídas.',
+                        type: 'success',
+                        onClose: () => {
+                            editQuestao($('#cod_questao').val(),$('#cod_questionario').val());
+                        }
+                    });
+                    limparEdit();
+                }
             }
         });
     }

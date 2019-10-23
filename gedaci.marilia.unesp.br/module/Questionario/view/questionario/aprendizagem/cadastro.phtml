@@ -355,12 +355,22 @@
                 loader();
             },
             success: function (retorno) {
-                Swal.fire({
-                    title: 'Sucesso!',
-                    html: 'Descrição do Questionário alterada.',
-                    type: 'success'
-                });
-                $('#edit_questionario_desc').attr('disabled', true);
+                
+                if(!retorno.response){
+                    Swal.fire({
+                        title: 'Opss...',
+                        html: retorno.msg,
+                        type: 'success'
+                    });
+                }else{
+                    Swal.fire({
+                        title: 'Sucesso!',
+                        html: 'Descrição do Questionário alterada.',
+                        type: 'success'
+                    });
+                    $('#edit_questionario_desc').attr('disabled', true);
+                }
+                
             }
         });
     }

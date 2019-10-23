@@ -28,6 +28,7 @@
                                         <input type='hidden' id='tipo_pergunta' value='<?= $questionario['questao_atual']['tipo_pergunta'] ?>'>
                                     </div>
                                     <div class='col-md-12 div-questao' style="margin-top:100px;margin-top: 10px; <?= $finalizado == 0 ? '' : 'display: none;' ?>">
+                                        <button type='button' id="btn_anterior" style="<?= $questionario['qtd_resp'] == 1 ? 'display:none;' : '' ?>" class='btn btn-primary3' onclick="anterior()"> Voltar <i class="fa fa-arrow-left"></i></button>
                                         <button type='button' class='btn btn-primary3' onclick="proximo()"> Proxima Questão <i class="fa fa-arrow-right"></i></button>
                                         <hr>
                                     </div>
@@ -111,6 +112,13 @@
                     $('#div-finalizado').show();
                     $('.div-questao').hide();
                 }else{
+                    
+                    if(retorno.qtd_resp > 1){
+                       $('#btn_anterior').show();  
+                    }else{
+                       $('#btn_anterior').hide(); 
+                    }
+                    
                     $('#div-questao').html(retorno.html);
                     $('#div-finalizado').hide();
                     $('.div-questao').show();
@@ -120,7 +128,36 @@
         });
     }
     
-    function voltar(questao){
-        
+    function anterior(){
+        $.ajax({
+            url: '/questionario/cadastro/alterior-questao',
+            data: {
+                questao     : $('#cod_questao').val(),
+            },
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                retorno = JSON.parse(retorno);
+                if(retorno.questionario_finalizado == 1){
+                    $('#div-finalizado').show();
+                    $('.div-questao').hide();
+                }else{
+                    
+                    if(retorno.qtd_resp > 1){
+                       $('#btn_anterior').show();  
+                    }else{
+                       $('#btn_anterior').hide(); 
+                    }
+                    
+                    $('#div-questao').html(retorno.html);
+                    $('#div-finalizado').hide();
+                    $('.div-questao').show();
+                }
+                Swal.close();
+            }
+        });
     }
 </script>

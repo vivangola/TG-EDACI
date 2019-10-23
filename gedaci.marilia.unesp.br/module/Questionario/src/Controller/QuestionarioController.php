@@ -111,7 +111,7 @@ class QuestionarioController extends AbstractActionController
         $sql = "select count(0) as qtd_resp
                 from qst_questionario a
                                 inner join qst_questao1 b on a.cod_questionario = b.cod_questionario
-                                inner join qst_questionario_respostas d on d.cod_questao_fk = b.cod and d.cod_usuario_fk = 7
+                                inner join qst_questionario_respostas d on d.cod_questao_fk = b.cod and d.cod_usuario_fk = :usuario
                 where a.cod_questionario = :questionario and b.tipo_pergunta = 2
                 order by b.cod asc;";
         $result2 = $funcoes->executarSQL($sql, array('questionario' => $questionario['cod_questionario'], 'usuario' => $sessao->cod_usuario), '');
@@ -235,23 +235,42 @@ class QuestionarioController extends AbstractActionController
         return $questionario;
     }
     
-    public function proximaQuestaoAction(){
+    public function alteriorQuestaoAction(){
         $funcoes = new Funcoes($this);
         $sessao = new Container("usuario");
         $relatorio = new Relatorio();
         
+        $response = $this->getResponse();
+        
         $params = array(
             'usuario'       => $sessao->cod_usuario,
-            'questionario'  => $this->params()->fromPost('questionario', 0),
-            'questao'       => $this->params()->fromPost('questao', 0),
-            'resposta'      => $this->params()->fromPost('resposta', 0),
             'tipo_qst'      => $this->params()->fromPost('tipo_qst', 1)
         );
         
-        $response = $this->getResponse();
+        if($params['tipo_qst'] == 1){
+            // pega as informações do questionario
+            $sql = 'select a.cod_questionario '.
+                    'from qst_questionario a where status_questionario = 1 and cod_tipo_fk = 1';
+            $params['questionario'] = $funcoes->executarSQL($sql, $params, '')['cod_questionario'];
+        }else{
+            $params['questionario'] = $this->params()->fromPost('questionario', '');
+        }
         
-        $sql = "insert into qst_questionario_respostas(cod_usuario_fk, cod_questao_fk, resposta, data) values (:usuario, :questao, :resposta, now())";
-        $funcoes->executarSQL($sql, $params);
+        //pegar o codigo de qual foi a ultima questao respondida
+        $sql = "select b.cod
+                from qst_questionario a
+                        inner join qst_questao1 b on a.cod_questionario = b.cod_questionario
+                        left join qst_questao_dependencia c on c.cod_questao_dependente = b.cod
+                        left join qst_questionario_respostas d on d.cod_questao_fk = b.cod and d.cod_usuario_fk = :usuario
+                where a.cod_questionario = :questionario and d.cod is not null
+                order by d.data desc;";
+        $questionario['ultima_questao_resp'] = $funcoes->executarSQL($sql, $params, '')['cod']; 
+        
+        $sql = "delete from qst_questionario_respostas where cod_questao_fk =:cod and cod_usuario_fk =:usuario";
+        $funcoes->executarSQL($sql, array(
+            'cod'       => $questionario['ultima_questao_resp'],
+            'usuario'   => $sessao->cod_usuario
+        ));
         
         if($params['tipo_qst'] == 1){
             $questionario = $this->getQuestionarioInicial();
@@ -264,7 +283,7 @@ class QuestionarioController extends AbstractActionController
             $funcoes->executarSQL($sql, $params);
             
             $sessao->situacao = 2;
-            
+             
             $finalizado = 1;
             $html = "";
         }else if($params['tipo_qst'] == 2 && isset($questionario['questao_atual']['finalizado'])){
@@ -340,7 +359,116 @@ class QuestionarioController extends AbstractActionController
             $html .= "<input type='hidden' id='tipo_pergunta' value='" . $questionario['questao_atual']['tipo_pergunta'] . "'>" .  '</div>'; 
         }
                     
-        return $response->setContent(Json::encode(array('response' => true, 'html' => $html, 'questionario_finalizado' => $finalizado)));
+        return $response->setContent(Json::encode(array('response' => true, 'html' => $html, 'questionario_finalizado' => $finalizado, 'qtd_resp' => isset($questionario['qtd_resp']) ? $questionario['qtd_resp'] : 0)));
+        
+    }
+    
+    public function proximaQuestaoAction(){
+        $funcoes = new Funcoes($this);
+        $sessao = new Container("usuario");
+        $relatorio = new Relatorio();
+        
+        $params = array(
+            'usuario'       => $sessao->cod_usuario,
+            'questionario'  => $this->params()->fromPost('questionario', 0),
+            'questao'       => $this->params()->fromPost('questao', 0),
+            'resposta'      => $this->params()->fromPost('resposta', 0),
+            'tipo_qst'      => $this->params()->fromPost('tipo_qst', 1)
+        );
+        
+        $response = $this->getResponse();
+        
+        $sql = "insert into qst_questionario_respostas(cod_usuario_fk, cod_questao_fk, resposta, data) values (:usuario, :questao, :resposta, now())";
+        $funcoes->executarSQL($sql, $params);
+        
+        if($params['tipo_qst'] == 1){
+            $questionario = $this->getQuestionarioInicial();
+        }else{
+            $questionario = $this->getQuestionario($params['questionario']);
+        }
+        
+        if($params['tipo_qst'] == 1 && isset($questionario['questao_atual']['finalizado'])){
+            $sql = "update us_pre_cadastro set situacao = 2 where cod_usuario =:usuario";
+            $funcoes->executarSQL($sql, $params);
+            
+            $sessao->situacao = 2;
+             
+            $finalizado = 1;
+            $html = "";
+        }else if($params['tipo_qst'] == 2 && isset($questionario['questao_atual']['finalizado'])){
+            $finalizado = 1;
+            
+            $sql = "call us_buscarQuestoesRespondidas_sp (:questionario,:usuario)";
+            $questoes = $funcoes->executarSQL($sql, $params);
+            
+            $questoes = $this->gerarQuestionario2($questoes, 0);
+            
+            $html = "";
+            foreach($questoes as $key => $questao){
+                $html .= '<div class="col-md-12 card-questao" id="card_questao">';
+                $html .=    '<div class="respostas">';
+                $html .=        '<h4 class="pergunta" style="margin-top: 20px">';
+                $html .=            $key + 1 . ') '. $questao['name'];
+                $html .=        '</h4>';
+
+                                foreach($questao['children'] as $alternativa){
+                                    if($alternativa['correta'] == '1' && $alternativa['resposta'] == '1'):
+                                        $html .= '<div class="respostas-correta">'.
+                                                    '<input type="radio" disabled/>'.
+                                                    '<label for="radio-1">' . $alternativa['name'] . '</label>'.
+                                                '</div>';
+                                    elseif($alternativa['correta'] == '1' && $alternativa['resposta'] == '0'):
+                                        $html .= '<div class="respostas-correta">'.
+                                                    '<input type="radio" disabled/>'.
+                                                    '<label for="radio-1">' . $alternativa['name'] . '</label>'.
+                                                 '</div>';
+                                    elseif($alternativa['correta'] == '0' && $alternativa['resposta'] == '1'):
+                                        $html .= '<div class="respostas-errada">'.
+                                                    '<input type="radio" disabled/>'.
+                                                    '<label for="radio-1">' . $alternativa['name'] . '</label>'.
+                                                '</div>';
+                                    else:
+                                        $html .= '<div class="respostas-normal">'.
+                                                    '<input type="radio" disabled/>'.
+                                                    '<label for="radio-1">' . $alternativa['name'] . '</label>'.
+                                                '</div>';
+                                    endif;
+                                }
+                $html .=        '<hr>';
+                $html .=    '</div>';
+                $html .=    '<hr>';
+                $html .= '</div>';
+                
+            }
+        }   
+        else{
+            $finalizado = 0;
+            
+            if($questionario['questao_atual']['tipo_pergunta'] == '1'){
+                $html =
+                    '<h2 class="pergunta">'. $questionario['qtd_resp'] . ') ' . $questionario['questao_atual']['name'] . '</h2>'.
+                    '<div class="respostas">';
+                    foreach($questionario['questao_atual']['children'] as $dados){
+                        $html .= '<div class="respostas-primary">'.
+                            '<input type="radio" name="resposta" id="radio-'.$dados['id'].'" value='.$dados['id'].'>'.     
+                            '<label for="radio-' . $dados['id'] . '">' . $dados['name'] . '</label>'.
+                        '</div>';
+                }   
+            }else{
+                
+                $html =
+                        '<h2 class="pergunta">'. $questionario['qtd_resp'] . ') ' . $questionario['questao_atual']['name'] . '</h2>'.
+                        '<br><br>'.
+                        '<textarea class="form-control" id="questao_resposta_obj" max-lenght="5"></textarea>'.
+                        '<br><br>';
+            }
+            
+            $html .= "<input type='hidden' id='cod_questionario' value='" . $questionario['cod_questionario']. "'>" .  '</div>'; 
+            $html .= "<input type='hidden' id='cod_questao' value='" . $questionario['questao_atual']['id'] . "'>" .  '</div>'; 
+            $html .= "<input type='hidden' id='tipo_pergunta' value='" . $questionario['questao_atual']['tipo_pergunta'] . "'>" .  '</div>'; 
+        }
+                    
+        return $response->setContent(Json::encode(array('response' => true, 'html' => $html, 'questionario_finalizado' => $finalizado, 'qtd_resp' => isset($questionario['qtd_resp']) ? $questionario['qtd_resp'] : 0)));
     }
     
     function teste($dados, $campo, $valor)

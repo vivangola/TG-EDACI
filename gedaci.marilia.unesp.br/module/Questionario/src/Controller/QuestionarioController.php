@@ -493,8 +493,12 @@ class QuestionarioController extends AbstractActionController
         $sql = "call us_buscarQuestionarios_sp (0,2,:usuario)";
         $questionarios = $funcoes->executarSQL($sql, $params);
         
+        $sql = "select cod_nivel, descricao from nivel_escolaridade";
+        $escolaridade = $funcoes->executarSQL($sql,[]);
+        
         $relatorio->definirColuna('CODIGO', 'cod_questionario', '2', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('DESCRIÇÃO', 'descricao', '10', 'left', 't', 'n', 'n');
+        $relatorio->definirColuna('NIVEL ESCOLARIDADE', 'escolaridade', '4', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('CRIADO POR', 'nome', '4', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('DATA', 'data_criacao', '4', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('INATIVAR / ATIVAR', '0', '2', 'center', 't', 'n', 'n');
@@ -513,6 +517,7 @@ class QuestionarioController extends AbstractActionController
         $view = new ViewModel(array(
             'relatorio'     => $relatorio,
             'questionarios' => $questionarios,
+            'escolaridades' => $escolaridade
         ));
         
         $view->setTemplate('questionario/aprendizagem/cadastro');
@@ -573,8 +578,12 @@ class QuestionarioController extends AbstractActionController
         $sql = "call us_buscarQuestionarios_sp (0,1,0)";
         $questionarios = $funcoes->executarSQL($sql, $params);
         
+        $sql = "select cod_nivel, descricao from nivel_escolaridade";
+        $escolaridade = $funcoes->executarSQL($sql,[]);
+        
         $relatorio->definirColuna('CODIGO', 'cod_questionario', '2', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('DESCRIÇÃO', 'descricao', '10', 'left', 't', 'n', 'n');
+        $relatorio->definirColuna('ESCOLARIDADE', 'escolaridade', '5', 'left', 't', 'n', 'n');
         $relatorio->definirColuna('CRIADO POR', 'nome', '4', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('DATA', 'data_criacao', '4', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('INATIVAR / ATIVAR', '1', '2', 'center', 't', 'n', 'n');
@@ -588,6 +597,7 @@ class QuestionarioController extends AbstractActionController
         $view = new ViewModel(array(
             'relatorio'     => $relatorio,
             'questionarios' => $questionarios,
+            'escolaridades' => $escolaridade
         ));
         
         $view->setTemplate('questionario/inicial/questionario-cadastro');
@@ -603,10 +613,11 @@ class QuestionarioController extends AbstractActionController
         $params = array(
             'usuario'       => $sessao->cod_usuario,
             'questionario'  => $this->params()->fromPost('descricao', ''),
-            'tipo'          => $this->params()->fromPost('tipo', 0)
+            'tipo'          => $this->params()->fromPost('tipo', 0),
+            'escolaridade'  => $this->params()->fromPost('escolaridade', '-1')
         );
         
-        $sql = "insert into qst_questionario(descricao, status_questionario, cod_tipo_fk, cod_usuario_fk, data_criacao) values (:questionario, 0, :tipo, :usuario, now())";
+        $sql = "insert into qst_questionario(descricao, status_questionario, cod_tipo_fk, cod_usuario_fk, data_criacao, escolaridade) values (:questionario, 0, :tipo, :usuario, now(), :escolaridade)";
         $funcoes->executarSQL($sql, $params);
         
         return $response->setContent(Json::encode(array('response' => true)));
@@ -669,11 +680,13 @@ class QuestionarioController extends AbstractActionController
         
         $arvore = $this->gerarArvore($result, 0, 0, $params['questionario'], 1);
         
-        $sql = "select cod_questionario,a.descricao as titulo, a.cod_tipo_fk as tipo_qst from qst_questionario a
+        $sql = "select cod_questionario,a.descricao as titulo, a.cod_tipo_fk as tipo_qst, case when b.cod_nivel is null then '-1' else b.cod_nivel end  as cod_nivel
+                from qst_questionario a
+                    left join nivel_escolaridade b on b.cod_nivel = a.escolaridade
                 where a.cod_questionario = :questionario";
         $titulo = $funcoes->executarSQL($sql,$params,'');
         
-        return $response->setContent(Json::encode(array('response' => true, 'titulo' => $titulo['titulo'], 'cod_questionario' => $titulo['cod_questionario'],'html' => $arvore, 'tipo_questionario' => $titulo['tipo_qst'])));
+        return $response->setContent(Json::encode(array('response' => true, 'titulo' => $titulo['titulo'], 'cod_questionario' => $titulo['cod_questionario'],'html' => $arvore, 'tipo_questionario' => $titulo['tipo_qst'], 'escolaridade' => $titulo['cod_nivel'])));
     }
     
     public function buscarQuestaoAction(){
@@ -997,10 +1010,11 @@ class QuestionarioController extends AbstractActionController
         
         $params = array(
             'questionario'  => $this->params()->fromPost('questionario', '0'),
+            'escolaridade'  => $this->params()->fromPost('escolaridade', '0'),
             'descricao'   => $this->params()->fromPost('descricao', '0'),
         );
         
-        $sql = "update qst_questionario set descricao =:descricao where cod_questionario =:questionario";
+        $sql = "update qst_questionario set descricao =:descricao, escolaridade =:escolaridade where cod_questionario =:questionario";
         $funcoes->executarSQL($sql, $params);
         
         return $response->setContent(Json::encode(array('response' => true)));

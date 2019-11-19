@@ -78,6 +78,15 @@
                             <label for="add_desc" class="col-form-label">Descrição sobre o Questionário: <label style="color:red">*</label></label>
                             <input type="text" class="form-control" id="add_desc">
                         </div>
+                        <div class="form-group">
+                            <label for="add_escolaridade" class="col-form-label">Escolaridade: <label style="color:red">*</label></label>
+                            <select name="add_escolaridade" id="add_escolaridade" class="form-control">
+                                    <option value="-1">TODOS</option>
+                            <?php foreach($escolaridades as $dados):?>
+                                    <option value="<?= $dados['cod_nivel'] ?>"><?= $dados['descricao'] ?></option>
+                            <?php endforeach; ?>
+                            </select>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -106,8 +115,17 @@
                             <input type="hidden" class="form-control" id="cod_questionario">
                             <input type="hidden" class="form-control" id="tipo_questionario">
                         </div>
+                        <div class="form-group">
+                            <label for="edit_escolaridade" class="col-form-label">Escolaridade: <label style="color:red">*</label></label>
+                            <select name="edit_escolaridade" id="edit_escolaridade" class="form-control">
+                                    <option value="-1">TODOS</option>
+                            <?php foreach($escolaridades as $dados):?>
+                                    <option value="<?= $dados['cod_nivel'] ?>"><?= $dados['descricao'] ?></option>
+                            <?php endforeach; ?>
+                            </select>
+                        </div>
                         <div class="text-right">
-                            <button type="button" disabled="true" class="btn btn-primary3" id="edit_questionario_desc" onclick="editQuestionar();">Salvar descrição&nbsp;<i class="fa fa-save"></i></button>
+                            <button type="button"  class="btn btn-primary3" id="edit_questionario_desc" onclick="editQuestionar();">Salvar descrição e escolaridade&nbsp;<i class="fa fa-save"></i></button>
                         </div>
                     </form>
                 </div>
@@ -238,10 +256,20 @@
             });
         }
         
+        if(!$('#add_escolaridade').val()){
+            Swal.fire({
+                title: 'Atenção!',
+                html: 'Selecione o nivel de escolaridade para esse Questionário de Aprendizagem.',
+                type: 'info'
+            });
+            return false;
+        }
+        
         $.ajax({
             url: '/questionario/cadastro/novoQuestionario',
             data: {
                 descricao : $('#add_desc').val(),
+                escolaridade : $('#add_escolaridade').val(),
                 tipo      : 2
             },
             type: 'json',
@@ -287,7 +315,7 @@
                     $('#menu-objetiva2').hide();
                     $('#menu-dissertativa2').hide();
                     $('#btn_add_dependencia').hide();
-                    $('#edit_questionario_desc').attr('disabled', true);
+                    $('#edit_escolaridade').val(retorno.escolaridade);
                     $('#modalEdit').modal('show');
                 }else{
                     Swal.fire({
@@ -341,13 +369,23 @@
             });
             return false;
         }
+        
+        if(!$('#edit_escolaridade').val() || $('#edit_escolaridade') == ''){
+            Swal.fire({
+                title: 'Atenção!',
+                html: 'Selecione o nivel de escolaridade para esse Questionário de Aprendizagem.',
+                type: 'info'
+            });
+            return false;
+        }
             
         $.ajax({
             url: '/questionario/cadastro/editQuestionario',
             data: 
                 {
                     questionario    : $('#cod_questionario').val(),
-                    descricao       : $('#edit_desc').val()
+                    descricao       : $('#edit_desc').val(),
+                    escolaridade    : $('#edit_escolaridade').val(),
                 },
             type: 'json',
             method: 'POST',
@@ -355,20 +393,21 @@
                 loader();
             },
             success: function (retorno) {
-                
+                retorno = JSON.parse(retorno);
                 if(!retorno.response){
                     Swal.fire({
                         title: 'Opss...',
                         html: retorno.msg,
-                        type: 'success'
+                        type: 'info'
                     });
+                    return true;
                 }else{
                     Swal.fire({
                         title: 'Sucesso!',
-                        html: 'Descrição do Questionário alterada.',
+                        html: 'Descrição e Escolaridade do Questionário alteradas.',
                         type: 'success'
                     });
-                    $('#edit_questionario_desc').attr('disabled', true);
+                    return true;
                 }
                 
             }

@@ -736,6 +736,7 @@ CREATE TABLE `qst_questionario` (
   `cod_tipo_fk` int(11) DEFAULT NULL,
   `cod_usuario_fk` int(11) DEFAULT NULL,
   `data_criacao` datetime DEFAULT NULL,
+  `escolaridade` int(11) DEFAULT NULL,
   PRIMARY KEY (`cod_questionario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -2824,30 +2825,32 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `us_buscarQuestionarios_sp`(
     cod_user int
 )
 proc_name:
-BEGIN
-	
-	declare while_i int;
-    declare while_max int;
-    declare num_qst2 int;
-    
-	if questionario = 0 then
-    begin
-		select a.cod_questionario, a.descricao, a.status_questionario,b.nome,date_format(a.data_criacao, "%d/%m/%Y %H:%i:%s") as data_criacao,
-			case when a.cod_usuario_fk = cod_user then 1 else 0 end as is_my
-		from qst_questionario a
-			inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
-		where cod_tipo_fk = tipo;
-	end;
-    else
-    begin
-			
-			select b.cod as id,is_sub, 0 as parent, b.desc_pergunta as name, 1 as num_qst, b.dependencia_questao, b.dependencia_alternativa
-			from qst_questionario a
-				inner join qst_questao1 b on a.cod_questionario = b.cod_questionario
-			where a.cod_questionario = questionario and is_sub = 0 order by b.cod asc;
+BEGIN 
 
-	end;
-    end if;
+	declare while_i int;
+	declare while_max int; 
+	declare num_qst2 int;
+    
+    declare nvl_escol int;
+    
+    set nvl_escol = (select nivel_escolaridade_fk from us_usuario where cod_usuario = cod_user);
+
+if questionario = 0 then 
+begin 
+	select a.cod_questionario, a.descricao, a.status_questionario,b.nome,date_format(a.data_criacao, "%d/%m/%Y %H:%i:%s") as data_criacao, case when a.cod_usuario_fk = cod_user then 1 else 0 end as is_my, case when c.descricao is null then 'Todos' else c.descricao end as escolaridade, cod_nivel
+	from qst_questionario a 
+		inner join us_usuario b on  a.cod_usuario_fk = b.cod_usuario
+		left join nivel_escolaridade c on c.cod_nivel = a.escolaridade
+	where cod_tipo_fk = tipo and ((nvl_escol = a.escolaridade or a.escolaridade = '-1') or cod_user = 4); 
+end; 
+else
+begin
+	select b.cod as id,is_sub, 0 as parent, b.desc_pergunta as name, 1 as num_qst, b.dependencia_questao, b.dependencia_alternativa 
+	from qst_questionario a 
+		inner join qst_questao1 b on a.cod_questionario = b.cod_questionario
+	where a.cod_questionario = questionario and is_sub = 0 order by b.cod asc;
+end;
+end if;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;

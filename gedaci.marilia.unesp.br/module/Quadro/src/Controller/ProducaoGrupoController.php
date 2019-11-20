@@ -76,7 +76,11 @@ class ProducaoGrupoController extends AbstractActionController {
 
             $post_data = $this->params()->fromPost();
             $post_data['usuario'] = $sessao->cod_usuario;
-            $post_data['add_publicacao'] = $post_data['add_ano'].'-'.$post_data['add_mes'].'-01';
+            if($post_data['add_ano'] <> ''){
+                $post_data['add_publicacao'] = $post_data['add_ano'].'-'.($post_data['add_mes'] == "" ? "01" : $post_data['add_mes']).'-01';
+            }else{
+                $post_data['add_publicacao'] = null;
+            }
             $arquivo = $this->params()->fromFiles('add_arquivo', '');
 
             if ($arquivo) {
@@ -152,8 +156,8 @@ class ProducaoGrupoController extends AbstractActionController {
             $result = $funcoes->executarSQL($sql, $params, '');
             
             $data = date_parse_from_format("Y-m-d", $result['dt_pub']);
-            $result['dt_pub_mes'] = $data['month'];
-            $result['dt_pub_ano'] = $data['year'];
+            $result['dt_pub_mes'] = $data['month'] == "" ? "" : $data['month'];
+            $result['dt_pub_ano'] = $data['year'] == "" ? "" : $data['year'];
             
             return $response->setContent(Json::encode(array('response' => true, 'result' => $result)));
         } else {
@@ -172,7 +176,11 @@ class ProducaoGrupoController extends AbstractActionController {
         if ($request->isPost()) {
             $post_data = $this->params()->fromPost();
             $post_data['usuario'] = $sessao->cod_usuario;
-            $post_data['edit_publicacao'] = $post_data['edit_ano'].'-'.$post_data['edit_mes'].'-01';
+            if($post_data['edit_ano'] <> ''){
+                $post_data['edit_publicacao'] = $post_data['edit_ano'].'-'.($post_data['edit_mes'] == "" ? "01" : $post_data['edit_mes']).'-01';
+            }else{
+                $post_data['edit_publicacao'] = null;
+            }
             $arquivo = $this->params()->fromFiles('edit_arquivo', '');
 
             if ($arquivo) {

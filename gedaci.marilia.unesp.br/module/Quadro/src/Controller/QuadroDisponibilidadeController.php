@@ -236,8 +236,16 @@ class QuadroDisponibilidadeController extends AbstractActionController
             'cor'  => $this->params()->fromPost('color', '#629bad')
         );
         
-        $sql = "update disp_quadro_disponibilidade_color set color=:cor where cod_usuario =:user";
-        $funcoes->executarSQL($sql,$params);
+        $sql = "select cod_usuario from disp_quadro_disponibilidade_color where cod_usuario =:user";
+        $exists = $funcoes->executarSQL($sql,$params);
+        
+        if($exists){
+            $sql = "update disp_quadro_disponibilidade_color set color=:cor where cod_usuario =:user";
+            $funcoes->executarSQL($sql,$params);
+        }else{
+            $sql = "insert into disp_quadro_disponibilidade_color (cod_usuario, color) values (:user, :cor)";
+            $funcoes->executarSQL($sql,$params);
+        }
         
         return $response->setContent(Json::encode(array('response' => true)));
     }

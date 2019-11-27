@@ -8395,11 +8395,11 @@ p.cinza-padrao{
 
 .respostas-errada label{
     text-align: left;
-    border: 1px solid #d94f4f !important;
+    border: 1px solid #f1d50f !important;
 }
 
 .respostas-errada input[type="radio"] ~ label:before{
-    background-color: #d94f4f !important;
+    background-color: #f1d50f !important;
 }
 
 .respostas-normal input[type="radio"] ~ label:before{

@@ -43,7 +43,7 @@ class IndexController extends AbstractActionController {
         $view->setTemplate('application/index/index');
         return $view;
     }
-
+    
     public function BemVindoAction() {
         $sessao = new Container("usuario");
 
@@ -294,6 +294,48 @@ class IndexController extends AbstractActionController {
         }
     }
 
-    
+    public function contadorAction(){
+        $sessao = new Container("usuario");
+        $funcoes = new Funcoes($this);
+        
+        $response = $this->getResponse();
+        $request = $this->getRequest();
 
+        if ($request->isPost()) {
+        
+            $url = $this->params()->fromPost('url_log', '');
+            $codigo = $this->params()->fromPost('cod_log', '0');
+            $pagina = strtok($url,'?') != '' ? strtok($url,'?') : '-1';
+
+            $sql = "select * from sys_aplicacoes where link=:pagina";
+            $aplicacao = $funcoes->executarSQL($sql, array('pagina' => $pagina), '');
+            
+            $params = array(
+                'cod_log'       => $codigo,
+                'cod_aplicacao' => $aplicacao['cod_aplicacao'],
+                'usuario'       => $sessao->cod_usuario,
+                'pagina'        => $pagina
+            );
+            
+            if($codigo == 0){
+                $sql = "select case when max(cod_log) is null then 1 else max(cod_log) + 1 end as cod_log from sys_log_acesso_aplicacao_tempo where cod_aplicacao =:cod_aplicacao and cod_usuario =:usuario";
+                $params['cod_log'] = $funcoes->executarSQL($sql, $params, '')['cod_log'];
+                
+                $sql = "insert into sys_log_acesso_aplicacao_tempo(cod_log, cod_aplicacao, cod_usuario, segundos, data) values (:cod_log, :cod_aplicacao, :usuario, 10000, now())";
+                $funcoes->executarSQL($sql, $params, '');
+            }else{
+                $sql = "insert into sys_log_acesso_aplicacao_tempo(cod_log, cod_aplicacao, cod_usuario, segundos, data) values (:cod_log, :cod_aplicacao, :usuario, 10000, now())";
+                $funcoes->executarSQL($sql, $params, '');
+            }
+
+            if($aplicacao){
+                return $response->setContent(Json::encode(array('response' => true, 'cod_log' => $params['cod_log'])));
+            }else{
+                return $response->setContent(Json::encode(array('response' => false)));
+            }
+        }else{
+            header('Location: /');
+            exit;
+        }
+    }
 }

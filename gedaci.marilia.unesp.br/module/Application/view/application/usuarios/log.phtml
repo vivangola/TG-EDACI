@@ -34,6 +34,8 @@
                                             $relatorio->gerarCabecalho(12);
                                             if ($membros) {
                                                 foreach ($membros as $dados) {
+                                                    
+                                                    $relatorio->definirVariavel('1', gmdate("H:i:s", ($dados['segundos']/ 1000)));
                                                     $relatorio->gerarRelatorio($dados);
                                                 }
                                             }

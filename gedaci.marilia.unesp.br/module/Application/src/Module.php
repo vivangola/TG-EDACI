@@ -64,7 +64,7 @@ class Module
         $controller = $event->getTarget(); 
         //$nome_controller = $controller->getEvent()->getRouteMatch()->getParam('controller');
         
-         $response = $event->getResponse();
+        $response = $event->getResponse();
          
         $view = $event->getViewModel();
         switch ($response->getStatusCode()) {
@@ -127,6 +127,8 @@ class Module
         //get cod aplicacao
         $sql = "select cod_aplicacao from sys_aplicacoes where link=:pagina";
         $aplicacao = $funcoes->executarSQL($sql, array('pagina' => $pagina), '');
+        
+        $controller->layout()->aplicacao = $aplicacao['cod_aplicacao'];
         
         //log acessos
         $sql = "insert into sys_log_acesso_aplicacao (cod_usuario,cod_aplicacao,controller,action,data,ip,server,params) values(:cod_usuario,:aplicacao,:controller,:action,now(),:ip,:server,:params)";

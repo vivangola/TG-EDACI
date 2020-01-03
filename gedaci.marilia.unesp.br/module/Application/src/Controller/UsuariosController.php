@@ -226,6 +226,8 @@ class UsuariosController extends AbstractActionController {
         $relatorio->definirColuna('USUÁRIO', 'user', '4', 'left', 't', 'n', 'n');
         $relatorio->definirColuna('APLICACÃO', 'aplicacao', '4', 'left', 't', 'n', 'n');
         $relatorio->definirColuna('DATA ENTRADA', 'data_movimento', '4', 'center', 't', 'n', 'n');
+        $relatorio->definirColuna('DATA SAÍDA', 'data_movimento_fim', '4', 'center', 't', 'n', 'n');
+        $relatorio->definirColuna('TEMPO NA APLICAÇÃO', '1', '4', 'center', 't', 'n', 'n');
 
         $relatorio->definirLink('aplicacao', '[link]');
 

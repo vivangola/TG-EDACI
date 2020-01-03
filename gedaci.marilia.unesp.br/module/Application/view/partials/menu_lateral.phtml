@@ -126,10 +126,20 @@ $sessao = new Container('usuario');
 <script type="text/javascript">
     //inicializar menu lateral
     $(document).ready(function() {
+        
+        cod_log = 0;
+        
         $('.list-group-item-sub').hide();
         $('.toggle').click(function() {
             $(this).children('div').stop().slideToggle();
         });
+        
+        <?php 
+            if($this->layout()->aplicacao >= 1){?>
+                contadorLog();
+                <?php
+            }
+        ?>
     });
 
     function startTime() {
@@ -142,6 +152,27 @@ $sessao = new Container('usuario');
         s = checkTime(s);
         $('#time_painel').text(h + ":" + m + ":" + s);
         t = setTimeout('startTime()', 500);
+    }
+    
+    function contadorLog(){
+        setInterval(function(){
+            $.ajax({
+                type      : "post",
+                url       : "/sistema/contador",
+                datatype  : "json",
+                data      : { url_log : window.location.pathname, cod_log : cod_log },
+                success   : function(retorno){
+                    retorno = jQuery.parseJSON(retorno);
+                    if(!retorno.response){
+                        //window.location.reload();
+                    }else{
+                        if(retorno.cod_log != 0){
+                            cod_log = retorno.cod_log;
+                        }
+                    }
+                }
+            });
+        }, 5000);
     }
 
     function checkTime(i) {

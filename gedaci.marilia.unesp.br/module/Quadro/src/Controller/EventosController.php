@@ -58,10 +58,13 @@ class EventosController extends AbstractActionController {
             $post_data = $this->params()->fromPost();
             $post_data['usuario'] = $sessao->cod_usuario;
             $post_data['add_fim'] = $post_data['add_fim'] . ' 23:59:59';
-            $post_data['add_inscricao'] =  str_replace(',','.',str_replace('.','',$post_data['add_inscricao']));
             
-            $sql = "INSERT INTO evts_eventos (nome,data_ini,data_fim,local,valor,site, data_criacao, cod_usuario_fk) "
-                    . "VALUES (:add_nome,:add_ini,:add_fim,:add_local,:add_inscricao,:add_site,now(),:usuario);";
+            if(isset($post_data['add_insc_fim'])){
+                $post_data['add_insc_fim'] = $post_data['add_insc_fim'] . ' 23:59:59';
+            }
+            
+            $sql = "INSERT INTO evts_eventos (nome,data_ini,data_fim,local,site, data_criacao, cod_usuario_fk, data_insc_ini, data_insc_fim, qtd_autores) "
+                    . "VALUES (:add_nome,:add_ini,:add_fim,:add_local,:add_site,now(),:usuario,:add_insc_ini,:add_insc_fim,:add_qtdautores);";
             $funcoes->executarSQL($sql, $post_data);
 
             return $response->setContent(Json::encode(array('response' => true, 'msg' => 'Evento Adicionado!')));
@@ -81,7 +84,11 @@ class EventosController extends AbstractActionController {
                 'cod' => $this->params()->fromPost('cod', '-1'),
             );
             
-            $sql = "select *, date_format(data_ini, '%Y-%m-%d') as inicio, date_format(data_fim, '%Y-%m-%d') as fim, case cod_usuario_fk when :usuario then 1 else 0 end as edit from evts_eventos where cod_evento = :cod";
+            $sql = "select *, date_format(data_ini, '%Y-%m-%d') as inicio, date_format(data_fim, '%Y-%m-%d') as fim, "
+                    . "date_format(data_insc_ini, '%Y-%m-%d') as insc_inicio, date_format(data_insc_fim, '%Y-%m-%d') as insc_fim, "
+                    . "case cod_usuario_fk when :usuario then 1 else 0 end as edit "
+                    . "from evts_eventos "
+                    . "where cod_evento = :cod";
             $result = $funcoes->executarSQL($sql, $params, 'fetch');
             
             $sql = "select * from evts_evento_usuario where cod_evento_fk = :cod and cod_usuario_fk = :usuario";
@@ -125,9 +132,12 @@ class EventosController extends AbstractActionController {
         if ($request->isPost()) {
             $post_data = $this->params()->fromPost();
             $post_data['edit_fim'] = $post_data['edit_fim'] . ' 23:59:59';
-            $post_data['edit_inscricao'] =  str_replace(',','.',str_replace('.','',$post_data['edit_inscricao']));
             
-            $sql = "update evts_eventos set nome=:edit_nome, data_ini=:edit_ini, data_fim=:edit_fim, local=:edit_local, valor=:edit_inscricao, site=:edit_site where cod_evento = :edit_cod";
+            if(isset($post_data['edit_insc_fim'])){
+                $post_data['edit_insc_fim'] = $post_data['edit_insc_fim'] . ' 23:59:59';
+            }
+            
+            $sql = "update evts_eventos set nome=:edit_nome, data_ini=:edit_ini, data_fim=:edit_fim, local=:edit_local, site=:edit_site, data_insc_ini =:edit_insc_ini, data_insc_fim =:edit_insc_fim, qtd_autores =:edit_qtdautores where cod_evento = :edit_cod";
             $funcoes->executarSQL($sql, $post_data);
 
             return $response->setContent(Json::encode(array('response' => true, 'msg' => 'Evento alterado com sucesso!')));

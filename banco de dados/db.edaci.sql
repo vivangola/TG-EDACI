@@ -353,6 +353,9 @@ CREATE TABLE `evts_eventos` (
   `valor` decimal(18,2) DEFAULT NULL,
   `site` varchar(200) DEFAULT NULL,
   `data_criacao` datetime DEFAULT NULL,
+  `data_insc_ini` datetime DEFAULT NULL,
+  `data_insc_fim` datetime DEFAULT NULL,
+  `qtd_autores` int DEFAULT NULL
   PRIMARY KEY (`cod_evento`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;

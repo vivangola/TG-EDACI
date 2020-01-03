@@ -89,8 +89,19 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-xs-6">
-                            <label for="add_inscricao" class="col-form-label">Valor Inscrição:</label><label style="color:red">*</label>
-                            <input id="add_inscricao"  class="form-control input-group-lg obg" type="text" name="add_inscricao" />
+                            <label for="add_insc_ini" class="col-form-label">Data inicial de inscrição:</label>
+                            <input id="add_insc_ini"  class="form-control input-group-lg" type="date" name="add_insc_ini"/>
+                        </div>
+
+                        <div class="form-group col-xs-6">
+                            <label for="add_insc_fim" class="col-form-label">Data final de inscrição:</label>
+                            <input id="add_insc_fim"  class="form-control input-group-lg" type="date" name="add_insc_fim" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="add_qtdautores" class="col-form-label">Quantidade máxima de autores:</label>
+                            <input id="add_qtdautores"  class="form-control input-group-lg" type="number" name="add_qtdautores" />
                         </div>
 
                         <div class="form-group col-xs-6">
@@ -142,8 +153,19 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-xs-6">
-                            <label for="edit_inscricao" class="col-form-label">Valor Inscrição:</label><label style="color:red">*</label>
-                            <input id="edit_inscricao"  class="form-control input-group-lg obg" type="text" name="edit_inscricao" />
+                            <label for="edit_insc_ini" class="col-form-label">Data inicial de inscrição:</label>
+                            <input id="edit_insc_ini"  class="form-control input-group-lg" type="date" name="edit_insc_ini"/>
+                        </div>
+
+                        <div class="form-group col-xs-6">
+                            <label for="edit_insc_fim" class="col-form-label">Data final de inscrição:</label>
+                            <input id="edit_insc_fim"  class="form-control input-group-lg" type="date" name="edit_insc_fim" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-6">
+                            <label for="edit_qtdautores" class="col-form-label">Quantidade máxima de autores:</label>
+                            <input id="edit_qtdautores"  class="form-control input-group-lg" type="number" name="edit_qtdautores" />
                         </div>
 
                         <div class="form-group col-xs-6">
@@ -165,10 +187,10 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary-borded2" data-dismiss="modal">Cancelar</button>
-                        <button type="button" id="btnDel" onclick="del()" class="btn btn-primary3">Excluir <i class="fa fa-check"></i></button>
-                        <button type="button" id="btnAlt" onclick="edit()" class="btn btn-primary3">Alterar <i class="fa fa-check"></i></button>
-                        <button type="button" id="btnPresent" onclick="present(1)" class="btn btn-primary3">Marcar Presença&nbsp;<i class="fa fa-check"></i></button>
-                        <button type="button" id="btnAbsent" onclick="present(0)" class="btn btn-primary3">Desmarcar Presença&nbsp;<i class="fa fa-times"></i></button>
+                        <button type="button" id="btnDel" onclick="del()" class="btn btn-primary3">Excluir <i class="fa fa-times"></i></button>
+                        <button type="button" id="btnAlt" onclick="edit()" class="btn btn-primary3">Alterar <i class="fa fa-pencil"></i></button>
+                        <button type="button" id="btnPresent" onclick="present(1)" class="btn btn-primary3">Marcar Presença&nbsp;<i class="fa fa-check-square"></i></button>
+                        <button type="button" id="btnAbsent" onclick="present(0)" class="btn btn-primary3">Desmarcar Presença&nbsp;<i class="fa fa-times-circle"></i></button>
                     </div>
                 </div>
             </form>
@@ -299,6 +321,30 @@
                             });
                             return false;
                         }
+                        
+                        if($('#add_insc_ini').val() && $('#add_insc_fim').val()){
+                            var insc1 = new Date($('#add_insc_ini').val());
+                            var insc2 = new Date($('#add_insc_fim').val());
+                            
+                            if(insc2.getTime() < insc1.getTime()){
+                                swal.fire({
+                                    title : 'Atenção!',
+                                    text  : 'Digite um período de inscrição válido.',
+                                    type  : 'info'
+                                });
+                                return false;
+                            }
+                        }
+                        
+
+                        if(d2.getTime() < d1.getTime()){
+                            swal.fire({
+                                title : 'Atenção!',
+                                text  : 'Digite um período válido.',
+                                type  : 'info'
+                            });
+                            return false;
+                        }
 
                         var options = {
                             url: '/eventos/add',
@@ -349,6 +395,9 @@
                                     $('#edit_fim').val(retorno.result['fim']);
                                     $('#edit_site').val(retorno.result['site']);
                                     $('#edit_inscricao').val(retorno.result['valor']);
+                                    $('#edit_insc_ini').val(retorno.result['insc_inicio']);
+                                    $('#edit_insc_fim').val(retorno.result['insc_fim']);
+                                    $('#edit_qtdautores').val(retorno.result['qtd_autores']);
                                     
                                     if(retorno.result['edit'] == 1){
                                         $("#btnAlt").show();
@@ -371,7 +420,7 @@
                                 }else{
                                     Swal.fire({
                                         title: 'Atenção!',
-                                        html: 'Material não encontrado.',
+                                        html: 'Evento não encontrado.',
                                         type: 'info'
                                     });
                                 }
@@ -405,6 +454,20 @@
                                 type  : 'info'
                             });
                             return false;
+                        }
+                        
+                        if($('#edit_insc_ini').val() && $('#edit_insc_fim').val()){
+                            var insc1 = new Date($('#edit_insc_ini').val());
+                            var insc2 = new Date($('#edit_insc_fim').val());
+                            
+                            if(insc2.getTime() < insc1.getTime()){
+                                swal.fire({
+                                    title : 'Atenção!',
+                                    text  : 'Digite um período de inscrição válido.',
+                                    type  : 'info'
+                                });
+                                return false;
+                            }
                         }
 
                         var options = {

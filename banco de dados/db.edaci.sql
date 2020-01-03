@@ -3135,38 +3135,26 @@ BEGIN
 
 	set pesquisa = CONCAT('%',pesquisa,'%');
     
-    
-    create temporary table final (user varchar(200), aplicacao varchar(100), link varchar(100), segundos int,
-		data_movimento varchar(20), data_movimento_format datetime,
-        data_movimento_fim varchar(20));
 
 	if filtro = 1 then
-		
-        insert into final
-		select nome as user, c.titulo as aplicacao, link, sum(segundos) as segundos,
-			date_format(min(a.data), "%d/%m/%Y %H:%i:%s") as data_movimento, min(a.data) as data_moviment_format,
-            date_format(date_add(min(a.data), INTERVAL (sum(segundos)/1000) SECOND), "%d/%m/%Y %H:%i:%s") as data_movimento_fim
-		from sys_log_acesso_aplicacao_tempo a
+	
+		select nome as user, c.titulo as aplicacao, date_format(a.data, "%d/%m/%Y %H:%i:%s") as data_movimento, link
+		from sys_log_acesso_aplicacao a
 			inner join us_usuario b on a.cod_usuario = b.cod_usuario
 			inner join sys_aplicacoes c on c.cod_aplicacao = a.cod_aplicacao
-		group by cod_log, nome, c.titulo, link;
-		
+		where b.nome like pesquisa
+		order by data desc;
 		
 	else
-        
-        insert into final
-        select nome as user, c.titulo as aplicacao, link, sum(segundos) as segundos,
-			date_format(min(a.data), "%d/%m/%Y %H:%i:%s") as data_movimento, min(a.data) as data_moviment_format,
-            date_format(date_add(min(a.data), INTERVAL (sum(segundos)/1000) SECOND), "%d/%m/%Y %H:%i:%s") as data_movimento_fim
-		from sys_log_acesso_aplicacao_tempo a
+	
+		select nome as user, c.titulo as aplicacao, date_format(a.data, "%d/%m/%Y %H:%i:%s") as data_movimento, link
+		from sys_log_acesso_aplicacao a
 			inner join us_usuario b on a.cod_usuario = b.cod_usuario
 			inner join sys_aplicacoes c on c.cod_aplicacao = a.cod_aplicacao
 		where c.titulo like pesquisa
-		group by cod_log, nome, c.titulo, link;
-
+		order by data desc;
+		
 	end if;
-    
-    select * from final order by data_movimento_format desc;
         
   
 END ;;

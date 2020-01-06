@@ -304,29 +304,32 @@ class IndexController extends AbstractActionController {
         if ($request->isPost()) {
         
             $url = $this->params()->fromPost('url_log', '');
-            $codigo = $this->params()->fromPost('cod_log', '0');
             $pagina = strtok($url,'?') != '' ? strtok($url,'?') : '-1';
 
             $sql = "select * from sys_aplicacoes where link=:pagina";
             $aplicacao = $funcoes->executarSQL($sql, array('pagina' => $pagina), '');
             
             $params = array(
-                'cod_log'       => $codigo,
                 'cod_aplicacao' => $aplicacao['cod_aplicacao'],
                 'usuario'       => $sessao->cod_usuario,
-                'pagina'        => $pagina
             );
             
-            if($codigo == 0){
-                $sql = "select case when max(cod_log) is null then 1 else max(cod_log) + 1 end as cod_log from sys_log_acesso_aplicacao_tempo where cod_aplicacao =:cod_aplicacao and cod_usuario =:usuario";
-                $params['cod_log'] = $funcoes->executarSQL($sql, $params, '')['cod_log'];
-                
-                $sql = "insert into sys_log_acesso_aplicacao_tempo(cod_log, cod_aplicacao, cod_usuario, segundos, data) values (:cod_log, :cod_aplicacao, :usuario, 10000, now())";
+            $sql = "select cod from sys_log_acesso_aplicacao_tempo where fechado = 0 and cod_aplicacao = :cod_aplicacao and cod_usuario = :usuario and data between date_add(now(), INTERVAL -10 SECOND) and now() order by data desc limit 1;";
+            $params['cod_log'] = $funcoes->executarSQL($sql, $params, '')['cod'];
+            
+            if(!$params['cod_log']){
+                $sql = "insert into sys_log_acesso_aplicacao_tempo(cod_log, cod_aplicacao, cod_usuario, segundos, data, fechado) values (1, :cod_aplicacao, :usuario, 5000, now(), 0)";
                 $funcoes->executarSQL($sql, $params, '');
+                
+                $sql = "select cod from sys_log_acesso_aplicacao_tempo where fechado = 0 and cod_aplicacao = :cod_aplicacao and cod_usuario = :usuario and data between date_add(now(), INTERVAL -10 SECOND) and now() order by data desc limit 1;";
+                $params['cod_log'] = $funcoes->executarSQL($sql, $params, '')['cod'];
             }else{
-                $sql = "insert into sys_log_acesso_aplicacao_tempo(cod_log, cod_aplicacao, cod_usuario, segundos, data) values (:cod_log, :cod_aplicacao, :usuario, 10000, now())";
+                $sql = "update sys_log_acesso_aplicacao_tempo set segundos = segundos + 5000, data = now() where cod = :cod_log";
                 $funcoes->executarSQL($sql, $params, '');
             }
+            
+            $sql = "update sys_log_acesso_aplicacao_tempo set fechado = 1 where cod <> :cod_log";
+            $funcoes->executarSQL($sql, $params, '');
 
             if($aplicacao){
                 return $response->setContent(Json::encode(array('response' => true, 'cod_log' => $params['cod_log'])));

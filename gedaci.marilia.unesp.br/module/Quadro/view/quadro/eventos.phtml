@@ -400,9 +400,11 @@
                                     $('#edit_qtdautores').val(retorno.result['qtd_autores']);
                                     
                                     if(retorno.result['edit'] == 1){
+                                        $("#formEdit input").attr('readonly', 'false');
                                         $("#btnAlt").show();
                                         $("#btnDel").show();
                                     }else{
+                                        $("#formEdit input").attr('readonly', 'true');
                                         $("#btnAlt").hide();
                                         $("#btnDel").hide();
                                     }

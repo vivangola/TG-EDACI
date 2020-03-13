@@ -21,11 +21,27 @@ class PerfilController extends AbstractActionController {
         $sessao = new Container("usuario");
 
         $params = array(
-            'cod_usuario' => $sessao->cod_usuario
+            'cod_usuario'   => $sessao->cod_usuario,
+            'is_adm'        => $sessao->tipo_usuario == 1 ? 1 : 0,
+            'membro'        => $this->params()->fromQuery('membro','-1')
         );
-
+            
+        if($params['is_adm'] != 1 && $params['membro'] != '-1'){
+            header('Location: /');
+            exit;
+        }
+        
+        if($params['membro'] != '-1'){
+            $params['cod_usuario'] = $params['membro'];
+        }
+        
         $sql = "call us_buscarDadosPrincipal_sp (:cod_usuario)";
         $result = $funcoes->executarSQL($sql, $params, '');
+        
+        if(!$result){
+            $funcoes->alertBasic('Membros não encontrado.', false, '/usuarios/membros', 'warning', 'Atenção!');
+        }
+        
         $result['data_nascimento'] = substr($result['data_nascimento'], 0, 10);
         
         $sql = "select cod_nivel,descricao from nivel_escolaridade order by descricao";
@@ -35,8 +51,12 @@ class PerfilController extends AbstractActionController {
             'usuario' => $result,
             'escolaridades' => $escolaridades
         ));
-
-        $view->setTemplate('application/perfil/perfil');
+        
+        if($params['membro'] == '-1'){
+            $view->setTemplate('application/perfil/perfil');
+        }else{
+            $view->setTemplate('application/perfil/perfil-membro');
+        }
         return $view;
     }
 

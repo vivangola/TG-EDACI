@@ -37,7 +37,7 @@ class UsuariosController extends AbstractActionController {
         $membros = $funcoes->executarSQL($sql, $params);
 
         $relatorio->definirColuna('FOTO', '0', '2', 'center', 't', 'n', 'n');
-        $relatorio->definirColuna('NOME', 'nome', '10', 'left', 't', 'n', 'n');
+        $relatorio->definirColuna('NOME', '10', '10', 'left', 't', 'n', 'n');
         $relatorio->definirColuna('TIPO', 'tipo_usuario_desc', '4', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('ESCOLARIDADE', 'escolaridade_descricao', '4', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('DATA ENTRADA', 'data_criacao', '4', 'center', 't', 'n', 'n');

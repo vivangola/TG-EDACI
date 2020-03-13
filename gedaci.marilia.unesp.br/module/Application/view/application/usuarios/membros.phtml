@@ -41,7 +41,9 @@
                                             if ($membros) {
                                                 foreach ($membros as $dados) {
                                                     
-                                                    $relatorio->definirVariavel('0', '<img style="height:80px;width:80px" src="' . $dados['nome_foto'] . '" onerror=$(this).attr("src","/img/semfoto.png")>');
+                                                    $relatorio->definirVariavel('10', '<a href="/perfil?membro='.$dados['cod'].'">'. $dados['nome'] .' </a>');
+                                                    
+                                                    $relatorio->definirVariavel('0', '<a href="/perfil?membro='.$dados['cod'].'">' . '<img style="height:80px;width:80px" src="' . $dados['nome_foto'] . '" onerror=$(this).attr("src","/img/semfoto.png")></a>');
                                                     
                                                     if($dados['ativo'] == 1){
                                                         

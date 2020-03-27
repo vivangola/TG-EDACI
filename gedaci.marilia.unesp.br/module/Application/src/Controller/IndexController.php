@@ -148,44 +148,52 @@ class IndexController extends AbstractActionController {
 
     public function debugAction() {
         $funcoes = new Funcoes($this);
+        
+        $sessao = new Container("usuario");
+        
+        if($sessao->cod_usuario == '4'){
 
-        echo '<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">';
-        echo '<link rel="stylesheet" href="/css/font-awesome.min.css">';
+            echo '<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">';
+            echo '<link rel="stylesheet" href="/css/font-awesome.min.css">';
 
-        echo "<form action='/debug' method='post'>";
-        echo "<button type='submit' style='width:60px;color:#00cbff;height:33px;'><i class='fa fa-bolt'></i></button>";
-        if(isset($_POST['debug'])){
-            echo "<textarea style='height: 300px;width: 100%;' type='text' name='debug'>".$_POST['debug']."</textarea>";
-        }else{
-            echo "<textarea style='height: 300px;width: 100%;' type='text' name='debug'></textarea>";
-        }
-        echo "</form>";
-
-        if (isset($_POST['debug'])) {
-            $sql = $_POST['debug'];
-            $result = $funcoes->executarSQL($sql, []);
-
-            $keys = array_unique($this->array_keys_multi($result));
-
-            echo '<table class="table table-hover">'.
-                    '<thead>'.
-            '<tr>';
-                            foreach($keys as $key){
-                                echo '<th scope="col">'.strtoupper($key).'</th>';
+            echo "<form action='/debug' method='post'>";
+            echo "<button type='submit' style='width:60px;color:#00cbff;height:33px;'><i class='fa fa-bolt'></i></button>";
+            if(isset($_POST['debug'])){
+                echo "<textarea style='height: 300px;width: 100%;' type='text' name='debug'>".$_POST['debug']."</textarea>";
+            }else{
+                echo "<textarea style='height: 300px;width: 100%;' type='text' name='debug'></textarea>";
             }
-                        '</tr>'.
-                    '</thead>';
+            echo "</form>";
 
-            echo '<tbody>';
-                    foreach($result as $dados){
-                echo '<tr>';
-                        foreach($keys as $key){
-                            echo '<td>'.$dados[$key].'</td>';
+            if (isset($_POST['debug'])) {
+                $sql = $_POST['debug'];
+                $result = $funcoes->executarSQL($sql, []);
+
+                $keys = array_unique($this->array_keys_multi($result));
+
+                echo '<table class="table table-hover">'.
+                        '<thead>'.
+                '<tr>';
+                                foreach($keys as $key){
+                                    echo '<th scope="col">'.strtoupper($key).'</th>';
                 }
-                echo '</tr>';
+                            '</tr>'.
+                        '</thead>';
+
+                echo '<tbody>';
+                        foreach($result as $dados){
+                    echo '<tr>';
+                            foreach($keys as $key){
+                                echo '<td>'.$dados[$key].'</td>';
+                    }
+                    echo '</tr>';
+                }
+                echo '</tbody>';
+                echo '</table>';
             }
-            echo '</tbody>';
-            echo '</table>';
+        }else{
+            header('Location: /');
+            exit;
         }
         exit;
     }

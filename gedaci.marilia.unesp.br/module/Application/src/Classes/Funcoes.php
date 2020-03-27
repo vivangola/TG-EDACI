@@ -53,14 +53,13 @@ class Funcoes {
     }
     
     public function executarSQL($sql = '', $params = array(), $tipo = 'all') {
+        $dados = array(
+            'server'    => 'localhost',
+            'username'  => 'edaci',
+            'password'  => 'edaci',
+            'db'        => 'edaci'
+        );
         try{
-            $dados = array(
-                'server'    => 'localhost',
-                'username'  => 'root',
-                'password'  => '',
-                'db'        => 'edaci'
-            );
-
             $conn = new mysqli($dados['server'], $dados['username'], $dados['password'], $dados['db']);
             
             if ($conn->connect_error) {
@@ -101,7 +100,22 @@ class Funcoes {
             $conn->close();
             return $retorno;
         } catch(Exception $e){
-            throw new Exception("Erro no Banco de Dados SQL:\n\n".$sql."\n\n" . $e->getMessage());
+            $conn = new mysqli($dados['server'], $dados['username'], $dados['password'], $dados['db']);
+            $conn->query('SET NAMES utf8mb4');
+            
+            $sql_erro = str_replace("'",'"',$sql);
+            $msg_erro = str_replace("'",'"',$e->getMessage());
+            
+            $sql= "insert into log_erro(sql_erro,msg_erro,data_erro) values('$sql_erro','$msg_erro',now())";
+            $conn->query($sql);
+            
+            echo json_encode(array(
+                    'cod'       => 1,
+                    'retorno'   => false,
+                    'response'  => false,
+                    'msg'       => "Desculpe, no momento não podemos processar essa ação.<br> Entre em contato com os desenvolvedores.",
+            ));
+            exit;
         }
     }
     

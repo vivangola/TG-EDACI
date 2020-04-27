@@ -488,9 +488,15 @@ class QuestionarioController extends AbstractActionController
         
         $params = array(
             'usuario'   => $sessao->cod_usuario,
+            'filtro' => $this->params()->fromPost('filtros', '-1'),
+            'pesquisa' => $this->params()->fromPost('pesquisa', ''),
         );
+
+        if ($params['filtro'] == '-1') {
+            $params['pesquisa'] = '';
+        }
         
-        $sql = "call us_buscarQuestionarios_sp (0,2,:usuario)";
+        $sql = "call us_buscarQuestionarios_sp (0,2,:usuario,:filtro,:pesquisa)";
         $questionarios = $funcoes->executarSQL($sql, $params);
         
         $sql = "select cod_nivel, descricao from nivel_escolaridade";
@@ -508,7 +514,7 @@ class QuestionarioController extends AbstractActionController
         }
         
         $relatorio->definirColuna('EDITAR', '2', '2', 'center', 't', 'n', 'n');
-        $relatorio->definirColuna('EXCLUIR', '3', '2', 'center', 't', 'n', 'n');
+        //$relatorio->definirColuna('EXCLUIR', '3', '2', 'center', 't', 'n', 'n');
         
         if($sessao->tipo_usuario == 1){
             $relatorio->definirColuna('RESPOSTAS', '4', '2', 'center', 't', 'n', 'n');
@@ -517,7 +523,9 @@ class QuestionarioController extends AbstractActionController
         $view = new ViewModel(array(
             'relatorio'     => $relatorio,
             'questionarios' => $questionarios,
-            'escolaridades' => $escolaridade
+            'escolaridades' => $escolaridade,
+            'filtro' => $params['filtro'],
+            'pesq' => $params['pesquisa']
         ));
         
         $view->setTemplate('questionario/aprendizagem/cadastro');
@@ -572,10 +580,16 @@ class QuestionarioController extends AbstractActionController
         $relatorio = new Relatorio();
         
         $params = array(
-            'usuario'   => $sessao->cod_usuario
+            'usuario'   => $sessao->cod_usuario,
+            'filtro' => $this->params()->fromPost('filtros', '-1'),
+            'pesquisa' => $this->params()->fromPost('pesquisa', ''),
         );
+
+        if ($params['filtro'] == '-1') {
+            $params['pesquisa'] = '';
+        }
         
-        $sql = "call us_buscarQuestionarios_sp (0,1,0)";
+        $sql = "call us_buscarQuestionarios_sp (0,1,0,:filtro,:pesquisa)";
         $questionarios = $funcoes->executarSQL($sql, $params);
         
         $sql = "select cod_nivel, descricao from nivel_escolaridade";
@@ -597,7 +611,9 @@ class QuestionarioController extends AbstractActionController
         $view = new ViewModel(array(
             'relatorio'     => $relatorio,
             'questionarios' => $questionarios,
-            'escolaridades' => $escolaridade
+            'escolaridades' => $escolaridade,
+            'filtro'        => $params['filtro'],
+            'pesq'          => $params['pesquisa']
         ));
         
         $view->setTemplate('questionario/inicial/questionario-cadastro');
@@ -675,7 +691,7 @@ class QuestionarioController extends AbstractActionController
             'tipo'          => $this->params()->fromPost('tipo', 1)
         );
         
-        $sql = "call us_buscarQuestionarios_sp (:questionario,:tipo,0)";
+        $sql = "call us_buscarQuestionarios_sp (:questionario,:tipo,0,0,'')";
         $result = $funcoes->executarSQL($sql, $params);
         
         $arvore = $this->gerarArvore($result, 0, 0, $params['questionario'], 1);
@@ -845,7 +861,7 @@ class QuestionarioController extends AbstractActionController
             }
         }
         
-        $sql = "call us_buscarQuestionarios_sp (:questionario,0,0)";
+        $sql = "call us_buscarQuestionarios_sp (:questionario,0,0,0,'')";
         $result = $funcoes->executarSQL($sql, array('questionario' => $params['questionario']));
         
         $arvore = $this->gerarArvore($result, 0, 0, $params['questionario'], 1);
@@ -964,7 +980,7 @@ class QuestionarioController extends AbstractActionController
             }
         }
         
-        $sql = "call us_buscarQuestionarios_sp (:questionario,:tipo,0)";
+        $sql = "call us_buscarQuestionarios_sp (:questionario,:tipo,0,0,'')";
         $result = $funcoes->executarSQL($sql, array('questionario' => $params['questionario'], 'tipo' => $params['tipo']));
         
         $arvore = $this->gerarArvore($result, 0, 0, $params['questionario'], 1);
@@ -995,7 +1011,7 @@ class QuestionarioController extends AbstractActionController
         $sql = "update qst_questao1 set dependencia_questao = 0, dependencia_alternativa = 0 where dependencia_questao=:cod_questao;";
         $funcoes->executarSQL($sql, $params);
         
-        $sql = "call us_buscarQuestionarios_sp (:questionario,:tipo,0)";
+        $sql = "call us_buscarQuestionarios_sp (:questionario,:tipo,0,0,'')";
         $result = $funcoes->executarSQL($sql, $params);
         
         $arvore = $this->gerarArvore($result, 0, 0, $params['questionario'], 1);
@@ -1062,12 +1078,26 @@ class QuestionarioController extends AbstractActionController
         $params = array(
             'usuario'       => $sessao->cod_usuario,
             'tipo_usuario'  => $sessao->tipo_usuario,
-            'questionario'  => $this->params()->fromRoute('cod_questionario', '0')
+            'questionario'  => $this->params()->fromRoute('cod_questionario', '0'),
+            'filtro'        => $this->params()->fromPost('filtros', '-1'),
+            'pesquisa'      => $this->params()->fromPost('pesquisa', ''),
         );
+
+        if ($params['filtro'] == '-1') {
+            $params['pesquisa'] = '';
+        }
         
         if($params['tipo_usuario'] != 1){
             $funcoes->alertBasic('Acesso não permitido.', false, '/', 'info', 'Ops...');
             exit;
+        }
+        
+        if($params['filtro'] == '1'){
+            $pesquisa = " and a.nome like CONCAT('%', '".$params['pesquisa']."', '%') ";
+        }else if($params['filtro'] == '2'){
+             $pesquisa = " and b.descricao like CONCAT('%', '".$params['pesquisa']."', '%') ";
+        }else{
+            $pesquisa = " ";
         }
         
         $sql = 'select a.cod_questionario, a.descricao, a.status_questionario,date_format(a.data_criacao, "%d/%m/%Y %H:%i:%s") as data_criacao '.
@@ -1083,8 +1113,9 @@ class QuestionarioController extends AbstractActionController
                 from qst_questionario a
                                 inner join qst_questao1 b on a.cod_questionario = b.cod_questionario
                                 left  join qst_questionario_respostas d on d.cod_questao_fk = b.cod
-                where a.cod_questionario = :questionario and d.cod is not null
-                order by d.data desc)";
+                where a.cod_questionario = :questionario and d.cod is not null" .
+                $pesquisa .
+                " order by d.data desc)";
         $result = $funcoes->executarSQL($sql, $params);
         
         $relatorio->definirColuna('NOME', 'nome', '6', 'left', 't', 'n', 'n');
@@ -1095,7 +1126,10 @@ class QuestionarioController extends AbstractActionController
         $view = new ViewModel(array(
             'relatorio'     => $relatorio,
             'result'        => $result,
-            'questionario'  => $questionario
+            'questionario'  => $questionario,
+            'filtro'        => $params['filtro'],
+            'pesq'          => $params['pesquisa'],
+            'cod_quest'     => $params['questionario']
         ));
         
         $view->setTemplate('questionario/resultado');

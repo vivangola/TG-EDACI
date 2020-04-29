@@ -113,7 +113,10 @@ class IndexController extends AbstractActionController {
 
         $params = array(
             'cod_usuario'   => $sessao->cod_usuario,
-            'filtro'        => $this->params()->fromPost('filtros', '-1')
+            'filtro'        => $this->params()->fromPost('filtros', '-1'),
+            'nomePesq'      => $this->params()->fromPost('nomePesq', ''),
+            'dtIni'         => $this->params()->fromPost('dt_ini', null),
+            'dtFim'         => $this->params()->fromPost('dt_fim', null),
         );
         
         if($params['filtro'] == 1){
@@ -121,10 +124,20 @@ class IndexController extends AbstractActionController {
         }elseif($params['filtro'] == 2){
             $where = " where aceite = 2 ";
         }else{
-            $where = " ";
+            $where = " where 1 = 1 ";
         }
-
-        $sql = 'select nome, aceite, date_format(data, "%d/%m/%Y %H:%i:%s") as data 
+        
+        if(strlen($params['nomePesq']) > 0){
+            $where .= " and b.nome like CONCAT('%', '".$params['nomePesq']."', '%') ";
+        }
+        
+        if(($params['dtIni'] && !$params['dtFim']) || (!$params['dtIni'] && $params['dtFim'])){
+            $funcoes->alertBasic('Digite um período válido.', false, '/sistema/relatorio-termo', 'info', 'Atenção!');
+        }else if($params['dtIni'] && $params['dtIni']){
+            $where .= ' and date_format(data, "%Y-%m-%d") between "'.$params['dtIni'].'" and "'.$params['dtFim'].'"';
+        }
+        
+        $sql = 'select nome, aceite, date_format(data, "%d/%m/%Y %H:%i:%s") as datastr 
                 from us_termo_aceite a
                         inner join us_pre_cadastro b on a.cod_usuario_fk = b.cod_usuario'
                 . $where . 
@@ -133,13 +146,16 @@ class IndexController extends AbstractActionController {
         
         $relatorio->definirColuna('NOME', 'nome', '10', 'left', 't', 'n', 'n');
         $relatorio->definirColuna('ACEITE', '1', '10', 'center', 't', 'n', 'n');
-        $relatorio->definirColuna('DATA', 'data', '8', 'center', 't', 'n', 'n');
+        $relatorio->definirColuna('DATA', 'datastr', '8', 'center', 't', 'n', 'n');
 
         $view = new ViewModel(array(
             'result'        => $result,
             'relatorio'     => $relatorio,
             'nome_usuario'  => $sessao->nome_usuario,
-            'filtro'        => $params['filtro']
+            'filtro'        => $params['filtro'],
+            'nomePesq'      => $params['nomePesq'],
+            'dt_ini'        => $params['dtIni'],
+            'dt_fim'        => $params['dtFim']
         ));
 
         $view->setTemplate('application/termo/relatorio-termo');

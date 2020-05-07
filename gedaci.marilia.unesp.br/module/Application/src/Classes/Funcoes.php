@@ -55,8 +55,8 @@ class Funcoes {
     public function executarSQL($sql = '', $params = array(), $tipo = 'all') {
         $dados = array(
             'server'    => 'localhost',
-            'username'  => 'edaci',
-            'password'  => 'edaci',
+            'username'  => 'root',
+            'password'  => '',
             'db'        => 'edaci'
         );
         try{

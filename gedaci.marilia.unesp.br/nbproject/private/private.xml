@@ -2,6 +2,16 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/xampp/htdocs/TG-EDACI/gedaci.marilia.unesp.br/module/Quadro/src/Controller/ProducaoGrupoController.php</file>
+            <file>file:/C:/xampp/htdocs/TG-EDACI/gedaci.marilia.unesp.br/module/Questionario/view/questionario/aprendizagem/cadastro.phtml</file>
+            <file>file:/C:/xampp/htdocs/TG-EDACI/gedaci.marilia.unesp.br/module/Quadro/src/Controller/QuadroLeituraController.php</file>
+            <file>file:/C:/xampp/htdocs/TG-EDACI/gedaci.marilia.unesp.br/module/Quadro/view/quadro/quadro-leitura.phtml</file>
+            <file>file:/C:/xampp/htdocs/TG-EDACI/gedaci.marilia.unesp.br/module/Application/view/application/perfil/perfil.phtml</file>
+            <file>file:/C:/xampp/htdocs/TG-EDACI/gedaci.marilia.unesp.br/module/Quadro/view/quadro/producao-grupo.phtml</file>
+            <file>file:/C:/xampp/htdocs/TG-EDACI/gedaci.marilia.unesp.br/module/Questionario/view/questionario/aprendizagem/responder.phtml</file>
+            <file>file:/C:/xampp/htdocs/TG-EDACI/gedaci.marilia.unesp.br/module/Questionario/view/questionario/aprendizagem/questionario.phtml</file>
+            <file>file:/C:/xampp/htdocs/TG-EDACI/gedaci.marilia.unesp.br/module/Questionario/src/Controller/QuestionarioController.php</file>
+        </group>
     </open-files>
 </project-private>

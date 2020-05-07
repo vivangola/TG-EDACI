@@ -116,6 +116,12 @@
             success: function (retorno) {
                 retorno = JSON.parse(retorno);
                 if(retorno.questionario_finalizado == 1){
+                    Swal.fire({
+                        title: 'Finalizado!',
+                        html: 'Você finalizou o Questionário ' + '<?= mb_strtoupper($questionario['descricao']) ?>' + '.',
+                        type: 'success'
+                    });
+                    
                     $('#div-finalizado').show();
                     $('.div-questao').hide();
                     $('#div_final').html(retorno.html);

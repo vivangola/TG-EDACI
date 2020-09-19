@@ -49,7 +49,7 @@ class TrabalhoCorrecaoController extends AbstractActionController {
         //$relatorio->definirColuna('ALTERAR', '2', '2', 'center', 't', 'n', 'n');
         $relatorio->definirColuna('EXCLUIR', '3', '2', 'center', 't', 'n', 'n');
         
-        $relatorio->definirQuebra('','descricao','','descricao');
+        $relatorio->definirQuebra('','descricao','n','descricao');
         
         $view = new ViewModel(array(
             'result' => $result,
@@ -61,7 +61,7 @@ class TrabalhoCorrecaoController extends AbstractActionController {
         $view->setTemplate('quadro/trabalho-correcao');
         return $view;
     }
-    
+        
     public function addAction() {
 
         $funcoes = new Funcoes($this);
@@ -96,9 +96,9 @@ class TrabalhoCorrecaoController extends AbstractActionController {
                     if (file_exists($destino)) {
 
                         if($post_data['add_escolaridade'] == '0'){
-                            $sql = "select cod_usuario, email, nome from us_usuario where nivel_escolaridade_fk > 0 and ativo = 1 and cod_usuario <> :usuario and cod_usuario = 18";
+                            $sql = "select cod_usuario, email, nome from us_usuario where nivel_escolaridade_fk > 0 and ativo = 1 and cod_usuario <> :usuario and (cod_usuario = :add_membro or :add_membro = 0)";
                         }else{
-                            $sql = "select cod_usuario, email, nome from us_usuario where nivel_escolaridade_fk = :add_escolaridade and ativo = 1 and cod_usuario <> :usuario and cod_usuario = 18";
+                            $sql = "select cod_usuario, email, nome from us_usuario where nivel_escolaridade_fk = :add_escolaridade and ativo = 1 and cod_usuario <> :usuario and (cod_usuario = :add_membro or :add_membro = 0)";
                         }
                         $membros = $funcoes->executarSQL($sql, $post_data);
 
@@ -220,7 +220,7 @@ class TrabalhoCorrecaoController extends AbstractActionController {
             return false;
         }
     }
-    
+
     public function deleteAction() {
         $funcoes = new Funcoes($this);
         $response = $this->getResponse();
@@ -361,7 +361,7 @@ class TrabalhoCorrecaoController extends AbstractActionController {
 
         return $view;
     }
-    
+        
     public function addHistoricoAction() {
 
         $funcoes = new Funcoes($this);
@@ -458,7 +458,7 @@ class TrabalhoCorrecaoController extends AbstractActionController {
                                     '<table align="center" border="0" cellpadding="0" cellspacing="0">'.
                                         '<tbody>'.
                                             '<tr>'.
-                                                '<td width="350" align="center" style="font:15px Arial">Nome do usuário: '.
+                                                '<td width="350" align="center" style="font:15px Arial">Nome do usu&aacute;rio: '.
                                                         $params['nome_enviado'].
                                                 '</td>'.
                                             '</tr>'.
@@ -521,6 +521,22 @@ class TrabalhoCorrecaoController extends AbstractActionController {
         } catch (Exception $e) {
             return false;
         }
+    }
+    
+    public function getMembrosAction(){
+        $sessao = new Container("usuario");
+        $funcoes = new Funcoes($this);
+        $response = $this->getResponse();
+
+        $params = array(
+            'nivel' => $this->params()->fromPost('nivel', ''),
+            'cod' => $sessao->cod_usuario
+        );
+
+        $sql = "select cod_usuario, nome from us_usuario where ativo = 1 and nivel_escolaridade_fk = :nivel and cod_usuario <> :cod";
+        $membros = $funcoes->executarSQL($sql, $params, 'all');
+
+        return $response->setContent(Json::encode(array('response' => true, 'membros' => $membros)));
     }
 
     public function deleteHistoricoAction() {

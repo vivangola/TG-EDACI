@@ -93,17 +93,29 @@
                             </select>
                         </div>
                         <div class="form-group col-xs-6">
+                            <label for="add_membro" class="col-form-label">Membro:</label>
+                            <select class="form-control" name="add_membro" id="add_membro">
+                                <option value="0">Todos</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-xs-12">
                             <label for="add_modalidade" class="col-form-label">Modalidade:</label>
                             <input id="add_modalidade" class="form-control input-group-lg" maxlength="100" type="text" name="add_modalidade"/>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="add_observacao" class="col-form-label">Observação:</label><label style="color:red">*</label>
-                        <input type="text" class="form-control obg" id="add_observacao" maxlength="200" name="add_observacao" />
+                    <div class="row">
+                        <div class="form-group col-xs-12">
+                            <label for="add_observacao" class="col-form-label">Observação:</label><label style="color:red">*</label>
+                            <input type="text" class="form-control obg" id="add_observacao" maxlength="200" name="add_observacao" />
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="add_arquivo" class="obg col-form-label">Arquivo (pdf,doc,docx):</label><label style="color:red">*</label>
-                        <input type="file" accept=".doc,.docx,.pdf" class="form-control" name="add_arquivo" id="add_arquivo">
+                    <div class="row">
+                        <div class="form-group col-xs-12">
+                            <label for="add_arquivo" class="obg col-form-label">Arquivo (pdf,doc,docx):</label><label style="color:red">*</label>
+                            <input type="file" accept=".doc,.docx,.pdf" class="form-control" name="add_arquivo" id="add_arquivo">
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -255,6 +267,36 @@
         });
     }
     
+    $("#add_escolaridade").change(function(){
+        $.ajax({
+            url: '/trabalho-correcao/getMembros',
+            data: {nivel : $(this).val() },
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                retorno = JSON.parse(retorno);
+                Swal.close();
+                if(retorno.response){
+                    html="<option value='0'>Todos</option>";
+                    $.each(retorno.membros, function(index, data){
+                        html= html + "<option value='"+data.cod_usuario+"' >"+data.nome+"</option>";
+                    });
+                    $("#add_membro").html(html);
+                }else{
+                    Swal.fire({
+                        title: 'Atenção!',
+                        html: 'Nenhum membro encontrado!',
+                        type: 'info'
+                    });
+                }
+            }
+        });
+        
+    });
+      
     function edit(){
         
         var data = {};

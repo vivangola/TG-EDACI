@@ -14,6 +14,7 @@ use Zend\Json\Json;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\Container;
 use Zend\View\Model\ViewModel;
+use Application\Classes\PHPMailer;
 
 class QuadroAvisoController extends AbstractActionController {
 
@@ -86,8 +87,135 @@ class QuadroAvisoController extends AbstractActionController {
                     "values (:assunto,:desc,:escolaridade,:dtini,:dtfim,:usuario,now())";
         }
         $funcoes->executarSQL($sql, $params);
+        
+        $this->controlarEmail($params, $funcoes);
 
         return $response->setContent(Json::encode(array('response' => true)));
+    }
+    
+    private function controlarEmail($params, $funcoes) {
+        
+        if($params['escolaridade'] == 0){
+            $sql = "select b.nome, b.email ".
+                    "from us_acesso a ". 
+                        "inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario ".
+                    "where a.situacao = 1";
+            $result = $funcoes->executarSQL($sql, [], 'all');            
+        }else{
+            $sql = "select b.nome, b.email ".
+                    "from us_acesso a ". 
+                        "inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario ".
+                        "inner join nivel_escolaridade c on c.cod_nivel= b.nivel_escolaridade_fk ".
+                    "where a.situacao = 1 and c.cod_nivel = :escolaridade";
+            $result = $funcoes->executarSQL($sql, $params, 'all');
+        }
+        
+        foreach($result as $dados){
+            $params['email'] = $dados['email'];
+            $params['nome'] = $dados['nome'];
+        
+            $this->enviarEmail($params);
+        }
+        
+        return true;
+    }
+    
+    private function enviarEmail($params) {
+        $tabela = 
+                '<body>'.
+                    '<table align="center" border="0" cellpadding="0">'.
+                        '<tbody>'.
+                            '<tr>'.
+                                '<td width="650">'.
+                                    '<table style="background-color:#273043;border:1px solid #e1caa8;width:100%;padding:25px 15px;">'.
+                                        '<tbody>'.
+                                            '<tr>'.
+                                                '<td align="center" style="font-family:arial;font-size:16px;color:#fff;">'.
+                                                    'NOVO AVISO'.
+                                                '</td>'.
+                                            '</tr>'.
+                                        '</tbody>'.
+                                    '</table>'.
+                                '</td>'.
+                            '</tr> '.
+                            '<tr>'.
+                                '<td valign="top" style="padding:15px;border:1px solid #273043">'.
+                                    '<table align="center" border="0" cellpadding="0" cellspacing="0">'.
+                                        '<tbody>'.
+                                            '<tr>'.
+                                                '<td style="font:13px Arial;" width="350">'.
+                                                    '<table align="center" border="0" cellpadding="0" cellspacing="0" style="width:650px;border:1px solid #629bad">'.
+                                                        '<thead>'.
+                                                            '<tr style="border:white;color:white;background-color:#629bad;font-size:15px">'.
+                                                                '<td align="center" style="padding:10px">'.
+                                                                    $params['assunto'].
+                                                                '</td>'.
+                                                            '</tr>'.
+                                                        '<thead>'.
+                                                        '<tbody style="font-size:15px">'.
+                                                                '<tr style="background:#ffffff">'.
+                                                                    '<td style="padding:5px 10px;text-align:left;">'.
+                                                                        $params['desc'].
+                                                                    '</td>'.
+                                                                '</tr>'.
+                                                        '</tbody>'.
+                                                    '</table>'.
+                                                '</td>'.
+                                            '</tr>'.
+                                        '</tbody>'.
+                                    '</table>'.
+                                '</td>'.
+                            '</tr>'.
+                            '<tr>'.
+                                '<td height="90" style="font:12px Arial;background:#273043;color:white;padding:10px 15px">'.
+                                    '<table style="background-color:#273043;width:100%;padding:10px 15px;">'.
+                                        '<tbody>'.
+                                            '<tr>'.
+                                                '<td align="left" style="font-family:arial;font-size:16px;color:#fff;">'.
+                                                    '<p style="font:12px arial;color:white">'.
+                                                        '<span style="font:20px arial;">'.
+                                                            'Atenciosamente,'.
+                                                        '</span> '.
+                                                        '<br> '.
+                                                        'gedaci.marilia@unesp.br'.
+                                                    '</p>'.
+                                                '</td>'.
+                                                '<td width="130">'.
+                                                    '<img alt="Grupo Edaci" src="http://gedaci.marilia.unesp.br/img/logo/logo_branco.png" height="50" width="125">'.
+                                                '</td>'.
+                                            '</tr>'.
+                                        '</tbody>'.
+                                    '</table>'.
+                                '</td>'.
+                            '</tr>'.
+                        '</tbody>'.
+                    '</table>'.
+                '</body>';
+
+        $mail = new PHPMailer(true);
+        try {
+            $mail->isSMTP();
+            $mail->Host = '200.145.171.12';
+            $mail->SMTPAuth = false;
+            $mail->SMTPSecure = 'tls';
+            $mail->Port = 25;
+            $mail->SMTPOptions = array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                )
+            );
+            $mail->setFrom('gedaci.marilia@unesp.br', 'GEDACI');
+            $mail->addAddress($params['email'], $params['nome']);
+            $mail->isHTML(true);
+            $mail->Subject = 'AVISO GRUPO EDACI';
+            $mail->Body = $tabela;
+            $mail->send();
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
     }
 
     public function editAction() {

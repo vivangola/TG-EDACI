@@ -33,7 +33,7 @@ class UsuariosController extends AbstractActionController {
             $params['pesquisa'] = '';
         }
 
-        $sql = "call us_BuscarMembros_sp (:cod_usuario)";
+        $sql = "call us_BuscarMembros_sp (:cod_usuario,:pesquisa,:filtro)";
         $membros = $funcoes->executarSQL($sql, $params);
 
         $relatorio->definirColuna('FOTO', '0', '2', 'center', 't', 'n', 'n');

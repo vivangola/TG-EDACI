@@ -49,7 +49,8 @@ class PerfilController extends AbstractActionController {
 
         $view = new ViewModel(array(
             'usuario' => $result,
-            'escolaridades' => $escolaridades
+            'escolaridades' => $escolaridades,
+            'admin' => $params['is_adm']
         ));
         
         if($params['membro'] == '-1'){
@@ -266,6 +267,24 @@ class PerfilController extends AbstractActionController {
         $sessao->termo = $params['aceite'];
         
         return $response->setContent(Json::encode(array('response' => true, 'msg' => '')));
+    }
+    
+    public function alterarTipoAction(){
+        $funcoes = new Funcoes($this);
+        $sessao = new Container("usuario");
+        $response = $this->getResponse();
+        
+        if($sessao->tipo_usuario == 1){
+            
+            $post = $this->params()->fromPost();
+
+            $sql = 'update us_usuario set tipo_usuario_fk=:tipo where cod_usuario = :membro';
+            $funcoes->executarSQL($sql, $post);
+
+            return $response->setContent(Json::encode(array('success' => true, 'msg' => "Alterado com sucesso!")));
+        }else{
+            return $response->setContent(Json::encode(array('success' => false, 'msg' => 'Você não possui permissão!')));
+        }
     }
     
     public function calcularIdade($data){

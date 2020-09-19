@@ -997,7 +997,34 @@
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
+                                                                            </div>        
+                                                                            <?php if(isset($usuario['tipo_usuario_fk'])): ?>
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    &nbsp;
+                                                                                </div>
                                                                             </div>
+                                                                            <div class="row">
+                                                                                <div class="col-md-12">
+                                                                                    <div class="form-check text-center">
+                                                                                        <label class="form-check-label">
+                                                                                            <input class="form-check-input" type="radio" name="tipo" value="1" <?= ($usuario['tipo_usuario_fk'] == '1') ? 'checked' : ''; ?>>&nbsp;Administrador
+                                                                                        </label>
+                                                                                        &nbsp;&nbsp;&nbsp;
+                                                                                        <label class="form-check-label">
+                                                                                            <input class="form-check-input" type="radio" name="tipo" value="2" <?= ($usuario['tipo_usuario_fk'] == '2') ? 'checked' : ''; ?>>&nbsp;Membro
+                                                                                        </label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row" style="margin:30px">
+                                                                                <div class="col-md-12 col-xs-12 text-center">
+                                                                                    <button type="button" class="btn btn-primary3 btn-min" style="width:170px" id="btnEnviar" name="btnEnviar">
+                                                                                        <b>Alterar&nbsp;&nbsp;<i class="fa fa-edit"></i></b>
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                            <?php endif; ?>
                                                                         </form>
                                                                     </div>  
                                                                 </div>
@@ -1063,6 +1090,40 @@
         $("#divContato").hide();
         $("#divInstitucional").hide();
         $("#divTrabalho").hide();
+    });
+    
+    $("#btnEnviar").click(function(){
+        Swal.fire({
+            title: 'Atenção!',
+            html: 'Deseja realmente alterar o tipo do membro?',
+            type: 'info',
+            showCancelButton: true,
+            preConfirm: () => {
+                $.ajax({
+                    url: '/perfil/alterar-tipo',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        membro: '<?= $usuario['cod_usuario']; ?>',
+                        tipo: $("[name='tipo']:checked").val()
+                    },success: function(response){
+                        if(response.success){
+                            Swal.fire({
+                                title: "Sucesso!", 
+                                html: response.msg,
+                                type: "success",
+                            },function(){ 
+                                location.reload();
+                            });
+                        }else{
+                            Swal.fire("Atenção!", response.msg, "warning");
+                        }
+                    },error: function(response){
+                        Swal.fire("Atenção!", "Ocorreu um erro!", "warning");
+                    }
+                });
+            }
+        });
     });
 
 </script>

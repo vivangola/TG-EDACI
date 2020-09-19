@@ -13,6 +13,7 @@ use Zend\Json\Json;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Session\Container;
 use Zend\View\Model\ViewModel;
+use Application\Classes\PHPMailer;
 
 class QuestionarioController extends AbstractActionController
 {
@@ -638,7 +639,7 @@ class QuestionarioController extends AbstractActionController
         
         return $response->setContent(Json::encode(array('response' => true)));
     }
-    
+        
     public function ativarQuestionarioAction(){
         $funcoes = new Funcoes($this);
         $sessao = new Container("usuario");
@@ -664,7 +665,7 @@ class QuestionarioController extends AbstractActionController
                 }
             }
 
-            $sql = "select 1 as cod
+            $sql = "select 1 as cod, a.cod_tipo_fk, a.descricao, a.escolaridade
                     from qst_questionario a
                             inner join qst_questao1 b on a.cod_questionario = b.cod_questionario
                     where a.cod_questionario = :questionario and is_sub = 0 order by b.cod asc;";
@@ -673,12 +674,127 @@ class QuestionarioController extends AbstractActionController
             if(!$result){
                 return $response->setContent(Json::encode(array('response' => false, 'msg' => 'Antes de ativar este questionário, adicione questões à ele.')));
             }
+            
+            if($result['cod_tipo_fk'] == 2){
+                 $this->controlarEmail($result, $funcoes);
+            }   
         }
         
         $sql = "update qst_questionario set status_questionario =:ativar where cod_questionario = :questionario;";
         $funcoes->executarSQL($sql,$params,'');
         
         return $response->setContent(Json::encode(array('response' => true)));
+    }
+    
+    
+    private function controlarEmail($params, $funcoes) {
+        
+        if($params['escolaridade'] == -1){
+            $sql =  "select b.nome, b.email ".
+                    "from us_acesso a ". 
+                        "inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario ".
+                    "where a.situacao = 1";
+            $result = $funcoes->executarSQL($sql, [], 'all');            
+        }else{
+            $sql =  "select b.nome, b.email ".
+                    "from us_acesso a ". 
+                        "inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario ".
+                        "inner join nivel_escolaridade c on c.cod_nivel= b.nivel_escolaridade_fk ".
+                    "where a.situacao = 1 and c.cod_nivel = :escolaridade";
+            $result = $funcoes->executarSQL($sql, $params, 'all');
+        }
+        
+        foreach($result as $dados){
+            $params['email'] = $dados['email'];
+            $params['nome'] = $dados['nome'];
+        
+            $this->enviarEmail($params);
+        }
+        
+        return true;
+    }
+    
+    private function enviarEmail($params) {
+        $tabela = 
+                '<body>'.
+                    '<table align="center" border="0" cellpadding="0">'.
+                        '<tbody>'.
+                            '<tr>'.
+                                '<td width="650">'.
+                                    '<table style="background-color:#273043;border:1px solid #e1caa8;width:100%;padding:25px 15px;">'.
+                                        '<tbody>'.
+                                            '<tr>'.
+                                                '<td align="center" style="font-family:arial;font-size:16px;color:#fff;">'.
+                                                    'QUESTIONARIO DE APRENDIZAGEM'.
+                                                '</td>'.
+                                            '</tr>'.
+                                        '</tbody>'.
+                                    '</table>'.
+                                '</td>'.
+                            '</tr> '.
+                            '<tr>'.
+                                '<td valign="top" style="padding:15px;border:1px solid #273043">'.
+                                    '<table align="center" border="0" cellpadding="0" cellspacing="0">'.
+                                        '<tbody>'.
+                                            '<tr>'.
+                                                '<td width="350" align="center" style="font:15px Arial">Descri&ccedil;&atilde;o: '.
+                                                        $params['descricao'].
+                                                '</td>'.
+                                            '</tr>'.
+                                        '</tbody>'.
+                                    '</table>'.
+                                '</td>'.
+                            '</tr>'.
+                            '<tr>'.
+                                '<td height="90" style="font:12px Arial;background:#273043;color:white;padding:10px 15px">'.
+                                    '<table style="background-color:#273043;width:100%;padding:10px 15px;">'.
+                                        '<tbody>'.
+                                            '<tr>'.
+                                                '<td align="left" style="font-family:arial;font-size:16px;color:#fff;">'.
+                                                    '<p style="font:12px arial;color:white">'.
+                                                        '<span style="font:20px arial;">'.
+                                                            'Atenciosamente,'.
+                                                        '</span> '.
+                                                        '<br> '.
+                                                        'gedaci.marilia@unesp.br'.
+                                                    '</p>'.
+                                                '</td>'.
+                                                '<td width="130">'.
+                                                    '<img alt="Grupo Edaci" src="http://gedaci.marilia.unesp.br/img/logo/logo_branco.png" height="50" width="125">'.
+                                                '</td>'.
+                                            '</tr>'.
+                                        '</tbody>'.
+                                    '</table>'.
+                                '</td>'.
+                            '</tr>'.
+                        '</tbody>'.
+                    '</table>'.
+                '</body>';
+
+        $mail = new PHPMailer(true);
+        try {
+            $mail->isSMTP();
+            $mail->Host = '200.145.171.12';
+            $mail->SMTPAuth = false;
+            $mail->SMTPSecure = 'tls';
+            $mail->Port = 25;
+            $mail->SMTPOptions = array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                )
+            );
+            $mail->setFrom('gedaci.marilia@unesp.br', 'GEDACI');
+            $mail->addAddress($params['email'], $params['nome']);
+            $mail->isHTML(true);
+            $mail->Subject = 'QUESTIONARIO GRUPO EDACI';
+            $mail->Body = $tabela;
+            $mail->send();
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
     }
     
     public function buscarQuestionarioAction(){

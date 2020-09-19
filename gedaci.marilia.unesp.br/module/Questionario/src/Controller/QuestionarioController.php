@@ -725,7 +725,7 @@ class QuestionarioController extends AbstractActionController
                                         '<tbody>'.
                                             '<tr>'.
                                                 '<td align="center" style="font-family:arial;font-size:16px;color:#fff;">'.
-                                                    'QUESTIONARIO DE APRENDIZAGEM'.
+                                                    'QUESTIONARIO DE APRENDIZAGEM DISPONIVEL'.
                                                 '</td>'.
                                             '</tr>'.
                                         '</tbody>'.
@@ -788,7 +788,7 @@ class QuestionarioController extends AbstractActionController
             $mail->setFrom('gedaci.marilia@unesp.br', 'GEDACI');
             $mail->addAddress($params['email'], $params['nome']);
             $mail->isHTML(true);
-            $mail->Subject = 'QUESTIONARIO GRUPO EDACI';
+            $mail->Subject = 'QUESTIONARIO DE APRENDIZAGEM DISPONIVEL - GRUPO EDACI';
             $mail->Body = $tabela;
             $mail->send();
             return true;

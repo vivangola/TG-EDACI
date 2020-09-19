@@ -21,7 +21,7 @@
                                                 <br>
                                                 <div class="row">
                                                     <div class="col-md-12 text-left">
-                                                        <button type="button" class="btn btn-primary3 btn-block info" onclick="alterar()">Alterar <i class="fa fa-pencil"></i></button>
+                                                        <button type="button" class="btn btn-primary3 btn-block info" onclick="salvar()"><?= $termo == "" ? "Incluir " : "Alterar " ?><i class="fa fa-pencil"></i></button>
                                                     </div>
                                                 </div>    
                                             </form>
@@ -51,10 +51,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js" type="text/javascript"></script>
 <script type="text/javascript">
     
-    function alterar(){
+    function salvar(){
             
             var data = {
-                termo       : $('#termo').val()
+                termo       : $('#termo').val(),
+                cod         : '<?= $cod_termo ?>'
             };
             
             if(data.termo.length >= 8000){
@@ -88,7 +89,8 @@
                     Swal.fire({
                         type: 'success',
                         title: 'Sucesso!',
-                        text: 'Termo Inicial alterado com sucesso.'
+                        text: 'Salvo com sucesso.',
+                        onClose: () => { window.location='/sistema/termos' }
                     });
                 },
                 error: function () {

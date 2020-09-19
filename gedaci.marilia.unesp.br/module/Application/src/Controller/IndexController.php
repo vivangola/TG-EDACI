@@ -63,27 +63,91 @@ class IndexController extends AbstractActionController {
         $sessao = new Container("usuario");
         $funcoes = new Funcoes($this);
         
-        $sql = "select termo from us_termo";
+        $sql = "select cod_termo, termo from us_termo where ativo = 1";
         $result = $funcoes->executarSQL($sql,[],'');
         
         $view = new ViewModel(array(
-            'termo' => preg_replace("/\r\n|\r|\n/",'<br/>', $result['termo'])
+            'termo' => preg_replace("/\r\n|\r|\n/",'<br/>', $result['termo']),
+            'cod' => $result['cod_termo']
         ));
         
         $view->setTemplate('application/termo/termo-inicial');
         return $view;
     }
     
+    public function termosAction(){
+        $funcoes = new Funcoes($this);
+        $sessao = new Container("usuario");
+        $relatorio = new Relatorio();
+        
+        $params = array(
+            'usuario'   => $sessao->cod_usuario,
+            'pesquisa' => $this->params()->fromPost('pesquisa', ''),
+        );
+        
+        $params['pesquisa'] = $params['pesquisa'] != "" ? "%".$params['pesquisa']."%" : "";
+                
+        $sql = "select cod_termo, concat(substring(termo,1,400),' ...')  as termo, ativo "
+                . "from us_termo where (termo like :pesquisa or :pesquisa = '') order by cod_termo";
+        $termos = $funcoes->executarSQL($sql, $params);
+                
+        $relatorio->definirColuna('CODIGO', 'cod_termo', '1', 'center', 't', 'n', 'n');
+        $relatorio->definirColuna('texto', 'termo', '10', 'left', 't', 'n', 'n');
+        $relatorio->definirColuna('INATIVAR / ATIVAR', '0', '2', 'center', 't', 'n', 'n');
+        
+        $relatorio->definirColuna('EDITAR', '2', '2', 'center', 't', 'n', 'n');
+        $relatorio->definirColuna('RESPOSTAS', '4', '2', 'center', 't', 'n', 'n');
+        //$relatorio->definirColuna('EXCLUIR', '3', '2', 'center', 't', 'n', 'n');
+        
+        $view = new ViewModel(array(
+            'relatorio'     => $relatorio,
+            'questionarios' => $termos,
+            'pesq' => str_replace('%', '', $params['pesquisa'])
+        ));
+        
+        $view->setTemplate('application/termo/termos');
+        return $view;
+    }
+    
+    public function ativarTermoAction(){
+        $sessao = new Container("usuario");
+        $funcoes = new Funcoes($this);
+        
+        $response = $this->getResponse();
+        
+        $params = array(
+            'ativar' => $this->params()->fromPost('ativar', ''),
+            'cod' => $this->params()->fromPost('termo', '')
+        );
+        
+        if($params['ativar'] == 1) {
+            $sql = "update us_termo set ativo = 0";
+            $funcoes->executarSQL($sql, [], '');
+            
+            $sql = "update us_termo set ativo =:ativar where cod_termo = :cod";
+            $funcoes->executarSQL($sql, $params, '');
+
+            return $response->setContent(Json::encode(array('response' => true)));
+        }else{
+            return $response->setContent(Json::encode(array('response' => false, 'msg' => 'É necessário pelo menos um termo ativo!')));
+        }
+    }
+    
     public function manterTermoAction(){
         $sessao = new Container("usuario");
         $funcoes = new Funcoes($this);
         
-        $sql = "select termo from us_termo";
-        $result = $funcoes->executarSQL($sql,[],'');
-
+        $termo = $this->params()->fromQuery('t','0');
+        
+        if($termo <> ""){
+            $sql = "select termo from us_termo where cod_termo=:termo";
+            $result = $funcoes->executarSQL($sql, ['termo' => $termo], '');
+        }
+        
         $view = new ViewModel(array(
             'nome_usuario'  => $sessao->nome_usuario,
-            'termo'         => $result['termo']
+            'termo'         => isset($result['termo']) ? $result['termo'] : '',
+            'cod_termo'     => $termo
         ));
 
         $view->setTemplate('application/termo/manter-termo');
@@ -97,11 +161,20 @@ class IndexController extends AbstractActionController {
         $response = $this->getResponse();
         
         $params = array(
-            'termo' => $this->params()->fromPost('termo', '')
+            'termo' => $this->params()->fromPost('termo', ''),
+            'cod' => $this->params()->fromPost('cod', '0')
         );
         
-        $sql = "update us_termo set termo =:termo";
-        $funcoes->executarSQL($sql,$params,'');
+        if($params['cod'] == "0"){
+            $sql = "select max(cod_termo)+1 as cod from us_termo limit 1";
+            $params['cod'] = $funcoes->executarSQL($sql, $params, '')['cod'];
+                        
+            $sql = "insert into us_termo (termo, ativo, cod_termo) values (:termo, 0, :cod)";
+            $funcoes->executarSQL($sql, $params, '');
+        }else{
+            $sql = "update us_termo set termo =:termo where cod_termo = :cod";
+            $funcoes->executarSQL($sql, $params, '');
+        }
 
         return $response->setContent(Json::encode(array('response' => true)));
     }
@@ -110,6 +183,8 @@ class IndexController extends AbstractActionController {
         $funcoes = new Funcoes($this);
         $sessao = new Container("usuario");
         $relatorio = new Relatorio();
+        
+        $termo = $this->params()->fromQuery('t', '-1');
 
         $params = array(
             'cod_usuario'   => $sessao->cod_usuario,
@@ -131,17 +206,19 @@ class IndexController extends AbstractActionController {
             $where .= " and b.nome like CONCAT('%', '".$params['nomePesq']."', '%') ";
         }
         
-        if(($params['dtIni'] && !$params['dtFim']) || (!$params['dtIni'] && $params['dtFim'])){
+        if(($params['dtIni'] && !$params['dtFim']) || (!$params['dtIni'] && $params['dtFim']) || ($params['dtIni'] > $params['dtFim'])){
             $funcoes->alertBasic('Digite um período válido.', false, '/sistema/relatorio-termo', 'info', 'Atenção!');
         }else if($params['dtIni'] && $params['dtIni']){
             $where .= ' and date_format(data, "%Y-%m-%d") between "'.$params['dtIni'].'" and "'.$params['dtFim'].'"';
         }
         
+        $where = $where . ' and a.cod_termo_fk = '.$termo;
+        
         $sql = 'select nome, aceite, date_format(data, "%d/%m/%Y %H:%i:%s") as datastr 
                 from us_termo_aceite a
                         inner join us_pre_cadastro b on a.cod_usuario_fk = b.cod_usuario'
                 . $where . 
-                'order by data desc;';
+                ' order by data desc;';
         $result = $funcoes->executarSQL($sql, $params);
         
         $relatorio->definirColuna('NOME', 'nome', '10', 'left', 't', 'n', 'n');
@@ -155,7 +232,8 @@ class IndexController extends AbstractActionController {
             'filtro'        => $params['filtro'],
             'nomePesq'      => $params['nomePesq'],
             'dt_ini'        => $params['dtIni'],
-            'dt_fim'        => $params['dtFim']
+            'dt_fim'        => $params['dtFim'],
+            'termo'         => $termo
         ));
 
         $view->setTemplate('application/termo/relatorio-termo');

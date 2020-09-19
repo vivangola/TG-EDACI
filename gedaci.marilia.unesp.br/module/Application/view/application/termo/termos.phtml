@@ -1,0 +1,175 @@
+<div class="row box-home" align="center" style="height:100%">
+    <div class="col-md-12 col-xs-12">  
+        <div class="main-box clearfix print min-branco">
+            <div class="main-box-body clearfix mt" style="margin-top: 2px !important;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 ">
+                            <div class="box">                           
+                                <div class="icon">
+                                    <div class="image back-primary3"><i class="fa fa-book"></i>&nbsp;<label class="title">TERMO INICIAL</label></div>
+                                    <div class="info" style="min-height:450px">
+                                        <div class="row" style="padding-left: 10px;padding-right: 10px;margin-top: 10px;margin-bottom: 20px;">
+                                            <form action="/sistema/termos" method="post" enctype="">
+                                                <div class="col-md-offset-1 col-md-6 col-sm-12">
+                                                    <input type="text" name="pesquisa" placeholder="Pesquisar" class="form-control" value="<?= $pesq != '' ? $pesq : '' ?>">
+                                                </div>  
+                                                <div class="col-md-2 col-sm-12">
+                                                    <button class="btn btn-primary-borded2 form-control" type="submit">
+                                                        Pesquisar&nbsp;
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
+                                                </div>
+                                                <div class="col-md-2 col-sm-12">
+                                                    <button class="btn btn-primary-borded2 form-control" type="button" onClick="showAdd()">
+                                                        Novo&nbsp;
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="table-responsive" style="margin-top: 10px;">
+                                            <?php
+                                            $relatorio->gerarCabecalho(12);
+                                            if ($questionarios) {
+                                                foreach ($questionarios as $dados) {
+                                                    
+                                                    if($dados['ativo'] == "0"){
+                                                        $relatorio->definirVariavel('0', '<div class="switch_box box_1"><input type="checkbox" class="switch_1 ativar-chbox" id="alterar_status" termo="'.$dados['cod_termo'].'" name="alterar_status"></div>');
+                                                    }else{
+                                                        $relatorio->definirVariavel('0', '<div class="switch_box box_1"><input type="checkbox" class="switch_1 ativar-chbox" id="alterar_status" termo="'.$dados['cod_termo'].'" name="alterar_status" checked></div>');    
+                                                    }
+                                                        
+                                                    $relatorio->definirVariavel('2', "<a type='button' class='btn btn-primary4' style='width:100%;margin-bottom:2px' onClick=showEdit('".$dados['cod_termo']."','1')><i class='pointer fa fa-pencil'></i></button>");
+                                                    $relatorio->definirVariavel('3', "<a type='button' class='btn btn-primary4' style='width:100%;margin-bottom:2px' onClick=showDelete('".$dados['cod_termo']."','1')><i class='pointer fa fa-times'></i></button>");
+                                                    
+                                                    $relatorio->definirVariavel('4', "<a target='_blank' href='/sistema/relatorio-termo?t=".$dados['cod_termo']."' class='btn btn-primary4' style='width:100%;margin-bottom:2px'><i class='pointer fa fa-file-text'></i></a>");
+                                                    
+                                                    $relatorio->gerarRelatorio($dados);
+                                                }
+                                            }
+                                            $relatorio->gerarRodape();
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document" style="max-width: 1300px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Adicionar novo Questionário</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="info_quest">
+                    <form>
+                        <div class="form-group">
+                            <label for="add_desc" class="col-form-label">Descrição sobre o Questionário: <label style="color:red">*</label></label>
+                            <input type="text" class="form-control" id="add_desc">
+                        </div>
+                        <div class="form-group">
+                            <label for="add_escolaridade" class="col-form-label">Escolaridade: <label style="color:red">*</label></label>
+                            <select name="add_escolaridade" id="add_escolaridade" class="form-control">
+                                    <option value="-1">TODOS</option>
+                            <?php foreach($escolaridades as $dados):?>
+                                    <option value="<?= $dados['cod_nivel'] ?>"><?= $dados['descricao'] ?></option>
+                            <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type='button' class='btn btn-primary-borded2' onclick="addQuestionario()" style='margin-bottom:2px'>Adicionar <i class="fa fa-plus"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#relatorio').DataTable({
+            "language": {
+                "url": "/js/datatable/pt-br.json"
+            },
+            "ordering": false,
+            "columnDefs": [ {"orderable": false} ],
+            "lengthChange": false,
+            "searching": false
+        });
+        
+    });
+    
+    
+    $('#edit_desc').on('keydown', function(){
+        $('#edit_questionario_desc').attr('disabled', false);
+    });
+    
+    $('.ativar-chbox').on('change', function(){
+        
+        var element = $(this);
+        
+        var ativar = $(this).is(':checked') ? 1 : 0;
+        
+        var termo = $(this).attr('termo');
+        
+        $.ajax({
+            url: '/sistema/ativarTermo',
+            data: {
+                ativar : ativar,
+                termo : termo
+            },
+            type: 'json',
+            method: 'POST',
+            beforeSend: function () {
+                loader();
+            },
+            success: function (retorno) {
+                retorno = JSON.parse(retorno);
+                Swal.close();
+                if(!retorno.response){
+                    Swal.fire({
+                        title: 'Atenção!',
+                        html: retorno.msg,
+                        type: 'warning',
+                        onClose: () => {
+                            $(element).prop('checked', !ativar);
+                        }
+                    });
+                }else{
+                    if(ativar = 1){
+                        Swal.fire({
+                            title: 'Sucesso!',
+                            html: 'Termo ativado!',
+                            type: 'success',
+                            onClose: () => {
+                                location.reload();
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    });
+        
+    function showEdit(cod){
+        window.location='/sistema/manter-termo?t='+cod;
+    }
+    
+    function showAdd(){
+        window.location='/sistema/manter-termo';
+    }
+    
+</script>

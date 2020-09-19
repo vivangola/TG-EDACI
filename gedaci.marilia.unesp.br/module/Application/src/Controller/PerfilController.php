@@ -258,10 +258,11 @@ class PerfilController extends AbstractActionController {
         
         $params = array(
             'user'      => $sessao->cod_usuario,
-            'aceite'    => $this->params()->fromPost('aceite', '')
+            'aceite'    => $this->params()->fromPost('aceite', ''),
+            'termo'     => $this->params()->fromPost('termo', '')
         );
         
-        $sql = 'insert into us_termo_aceite(cod_usuario_fk, aceite, data) values (:user,:aceite,now())';
+        $sql = 'insert into us_termo_aceite(cod_usuario_fk, aceite, data, cod_termo_fk) values (:user,:aceite,now(), :termo)';
         $funcoes->executarSQL($sql,$params);
         
         $sessao->termo = $params['aceite'];

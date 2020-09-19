@@ -56,7 +56,8 @@ $sessao = new Container('usuario');
                 $.ajax({
                     url: '/perfil/termo',
                     data: {
-                        aceite     : aceite
+                        aceite     : aceite,
+                        termo      : <?= $cod ?>
                     },
                     type: 'json',
                     method: 'POST',

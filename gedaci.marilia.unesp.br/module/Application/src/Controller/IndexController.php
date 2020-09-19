@@ -101,7 +101,7 @@ class IndexController extends AbstractActionController {
         
         $view = new ViewModel(array(
             'relatorio'     => $relatorio,
-            'questionarios' => $termos,
+            'termos' => $termos,
             'pesq' => str_replace('%', '', $params['pesquisa'])
         ));
         

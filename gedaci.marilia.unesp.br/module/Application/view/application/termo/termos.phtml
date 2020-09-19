@@ -31,8 +31,8 @@
                                         <div class="table-responsive" style="margin-top: 10px;">
                                             <?php
                                             $relatorio->gerarCabecalho(12);
-                                            if ($questionarios) {
-                                                foreach ($questionarios as $dados) {
+                                            if ($termos) {
+                                                foreach ($termos as $dados) {
                                                     
                                                     if($dados['ativo'] == "0"){
                                                         $relatorio->definirVariavel('0', '<div class="switch_box box_1"><input type="checkbox" class="switch_1 ativar-chbox" id="alterar_status" termo="'.$dados['cod_termo'].'" name="alterar_status"></div>');
@@ -43,7 +43,7 @@
                                                     $relatorio->definirVariavel('2', "<a type='button' class='btn btn-primary4' style='width:100%;margin-bottom:2px' onClick=showEdit('".$dados['cod_termo']."','1')><i class='pointer fa fa-pencil'></i></button>");
                                                     $relatorio->definirVariavel('3', "<a type='button' class='btn btn-primary4' style='width:100%;margin-bottom:2px' onClick=showDelete('".$dados['cod_termo']."','1')><i class='pointer fa fa-times'></i></button>");
                                                     
-                                                    $relatorio->definirVariavel('4', "<a target='_blank' href='/sistema/relatorio-termo?t=".$dados['cod_termo']."' class='btn btn-primary4' style='width:100%;margin-bottom:2px'><i class='pointer fa fa-file-text'></i></a>");
+                                                    $relatorio->definirVariavel('4', "<a href='/sistema/relatorio-termo?t=".$dados['cod_termo']."' class='btn btn-primary4' style='width:100%;margin-bottom:2px'><i class='pointer fa fa-file-text'></i></a>");
                                                     
                                                     $relatorio->gerarRelatorio($dados);
                                                 }
@@ -57,41 +57,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document" style="max-width: 1300px !important;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title color-primary2"><i class="fa fa-plus"></i>&nbsp;Adicionar novo Questionário</h2>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div id="info_quest">
-                    <form>
-                        <div class="form-group">
-                            <label for="add_desc" class="col-form-label">Descrição sobre o Questionário: <label style="color:red">*</label></label>
-                            <input type="text" class="form-control" id="add_desc">
-                        </div>
-                        <div class="form-group">
-                            <label for="add_escolaridade" class="col-form-label">Escolaridade: <label style="color:red">*</label></label>
-                            <select name="add_escolaridade" id="add_escolaridade" class="form-control">
-                                    <option value="-1">TODOS</option>
-                            <?php foreach($escolaridades as $dados):?>
-                                    <option value="<?= $dados['cod_nivel'] ?>"><?= $dados['descricao'] ?></option>
-                            <?php endforeach; ?>
-                            </select>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type='button' class='btn btn-primary-borded2' onclick="addQuestionario()" style='margin-bottom:2px'>Adicionar <i class="fa fa-plus"></i></button>
             </div>
         </div>
     </div>

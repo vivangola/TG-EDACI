@@ -7,37 +7,38 @@
                         <div class="col-md-12 ">
                             <div class="box">                           
                                 <div class="icon">
-                                    <div class="image back-primary3"><i class="fa fa-list"></i>&nbsp;<label class="title">Relatório de Aceite</label></div>
+                                    <div class="image back-primary3"><i class="fa fa-list"></i>&nbsp;<label class="title">Relatório de Aceite ( Cod: <?=$termo?> )</label></div>
                                     <div class="info" style="min-height:450px">
                                         <div class="row" style="padding-left: 18px;padding-right: 18px;margin-top: 10px;margin-bottom: 20px;">
                                             <form action="/sistema/relatorio-termo?t=<?=$termo?>" method="post" enctype="">
                                                 <br>
                                                 <div class="form-inline">
-                                                    <div class="col-md-offset-3 col-md-1 col-sm-3 col-xs-6 text-right">
+                                                    <div class="col-md-3 col-xs-12 text-left">
+                                                        <a href="/sistema/termos">
+                                                            <button class="btn btn-primary-borded2 form-control" type="button">
+                                                                <i class="fa fa-arrow-left"></i>&nbsp;Voltar
+                                                            </button>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-md-6 col-xs-12">
                                                         <label class="col-form-label">Périodo: </label>
-                                                    </div>
-                                                    <div class="col-md-2 col-sm-3 col-xs-6">
                                                         <input type="date" name="dt_ini" class="form-control" value="<?= $dt_ini != '' ? $dt_ini : '' ?>">
-                                                    </div>
-                                                    <div class="col-md-1 col-sm-3 col-xs-6">
-                                                        até
-                                                    </div>
-                                                    <div class="col-md-2 col-sm-3 col-xs-6">
+                                    
                                                         <input type="date" name="dt_fim" class="form-control" value="<?= $dt_fim != '' ? $dt_fim : '' ?>">
                                                     </div>
                                                 </div>
                                                 <br>
-                                                <div class="col-md-6 col-sm-6 col-xs-8">
+                                                <div class="col-md-6 col-xs-12">
                                                     <input type="text" name="nomePesq" maxlength="100" placeholder="Nome do membro" class="form-control" value="<?= $nomePesq != '' ? $nomePesq : '' ?>">
                                                 </div> 
-                                                <div class="col-md-3 col-sm-3 col-xs-4">
+                                                <div class="col-md-3 col-xs-12">
                                                     <select class="form-control" name="filtros">
                                                         <option value="-1" <?= $filtro == '-1' ? 'selected' : '' ?>>Todos</option>
                                                         <option value="1" <?= $filtro == '1' ? 'selected' : '' ?>>Termo aceito</option>
                                                         <option value="2" <?= $filtro == '2' ? 'selected' : '' ?>>Termo não aceito</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-md-3 col-sm-3 col-xs-6">
+                                                <div class="col-md-3 col-xs-12">
                                                     <button class="btn btn-primary-borded2 form-control" type="submit">
                                                         Pesquisar&nbsp;
                                                         <i class="fa fa-search"></i>

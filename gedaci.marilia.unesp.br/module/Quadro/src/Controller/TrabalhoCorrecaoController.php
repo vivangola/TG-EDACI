@@ -14,6 +14,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Json\Json;
 use Zend\Session\Container;
 use Zend\View\Model\ViewModel;
+use Application\Classes\PHPMailer;
 
 class TrabalhoCorrecaoController extends AbstractActionController {
 
@@ -95,9 +96,9 @@ class TrabalhoCorrecaoController extends AbstractActionController {
                     if (file_exists($destino)) {
 
                         if($post_data['add_escolaridade'] == '0'){
-                            $sql = "select cod_usuario from us_usuario where nivel_escolaridade_fk > 0 and ativo = 1 and cod_usuario <> :usuario";
+                            $sql = "select cod_usuario, email, nome from us_usuario where nivel_escolaridade_fk > 0 and ativo = 1 and cod_usuario <> :usuario and cod_usuario = 18";
                         }else{
-                            $sql = "select cod_usuario from us_usuario where nivel_escolaridade_fk = :add_escolaridade and ativo = 1 and cod_usuario <> :usuario";
+                            $sql = "select cod_usuario, email, nome from us_usuario where nivel_escolaridade_fk = :add_escolaridade and ativo = 1 and cod_usuario <> :usuario and cod_usuario = 18";
                         }
                         $membros = $funcoes->executarSQL($sql, $post_data);
 
@@ -114,6 +115,12 @@ class TrabalhoCorrecaoController extends AbstractActionController {
                             $sql = "insert into trbl_correcao_historico (cod_correcao_fk, usuario_fk, observacao, data_envio, arquivo) " .
                                     "values (:cod, :usuario, :add_observacao, now(), :arquivo_nome);";
                             $funcoes->executarSQL($sql, $post_data);
+                            
+                            $post_data['email'] = $dados['email'];
+                            $post_data['nome'] = $dados['nome'];
+
+                            $this->enviarEmail($post_data);
+                            
                         }
                         return $response->setContent(Json::encode(array('response' => true, 'msg' => 'Trabalho Enviado para Correção!')));
                     } else {
@@ -128,6 +135,89 @@ class TrabalhoCorrecaoController extends AbstractActionController {
             }
         } else {
             return $response->setContent(Json::encode(array('response' => false)));
+        }
+    }
+    
+    private function enviarEmail($params) { 
+        $tabela = 
+                '<body>'.
+                    '<table align="center" border="0" cellpadding="0">'.
+                        '<tbody>'.
+                            '<tr>'.
+                                '<td width="650">'.
+                                    '<table style="background-color:#273043;border:1px solid #e1caa8;width:100%;padding:25px 15px;">'.
+                                        '<tbody>'.
+                                            '<tr>'.
+                                                '<td align="center" style="font-family:arial;font-size:16px;color:#fff;">'.
+                                                    'NOVO TRABALHO PARA CORRIGIR'.
+                                                '</td>'.
+                                            '</tr>'.
+                                        '</tbody>'.
+                                    '</table>'.
+                                '</td>'.
+                            '</tr> '.
+                            '<tr>'.
+                                '<td valign="top" style="padding:15px;border:1px solid #273043">'.
+                                    '<table align="center" border="0" cellpadding="0" cellspacing="0">'.
+                                        '<tbody>'.
+                                            '<tr>'.
+                                                '<td width="350" align="center" style="font:15px Arial">Descri&ccedil;&atilde;o: '.
+                                                        $params['add_observacao'].
+                                                '</td>'.
+                                            '</tr>'.
+                                        '</tbody>'.
+                                    '</table>'.
+                                '</td>'.
+                            '</tr>'.
+                            '<tr>'.
+                                '<td height="90" style="font:12px Arial;background:#273043;color:white;padding:10px 15px">'.
+                                    '<table style="background-color:#273043;width:100%;padding:10px 15px;">'.
+                                        '<tbody>'.
+                                            '<tr>'.
+                                                '<td align="left" style="font-family:arial;font-size:16px;color:#fff;">'.
+                                                    '<p style="font:12px arial;color:white">'.
+                                                        '<span style="font:20px arial;">'.
+                                                            'Atenciosamente,'.
+                                                        '</span> '.
+                                                        '<br> '.
+                                                        'gedaci.marilia@unesp.br'.
+                                                    '</p>'.
+                                                '</td>'.
+                                                '<td width="130">'.
+                                                    '<img alt="Grupo Edaci" src="http://gedaci.marilia.unesp.br/img/logo/logo_branco.png" height="50" width="125">'.
+                                                '</td>'.
+                                            '</tr>'.
+                                        '</tbody>'.
+                                    '</table>'.
+                                '</td>'.
+                            '</tr>'.
+                        '</tbody>'.
+                    '</table>'.
+                '</body>';
+
+        $mail = new PHPMailer(true);
+        try {
+            $mail->isSMTP();
+            $mail->Host = '200.145.171.12';
+            $mail->SMTPAuth = false;
+            $mail->SMTPSecure = 'tls';
+            $mail->Port = 25;
+            $mail->SMTPOptions = array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                )
+            );
+            $mail->setFrom('gedaci.marilia@unesp.br', 'GEDACI');
+            $mail->addAddress($params['email'], $params['nome']);
+            $mail->isHTML(true);
+            $mail->Subject = 'TRABALHO PARA CORRIGIR - GRUPO EDACI';
+            $mail->Body = $tabela;
+            $mail->send();
+            return true;
+        } catch (Exception $e) {
+            return false;
         }
     }
 

@@ -26,6 +26,7 @@ class QuestionarioController extends AbstractActionController
     }
     
     public function inicialAction(){
+        
         $funcoes = new Funcoes($this);
         $sessao = new Container("usuario");
         
@@ -396,6 +397,7 @@ class QuestionarioController extends AbstractActionController
              
             $finalizado = 1;
             $html = "";
+			
         }else if($params['tipo_qst'] == 2 && isset($questionario['questao_atual']['finalizado'])){
             $finalizado = 1;
             
@@ -468,6 +470,38 @@ class QuestionarioController extends AbstractActionController
             $html .= "<input type='hidden' id='cod_questao' value='" . $questionario['questao_atual']['id'] . "'>" .  '</div>'; 
             $html .= "<input type='hidden' id='tipo_pergunta' value='" . $questionario['questao_atual']['tipo_pergunta'] . "'>" .  '</div>'; 
         }
+        
+        if($finalizado == 1){
+            $sql = "select * from qst_questionario_email_log where questionario =:questionario and usuario =:usuario";
+            $logEmail = $funcoes->executarSQL($sql, $params, '');
+
+            if(!$logEmail){
+                //buscar email do dono do questionario
+                $sql = "select b.nome, b.email, a.descricao
+                        from qst_questionario a
+                            inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario
+                        where a.cod_questionario = :questionario";
+                $paramsEmail = $funcoes->executarSQL($sql, $params, '');
+
+                $post_data['nome'] = $paramsEmail['nome'];
+                $post_data['nome_enviado'] = $sessao->nome_usuario;
+                $post_data['email'] = $paramsEmail['email'];
+
+                $retorno = $this->enviarEmailRespondeu(array(
+                    'nome'  => $paramsEmail['nome'],
+                    'email' => $paramsEmail['email'],
+                    'nome_enviado' => $sessao->nome_usuario,
+                    'tipo'  => $params['tipo_qst'],
+                    'questionario_nome' => $paramsEmail['descricao']
+                ));
+
+                if($retorno){
+                    $sql = "insert into qst_questionario_email_log(questionario, usuario, data) values(:questionario, :usuario, now());";
+                    $funcoes->executarSQL($sql, $params, '');       
+                }
+
+            }
+        }
                     
         return $response->setContent(Json::encode(array('response' => true, 'html' => $html, 'questionario_finalizado' => $finalizado, 'qtd_resp' => isset($questionario['qtd_resp']) ? $questionario['qtd_resp'] : 0)));
     }
@@ -500,7 +534,7 @@ class QuestionarioController extends AbstractActionController
         $sql = "call us_buscarQuestionarios_sp (0,2,:usuario,:filtro,:pesquisa)";
         $questionarios = $funcoes->executarSQL($sql, $params);
         
-        $sql = "select cod_nivel, descricao from nivel_escolaridade";
+        $sql = "select cod_nivel, descricao from nivel_escolaridade where cod_nivel <> 14 order by descricao";
         $escolaridade = $funcoes->executarSQL($sql,[]);
         
         $relatorio->definirColuna('CODIGO', 'cod_questionario', '2', 'center', 't', 'n', 'n');
@@ -557,6 +591,9 @@ class QuestionarioController extends AbstractActionController
             $questoes = $this->gerarQuestionario2($questoes, 0);
             
             $finalizado = 1;
+			
+			
+			
         }else if(!$questionario){
             $funcoes->alertBasic('Questionário não encontrado ou não está ativo.', false, '/questionario/aprendizagem', 'info', 'Ops...');
             exit;
@@ -593,7 +630,7 @@ class QuestionarioController extends AbstractActionController
         $sql = "call us_buscarQuestionarios_sp (0,1,0,:filtro,:pesquisa)";
         $questionarios = $funcoes->executarSQL($sql, $params);
         
-        $sql = "select cod_nivel, descricao from nivel_escolaridade";
+        $sql = "select cod_nivel, descricao from nivel_escolaridade where cod_nivel <> 14 order by descricao";
         $escolaridade = $funcoes->executarSQL($sql,[]);
         
         $relatorio->definirColuna('CODIGO', 'cod_questionario', '2', 'center', 't', 'n', 'n');
@@ -639,64 +676,18 @@ class QuestionarioController extends AbstractActionController
         
         return $response->setContent(Json::encode(array('response' => true)));
     }
-        
-    public function ativarQuestionarioAction(){
-        $funcoes = new Funcoes($this);
-        $sessao = new Container("usuario");
-        
-        $response = $this->getResponse();
-        
-        $params = array(
-            'usuario'       => $sessao->cod_usuario,
-            'questionario'  => $this->params()->fromPost('questionario', ''),
-            'tipo'          => $this->params()->fromPost('tipo', 0),
-            'ativar'        => $this->params()->fromPost('ativar', 0),
-        );
-        
-        
-        if($params['ativar'] == '1'){
-        
-            if($params['tipo'] != '2'){
-                $sql = "select * from qst_questionario where status_questionario = 1 and cod_tipo_fk = 1";
-                $result = $funcoes->executarSQL($sql,$params,'');
-
-                if($result){
-                    return $response->setContent(Json::encode(array('response' => false, 'msg' => 'Já existe um questionário ativo.')));
-                }
-            }
-
-            $sql = "select 1 as cod, a.cod_tipo_fk, a.descricao, a.escolaridade
-                    from qst_questionario a
-                            inner join qst_questao1 b on a.cod_questionario = b.cod_questionario
-                    where a.cod_questionario = :questionario and is_sub = 0 order by b.cod asc;";
-            $result = $funcoes->executarSQL($sql, $params, '');
-
-            if(!$result){
-                return $response->setContent(Json::encode(array('response' => false, 'msg' => 'Antes de ativar este questionário, adicione questões à ele.')));
-            }
-            
-            if($result['cod_tipo_fk'] == 2){
-                 $this->controlarEmail($result, $funcoes);
-            }   
-        }
-        
-        $sql = "update qst_questionario set status_questionario =:ativar where cod_questionario = :questionario;";
-        $funcoes->executarSQL($sql,$params,'');
-        
-        return $response->setContent(Json::encode(array('response' => true)));
-    }
     
     
     private function controlarEmail($params, $funcoes) {
         
         if($params['escolaridade'] == -1){
-            $sql =  "select b.nome, b.email ".
+            $sql = "select b.nome, b.email ".
                     "from us_acesso a ". 
                         "inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario ".
                     "where a.situacao = 1";
             $result = $funcoes->executarSQL($sql, [], 'all');            
         }else{
-            $sql =  "select b.nome, b.email ".
+            $sql = "select b.nome, b.email ".
                     "from us_acesso a ". 
                         "inner join us_usuario b on a.cod_usuario_fk = b.cod_usuario ".
                         "inner join nivel_escolaridade c on c.cod_nivel= b.nivel_escolaridade_fk ".
@@ -714,6 +705,7 @@ class QuestionarioController extends AbstractActionController
         return true;
     }
     
+    
     private function enviarEmail($params) {
         $tabela = 
                 '<body>'.
@@ -725,7 +717,7 @@ class QuestionarioController extends AbstractActionController
                                         '<tbody>'.
                                             '<tr>'.
                                                 '<td align="center" style="font-family:arial;font-size:16px;color:#fff;">'.
-                                                    'QUESTIONARIO DE APRENDIZAGEM DISPONIVEL'.
+                                                    'QUESTION&Aacute;RIO DE APRENDIZAGEM DISPONIVEL'.
                                                 '</td>'.
                                             '</tr>'.
                                         '</tbody>'.
@@ -756,7 +748,7 @@ class QuestionarioController extends AbstractActionController
                                                             'Atenciosamente,'.
                                                         '</span> '.
                                                         '<br> '.
-                                                        'gedaci.marilia@unesp.br'.
+                                                        'N&atilde;o responda este e-mail'.
                                                     '</p>'.
                                                 '</td>'.
                                                 '<td width="130">'.
@@ -795,6 +787,141 @@ class QuestionarioController extends AbstractActionController
         } catch (Exception $e) {
             return false;
         }
+    }
+    
+    private function enviarEmailRespondeu($params) { 
+        $tabela = 
+                '<body>'.
+                    '<table align="center" border="0" cellpadding="0">'.
+                        '<tbody>'.
+                            '<tr>'.
+                                '<td width="650">'.
+                                    '<table style="background-color:#273043;border:1px solid #e1caa8;width:100%;padding:25px 15px;">'.
+                                        '<tbody>'.
+                                            '<tr>'.
+                                                '<td align="center" style="font-family:arial;font-size:16px;color:#fff;">'.
+                                                    ($params['tipo'] == 2 ? 'QUESTION&Aacute;RIO DE APRENDIZAGEM RESPONDIDO' : 'QUESTION&Aacute;RIO INICIAL RESPONDIDO').
+                                                '</td>'.
+                                            '</tr>'.
+                                        '</tbody>'.
+                                    '</table>'.
+                                '</td>'.
+                            '</tr> '.
+                            '<tr>'.
+                                '<td valign="top" style="padding:15px;border:1px solid #273043">'.
+                                    '<table align="center" border="0" cellpadding="0" cellspacing="0">'.
+                                        '<tbody>'.
+                                            '<tr>'.
+                                                '<td width="350" align="center" style="font:15px Arial">Nome do usu&aacute;rio: '.
+                                                        $params['nome_enviado'].
+                                                '</td>'.
+                                            '</tr>'.
+                                            '<tr>'.
+                                                '<td width="350" align="center" style="font:15px Arial">Question&aacute;rio: '.
+                                                        $params['questionario_nome'].
+                                                '</td>'.
+                                            '</tr>'.
+                                        '</tbody>'.
+                                    '</table>'.
+                                '</td>'.
+                            '</tr>'.
+                            '<tr>'.
+                                '<td height="90" style="font:12px Arial;background:#273043;color:white;padding:10px 15px">'.
+                                    '<table style="background-color:#273043;width:100%;padding:10px 15px;">'.
+                                        '<tbody>'.
+                                            '<tr>'.
+                                                '<td align="left" style="font-family:arial;font-size:16px;color:#fff;">'.
+                                                    '<p style="font:12px arial;color:white">'.
+                                                        '<span style="font:20px arial;">'.
+                                                            'Atenciosamente,'.
+                                                        '</span> '.
+                                                        '<br> '.
+                                                        'N&atilde;o responda este e-mail'.
+                                                    '</p>'.
+                                                '</td>'.
+                                                '<td width="130">'.
+                                                    '<img alt="Grupo Edaci" src="http://gedaci.marilia.unesp.br/img/logo/logo_branco.png" height="50" width="125">'.
+                                                '</td>'.
+                                            '</tr>'.
+                                        '</tbody>'.
+                                    '</table>'.
+                                '</td>'.
+                            '</tr>'.
+                        '</tbody>'.
+                    '</table>'.
+                '</body>';
+
+        $mail = new PHPMailer(true);
+        try {
+            $mail->isSMTP();
+            $mail->Host = '200.145.171.12';
+            $mail->SMTPAuth = false;
+            $mail->SMTPSecure = 'tls';
+            $mail->Port = 25;
+            $mail->SMTPOptions = array(
+                'ssl' => array(
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true
+                )
+            );
+            $mail->setFrom('gedaci.marilia@unesp.br', 'GEDACI');
+            $mail->addAddress($params['email'], $params['nome']);
+            $mail->isHTML(true);
+            $mail->Subject = ($params['tipo'] == 2 ? 'QUESTIONARIO DE APRENDIZAGEM RESPONDIDO' : 'QUESTIONARIO INICIAL RESPONDIDO');
+            $mail->Body = $tabela;
+            $mail->send();
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+    
+    public function ativarQuestionarioAction(){
+        $funcoes = new Funcoes($this);
+        $sessao = new Container("usuario");
+        
+        $response = $this->getResponse();
+        
+        $params = array(
+            'usuario'       => $sessao->cod_usuario,
+            'questionario'  => $this->params()->fromPost('questionario', ''),
+            'tipo'          => $this->params()->fromPost('tipo', 0),
+            'ativar'        => $this->params()->fromPost('ativar', 0),
+        );
+        
+        
+        if($params['ativar'] == '1'){
+        
+            if($params['tipo'] != '2'){
+                $sql = "select * from qst_questionario where status_questionario = 1 and cod_tipo_fk = 1";
+                $result = $funcoes->executarSQL($sql,$params,'');
+
+                if($result){
+                    return $response->setContent(Json::encode(array('response' => false, 'msg' => 'Já existe um questionário ativo.')));
+                }
+            }
+
+            $sql = "select 1 as cod, a.cod_tipo_fk, a.descricao, a.escolaridade
+                    from qst_questionario a
+                            inner join qst_questao1 b on a.cod_questionario = b.cod_questionario
+                    where a.cod_questionario = :questionario and is_sub = 0 order by b.cod asc;";
+            $result = $funcoes->executarSQL($sql, $params, '');
+
+            if(!$result){
+                return $response->setContent(Json::encode(array('response' => false, 'msg' => 'Antes de ativar este questionário, adicione questões à ele.')));
+            }
+            
+            if($result['cod_tipo_fk'] == 2){
+                 $this->controlarEmail($result, $funcoes);
+            }   
+            
+        }
+        
+        $sql = "update qst_questionario set status_questionario =:ativar where cod_questionario = :questionario;";
+        $funcoes->executarSQL($sql,$params,'');
+        
+        return $response->setContent(Json::encode(array('response' => true)));
     }
     
     public function buscarQuestionarioAction(){
@@ -1234,10 +1361,22 @@ class QuestionarioController extends AbstractActionController
                 " order by d.data desc)";
         $result = $funcoes->executarSQL($sql, $params);
         
-        $relatorio->definirColuna('NOME', 'nome', '6', 'left', 't', 'n', 'n');
-        $relatorio->definirColuna('TIPO USUÁRIO', 'tipo_usuario', '2', 'center', 't', 'n', 'n');
-        $relatorio->definirColuna('NIVEL ESCOLARIDADE', 'escolaridade', '4', 'left', 't', 'n', 'n');
-        $relatorio->definirColuna('VER RESPOSTAS', '1', '2', 'center', 't', 'n', 'n');
+        if(!$result){
+            
+            $result[0] = array(
+                cod_usuario => 0,
+                desc => 'Nenhuma resposta encontrada'
+            );
+            
+            $relatorio->definirColuna('', 'desc', '6', 'left', 't', 'n', 'n');
+            $relatorio->definirColuna('VER QUESTÕES', '1', '2', 'center', 't', 'n', 'n');
+            
+        }else{
+            $relatorio->definirColuna('NOME', 'nome', '6', 'left', 't', 'n', 'n');
+            $relatorio->definirColuna('TIPO USUÁRIO', 'tipo_usuario', '2', 'center', 't', 'n', 'n');
+            $relatorio->definirColuna('NIVEL ESCOLARIDADE', 'escolaridade', '4', 'left', 't', 'n', 'n');
+            $relatorio->definirColuna('VER RESPOSTAS', '1', '2', 'center', 't', 'n', 'n');
+        }
         
         $view = new ViewModel(array(
             'relatorio'     => $relatorio,
